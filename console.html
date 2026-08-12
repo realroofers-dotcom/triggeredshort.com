@@ -54,6 +54,29 @@
 #res td.n{font-family:var(--mono);text-align:right;white-space:nowrap}
 #res tr:nth-child(even) td{background:rgba(0,0,0,.018)}
 .empty{padding:26px;color:var(--ink-2);font-size:13.5px}
+
+/* ---- operator guide ---- */
+details.guide{margin-top:20px;border:1px solid var(--rule);background:var(--card)}
+details.guide>summary{
+  cursor:pointer;padding:13px 18px;font-family:var(--mono);font-size:11px;
+  text-transform:uppercase;letter-spacing:.09em;color:var(--certified);font-weight:600;
+  list-style:none;user-select:none;
+}
+details.guide>summary::-webkit-details-marker{display:none}
+details.guide>summary::before{content:"▸ ";font-size:13px}
+details.guide[open]>summary::before{content:"▾ "}
+details.guide[open]>summary{border-bottom:1px solid var(--rule)}
+.gbody{padding:20px 18px 22px}
+.gbody h4{font-family:var(--display);font-size:15px;font-weight:600;margin:20px 0 6px}
+.gbody h4:first-child{margin-top:0}
+.gbody p{font-size:13.5px;color:var(--ink-2);margin:0 0 10px;max-width:74ch;line-height:1.6}
+.gbody dl{margin:0 0 4px}
+.gbody dt{font-family:var(--mono);font-size:11.5px;color:var(--ink);font-weight:600;
+  margin-top:11px;letter-spacing:.02em}
+.gbody dd{margin:2px 0 0;font-size:13px;color:var(--ink-2);line-height:1.55;max-width:74ch}
+.gbody .flag{border-left:3px solid var(--stamp);padding:10px 14px;background:#F4EDE3;
+  font-size:13px;color:var(--ink);margin:14px 0 0;max-width:74ch;line-height:1.55}
+.gbody .flag b{font-weight:650}
 </style>
 </head>
 <body>
@@ -88,6 +111,64 @@
   <section style="padding-top:26px">
     <p class="eyebrow">Research database</p>
     <h2>Console</h2>
+
+    <details class="guide">
+      <summary>What am I looking at?</summary>
+      <div class="gbody">
+
+        <p>This console reads the database behind triggeredshort.com. Nothing here is public. It holds two different kinds of thing: the <b>research</b> — every fact behind the reports, with its source — and the <b>traffic</b> — who is reading the site and what they calculated.</p>
+
+        <h4>The findings</h4>
+        <p>These are the queries the reports are built on. Start here.</p>
+        <dl>
+          <dt>Recurrence</dt>
+          <dd>Every law firm, placement agent, fund or director that appears at more than one issuer, ranked. This is Exhibit J. If a name shows up at seven companies, that is the count, not an impression.</dd>
+          <dt>Network</dt>
+          <dd>The same relationships listed one by one — party, role, issuer, date, filing count, and where each came from.</dd>
+          <dt>Key events</dt>
+          <dd>The chronology, filtered to the entries that matter. Splits, financings, the inducement, the votes.</dd>
+          <dt>Short interest moves over 100%</dt>
+          <dd>Every FINRA settlement date where reported short interest more than doubled or halved. These are the dates worth setting against the filing calendar.</dd>
+        </dl>
+
+        <h4>The company</h4>
+        <dl>
+          <dt>Financings</dt>
+          <dd>Each raise: price, shares, gross proceeds, who placed it, what they were paid, and the closing price the day before and the day of.</dd>
+          <dt>Warrant tranches</dt>
+          <dd>Each block of warrants: how many, the strike, the original strike if it was repriced, the blocker, how many have been exercised, how many remain.</dd>
+          <dt>Share counts · Splits · Current overhang</dt>
+          <dd>The capital structure over time, and where it stands now.</dd>
+        </dl>
+
+        <h4>Market data</h4>
+        <p>FINRA short interest, daily prices, and SEC fails to deliver. Third-party figures, kept separate from anything the company itself said.</p>
+
+        <h4>Readers</h4>
+        <dl>
+          <dt>Who visited</dt>
+          <dd>A summary — totals for today, the week and all time, then most-viewed pages, referring sites, countries, regions and device split.</dd>
+          <dt>Recent hits</dt>
+          <dd>The last 300 page views one by one, newest first.</dd>
+          <dt>Calculator lookups</dt>
+          <dd>What readers actually ran: the ticker they entered, the four figures, and the three results. This is the one that can find the next company — if strangers keep entering the same ticker with a large overhang, that is a lead nobody handed you.</dd>
+          <dt>Email list</dt>
+          <dd>Everyone who signed up, with the ticker they were looking at when they did. Download CSV gives you a file Substack can import.</dd>
+        </dl>
+
+        <h4>Two columns worth watching</h4>
+        <p><b>Referrer</b> is how you learn a report was picked up. Blank means someone typed the address or came from a private link. A domain in that column means a site linked to you, and it is usually the first sign anything is happening.</p>
+        <p><b>Region</b> is the coarse location Cloudflare supplies. Most of your own traffic will read New Jersey. Sustained traffic from Washington, DC or from New York financial districts is worth noticing, though it proves nothing on its own.</p>
+
+        <h4>What is not stored</h4>
+        <p>No names, no email addresses from page views, no IP addresses, no full browser strings. Each visitor is a short one-way value used only to count returning readers and to cap abuse. The email list is the only place an address exists, and only because someone typed it in.</p>
+
+        <div class="flag">
+          <b>Handle this page like a password.</b> It reads your whole database, including the email list. The key is held in this tab only and cleared when you close it — but do not open this page on a shared machine, and do not screenshot it with the key visible. If the key is ever exposed, change <code>LOG_KEY</code> in Cloudflare and redeploy.
+        </div>
+
+      </div>
+    </details>
 
     <div class="bar">
       <select id="q">
