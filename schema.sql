@@ -16,9 +16,10 @@ CREATE TABLE IF NOT EXISTS meta (
 INSERT OR REPLACE INTO meta (k,v) VALUES
  ('project',        'Triggered Short(TM) — research docket'),
  ('site',           'triggeredshort.com'),
+ ('contact_site',   'marknejmeh.com'),
  ('author',         'Mark Nejmeh'),
  ('author_role',    'Author and researcher'),
- ('publisher',      'Newsweed.com'),
+ ('publisher',      'Foundation for Job Creation'),
  ('organization',   'Foundation for Job Creation, a 501(c)(3)'),
  ('address',        'P.O. Box 589, Clifton, New Jersey 07012'),
  ('phone',          '732-995-3914'),

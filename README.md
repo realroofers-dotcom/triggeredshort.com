@@ -25,6 +25,9 @@ Static docket site. No build step, no dependencies.
 - exhibits.html   — exhibit index A through L
 - method.html     — definitions, standard of proof, corrections policy
 - styles.css      — stylesheet for all pages
+- og-card.png     — 1200x630 preview card for search and social
+- sitemap.xml     — for search engines
+- robots.txt      — allows everything except /api/
 
 ## Cloudflare Pages settings
 

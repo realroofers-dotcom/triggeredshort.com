@@ -1,0 +1,53 @@
+D1 CONSOLE FILES
+================
+
+The Cloudflare D1 console strips line breaks when you paste. That turns the
+first "--" comment into a comment covering the whole file, and nothing runs.
+
+These five files have every comment removed and every statement on its own
+line. Run them in numbered order, one at a time.
+
+  1-schema.sql        19 tables, 3 views, and the meta table
+  2-seed-part1.sql    issuer, splits, share counts, financings, warrants
+  3-seed-part2.sql    chronology events, short interest
+  4-seed-part3.sql    short interest continued
+  5-seed-part4.sql    parties, roles, correspondence, reports
+
+HOW
+---
+Open each file in Notepad. Ctrl+A, Ctrl+C. Paste into the D1 Console box.
+Click Execute. Wait for it to finish before pasting the next one.
+
+Order matters. 1 first — the others insert into tables it creates.
+
+CHECK IT WORKED
+---------------
+After all five, paste this into the console:
+
+SELECT k, v FROM meta WHERE k IN ('author','built','schema_version');
+
+Expected: Mark Nejmeh / 2026-08-12 / 1.0
+
+Then:
+
+SELECT * FROM v_recurrence;
+
+Expected:
+  Leslie Marlow                     attorney          7 issuers   250 filings
+  A.G.P./Alliance Global Partners   placement_agent   6 issuers   678 filings
+  Empery Asset Management, LP       fund              3 issuers    78 filings
+  Jeffrey Wolf                      director          2 issuers
+  John Monahan                      director          2 issuers
+
+Then go to the Overview tab. Number of Tables should read 19.
+
+IF SOMETHING FAILS PART WAY
+---------------------------
+Nothing is lost. Every insert uses INSERT OR IGNORE or INSERT OR REPLACE
+where a duplicate would matter, so you can re-run any file safely.
+
+To start completely over, paste this and then run 1-schema.sql again:
+
+DROP TABLE IF EXISTS meta; DROP TABLE IF EXISTS issuers; DROP TABLE IF EXISTS filings; DROP TABLE IF EXISTS events; DROP TABLE IF EXISTS share_counts; DROP TABLE IF EXISTS splits; DROP TABLE IF EXISTS financings; DROP TABLE IF EXISTS warrants; DROP TABLE IF EXISTS short_interest; DROP TABLE IF EXISTS fails; DROP TABLE IF EXISTS prices; DROP TABLE IF EXISTS parties; DROP TABLE IF EXISTS roles; DROP TABLE IF EXISTS correspondence; DROP TABLE IF EXISTS reports; DROP TABLE IF EXISTS lookups; DROP TABLE IF EXISTS visits; DROP TABLE IF EXISTS subscribers; DROP VIEW IF EXISTS v_overhang; DROP VIEW IF EXISTS v_network; DROP VIEW IF EXISTS v_recurrence;
+
+Built by Mark Nejmeh, 2026-08-12, schema 1.0
