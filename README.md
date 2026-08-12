@@ -24,6 +24,7 @@ Static docket site. No build step, no dependencies.
 - functions/api/subscribe.js — email signup from the calculator page
 - exhibits.html   — exhibit index A through L
 - method.html     — definitions, standard of proof, corrections policy
+- console.html    — private research console (key entered in a form, not the URL)
 - styles.css      — stylesheet for all pages
 - og-card.png     — 1200x630 preview card for search and social
 - sitemap.xml     — for search engines

@@ -1,7 +1,8 @@
 // GET /api/visits?key=… — private. Not linked from the site.
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
-  if (!env.LOG_KEY || url.searchParams.get('key') !== env.LOG_KEY)
+  const provided = request.headers.get('X-Auth-Key') || url.searchParams.get('key');
+  if (!env.LOG_KEY || provided !== env.LOG_KEY)
     return new Response('Not found', { status: 404 });
   if (!env.OVERHANG) return new Response('No database bound', { status: 500 });
 

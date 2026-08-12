@@ -56,13 +56,14 @@ const WRITABLE = {
                    'due_date','tracking','method','response_date','response_text','exhibit','notes']
 };
 
-const auth = (url, env) => env.LOG_KEY && url.searchParams.get('key') === env.LOG_KEY;
+const auth = (request, url, env) =>
+  env.LOG_KEY && (request.headers.get('X-Auth-Key') || url.searchParams.get('key')) === env.LOG_KEY;
 const json = (d, s) => new Response(JSON.stringify(d, null, 2),
   { status: s || 200, headers: { 'content-type': 'application/json' } });
 
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
-  if (!auth(url, env)) return new Response('Not found', { status: 404 });
+  if (!auth(request, url, env)) return new Response('Not found', { status: 404 });
   if (!env.OVERHANG)   return json({ error: 'no database bound' }, 500);
 
   const name = url.searchParams.get('q') || 'issuers';
@@ -86,7 +87,7 @@ export async function onRequestGet({ request, env }) {
 
 export async function onRequestPost({ request, env }) {
   const url = new URL(request.url);
-  if (!auth(url, env)) return new Response('Not found', { status: 404 });
+  if (!auth(request, url, env)) return new Response('Not found', { status: 404 });
   if (!env.OVERHANG)   return json({ error: 'no database bound' }, 500);
 
   let body;

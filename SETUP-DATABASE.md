@@ -36,6 +36,14 @@ Same Settings page → **Variables and Secrets** → **Add** → type **Secret**
 - Name: `LOG_KEY`
 - Value: a long random string you invent. Write it down.
 
+**Use letters and numbers only.** No spaces, no `#`, no punctuation — those
+have to be escaped in a URL and cause failures that look like a wrong password.
+
+**To change it later:** click the pencil on the existing `LOG_KEY` row rather
+than Add — Add will refuse, saying the name already exists. Then go to
+**Deployments**, open the newest, and choose **Retry deployment**. A changed
+secret does nothing until a new deployment finishes.
+
 Everything private is behind that key. Without it those addresses return
 "Not found."
 
@@ -76,7 +84,20 @@ Three views answer the questions asked most:
 
 ---
 
-## Reading it
+## Reading it — the console
+
+Go to **triggeredshort.com/console.html**
+
+Enter your key in the form. It is held in that browser tab only and cleared when
+the tab closes. It is sent as a request header, so it never appears in the
+address bar, in browser history, or in a screenshot.
+
+The console has a dropdown of every query, quick buttons for the four that
+matter most, a CSV download, and a Lock button.
+
+The page is excluded from search engines and from the sitemap.
+
+### Or by URL, if you prefer
 
     /api/db?key=YOUR_KEY&q=recurrence
     /api/db?key=YOUR_KEY&q=key_events

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Console — Triggered Short™</title>
+<meta name="robots" content="noindex, nofollow, noarchive">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.lock{max-width:400px;margin:80px auto;background:var(--card);border:1px solid var(--rule);
+  border-top:3px solid var(--certified);padding:28px}
+.lock h2{margin:0 0 6px}
+.lock p{font-size:13.5px;color:var(--ink-2);margin:0 0 18px}
+.lock input{width:100%;font-family:var(--mono);font-size:15px;padding:11px 13px;
+  border:1px solid var(--rule);background:#fff;color:var(--ink);border-radius:0;margin-bottom:12px}
+.lock input:focus{outline:2px solid var(--certified);outline-offset:-1px}
+.lock button{width:100%;font-family:var(--mono);font-size:12px;text-transform:uppercase;
+  letter-spacing:.09em;padding:12px;border:0;background:var(--certified);color:#fff;
+  cursor:pointer;font-weight:600}
+.lock button:hover{background:#17503A}
+.lock .msg{font-size:13px;margin-top:12px;min-height:18px;color:var(--stamp)}
+.lock .fine{font-size:11.5px;color:var(--ink-2);margin-top:16px;line-height:1.5}
+
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  padding:16px 0;border-bottom:1px solid var(--rule)}
+.bar select{font-family:var(--mono);font-size:13px;padding:8px 10px;
+  border:1px solid var(--rule);background:#fff;border-radius:0;min-width:190px}
+.bar button{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  padding:9px 15px;border:1px solid var(--rule);background:var(--card);color:var(--ink);
+  cursor:pointer;font-weight:600}
+.bar button.go{background:var(--certified);color:#fff;border-color:var(--certified)}
+.bar button:hover{background:var(--rule-2)}
+.bar button.go:hover{background:#17503A}
+.bar .sp{flex:1}
+.bar .out{font-family:var(--mono);font-size:11px;color:var(--ink-2)}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:14px 0 0}
+.chips button{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.06em;padding:6px 11px;border:1px solid var(--rule);background:var(--card);
+  color:var(--ink-2);cursor:pointer}
+.chips button:hover{border-color:var(--certified);color:var(--certified)}
+
+#res{margin-top:18px;overflow-x:auto;border:1px solid var(--rule);background:var(--card)}
+#res table{border-collapse:collapse;width:100%;font-size:13px;min-width:520px}
+#res th{position:sticky;top:0;background:var(--ink);color:var(--ledger);
+  font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.07em;
+  padding:9px 12px;text-align:left;white-space:nowrap}
+#res td{padding:8px 12px;border-bottom:1px solid var(--rule-2);vertical-align:top;
+  max-width:420px;overflow-wrap:anywhere}
+#res td.n{font-family:var(--mono);text-align:right;white-space:nowrap}
+#res tr:nth-child(even) td{background:rgba(0,0,0,.018)}
+.empty{padding:26px;color:var(--ink-2);font-size:13.5px}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="mast-inner">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="TriggeredShort.com" width="1223" height="297">
+    </a>
+    <div class="mast-meta">
+      Private console<br>
+      <b>Mark Nejmeh</b>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- LOGIN -->
+<div id="lock" class="lock">
+  <h2>Console</h2>
+  <p>Private. Enter your key.</p>
+  <input id="k" type="password" autocomplete="current-password" placeholder="Key" autofocus>
+  <button id="go" type="button">Open</button>
+  <p class="msg" id="msg"></p>
+  <p class="fine">The key is held in this browser tab only and is cleared when the tab closes. It is never put in the address bar.</p>
+</div>
+
+<!-- CONSOLE -->
+<div id="app" style="display:none">
+
+  <section style="padding-top:26px">
+    <p class="eyebrow">Research database</p>
+    <h2>Console</h2>
+
+    <div class="bar">
+      <select id="q">
+        <optgroup label="The findings">
+          <option value="recurrence">Recurrence — parties at more than one issuer</option>
+          <option value="network">Network — every party, every issuer</option>
+          <option value="key_events">Key events</option>
+          <option value="short_moves">Short interest moves over 100%</option>
+        </optgroup>
+        <optgroup label="The company">
+          <option value="issuers">Issuers</option>
+          <option value="events">All events</option>
+          <option value="financings">Financings</option>
+          <option value="warrants">Warrant tranches</option>
+          <option value="shares">Share counts</option>
+          <option value="splits">Reverse splits</option>
+          <option value="overhang">Current overhang</option>
+        </optgroup>
+        <optgroup label="Market data">
+          <option value="short">Short interest, all</option>
+          <option value="prices">Prices</option>
+          <option value="fails">Fails to deliver</option>
+        </optgroup>
+        <optgroup label="The series">
+          <option value="reports">Reports</option>
+          <option value="correspondence">Correspondence</option>
+          <option value="meta">Meta — attribution and build</option>
+        </optgroup>
+        <optgroup label="Readers">
+          <option value="lookups">Calculator lookups</option>
+          <option value="top_tickers">Most looked-up tickers</option>
+          <option value="subscribers">Email list</option>
+          <option value="sub_count">Subscriber count</option>
+        </optgroup>
+      </select>
+      <button class="go" id="run" type="button">Run</button>
+      <button id="csv" type="button">Download CSV</button>
+      <span class="sp"></span>
+      <span class="out" id="out"></span>
+      <button id="lockit" type="button">Lock</button>
+    </div>
+
+    <div class="chips">
+      <button data-q="recurrence">Exhibit J</button>
+      <button data-q="short_moves">Short spikes</button>
+      <button data-q="key_events">Timeline</button>
+      <button data-q="warrants">Warrants</button>
+      <button data-v="visits">Who visited</button>
+      <button data-v="recent">Recent hits</button>
+    </div>
+
+    <div id="res"><p class="empty">Pick a query and press Run.</p></div>
+  </section>
+
+</div>
+
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <b>Mark Nejmeh</b><br>
+    <a href="https://jobcreation.us" style="color:var(--ink-2)">Foundation for Job Creation</a><br>
+    P.O. Box 589, Clifton, New Jersey 07012
+    <p class="build-stamp" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-2);margin-top:20px;padding-top:14px;border-top:1px solid var(--rule-2)">
+      Built by Mark Nejmeh · 2026-08-12 · schema 1.0
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var KEY = null;
+
+  try { KEY = sessionStorage.getItem('ts_key'); } catch(e){}
+
+  function headers(){ return { 'X-Auth-Key': KEY }; }
+
+  function unlock(){
+    $('lock').style.display = 'none';
+    $('app').style.display  = 'block';
+    run('recurrence');
+  }
+
+  function attempt(){
+    var v = ($('k').value || '').trim();
+    if(!v){ $('msg').textContent = 'Enter the key.'; return; }
+    $('msg').textContent = 'Checking…';
+    fetch('/api/db?q=meta', { headers: { 'X-Auth-Key': v } })
+      .then(function(r){
+        if(r.status === 404 || r.status === 401){
+          $('msg').textContent = 'That key was not accepted.';
+          return null;
+        }
+        return r.json();
+      })
+      .then(function(d){
+        if(!d) return;
+        KEY = v;
+        try { sessionStorage.setItem('ts_key', v); } catch(e){}
+        $('msg').textContent = '';
+        unlock();
+      })
+      .catch(function(){ $('msg').textContent = 'Could not reach the server.'; });
+  }
+
+  $('go').addEventListener('click', attempt);
+  $('k').addEventListener('keydown', function(e){ if(e.key === 'Enter') attempt(); });
+
+  $('lockit').addEventListener('click', function(){
+    KEY = null;
+    try { sessionStorage.removeItem('ts_key'); } catch(e){}
+    location.reload();
+  });
+
+  function draw(rows){
+    var box = $('res');
+    if(!rows || !rows.length){
+      box.innerHTML = '<p class="empty">No rows.</p>';
+      $('out').textContent = '0 rows';
+      return;
+    }
+    var cols = Object.keys(rows[0]);
+    var h = '<table><thead><tr>' +
+      cols.map(function(c){ return '<th>' + c + '</th>'; }).join('') +
+      '</tr></thead><tbody>';
+    rows.forEach(function(r){
+      h += '<tr>' + cols.map(function(c){
+        var v = r[c];
+        if(v === null || v === undefined) v = '';
+        var num = typeof v === 'number';
+        var t = num ? v.toLocaleString('en-US') : String(v);
+        t = t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        return '<td' + (num ? ' class="n"' : '') + '>' + t + '</td>';
+      }).join('') + '</tr>';
+    });
+    box.innerHTML = h + '</tbody></table>';
+    $('out').textContent = rows.length.toLocaleString('en-US') + ' rows';
+  }
+
+  function run(q){
+    if(q) $('q').value = q;
+    $('res').innerHTML = '<p class="empty">Loading…</p>';
+    fetch('/api/db?q=' + encodeURIComponent($('q').value), { headers: headers() })
+      .then(function(r){ return r.json(); })
+      .then(draw)
+      .catch(function(){ $('res').innerHTML = '<p class="empty">Request failed.</p>'; });
+  }
+
+  function visits(view){
+    $('res').innerHTML = '<p class="empty">Loading…</p>';
+    var u = '/api/visits' + (view === 'recent' ? '?view=recent&limit=300' : '');
+    fetch(u, { headers: headers() })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if(Array.isArray(d)) return draw(d);
+        // summary object — flatten the interesting parts
+        var rows = [];
+        if(d.totals) Object.keys(d.totals).forEach(function(k){
+          rows.push({ metric: k, value: d.totals[k] });
+        });
+        ['pages','referrers','countries','devices','top_tickers'].forEach(function(sec){
+          (d[sec] || []).forEach(function(r){
+            var label = r.path || r.referrer || r.country || r.device || r.ticker;
+            rows.push({ metric: sec + ': ' + label, value: r.n });
+          });
+        });
+        draw(rows);
+      })
+      .catch(function(){ $('res').innerHTML = '<p class="empty">Request failed.</p>'; });
+  }
+
+  $('run').addEventListener('click', function(){ run(); });
+  $('q').addEventListener('change', function(){ run(); });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.chips button'), function(b){
+    b.addEventListener('click', function(){
+      if(b.dataset.q) run(b.dataset.q);
+      else visits(b.dataset.v);
+    });
+  });
+
+  $('csv').addEventListener('click', function(){
+    var q = $('q').value;
+    fetch('/api/db?format=csv&q=' + encodeURIComponent(q), { headers: headers() })
+      .then(function(r){ return r.blob(); })
+      .then(function(b){
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(b);
+        a.download = q + '.csv';
+        document.body.appendChild(a); a.click(); a.remove();
+      });
+  });
+
+  if(KEY) unlock();
+})();
+</script>
+</body>
+</html>

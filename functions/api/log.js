@@ -4,7 +4,8 @@ export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
   const key = url.searchParams.get('key');
 
-  if (!env.LOG_KEY || key !== env.LOG_KEY) {
+  const hdr = request.headers.get('X-Auth-Key');
+  if (!env.LOG_KEY || (hdr || key) !== env.LOG_KEY) {
     return new Response('Not found', { status: 404 });
   }
   if (!env.OVERHANG) return new Response('No database bound', { status: 500 });
