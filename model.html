@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Warrant overhang calculator — Triggered Short™</title>
+<meta name="description" content="Enter any company's disclosed share count, warrant count and exercise price. The calculator returns the dilution arithmetic and the distance to the exercise threshold.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ---- calculator ---- */
+.calc{background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--certified);margin-top:20px}
+.calc-in{padding:20px;border-bottom:1px solid var(--rule)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px}
+.f label{display:block;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink-2);margin-bottom:5px;font-weight:600}
+.f input{width:100%;font-family:var(--mono);font-size:15px;padding:9px 11px;
+  border:1px solid var(--rule);background:#fff;color:var(--ink);border-radius:0}
+.f input:focus{outline:2px solid var(--certified);outline-offset:-1px;border-color:var(--certified)}
+.f .hint{font-size:11px;color:var(--ink-2);margin-top:4px;line-height:1.4}
+
+.readout{padding:20px;background:var(--ink);color:var(--ledger)}
+.big{display:flex;flex-wrap:wrap;gap:26px;margin-bottom:20px;padding-bottom:20px;
+  border-bottom:1px solid #303839}
+.big .item{min-width:130px}
+.big .k{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.1em;
+  color:#8FA39A;margin-bottom:5px}
+.big .v{font-family:var(--display);font-size:30px;font-weight:700;line-height:1;letter-spacing:-.02em}
+.big .v.up{color:#EBD9A8}
+.big .v.down{color:#E39B8F}
+.big .v.on{color:#9FD3BE}
+.big .sub{font-size:11.5px;color:#8FA39A;margin-top:6px;line-height:1.4}
+
+.state{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;
+  padding:9px 13px;display:inline-block;margin-bottom:18px;font-weight:600}
+.state.out{background:#3A2320;color:#E39B8F}
+.state.in{background:#1B3A2E;color:#9FD3BE}
+
+table.rd{width:100%;border-collapse:collapse;font-size:13.5px}
+table.rd th{color:#8FA39A;border-bottom:1px solid #303839;padding:8px 0;text-align:left;
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em}
+table.rd td{padding:8px 0;border-bottom:1px solid #232A2C;color:#D7DDD8}
+table.rd td.n{font-family:var(--mono);text-align:right;white-space:nowrap;color:var(--ledger)}
+table.rd tr:last-child td{border-bottom:0}
+
+.scen{padding:20px;background:#232A2C;color:#BFC5C0}
+.scen h3{color:var(--ledger);font-size:14px;margin:0 0 4px}
+.scen .warn{font-size:12.5px;color:#E39B8F;margin:0 0 14px;max-width:70ch}
+.sl{display:flex;align-items:center;gap:14px;margin:14px 0}
+.sl input[type=range]{flex:1;accent-color:#9FD3BE}
+.sl .lam{font-family:var(--mono);font-size:12px;color:#EBD9A8;min-width:74px;text-align:right}
+.scen table.rd td{border-color:#303839}
+
+@media(max-width:520px){
+  .big .v{font-size:25px}
+  .big{gap:18px}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="mast-inner">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="TriggeredShort.com" width="1223" height="297">
+    </a>
+    <div class="mast-meta">
+      Warrant overhang<br>
+      <b>calculator</b><br>
+      works for any issuer
+    </div>
+  </div>
+</header>
+
+<nav class="docket-nav">
+  <div class="nav-inner">
+    <a href="index.html">Docket</a>
+    <a href="chronology.html">Chronology</a>
+    <a href="data.html">Market data</a>
+    <a href="model.html" aria-current="page">Calculator</a>
+    <a href="exhibits.html">Exhibits</a>
+    <a href="method.html">Method</a>
+  </div>
+</nav>
+
+<main>
+
+<section>
+  <p class="eyebrow">The arithmetic behind the overhang</p>
+  <h2>What outstanding warrants mean for your shares</h2>
+  <p class="lede">Warrants are disclosed. What they will do to a share count usually is not calculated anywhere a retail holder will see it. Enter four figures from any company's filings and the arithmetic is done below. The figures are prefilled with Theriva Biologics as an example; replace them with any issuer's.</p>
+
+  <div class="calc">
+
+    <div class="calc-in">
+      <div class="grid">
+        <div class="f">
+          <label for="sh">Shares outstanding</label>
+          <input id="sh" type="text" inputmode="decimal" value="45,892,668">
+          <p class="hint">Cover page of the latest 10-Q or 10-K</p>
+        </div>
+        <div class="f">
+          <label for="wt">Warrants outstanding</label>
+          <input id="wt" type="text" inputmode="decimal" value="16,184,560">
+          <p class="hint">Equity or warrant footnote</p>
+        </div>
+        <div class="f">
+          <label for="k">Exercise price</label>
+          <input id="k" type="text" inputmode="decimal" value="0.54">
+          <p class="hint">Warrant footnote, or the 8-K announcing them</p>
+        </div>
+        <div class="f">
+          <label for="p">Current share price</label>
+          <input id="p" type="text" inputmode="decimal" value="0.2339">
+          <p class="hint">Any quote source</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="readout">
+      <div id="state" class="state out">Out of the money</div>
+
+      <div class="big">
+        <div class="item">
+          <div class="k">Distance to strike</div>
+          <div class="v up" id="gap">+130.9%</div>
+          <div class="sub">the move required before exercise is rational</div>
+        </div>
+        <div class="item">
+          <div class="k">Dilution if exercised</div>
+          <div class="v down" id="dil">26.1%</div>
+          <div class="sub">warrant shares as a share of the enlarged count</div>
+        </div>
+        <div class="item">
+          <div class="k">Overhang</div>
+          <div class="v" id="ovh">35.3%</div>
+          <div class="sub">warrants as a share of the current count</div>
+        </div>
+      </div>
+
+      <table class="rd">
+        <thead><tr><th>Figure</th><th style="text-align:right">Value</th></tr></thead>
+        <tbody>
+          <tr><td>Shares outstanding today</td><td class="n" id="r-sh">45,892,668</td></tr>
+          <tr><td>Shares after full exercise</td><td class="n" id="r-post">62,077,228</td></tr>
+          <tr><td>Cash to the company if exercised</td><td class="n" id="r-cash">$8,739,662</td></tr>
+          <tr><td>Market value of shares today</td><td class="n" id="r-mv">$10,734,295</td></tr>
+          <tr><td>Value per share after dilution only</td><td class="n" id="r-pps">$0.3138</td></tr>
+          <tr><td>Change in value per share</td><td class="n" id="r-chg">+34.2%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scen">
+      <h3>Illustrative selling-pressure scenarios</h3>
+      <p class="warn">These are not forecasts. They demonstrate how one assumed price-impact formula behaves under selected assumptions. They do not predict any price, and they do not establish that warrants will be exercised, that resulting shares will be sold, or that any person will take a short position.</p>
+      <div class="sl">
+        <span style="font-family:var(--mono);font-size:11px;color:#8FA39A">Assumed impact</span>
+        <input id="lam" type="range" min="0" max="200" value="70">
+        <span class="lam" id="lamv">λ(Q/L) = 0.70</span>
+      </div>
+      <table class="rd">
+        <tbody>
+          <tr><td>Starting point — value after dilution only</td><td class="n" id="s-start">$0.3138</td></tr>
+          <tr><td>Result under the assumed impact</td><td class="n" id="s-out">$0.1559</td></tr>
+        </tbody>
+      </table>
+      <p class="warn" style="margin-top:14px;margin-bottom:0">Formula: P<sub>final</sub> = P<sub>dilution</sub> × exp[ −λ(Q/L) ], where Q is net selling pressure and L is a liquidity benchmark. The impact value is an assumption the reader sets. It is not derived from any identified trades.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <p class="eyebrow">How it is calculated</p>
+  <h2>The arithmetic, shown</h2>
+  <p class="lede">Nothing here is proprietary. Every step is arithmetic on figures the company discloses.</p>
+
+  <h3>Distance to strike</h3>
+  <p>( exercise price ÷ current price ) − 1. A warrant is normally exercised only when the market price exceeds the exercise price, because otherwise the holder can buy the same shares more cheaply in the open market. Where a holder exercises below that level, the reason is usually stated in the agreement — most often the receipt of additional warrants.</p>
+
+  <h3>Dilution</h3>
+  <p>Warrant shares ÷ ( shares outstanding + warrant shares ). This is the proportion of the enlarged company that the warrant shares represent. Overhang is the same numerator measured against today's count, which is the larger figure and the one that shows how much the count can grow.</p>
+
+  <h3>Value per share after dilution</h3>
+  <p>( shares × price + warrants × exercise price ) ÷ ( shares + warrants ). This assumes the company keeps all cash proceeds and that nothing else about the business changes. It isolates the arithmetic effect of the new shares and the cash they bring in. It is not a valuation.</p>
+
+  <h3>What is missing from this calculation</h3>
+  <p>It assumes every warrant is exercised for cash. Many warrants permit cashless exercise, in which case the company receives nothing and fewer shares are issued. It ignores blockers, which cap how much any single holder may exercise at one time. It ignores the business itself. And it says nothing about what any holder will do.</p>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="repro">
+    <h3>Where to find the four numbers</h3>
+    <ol>
+      <li><b>Shares outstanding.</b> Cover page of the most recent Form 10-Q or 10-K, upper right, stated as of a date within the last few weeks.</li>
+      <li><b>Warrants outstanding and exercise price.</b> The warrant footnote in the same report, usually titled "Stock Warrants," which carries a table of warrants granted, exercised, and outstanding with the weighted average exercise price.</li>
+      <li><b>Current price.</b> Any quote source.</li>
+      <li>All filings are free at <a href="https://www.sec.gov/edgar/search/">sec.gov/edgar/search</a>.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <b>Mark Nejmeh</b><br>
+    Newsweed.com · Foundation for Job Creation<br>
+    P.O. Box 589, Clifton, New Jersey 07012<br>
+    732-995-3914 · realroofers@gmail.com
+
+    <p class="disclaimer">This calculator performs arithmetic on figures the reader supplies. It is not investment advice, not a recommendation to buy or sell any security, and not a forecast of any price. The author holds shares of Theriva Biologics, Inc., which is used as the prefilled example.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var ins=['sh','wt','k','p'];
+
+  function num(s){var v=parseFloat(String(s).replace(/[^0-9.\-]/g,''));return isFinite(v)?v:0}
+  function fi(n){return n.toLocaleString('en-US',{maximumFractionDigits:0})}
+  function fm(n){return '$'+n.toLocaleString('en-US',{maximumFractionDigits:0})}
+  function fp(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:4,maximumFractionDigits:4})}
+  function pc(n){return (n>=0?'+':'')+n.toFixed(1)+'%'}
+
+  function calc(){
+    var sh=num($('sh').value), wt=num($('wt').value),
+        k=num($('k').value), p=num($('p').value);
+
+    if(sh<=0||p<=0){ return; }
+
+    var post   = sh+wt;
+    var cash   = wt*k;
+    var mv     = sh*p;
+    var pps    = post>0 ? (mv+cash)/post : 0;
+    var chg    = p>0 ? (pps/p-1)*100 : 0;
+    var gap    = (k/p-1)*100;
+    var dil    = post>0 ? wt/post*100 : 0;
+    var ovh    = sh>0 ? wt/sh*100 : 0;
+
+    // headline state
+    var st=$('state');
+    if(gap>0){
+      st.className='state out'; st.textContent='Out of the money';
+      $('gap').className='v up'; $('gap').textContent='+'+gap.toFixed(1)+'%';
+    }else{
+      st.className='state in'; st.textContent='In the money';
+      $('gap').className='v on'; $('gap').textContent=gap.toFixed(1)+'%';
+    }
+
+    $('dil').textContent = dil.toFixed(1)+'%';
+    $('ovh').textContent = ovh.toFixed(1)+'%';
+
+    $('r-sh').textContent   = fi(sh);
+    $('r-post').textContent = fi(post);
+    $('r-cash').textContent = fm(cash);
+    $('r-mv').textContent   = fm(mv);
+    $('r-pps').textContent  = fp(pps);
+    var c=$('r-chg'); c.textContent = pc(chg);
+
+    scen(pps);
+  }
+
+  function scen(pps){
+    var lam = num($('lam').value)/100;
+    $('lamv').textContent = 'λ(Q/L) = '+lam.toFixed(2);
+    $('s-start').textContent = fp(pps);
+    $('s-out').textContent   = fp(pps*Math.exp(-lam));
+  }
+
+  ins.forEach(function(id){
+    var el=$(id);
+    el.addEventListener('input',calc);
+    el.addEventListener('blur',function(){
+      var v=num(el.value);
+      if(id==='sh'||id==='wt'){ el.value = v?fi(v):''; }
+      calc();
+    });
+  });
+  $('lam').addEventListener('input',calc);
+
+  calc();
+})();
+</script>
+
+</body>
+</html>
