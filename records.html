@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Where the records are — following shares, votes and fails</title>
+<meta name="description" content="Where to find fails-to-deliver data, short interest, who holds the shares, and the vote record. Each source, what it does and does not show, and how to get it.">
+<link rel="canonical" href="https://triggeredshort.com/records.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TriggeredShort.com">
+<meta property="og:title" content="Where the records are — following shares, votes and fails">
+<meta property="og:description" content="Where to find fails-to-deliver data, short interest, who holds the shares, and the vote record. Each source, what it does and does not show, and how to get it.">
+<meta property="og:url" content="https://triggeredshort.com/records.html">
+<meta property="og:image" content="https://triggeredshort.com/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Where the records are">
+<meta name="twitter:description" content="Fails-to-deliver, short interest, share ownership and the vote record — where each lives and what it does not show.">
+<meta name="twitter:image" content="https://triggeredshort.com/og-card.png">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="author" content="Mark Nejmeh">
+<meta name="copyright" content="© 2026 Mark Nejmeh">
+<meta name="publisher" content="Foundation for Job Creation">
+<meta name="dcterms.creator" content="Mark Nejmeh">
+<meta name="dcterms.dateSubmitted" content="2026-08-12">
+<meta name="keywords" content="fails to deliver, FTD, short interest, FINRA, Cede and Co, DTC, NOBO list, inspector of elections, over-voting, transfer agent, 13F, investor education">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":["Article","LearningResource"],
+  "name":"Where the records are — following shares, votes and fails",
+  "headline":"Where the records are — following shares, votes and fails",
+  "description":"Where to find fails-to-deliver data, short interest, who holds the shares, and the vote record. Each source, what it does and does not show, and how to get it.",
+  "url":"https://triggeredshort.com/records.html",
+  "inLanguage":"en-US",
+  "isAccessibleForFree":true,
+  "learningResourceType":"Reference",
+  "educationalUse":["instruction","self study"],
+  "educationalLevel":["Undergraduate","Professional"],
+  "author":{"@type":"Person","name":"Mark Nejmeh","url":"https://marknejmeh.com"},
+  "publisher":{"@type":"Organization","name":"Foundation for Job Creation","url":"https://jobcreation.us"},
+  "dateModified":"2026-08-12",
+  "image":"https://triggeredshort.com/og-card.png"
+}
+</script>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="styles.css">
+<style>
+.src{border:1px solid var(--rule);background:var(--card);margin-top:20px}
+.src-h{padding:15px 20px;border-bottom:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline}
+.src-h h3{margin:0;font-size:17px}
+.src-h .who{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--certified);font-weight:600}
+.src-b{padding:18px 20px}
+.src-b p{font-size:14px;margin:0 0 12px;max-width:74ch}
+.src-b p:last-child{margin-bottom:0}
+.src-b dl{margin:0}
+.src-b dt{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink-2);font-weight:600;margin-top:14px}
+.src-b dt:first-child{margin-top:0}
+.src-b dd{margin:4px 0 0;font-size:14px;line-height:1.6;max-width:74ch}
+.src-b dd a{word-break:break-all}
+.limit{border-left:3px solid var(--stamp);background:#F4EDE3;padding:12px 16px;
+  margin:16px 0 0;font-size:13.5px;line-height:1.6;max-width:74ch}
+.limit b{font-weight:650}
+.quote{border-left:3px solid var(--certified);padding:12px 16px;background:#fff;
+  margin:14px 0;font-size:13.5px;line-height:1.6;max-width:74ch}
+.quote cite{display:block;margin-top:8px;font-style:normal;font-family:var(--mono);
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2)}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="mast-inner">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="TriggeredShort.com" width="1223" height="297">
+    </a>
+    <div class="mast-meta">
+      Where the records are<br>
+      <b>Foundation for Job Creation</b>
+    </div>
+  </div>
+</header>
+
+<nav class="docket-nav">
+  <div class="nav-inner">
+    <a href="index.html">Docket</a>
+    <a href="chronology.html">Chronology</a>
+    <a href="data.html">Market data</a>
+    <a href="model.html">Calculator</a>
+    <a href="example.html">Example</a>
+    <a href="forms.html">SEC codes</a>
+    <a href="records.html" aria-current="page">Records</a>
+    <a href="exhibits.html">Exhibits</a>
+    <a href="method.html">Method</a>
+  </div>
+</nav>
+
+<main>
+
+<section>
+  <p class="eyebrow">Reference</p>
+  <h2>Where the records are</h2>
+  <p class="lede">Shares leave a trail across several systems, each run by a different body and each publishing something different. This page lists where each record lives, how to get it, and — as important — what it does not show. Most of the mistakes made with this data come from asking a dataset a question it was never built to answer.</p>
+</section>
+
+<section>
+  <p class="eyebrow">Settlement</p>
+  <h2>Fails to deliver</h2>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>SEC fails-to-deliver data</h3>
+      <span class="who">Securities and Exchange Commission · free</span>
+    </div>
+    <div class="src-b">
+      <p>A fail to deliver happens when securities are not delivered by the settlement date. The SEC publishes the aggregate net balance of failed deliveries by security, twice a month, from February 2004 to the present.</p>
+
+      <dl>
+        <dt>Where</dt>
+        <dd><a href="https://www.sec.gov/data-research/sec-markets-data/fails-deliver-data">sec.gov/data-research/sec-markets-data/fails-deliver-data</a></dd>
+
+        <dt>What is in each file</dt>
+        <dd>Settlement date, CUSIP, ticker symbol, issuer name, price, and the total fails-to-deliver — the balance level outstanding recorded in the National Securities Clearing Corporation's Continuous Net Settlement system, aggregated over all NSCC members.</dd>
+
+        <dt>Format</dt>
+        <dd>Pipe-delimited text, every listed security, tens of megabytes per file. Use a spreadsheet or a script; a text editor will struggle. Filter by ticker.</dd>
+
+        <dt>The publication lag</dt>
+        <dd>The first half of a month is published at the end of that month. The second half is published around the fifteenth of the following month. Current fails are therefore two to six weeks behind at any moment.</dd>
+
+        <dt>Coverage</dt>
+        <dd>Data on or after 16 September 2008 includes all securities with a fails balance. Before that date, only securities with at least 10,000 fails appear. Where the balance is zero, there is no record for that day.</dd>
+      </dl>
+
+      <div class="quote">
+        Fails-to-deliver can occur for a number of reasons on both long and short sales. Therefore, fails-to-deliver are not necessarily the result of short selling, and are not evidence of abusive short selling or naked short selling.
+        <cite>Securities and Exchange Commission, on its own fails-to-deliver page</cite>
+      </div>
+
+      <div class="limit">
+        <b>What it does not show.</b> No broker, no firm, no counterparty — the figure is a net balance across every clearing member combined. It is also a snapshot, not a running total: the fails on one date have no necessary relationship to the fails the day before, and the age of a fail cannot be determined from the number. Anyone drawing a conclusion about a particular firm from this data has gone past what the data contains.
+      </div>
+    </div>
+  </div>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>Regulation SHO threshold list</h3>
+      <span class="who">The exchanges · free · daily</span>
+    </div>
+    <div class="src-b">
+      <p>A security lands on the threshold list when fails to deliver persist at a set level for five consecutive settlement days. Appearance triggers mandatory close-out requirements for participants. Each exchange publishes its own list daily, and NYSE American publishes for the securities it lists.</p>
+      <div class="limit">
+        <b>Worth checking, easy to overstate.</b> Presence on the list is a fact with a date. It is not a finding about anyone's conduct, and securities appear and drop off for ordinary reasons.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Positions</p>
+  <h2>Short interest and holdings</h2>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>FINRA equity short interest</h3>
+      <span class="who">FINRA · free · twice monthly</span>
+    </div>
+    <div class="src-b">
+      <p>Member firms report their short positions in all equity securities twice a month under FINRA Rule 4560. FINRA publishes the aggregate by security, with average daily volume and days to cover.</p>
+      <dl>
+        <dt>Where</dt>
+        <dd><a href="https://www.finra.org/finra-data/browse-catalog/equity-short-interest/data">finra.org/finra-data/browse-catalog/equity-short-interest/data</a> — open Filter, add a condition on Symbol, apply, then Export.</dd>
+        <dt>Coverage</dt>
+        <dd>Exchange-listed securities from June 2021. Before that, over-the-counter only.</dd>
+      </dl>
+      <div class="limit">
+        <b>What it does not show.</b> Who holds the position, or why it was opened. Short interest rises from directional selling, from hedging, from convertible arbitrage, and from market-making inventory alike. It is also a position at a moment, not activity: a figure can sit flat while enormous volume passes through, if positions open and close inside the reporting window.
+      </div>
+    </div>
+  </div>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>Form 13F — institutional holdings</h3>
+      <span class="who">SEC EDGAR · free · quarterly</span>
+    </div>
+    <div class="src-b">
+      <p>Managers with more than $100 million in listed equity report their holdings 45 days after each quarter ends. Search a manager's name on <a href="https://www.sec.gov/edgar/search/">EDGAR full-text search</a>.</p>
+      <div class="limit">
+        <b>Long positions only.</b> A 13F does not show short positions, and it is 45 days stale on arrival. A fund's absence from a 13F says nothing about whether it is short.
+      </div>
+    </div>
+  </div>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>Schedules 13D and 13G</h3>
+      <span class="who">SEC EDGAR · free</span>
+    </div>
+    <div class="src-b">
+      <p>Filed by anyone crossing five percent of a class. A 13D states the filer's purpose in its own words; a 13G certifies the holder is passive. See the <a href="forms.html">SEC codes</a> page.</p>
+      <div class="limit">
+        <b>The reported percentage may not be the position.</b> Where a holder's warrants carry a beneficial ownership blocker, the shares underlying them are excluded from the figure on the cover page — while the same filing often lists them further down. Read the whole document, not the cover.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Ownership</p>
+  <h2>Who actually holds the shares</h2>
+
+  <p class="lede">Most shares are not registered in the owner's name. They sit in a chain, and each link keeps a different record.</p>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>The transfer agent and the stock ledger</h3>
+      <span class="who">The company's agent</span>
+    </div>
+    <div class="src-b">
+      <p>The transfer agent keeps the register of holders of record. It is named in the company's annual report and proxy statement.</p>
+      <div class="limit">
+        <b>Street name.</b> For shares held through a brokerage — which is nearly all of them — the holder of record is <b>Cede &amp; Co.</b>, the nominee of The Depository Trust Company. The ledger shows Cede, not the brokers beneath it and not the investors beneath them.
+      </div>
+    </div>
+  </div>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>DTC participants</h3>
+      <span class="who">DTCC · free</span>
+    </div>
+    <div class="src-b">
+      <p>DTCC publishes the list of participants and their participant numbers — the firms able to hold and clear securities in the system.</p>
+      <div class="limit">
+        <b>A roster, not a record.</b> It tells you which firms could be involved in any security. It does not tell you what any of them held.
+      </div>
+    </div>
+  </div>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>The NOBO list</h3>
+      <span class="who">Broadridge, on request</span>
+    </div>
+    <div class="src-b">
+      <p>Non-objecting beneficial owners: the layer beneath Cede. It identifies which brokers hold for which beneficial owners, for those owners who have not objected to disclosure. Companies request these routinely, usually before a shareholder meeting.</p>
+      <div class="limit">
+        <b>Objecting owners are excluded</b>, so it is never a complete picture. Whether a shareholder rather than the company can compel one is a question of state law and the answer varies — a matter for a lawyer, not a website.
+      </div>
+    </div>
+  </div>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>Identifying a broker-dealer</h3>
+      <span class="who">FINRA and SEC · free</span>
+    </div>
+    <div class="src-b">
+      <dl>
+        <dt>BrokerCheck</dt>
+        <dd><a href="https://brokercheck.finra.org">brokercheck.finra.org</a> — a firm's CRD number, SEC file number, registrations, and any disciplinary history.</dd>
+        <dt>Form X-17A-5</dt>
+        <dd>On EDGAR. A broker-dealer's own audited annual financial statements.</dd>
+        <dt>Form ADV</dt>
+        <dd><a href="https://adviserinfo.sec.gov">adviserinfo.sec.gov</a> — for an investment adviser rather than a broker: ownership, assets under management, disciplinary history. Not on EDGAR.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section>
+  <p class="eyebrow">Voting</p>
+  <h2>The vote record</h2>
+
+  <p class="lede">Shares that have been lent out carry their voting right with them to the borrower. Reconciling votes back to the shares actually held is done by the brokers and the tabulator, and it is the part of the system a shareholder sees least of.</p>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>Results of a shareholder meeting</h3>
+      <span class="who">SEC EDGAR · free · within four business days</span>
+    </div>
+    <div class="src-b">
+      <p>A company must report the results of a shareholder vote on Form 8-K within four business days, under Item 5.07. The filing gives, for each proposal, the shares voted for, against, abstaining, and broker non-votes.</p>
+      <p>Those totals can be set against the shares outstanding on the record date, which appears in the proxy statement. That comparison is arithmetic anyone can do.</p>
+    </div>
+  </div>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>The inspector of elections' report</h3>
+      <span class="who">The company · not filed publicly</span>
+    </div>
+    <div class="src-b">
+      <p>An inspector of elections is appointed for a shareholder meeting and certifies the count — the shares represented, whether a quorum existed, and the tabulation. This report is the primary record of what happened at a meeting.</p>
+      <div class="limit">
+        <b>It is not filed with anyone.</b> The 8-K reports the outcome; the inspector's report is the working document behind it. Obtaining it means a written demand to the company under the corporate law of its state of incorporation, and companies do refuse. Nevada, for example, allows any stockholder of record to inspect certain records under NRS 78.105, while restricting inspection of books of account to holders of at least fifteen percent under NRS 78.257 — two different statutes covering different documents.
+      </div>
+    </div>
+  </div>
+
+  <div class="src">
+    <div class="src-h">
+      <h3>Over-voting, and why it happens</h3>
+      <span class="who">Background</span>
+    </div>
+    <div class="src-b">
+      <p>When shares are lent, the voting right passes to the borrower, while the lender may still receive proxy materials from their own broker. The broker is expected to reconcile the votes it submits down to the position it actually holds at the depository. Where that reconciliation is imperfect, more votes can be submitted than there are shares entitled to vote. This is a documented feature of the proxy system, has been studied in the academic literature, and has been the subject of regulatory attention.</p>
+      <p>It is most likely where a security is heavily lent, because that is where the gap between beneficial owners and voting entitlement is widest.</p>
+      <div class="limit">
+        <b>Stated as background, not as a finding.</b> Nothing on this page asserts that over-voting occurred at any company. It describes a known characteristic of the system and identifies the document — the inspector's report — that would show whether a particular tabulation reconciles.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="repro">
+    <h3>The order to work in</h3>
+    <ol>
+      <li>Start with what the company filed — the 10-Q, the 8-K, the proxy. Those are signed statements. See <a href="forms.html">SEC codes</a>.</li>
+      <li>Then the regulators' aggregate data — FINRA short interest, SEC fails to deliver. Third-party, but anonymous by design.</li>
+      <li>Then ownership filings — 13D, 13G, 13F, Forms 3 and 4. These name people, which is why they need reading in full rather than off the cover page.</li>
+      <li>Last, anything requiring a request: the inspector's report, a NOBO list, records demands. These take time and can be refused, and the refusal is itself a fact worth recording.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <b>Mark Nejmeh</b><br>
+    <a href="https://jobcreation.us" style="color:var(--ink-2)">Foundation for Job Creation</a><br>
+    P.O. Box 589, Clifton, New Jersey 07012<br>
+    732-995-3914 · realroofers@gmail.com
+
+    <p class="disclaimer">This page describes where public records are held and what they contain. It is not legal advice, and it is not investment advice. Statutes and filing requirements vary by jurisdiction and by the status of the filer.</p>
+    <p class="build-stamp" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-2);margin-top:20px;padding-top:14px;border-top:1px solid var(--rule-2)">
+      Built by Mark Nejmeh · 2026-08-12 · schema 1.0 · Triggered Short™ is his own term<br>
+      <a href="console.html" style="color:var(--ink-2);text-decoration:none">Console</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){try{
+  fetch('/api/hit',{method:'POST',headers:{'content-type':'application/json'},
+    body:JSON.stringify({path:location.pathname,ref:document.referrer||''}),
+    keepalive:true}).catch(function(){});
+}catch(e){}})();
+</script>
+</body>
+</html>

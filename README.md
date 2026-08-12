@@ -13,6 +13,7 @@ Static docket site. No build step, no dependencies.
 - model.html      — warrant overhang calculator + the formulas
 - example.html    — worked example: finding the four numbers in a real 10-Q
 - forms.html      — SEC form reference, plain language
+- records.html    — where fails, short interest, ownership and vote records live
 - schema.sql      — the research database, 19 tables + 3 views, incl. the meta table
 - seed.sql        — everything gathered so far, ready to load
 - functions/api/lookup.js — records a calculation
