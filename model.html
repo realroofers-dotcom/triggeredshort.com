@@ -8,6 +8,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;650&display=swap" rel="stylesheet">
+<meta name="author" content="Mark Nejmeh">
+<meta name="copyright" content="© 2026 Mark Nejmeh">
+<meta name="publisher" content="Newsweed.com · Foundation for Job Creation">
+<meta name="dcterms.creator" content="Mark Nejmeh">
+<meta name="dcterms.dateSubmitted" content="2026-08-12">
+<meta name="generator" content="triggeredshort.com — built 2026-08-12">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="styles.css">
 <style>
@@ -58,6 +64,48 @@ table.rd tr:last-child td{border-bottom:0}
   .big .v{font-size:25px}
   .big{gap:18px}
 }
+
+/* ---- formula box ---- */
+.fbox{border:1px solid var(--rule);background:var(--card);margin-top:18px}
+.fr{display:grid;grid-template-columns:200px 250px 1fr;gap:0 20px;
+    padding:15px 20px;border-bottom:1px solid var(--rule-2);align-items:baseline}
+.fr.last{border-bottom:0}
+.fn{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;
+    letter-spacing:.09em;color:var(--ink-2);font-weight:600}
+.fe{font-family:var(--display);font-size:19px;font-weight:600;color:var(--certified);
+    letter-spacing:-.01em}
+.fd{font-size:13px;color:var(--ink-2);line-height:1.5}
+.fkey{padding:13px 20px;background:var(--ink);color:#BFC5C0;
+      font-family:var(--mono);font-size:11.5px;letter-spacing:.03em}
+.fkey b{color:#EBD9A8;font-weight:600}
+@media(max-width:760px){
+  .fr{grid-template-columns:1fr;gap:6px 0;padding:15px 18px}
+  .fe{font-size:22px}
+}
+
+/* ---- email ---- */
+.gate{padding:20px;background:var(--card);border-top:1px solid var(--rule)}
+.gate.locked{background:#F4EDE3;border-top:3px solid var(--stamp)}
+.gate h3{margin:0 0 5px;font-size:15px}
+.gate p{font-size:13.5px;color:var(--ink-2);margin:0 0 14px;max-width:64ch}
+.gate-form{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.gate-form input{
+  flex:1 1 240px;font-family:var(--mono);font-size:14px;padding:10px 12px;
+  border:1px solid var(--rule);background:#fff;color:var(--ink);border-radius:0;
+}
+.gate-form input:focus{outline:2px solid var(--certified);outline-offset:-1px}
+.gate-form button{
+  font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.09em;
+  padding:10px 20px;border:0;background:var(--certified);color:#fff;cursor:pointer;
+  font-weight:600;
+}
+.gate-form button:hover{background:#17503A}
+.gate-form button:disabled{opacity:.5;cursor:default}
+.gate-msg{font-size:13px;margin:10px 0 0;min-height:18px}
+.gate-msg.err{color:var(--stamp)}
+.gate-msg.ok{color:var(--certified);font-weight:600}
+.gate-fine{font-size:11.5px;color:var(--ink-2);margin-top:10px;line-height:1.5}
+.blurred{filter:blur(7px);pointer-events:none;user-select:none}
 </style>
 </head>
 <body>
@@ -81,6 +129,8 @@ table.rd tr:last-child td{border-bottom:0}
     <a href="chronology.html">Chronology</a>
     <a href="data.html">Market data</a>
     <a href="model.html" aria-current="page">Calculator</a>
+    <a href="example.html">Example</a>
+    <a href="forms.html">SEC codes</a>
     <a href="exhibits.html">Exhibits</a>
     <a href="method.html">Method</a>
   </div>
@@ -97,6 +147,16 @@ table.rd tr:last-child td{border-bottom:0}
 
     <div class="calc-in">
       <div class="grid">
+        <div class="f">
+          <label for="tk">Ticker</label>
+          <input id="tk" type="text" maxlength="12" value="TOVX" style="text-transform:uppercase">
+          <p class="hint">So the lookup can be counted</p>
+        </div>
+        <div class="f">
+          <label for="co">Company (optional)</label>
+          <input id="co" type="text" maxlength="120" value="Theriva Biologics, Inc.">
+          <p class="hint">As it appears on the filing</p>
+        </div>
         <div class="f">
           <label for="sh">Shares outstanding</label>
           <input id="sh" type="text" inputmode="decimal" value="45,892,668">
@@ -120,6 +180,7 @@ table.rd tr:last-child td{border-bottom:0}
       </div>
     </div>
 
+    <div id="results">
     <div class="readout">
       <div id="state" class="state out">Out of the money</div>
 
@@ -170,7 +231,67 @@ table.rd tr:last-child td{border-bottom:0}
       </table>
       <p class="warn" style="margin-top:14px;margin-bottom:0">Formula: P<sub>final</sub> = P<sub>dilution</sub> × exp[ −λ(Q/L) ], where Q is net selling pressure and L is a liquidity benchmark. The impact value is an assumption the reader sets. It is not derived from any identified trades.</p>
     </div>
+    </div>
 
+    <div class="gate" id="gate">
+      <h3 id="gate-h">Get the reports</h3>
+      <p id="gate-p">The research series publishes here first. No more than one email a week, and nothing is ever sold or shared.</p>
+      <div class="gate-form">
+        <input id="em" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com">
+        <button id="em-go" type="button">Send them</button>
+      </div>
+      <p class="gate-msg" id="em-msg"></p>
+      <p class="gate-fine">One click to unsubscribe. Your address is stored to send you the reports and for nothing else.</p>
+    </div>
+
+  </div>
+
+  <p class="note" id="cnt" style="margin-top:12px"></p>
+  <p class="note">Figures entered here are recorded so that recurring patterns across companies can be studied. No company entered by a reader is named publicly on this site. Nothing that identifies you is stored — no name, no email, no address; the network address is discarded after being converted to a one-way value used only to limit abuse.</p>
+</section>
+
+<hr class="rule">
+
+<section id="formula">
+  <p class="eyebrow">The formula</p>
+  <h2>Use it on any company</h2>
+  <p class="lede">Four figures off a 10-Q produce every number above. Copy the formulas into a spreadsheet if you would rather work there.</p>
+
+  <div class="fbox">
+    <div class="fr">
+      <div class="fn">Overhang</div>
+      <div class="fe">W &divide; S</div>
+      <div class="fd">Warrant shares as a proportion of shares outstanding today. How much the count can grow.</div>
+    </div>
+    <div class="fr">
+      <div class="fn">Dilution</div>
+      <div class="fe">W &divide; (S + W)</div>
+      <div class="fd">Warrant shares as a proportion of the enlarged count. The share of the company they represent once issued.</div>
+    </div>
+    <div class="fr">
+      <div class="fn">Distance to strike</div>
+      <div class="fe">(K &divide; P) &minus; 1</div>
+      <div class="fd">The move required before exercise is rational on price alone. Negative means the warrants are already in the money.</div>
+    </div>
+    <div class="fr">
+      <div class="fn">Cash on exercise</div>
+      <div class="fe">W &times; K</div>
+      <div class="fd">What the company receives if every warrant is exercised for cash rather than cashlessly.</div>
+    </div>
+    <div class="fr">
+      <div class="fn">Value per share, dilution only</div>
+      <div class="fe">(S&times;P + W&times;K) &divide; (S + W)</div>
+      <div class="fd">Holds the business constant and isolates the arithmetic effect of the new shares and the cash they bring in.</div>
+    </div>
+    <div class="fr last">
+      <div class="fn">Illustrative impact</div>
+      <div class="fe">P<sub>final</sub> = P<sub>dil</sub> &times; e<sup>&minus;&lambda;(Q/L)</sup></div>
+      <div class="fd">A scenario, not a forecast. &lambda;(Q/L) is an assumption the reader sets; Q is net selling pressure and L a liquidity benchmark. Nothing in it establishes that any warrant will be exercised or that any person will sell.</div>
+    </div>
+    <div class="fkey">
+      <b>S</b> shares outstanding &nbsp;·&nbsp; <b>W</b> warrants outstanding &nbsp;·&nbsp;
+      <b>K</b> exercise price &nbsp;·&nbsp; <b>P</b> current share price
+    </div>
   </div>
 </section>
 
@@ -218,13 +339,20 @@ table.rd tr:last-child td{border-bottom:0}
     732-995-3914 · realroofers@gmail.com
 
     <p class="disclaimer">This calculator performs arithmetic on figures the reader supplies. It is not investment advice, not a recommendation to buy or sell any security, and not a forecast of any price. The author holds shares of Theriva Biologics, Inc., which is used as the prefilled example.</p>
+    <p class="build-stamp" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-2);margin-top:20px;padding-top:14px;border-top:1px solid var(--rule-2)">
+      Built by Mark Nejmeh · 2026-08-12 · schema 1.0 · Triggered Short™ is his own term
+    </p>
   </div>
 </footer>
 
 <script>
 (function(){
+  // Set to true to hide the results until an email address is entered.
+  var REQUIRE_EMAIL = false;
+
   var $=function(id){return document.getElementById(id)};
   var ins=['sh','wt','k','p'];
+  var last={ovh:0,dil:0,gap:0};
 
   function num(s){var v=parseFloat(String(s).replace(/[^0-9.\-]/g,''));return isFinite(v)?v:0}
   function fi(n){return n.toLocaleString('en-US',{maximumFractionDigits:0})}
@@ -267,6 +395,7 @@ table.rd tr:last-child td{border-bottom:0}
     $('r-pps').textContent  = fp(pps);
     var c=$('r-chg'); c.textContent = pc(chg);
 
+    last = {ovh:ovh, dil:dil, gap:gap};
     scen(pps);
   }
 
@@ -288,9 +417,107 @@ table.rd tr:last-child td{border-bottom:0}
   });
   $('lam').addEventListener('input',calc);
 
-  calc();
+  // ---- record the lookup (aggregate research log) ----
+  var logged = {}, timer = null;
+  function record(){
+    var tk = ($('tk').value||'').trim().toUpperCase();
+    if(!tk || logged[tk]) return;
+    var body = {
+      ticker: tk,
+      company: ($('co').value||'').trim(),
+      shares: num($('sh').value), warrants: num($('wt').value),
+      strike: num($('k').value),  price: num($('p').value),
+      overhang: last.ovh, dilution: last.dil, gap: last.gap
+    };
+    if(!body.shares || !body.price) return;
+    logged[tk] = 1;
+    fetch('/api/lookup',{method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify(body)}).then(stats).catch(function(){});
+  }
+  function queue(){ clearTimeout(timer); timer = setTimeout(record, 2500); }
+  ins.concat(['tk','co']).forEach(function(id){
+    var el=$(id); if(el) el.addEventListener('input',queue);
+  });
+
+  function stats(){
+    fetch('/api/stats').then(function(r){return r.json()}).then(function(d){
+      if(!d || !d.total) return;
+      var n=$('cnt'); if(!n) return;
+      n.textContent = Number(d.total).toLocaleString('en-US')
+        + ' calculations run on ' + Number(d.tickers).toLocaleString('en-US')
+        + ' companies';
+    }).catch(function(){});
+  }
+
+  // ---- email ----
+  var unlocked = false;
+  try { unlocked = localStorage.getItem('ts_email') === '1'; } catch(e){}
+
+  function applyGate(){
+    if(!REQUIRE_EMAIL || unlocked){
+      $('results').classList.remove('blurred');
+      $('gate').classList.remove('locked');
+      $('gate-h').textContent = 'Get the reports';
+      $('gate-p').textContent = 'The research series publishes here first. No more than one email a week, and nothing is ever sold or shared.';
+      $('em-go').textContent = 'Send them';
+      return;
+    }
+    $('results').classList.add('blurred');
+    $('gate').classList.add('locked');
+    $('gate-h').textContent = 'Enter your email to see the result';
+    $('gate-p').textContent = 'The arithmetic is published further down this page if you would rather work it out yourself. Nothing is ever sold or shared.';
+    $('em-go').textContent = 'Show the result';
+  }
+
+  function subscribe(){
+    var el = $('em'), msg = $('em-msg'), btn = $('em-go');
+    var email = (el.value||'').trim();
+    msg.className = 'gate-msg';
+    if(!/^[^@\s]+@[^@\s.]+\.[^@\s]{2,}$/.test(email)){
+      msg.className = 'gate-msg err';
+      msg.textContent = 'That does not look like an email address.';
+      return;
+    }
+    btn.disabled = true;
+    msg.textContent = 'Sending…';
+    fetch('/api/subscribe',{method:'POST',headers:{'content-type':'application/json'},
+      body:JSON.stringify({email:email, ticker:($('tk').value||'').toUpperCase(), source:'calculator'})})
+      .then(function(r){return r.json()})
+      .then(function(d){
+        btn.disabled = false;
+        if(d && d.ok){
+          unlocked = true;
+          try { localStorage.setItem('ts_email','1'); } catch(e){}
+          applyGate();
+          msg.className = 'gate-msg ok';
+          msg.textContent = 'Done. You are on the list.';
+          el.value = '';
+        } else {
+          msg.className = 'gate-msg err';
+          msg.textContent = (d && d.error) || 'Something went wrong. Try again.';
+        }
+      })
+      .catch(function(){
+        btn.disabled = false;
+        msg.className = 'gate-msg err';
+        msg.textContent = 'Could not reach the server. Try again.';
+      });
+  }
+
+  $('em-go').addEventListener('click', subscribe);
+  $('em').addEventListener('keydown', function(e){ if(e.key==='Enter') subscribe(); });
+
+  applyGate();
+  calc(); stats(); queue();
 })();
 </script>
 
+<script>
+(function(){try{
+  fetch('/api/hit',{method:'POST',headers:{'content-type':'application/json'},
+    body:JSON.stringify({path:location.pathname,ref:document.referrer||''}),
+    keepalive:true}).catch(function(){});
+}catch(e){}})();
+</script>
 </body>
 </html>

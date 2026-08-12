@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Worked example — Triggered Short™</title>
+<meta name="description" content="Step by step: finding shares outstanding, warrants outstanding, and the exercise price in a real quarterly report, and running the arithmetic.">
+<meta name="author" content="Mark Nejmeh">
+<meta name="copyright" content="© 2026 Mark Nejmeh">
+<meta name="publisher" content="Newsweed.com · Foundation for Job Creation">
+<meta name="dcterms.creator" content="Mark Nejmeh">
+<meta name="dcterms.dateSubmitted" content="2026-08-12">
+<meta name="generator" content="triggeredshort.com — built 2026-08-12">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.step{display:grid;grid-template-columns:52px 1fr;gap:0 20px;padding:22px 0;border-bottom:1px solid var(--rule-2)}
+.step:last-of-type{border-bottom:0}
+.step-n{font-family:var(--mono);font-size:12px;color:var(--certified);font-weight:600;
+  letter-spacing:.06em;padding-top:3px}
+.step h3{margin-top:0}
+.doc{
+  background:#fff;border:1px solid var(--rule);border-left:4px solid var(--manila);
+  padding:14px 16px;margin:12px 0;font-family:var(--mono);font-size:12.5px;
+  line-height:1.75;color:var(--ink);overflow-x:auto;
+}
+.doc .hl{background:#F6EBCB;padding:1px 3px;font-weight:600}
+.doc .src{display:block;margin-top:10px;font-size:10.5px;color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.08em}
+.answer{
+  display:inline-block;background:var(--ink);color:#EBD9A8;
+  font-family:var(--mono);font-size:14px;padding:7px 13px;margin-top:10px;
+}
+.work{background:var(--card);border:1px solid var(--rule);padding:18px 20px;margin-top:18px}
+.work-row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline;
+  padding:11px 0;border-bottom:1px solid var(--rule-2)}
+.work-row:last-child{border-bottom:0}
+.work-lbl{font-family:var(--mono);font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--ink-2);min-width:150px;font-weight:600}
+.work-calc{font-family:var(--mono);font-size:13px;color:var(--ink-2);flex:1;min-width:180px}
+.work-res{font-family:var(--display);font-size:19px;font-weight:700;color:var(--certified)}
+@media(max-width:620px){
+  .step{grid-template-columns:1fr;gap:8px 0}
+  .step-n{padding-top:0}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="mast-inner">
+    <a class="brand" href="index.html">
+      <img src="logo.png" alt="TriggeredShort.com" width="1223" height="297">
+    </a>
+    <div class="mast-meta">
+      Worked example<br>
+      finding the four numbers<br>
+      in a <b>real filing</b>
+    </div>
+  </div>
+</header>
+
+<nav class="docket-nav">
+  <div class="nav-inner">
+    <a href="index.html">Docket</a>
+    <a href="chronology.html">Chronology</a>
+    <a href="data.html">Market data</a>
+    <a href="model.html">Calculator</a>
+    <a href="example.html" aria-current="page">Example</a>
+    <a href="forms.html">SEC codes</a>
+    <a href="exhibits.html">Exhibits</a>
+    <a href="method.html">Method</a>
+  </div>
+</nav>
+
+<main>
+
+<section>
+  <p class="eyebrow">Ten minutes, one document</p>
+  <h2>How to find out what the warrants will do to your shares</h2>
+  <p class="lede">Every figure below comes from one quarterly report, filed free and public. The example is Theriva Biologics, because the author owns it and has said so. The same six steps work on any company.</p>
+</section>
+
+<section>
+
+  <div class="step">
+    <div class="step-n">01</div>
+    <div>
+      <h3>Open the company's most recent quarterly report</h3>
+      <p>Go to <a href="https://www.sec.gov/edgar/search/">sec.gov/edgar/search</a>. Type the company name in the box. On the results page, use the <b>Filing category</b> filter on the left and choose <b>Quarterly reports</b>. Open the newest Form 10-Q.</p>
+      <p>If the newest filing is more than three months old, the company files annually — open the Form 10-K instead. Same numbers, same places.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-n">02</div>
+    <div>
+      <h3>Shares outstanding — the cover page</h3>
+      <p>It is the last line before the table of contents. Every 10-Q has it, in the same place, stated as of a date within the last few weeks.</p>
+      <div class="doc">
+        As of August 7, 2026, the registrant had <span class="hl">45,892,668</span> shares of common stock, $0.001 par value per share, outstanding.
+        <span class="src">Theriva Biologics, Form 10-Q for the quarter ended June 30, 2026 — cover page</span>
+      </div>
+      <div class="answer">S = 45,892,668</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-n">03</div>
+    <div>
+      <h3>Warrants outstanding — the warrant footnote</h3>
+      <p>Scroll to the notes to the financial statements and look for a note titled <b>Stock Warrants</b>, or search the page for the word "warrant." There is a table showing warrants granted, exercised, forfeited, and outstanding, with a weighted average exercise price.</p>
+      <p>Read the <b>closing balance</b> — the last row.</p>
+      <div class="doc">
+        Balance at December 31, 2024 &nbsp;&nbsp; 1,428,600 &nbsp;&nbsp; $2.00<br>
+        &nbsp;&nbsp;Granted &nbsp;&nbsp; 27,830,020 &nbsp;&nbsp; $0.58<br>
+        &nbsp;&nbsp;Exercised &nbsp;&nbsp; (12,919,560) &nbsp;&nbsp; $0.78<br>
+        Balance at December 31, 2025 &nbsp;&nbsp; <span class="hl">16,339,060</span> &nbsp;&nbsp; <span class="hl">$0.55</span><br>
+        Balance at June 30, 2026 &nbsp;&nbsp; 16,339,060 &nbsp;&nbsp; $0.55
+        <span class="src">Same report, Note 10 — Stock Warrants</span>
+      </div>
+      <p>That table is worth reading twice. In one year this company granted warrants for 27,830,020 shares and 12,919,560 were exercised. The closing balance is what remains outstanding.</p>
+      <div class="answer">W = 16,339,060 &nbsp;·&nbsp; K = $0.55 weighted average</div>
+      <p class="note">Where a single warrant issue dominates, use its stated exercise price rather than the weighted average. Here, 16,184,560 of those warrants carry an exercise price of $0.54, so $0.54 is the figure used in the calculator.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-n">04</div>
+    <div>
+      <h3>Check whether the warrants are exercisable yet</h3>
+      <p>Warrants sometimes cannot be exercised until something happens — commonly a stockholder vote, where the new shares would exceed 20 percent of the count. The footnote says so. Search the note for the word "approval."</p>
+      <div class="doc">
+        &hellip; which New Warrants are exercisable for a term of five (5) years from the date of the <span class="hl">approval from the stockholders</span> of the Company of the full exercise of the New Warrants &hellip;
+        <span class="src">Same note</span>
+      </div>
+      <p>In this case that approval was obtained on August 3, 2026, and the warrants became exercisable. If a company is still waiting on a vote, the overhang is real but not yet live.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-n">05</div>
+    <div>
+      <h3>Look up the current price</h3>
+      <p>Any quote source. Use the last close.</p>
+      <div class="answer">P = $0.2339</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-n">06</div>
+    <div>
+      <h3>Do the arithmetic</h3>
+      <p>Four numbers in. Here is each formula worked through with them.</p>
+
+      <div class="work">
+        <div class="work-row">
+          <span class="work-lbl">Overhang</span>
+          <span class="work-calc">16,184,560 &divide; 45,892,668</span>
+          <span class="work-res">35.3%</span>
+        </div>
+        <div class="work-row">
+          <span class="work-lbl">Dilution</span>
+          <span class="work-calc">16,184,560 &divide; 62,077,228</span>
+          <span class="work-res">26.1%</span>
+        </div>
+        <div class="work-row">
+          <span class="work-lbl">Distance to strike</span>
+          <span class="work-calc">($0.54 &divide; $0.2339) &minus; 1</span>
+          <span class="work-res">+130.9%</span>
+        </div>
+        <div class="work-row">
+          <span class="work-lbl">Cash on exercise</span>
+          <span class="work-calc">16,184,560 &times; $0.54</span>
+          <span class="work-res">$8,739,662</span>
+        </div>
+        <div class="work-row">
+          <span class="work-lbl">Value per share</span>
+          <span class="work-calc">($10,734,295 + $8,739,662) &divide; 62,077,228</span>
+          <span class="work-res">$0.3138</span>
+        </div>
+      </div>
+
+      <p style="margin-top:18px">Or put the same four numbers into the <a href="model.html">calculator</a> and it does all five at once.</p>
+    </div>
+  </div>
+
+</section>
+
+<hr class="rule">
+
+<section>
+  <p class="eyebrow">Reading the result</p>
+  <h2>What those five numbers mean</h2>
+
+  <h3>35.3 percent overhang</h3>
+  <p>The share count can grow by more than a third from warrants alone, without the company selling a single new share to anyone else. That is the size of the thing sitting outside the number your brokerage app shows you.</p>
+
+  <h3>+130.9 percent to strike</h3>
+  <p>At today's price the warrants are far out of the money. On price alone there is no reason to exercise them — a holder could buy the same shares more cheaply in the open market. That gap is the condition. It closes if the stock rises, or if the exercise price is reduced.</p>
+
+  <h3>$0.3138 after dilution</h3>
+  <p>Higher than the current price. That is not good news and it is worth understanding why. It happens because the exercise price of $0.54 is above the market price of $0.2339, so each warrant exercised brings in more cash per share than a share is currently worth. It is an artifact of the warrants being deeply out of the money, not a sign of value. If the stock rose above $0.54 and the warrants were then exercised, this figure would fall below the market price, which is the ordinary dilutive case.</p>
+
+  <h3>The one that is not on the list</h3>
+  <p>None of these numbers tells you whether the company's business will work. A firm with a drug that succeeds and a firm with nothing produce identical output here. This arithmetic describes the capital structure and nothing else.</p>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="repro">
+    <h3>Try it on something you own</h3>
+    <p>The steps do not change. Open the newest 10-Q, take the share count off the cover, take the warrant balance and exercise price out of the warrant note, add today's price.</p>
+    <ol>
+      <li><a href="https://www.sec.gov/edgar/search/">sec.gov/edgar/search</a> — search the company name, filter to Quarterly reports.</li>
+      <li>Cover page, last line before the contents: <code>shares of common stock &hellip; outstanding</code></li>
+      <li>Notes to the financial statements, the note headed <code>Stock Warrants</code>, closing balance.</li>
+      <li>Then the <a href="model.html">calculator</a>.</li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <b>Mark Nejmeh</b><br>
+    Newsweed.com · Foundation for Job Creation<br>
+    P.O. Box 589, Clifton, New Jersey 07012<br>
+    732-995-3914 · realroofers@gmail.com
+
+    <p class="disclaimer">Theriva Biologics is used as the example because the author holds shares in it and has disclosed that. Every figure on this page is taken from the company's Form 10-Q for the quarter ended June 30, 2026, filed August 11, 2026. Nothing on this page is investment advice or a recommendation to buy or sell any security.</p>
+    <p class="build-stamp" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-2);margin-top:20px;padding-top:14px;border-top:1px solid var(--rule-2)">
+      Built by Mark Nejmeh · 2026-08-12 · schema 1.0 · Triggered Short™ is his own term
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){try{
+  fetch('/api/hit',{method:'POST',headers:{'content-type':'application/json'},
+    body:JSON.stringify({path:location.pathname,ref:document.referrer||''}),
+    keepalive:true}).catch(function(){});
+}catch(e){}})();
+</script>
+</body>
+</html>

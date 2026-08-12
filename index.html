@@ -8,6 +8,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Public+Sans:wght@400;500;600;650&display=swap" rel="stylesheet">
+<meta name="author" content="Mark Nejmeh">
+<meta name="copyright" content="© 2026 Mark Nejmeh">
+<meta name="publisher" content="Newsweed.com · Foundation for Job Creation">
+<meta name="dcterms.creator" content="Mark Nejmeh">
+<meta name="dcterms.dateSubmitted" content="2026-08-12">
+<meta name="generator" content="triggeredshort.com — built 2026-08-12">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -32,6 +38,8 @@
     <a href="chronology.html">Chronology</a>
     <a href="data.html">Market data</a>
     <a href="model.html">Calculator</a>
+    <a href="example.html">Example</a>
+    <a href="forms.html">SEC codes</a>
     <a href="exhibits.html">Exhibits</a>
     <a href="method.html">Method</a>
   </div>
@@ -167,8 +175,18 @@
     SEC EDGAR filer information — CIK 0001860507 · SEC File No. 150-11431 · LTID 71743954 · Form 13H accepted May 4, 2021
 
     <p class="disclaimer">EDGAR filer information is provided solely to identify the author as a registered filer and prior Form 13H registrant. It is not an endorsement, approval, or finding by the Securities and Exchange Commission regarding this site or its contents. Nothing on this site is investment advice or a recommendation to buy or sell any security. Illustrative calculations are presented to explain the possible economic implications of disclosed transactions; they do not establish that any person realized any illustrated result.</p>
+    <p class="build-stamp" style="font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--ink-2);margin-top:20px;padding-top:14px;border-top:1px solid var(--rule-2)">
+      Built by Mark Nejmeh · 2026-08-12 · schema 1.0 · Triggered Short™ is his own term
+    </p>
   </div>
 </footer>
 
+<script>
+(function(){try{
+  fetch('/api/hit',{method:'POST',headers:{'content-type':'application/json'},
+    body:JSON.stringify({path:location.pathname,ref:document.referrer||''}),
+    keepalive:true}).catch(function(){});
+}catch(e){}})();
+</script>
 </body>
 </html>
