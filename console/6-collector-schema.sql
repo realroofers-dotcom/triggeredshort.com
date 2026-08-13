@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS watchlist (cik TEXT PRIMARY KEY, label TEXT, active INTEGER NOT NULL DEFAULT 1, added_at TEXT NOT NULL DEFAULT (datetime('now')));
+CREATE TABLE IF NOT EXISTS filings (accession TEXT PRIMARY KEY, cik TEXT NOT NULL, company_name TEXT, form TEXT, filed_date TEXT, report_date TEXT, accepted_at TEXT, items TEXT, primary_doc TEXT, doc_url TEXT, index_url TEXT, is_xbrl INTEGER DEFAULT 0, size INTEGER, first_seen TEXT NOT NULL DEFAULT (datetime('now')));
+CREATE TABLE IF NOT EXISTS issuer_names (cik TEXT NOT NULL, name TEXT NOT NULL, kind TEXT NOT NULL, from_date TEXT, to_date TEXT, first_seen TEXT NOT NULL DEFAULT (datetime('now')), PRIMARY KEY (cik, name));
+CREATE TABLE IF NOT EXISTS collector_runs (id INTEGER PRIMARY KEY AUTOINCREMENT, started_at TEXT, finished_at TEXT, trigger TEXT, ciks_checked INTEGER DEFAULT 0, filings_seen INTEGER DEFAULT 0, filings_new INTEGER DEFAULT 0, names_new INTEGER DEFAULT 0, status TEXT, message TEXT);
+CREATE INDEX IF NOT EXISTS idx_filings_cik_date ON filings (cik, filed_date DESC);
+CREATE INDEX IF NOT EXISTS idx_filings_form ON filings (form);
+CREATE INDEX IF NOT EXISTS idx_filings_filed ON filings (filed_date DESC);
+CREATE INDEX IF NOT EXISTS idx_filings_first_seen ON filings (first_seen DESC);
+CREATE VIEW IF NOT EXISTS v_recent_filings AS SELECT f.filed_date, f.form, f.items, f.company_name, f.cik, f.accession, f.doc_url FROM filings f ORDER BY f.filed_date DESC, f.accepted_at DESC;
+CREATE VIEW IF NOT EXISTS v_filing_counts AS SELECT cik, company_name, form, COUNT(*) AS n, MIN(filed_date) AS first_filed, MAX(filed_date) AS last_filed FROM filings GROUP BY cik, form;
+CREATE VIEW IF NOT EXISTS v_name_trail AS SELECT cik, name, kind, from_date, to_date FROM issuer_names ORDER BY cik, kind DESC, from_date;
+INSERT OR IGNORE INTO watchlist (cik, label, active) VALUES ('0000894158', 'Theriva Biologics', 1);
+INSERT OR IGNORE INTO watchlist (cik, label, active) VALUES ('0001430306', 'Tonix Pharmaceuticals Holding', 1);
+INSERT OR IGNORE INTO watchlist (cik, label, active) VALUES ('0001659323', 'Iterum Therapeutics', 1);
