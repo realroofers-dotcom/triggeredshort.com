@@ -375,6 +375,26 @@
       </div>
     </div>
 
+    <div class="card" id="secConsole" style="display:none">
+      <h2>The old console</h2>
+      <p class="note" style="margin-top:0">
+        The original site console. It still does things this page does not &mdash; direct
+        database queries and the visitor summary. It is <strong>no longer linked from the
+        public site</strong>; this is now the only way in.
+      </p>
+      <div class="warnbox">
+        It is guarded by the key alone. No accounts, no roles, no record of who signed in.
+        Treat it as the back door and use this page for everyday work.
+      </div>
+      <p style="margin-top:.8rem">
+        <a href="/console.html" target="_blank" rel="noopener"
+           style="display:inline-block;padding:.55rem 1.1rem;border:1px solid var(--accent);
+                  border-radius:4px;color:var(--accent);text-decoration:none">
+          Open console &#8599;
+        </a>
+      </p>
+    </div>
+
     <div class="card" id="secSession">
       <h2>Session</h2>
       <button class="danger" id="btnOut">Sign out</button>
@@ -424,6 +444,7 @@ function afterAuth() {
     $("secPeople").style.display = w.role === "admin" ? "block" : "none";
     $("adminMan").style.display = w.role === "admin" ? "block" : "none";
     $("secExport").style.display = w.role === "admin" ? "block" : "none";
+    $("secConsole").style.display = w.role === "admin" ? "block" : "none";
     if (w.role === "admin") loadUsers();
     buildTasks();
     loadPerms();
@@ -489,6 +510,7 @@ var TASKS = [
   { t: "Check who has signed in",         d: "Every attempt, success or failure",             go: "secPeople", man: "manPeople",   need: "logins.read" },
   { t: "See what each role may do",       d: "The permissions table the system enforces",     go: "secPerms",  man: null,          need: "perms.read" },
   { t: "Read the manual",                 d: "How all of this works, in plain language",      go: "secManual", man: "manSignin",   need: "read.meta" },
+  { t: "Open the old console",            d: "Direct database queries and visitor stats",     go: "secConsole",man: null,          need: "console.open" },
   { t: "Sign out",                        d: "Ends this session on this machine",             go: "secSession",man: "manSignin",   need: "read.meta" }
 ];
 
