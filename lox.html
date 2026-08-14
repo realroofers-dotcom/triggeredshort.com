@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Lox</title>
+<style>
+  :root {
+    --ink: #14181d;
+    --muted: #5d6975;
+    --line: #d9dee4;
+    --bg: #f7f8fa;
+    --card: #ffffff;
+    --accent: #1a4f8a;
+    --ok: #1d7a45;
+    --warn: #a8500f;
+    --bad: #a52222;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 0 4rem;
+    background: var(--bg); color: var(--ink);
+    font: 17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  header {
+    background: var(--ink); color: #fff;
+    padding: 1rem 1.25rem; display: flex; align-items: center;
+    justify-content: space-between; flex-wrap: wrap; gap: .5rem;
+  }
+  header h1 { margin: 0; font-size: 1.05rem; letter-spacing: .04em; text-transform: uppercase; }
+  header .status { font-size: .85rem; opacity: .85; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 1.25rem; }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 6px; padding: 1.1rem 1.25rem; margin-bottom: 1.1rem;
+  }
+  .card h2 {
+    margin: 0 0 .85rem; font-size: .82rem; letter-spacing: .09em;
+    text-transform: uppercase; color: var(--muted); font-weight: 700;
+  }
+  label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: .3rem; }
+  input[type=text], input[type=password], textarea {
+    width: 100%; padding: .6rem .7rem; font-size: 1rem; font-family: inherit;
+    border: 1px solid var(--line); border-radius: 4px; background: #fff; color: var(--ink);
+  }
+  textarea { min-height: 4.5rem; resize: vertical; }
+  button {
+    font: inherit; font-size: .95rem; padding: .55rem 1.1rem; border-radius: 4px;
+    border: 1px solid var(--accent); background: var(--accent); color: #fff;
+    cursor: pointer;
+  }
+  button.ghost { background: #fff; color: var(--accent); }
+  button.danger { background: #fff; color: var(--bad); border-color: var(--bad); }
+  button:disabled { opacity: .5; cursor: default; }
+  .row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: flex-end; }
+  .row > * { flex: 1 1 auto; }
+  .row .narrow { flex: 0 0 auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: .5rem .5rem; border-bottom: 1px solid var(--line); vertical-align: top; font-size: .93rem; }
+  th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  td.k { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .86rem; white-space: nowrap; }
+  .tag { font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; padding: .12rem .4rem; border-radius: 3px; }
+  .tag.auto { background: #eef2f7; color: var(--muted); }
+  .tag.manual { background: #e6f2ea; color: var(--ok); }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: .75rem; }
+  .stat { border: 1px solid var(--line); border-radius: 5px; padding: .7rem .8rem; background: #fff; }
+  .stat .n { font-size: 1.5rem; font-weight: 700; line-height: 1.1; }
+  .stat .l { font-size: .74rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin-top: .2rem; }
+  .bar { height: 10px; background: #e7eaee; border-radius: 5px; overflow: hidden; margin: .5rem 0 .3rem; }
+  .bar span { display: block; height: 100%; background: var(--accent); }
+  .msg { padding: .6rem .8rem; border-radius: 4px; margin-bottom: .8rem; font-size: .9rem; display: none; }
+  .msg.show { display: block; }
+  .msg.ok { background: #e6f2ea; color: var(--ok); }
+  .msg.err { background: #fbe9e9; color: var(--bad); }
+  .note { font-size: .84rem; color: var(--muted); margin-top: .6rem; }
+  #app { display: none; }
+  @media (max-width: 620px) {
+    .wrap { padding: .85rem; }
+    td, th { font-size: .88rem; padding: .45rem .3rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Lox</h1>
+  <div class="status" id="hdrStatus"></div>
+</header>
+
+<div class="wrap">
+
+  <div class="msg" id="msg"></div>
+
+  <!-- ------------------------------------------------ login -->
+  <div class="card" id="login">
+    <h2>Sign in</h2>
+    <label for="keyIn">Access key</label>
+    <div class="row">
+      <input type="password" id="keyIn" autocomplete="current-password" placeholder="key">
+      <div class="narrow"><button id="signin">Sign in</button></div>
+    </div>
+    <p class="note">
+      The key is held for this browser tab only and is sent in a request header,
+      never in the address bar. Closing the tab signs you out.
+    </p>
+  </div>
+
+  <!-- ------------------------------------------------ app -->
+  <div id="app">
+
+    <div class="card">
+      <h2>Crawl</h2>
+      <div class="bar"><span id="bar" style="width:0%"></span></div>
+      <div class="note" id="crawlLine">&nbsp;</div>
+      <div class="row" style="margin-top:.8rem">
+        <div class="narrow"><button class="ghost" id="btnRefresh">Recalculate now</button></div>
+        <div class="narrow"><button class="ghost" id="btnReload">Reload</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Where they are incorporated</h2>
+      <div class="stats" id="stats"></div>
+      <p class="note" id="sampleNote"></p>
+    </div>
+
+    <div class="card">
+      <h2>Site values &mdash; edit freely</h2>
+      <p class="note" style="margin-top:0">
+        Values marked <span class="tag manual">manual</span> are yours and are never
+        overwritten. Values marked <span class="tag auto">auto</span> are recalculated
+        from the database every minute &mdash; editing one converts it to manual and it
+        will stop updating.
+      </p>
+      <table>
+        <thead><tr><th>Key</th><th>Value</th><th></th></tr></thead>
+        <tbody id="metaBody"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Add a value</h2>
+      <div class="row">
+        <div style="flex:0 0 200px">
+          <label for="newK">Key</label>
+          <input type="text" id="newK" placeholder="screen_note">
+        </div>
+        <div style="flex:1 1 260px">
+          <label for="newV">Value</label>
+          <input type="text" id="newV" placeholder="text shown on the site">
+        </div>
+        <div class="narrow"><button id="btnAdd">Add</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Session</h2>
+      <button class="danger" id="btnOut">Sign out</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var API = "https://triggeredshort-crawler.realroofers.workers.dev/";
+var KEY = "";
+
+function $(id) { return document.getElementById(id); }
+
+function say(text, bad) {
+  var m = $("msg");
+  m.textContent = text;
+  m.className = "msg show " + (bad ? "err" : "ok");
+  clearTimeout(say._t);
+  say._t = setTimeout(function () { m.className = "msg"; }, 4000);
+}
+
+function api(params) {
+  var qs = Object.keys(params)
+    .map(function (k) { return encodeURIComponent(k) + "=" + encodeURIComponent(params[k]); })
+    .join("&");
+  return fetch(API + "?" + qs, { headers: { "X-Auth-Key": KEY } })
+    .then(function (r) {
+      if (r.status === 401) throw new Error("Key rejected");
+      return r.json();
+    });
+}
+
+/* ---------------------------------------------------------- sign in */
+
+function signIn() {
+  var v = $("keyIn").value.trim();
+  if (!v) return;
+  KEY = v;
+  api({ view: "meta" })
+    .then(function () {
+      try { sessionStorage.setItem("tsk", KEY); } catch (e) {}
+      $("login").style.display = "none";
+      $("app").style.display = "block";
+      loadAll();
+    })
+    .catch(function (e) {
+      KEY = "";
+      say(e.message || "Sign in failed", true);
+    });
+}
+
+function signOut() {
+  KEY = "";
+  try { sessionStorage.removeItem("tsk"); } catch (e) {}
+  $("app").style.display = "none";
+  $("login").style.display = "block";
+  $("keyIn").value = "";
+  $("hdrStatus").textContent = "";
+}
+
+/* ---------------------------------------------------------- load */
+
+function loadAll() {
+  api({ view: "meta" }).then(render).catch(function (e) { say(e.message, true); });
+}
+
+function render(data) {
+  var rows = (data && data.meta) || [];
+  var m = {};
+  rows.forEach(function (r) { m[r.k] = r; });
+
+  var done = Number((m.crawl_done || {}).v || 0);
+  var pending = Number((m.crawl_pending || {}).v || 0);
+  var total = done + pending;
+  var pct = total ? Math.round((100 * done) / total) : 0;
+
+  $("bar").style.width = pct + "%";
+  $("crawlLine").textContent =
+    done.toLocaleString() + " of " + total.toLocaleString() +
+    " companies read (" + pct + "%). " +
+    (pending ? pending.toLocaleString() + " to go." : "Complete.");
+  $("hdrStatus").textContent =
+    "last recalculated " + String((m.last_refreshed || {}).v || "").slice(0, 16).replace("T", " ");
+
+  var s = [
+    ["nv_listed", "Nevada", "nv_pct"],
+    ["de_listed", "Delaware", "de_pct"],
+    ["tx_listed", "Texas", "tx_pct"],
+    ["listed_total", "All read", null],
+    ["renamed_issuers", "Renamed", null],
+    ["serial_renamers", "Renamed 2+", null],
+    ["shared_addresses", "Shared addresses", null],
+    ["shells_ever", "Shell origin", null]
+  ];
+  $("stats").innerHTML = s.map(function (row) {
+    var n = (m[row[0]] || {}).v;
+    var p = row[2] ? (m[row[2]] || {}).v : null;
+    return '<div class="stat"><div class="n">' +
+      (n === undefined ? "&mdash;" : Number(n).toLocaleString()) +
+      "</div><div class=\"l\">" + row[1] + (p ? " &middot; " + p + "%" : "") + "</div></div>";
+  }).join("");
+
+  $("sampleNote").textContent = pending
+    ? "Partial. The crawl reads oldest registrants first, which skews toward Delaware. " +
+      "These shares will move until it finishes."
+    : "Complete run.";
+
+  var body = $("metaBody");
+  body.innerHTML = "";
+  rows.forEach(function (r) {
+    var tr = document.createElement("tr");
+
+    var tdK = document.createElement("td");
+    tdK.className = "k";
+    tdK.innerHTML = r.k + '<br><span class="tag ' + (r.source === "manual" ? "manual" : "auto") +
+      '">' + r.source + "</span>";
+
+    var tdV = document.createElement("td");
+    var inp = document.createElement(String(r.v || "").length > 60 ? "textarea" : "input");
+    if (inp.tagName === "INPUT") inp.type = "text";
+    inp.value = r.v === null ? "" : r.v;
+    tdV.appendChild(inp);
+
+    var tdB = document.createElement("td");
+    tdB.style.whiteSpace = "nowrap";
+    var save = document.createElement("button");
+    save.textContent = "Save";
+    save.onclick = function () {
+      save.disabled = true;
+      api({ meta: "set", k: r.k, v: inp.value })
+        .then(function () { say("Saved " + r.k); loadAll(); })
+        .catch(function (e) { say(e.message, true); save.disabled = false; });
+    };
+    var del = document.createElement("button");
+    del.textContent = "Delete";
+    del.className = "danger";
+    del.style.marginLeft = ".4rem";
+    del.onclick = function () {
+      if (!confirm("Delete " + r.k + "?")) return;
+      api({ meta: "delete", k: r.k })
+        .then(function () { say("Deleted " + r.k); loadAll(); })
+        .catch(function (e) { say(e.message, true); });
+    };
+    tdB.appendChild(save);
+    tdB.appendChild(del);
+
+    tr.appendChild(tdK);
+    tr.appendChild(tdV);
+    tr.appendChild(tdB);
+    body.appendChild(tr);
+  });
+}
+
+/* ---------------------------------------------------------- wire up */
+
+$("signin").onclick = signIn;
+$("keyIn").addEventListener("keydown", function (e) { if (e.key === "Enter") signIn(); });
+$("btnOut").onclick = signOut;
+$("btnReload").onclick = loadAll;
+
+$("btnRefresh").onclick = function () {
+  $("btnRefresh").disabled = true;
+  api({ meta: "refresh" })
+    .then(function () { say("Recalculated"); loadAll(); })
+    .catch(function (e) { say(e.message, true); })
+    .then(function () { $("btnRefresh").disabled = false; });
+};
+
+$("btnAdd").onclick = function () {
+  var k = $("newK").value.trim();
+  var v = $("newV").value;
+  if (!k) { say("Key required", true); return; }
+  api({ meta: "set", k: k, v: v })
+    .then(function () {
+      $("newK").value = ""; $("newV").value = "";
+      say("Added " + k); loadAll();
+    })
+    .catch(function (e) { say(e.message, true); });
+};
+
+(function () {
+  var saved = null;
+  try { saved = sessionStorage.getItem("tsk"); } catch (e) {}
+  if (saved) { $("keyIn").value = saved; signIn(); }
+})();
+</script>
+
+</body>
+</html>
