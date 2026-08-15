@@ -92,6 +92,12 @@
   }
   .tasks a.ast:hover { background: #e8eef6; border-radius: 3px; }
   .tasks li { position: relative; }
+  .hit { border:1px solid var(--line); border-radius:5px; padding:.55rem .7rem; margin:.4rem 0;
+         display:flex; align-items:center; gap:.7rem; flex-wrap:wrap; background:#fff; }
+  .hit .tick { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight:700; }
+  .hit .nm { flex:1 1 200px; }
+  .hit .meta { font-size:.8rem; color:var(--muted); display:block; }
+  .hit .have { font-size:.78rem; color:var(--ok); font-weight:600; }
   .flash { animation: flash 1.4s ease-out 1; }
   @keyframes flash { 0% { background: #fdf3e0; } 100% { background: transparent; } }
   .asthint { font-size: .82rem; color: var(--muted); margin: 0 0 .6rem; }
@@ -255,16 +261,13 @@
     <div class="card" id="secWatch">
       <h2>Watchlist</h2>
       <div class="row">
-        <div style="flex:0 0 150px">
-          <label for="wCik">CIK</label>
-          <input type="text" id="wCik" placeholder="0000894158">
+        <div style="flex:1 1 260px">
+          <label for="wFind">Company name or ticker</label>
+          <input type="text" id="wFind" placeholder="Theriva &nbsp;or&nbsp; TOVX" autocomplete="off">
         </div>
-        <div style="flex:1 1 200px">
-          <label for="wLabel">Name</label>
-          <input type="text" id="wLabel" placeholder="Theriva Biologics">
-        </div>
-        <div class="narrow"><button id="btnWatch">Add</button></div>
+        <div class="narrow"><button id="btnFind">Search</button></div>
       </div>
+      <div id="findResults"></div>
       <table style="margin-top:.9rem">
         <thead><tr><th>CIK</th><th>Name</th><th></th></tr></thead>
         <tbody id="watchBody"></tbody>
@@ -321,8 +324,9 @@
 
       <details class="man" id="manWatch"><summary>Watchlist</summary><div class="body">
         <p>The companies followed closely &mdash; every filing, every name change.</p>
-        <p>To add one you need its <strong>CIK</strong>, the SEC's number for that company. Search
-        the company on sec.gov to find it. Paste the number, give it a name, press Add.</p>
+        <p>Type a company name or a ticker &mdash; Theriva, or TOVX &mdash; and press Search. Pick
+        the right one from the list and press Follow. You never need to know a CIK number; the
+        system looks it up.</p>
         <p>Switching a company off stops the tracking and keeps everything already collected.</p>
       </div></details>
 
@@ -504,7 +508,7 @@ var TASKS = [
   { t: "Look at the state counts",        d: "Nevada, Delaware, Texas, renames, addresses",   go: "secStates", man: "manCrawl",    need: "read.data" },
   { t: "Change text shown on the site",   d: "Edit any value and save it",                    go: "secValues", man: "manValues",   need: "meta.write" },
   { t: "Add a new site value",            d: "Create a key and its text",                     go: "secAdd",    man: "manValues",   need: "meta.write" },
-  { t: "Add a company to the watchlist",  d: "Follow every filing for one company",           go: "secWatch",  man: "manWatch",    need: "watchlist.write" },
+  { t: "Find a company and follow it",    d: "Search by name or ticker \u2014 no numbers needed",  go: "secWatch",  man: "manWatch",    need: "watchlist.write" },
   { t: "Download a table",                d: "Any list as a spreadsheet file",                go: "secExport", man: null,          need: "export" },
   { t: "Add or remove a person",          d: "Accounts, roles, passwords, on and off",        go: "secPeople", man: "manPeople",   need: "users.write" },
   { t: "Check who has signed in",         d: "Every attempt, success or failure",             go: "secPeople", man: "manPeople",   need: "logins.read" },
@@ -810,16 +814,59 @@ $("passIn").addEventListener("keydown", function (e) { if (e.key === "Enter") si
 $("userIn").addEventListener("keydown", function (e) { if (e.key === "Enter") $("passIn").focus(); });
 $("keyIn").addEventListener("keydown", function (e) { if (e.key === "Enter") signInKey(); });
 
-$("btnWatch").onclick = function () {
-  var c = $("wCik").value.trim();
-  if (!c) { say("CIK required", true); return; }
-  api({ watch: "add", cik: c, label: $("wLabel").value || c })
-    .then(function (r) {
-      if (r.error) { say(r.error, true); return; }
-      $("wCik").value = ""; $("wLabel").value = "";
-      say("Added " + r.label); loadWatch();
+function runFind() {
+  var q = $("wFind").value.trim();
+  if (!q) return;
+  $("findResults").innerHTML = '<p class="note">Searching&hellip;</p>';
+  api({ find: q }).then(function (d) {
+    var box = $("findResults");
+    box.innerHTML = "";
+    if (!d.matches || !d.matches.length) {
+      box.innerHTML = '<p class="note">Nothing found for &ldquo;' + q +
+        '&rdquo;. The crawl is still reading companies, so a newer listing may not be in yet.</p>';
+      return;
+    }
+    d.matches.forEach(function (m) {
+      var div = document.createElement("div");
+      div.className = "hit";
+
+      var left = document.createElement("div");
+      left.className = "nm";
+      var bits = [];
+      if (m.exchange) bits.push(m.exchange);
+      if (m.state) bits.push("incorporated in " + m.state);
+      if (m.name_changes) bits.push(m.name_changes + " name change" + (m.name_changes > 1 ? "s" : ""));
+      if (m.industry) bits.push(m.industry);
+      left.innerHTML = '<span class="tick">' + (m.ticker || "&mdash;") + "</span> " + m.name +
+        '<span class="meta">' + bits.join(" &middot; ") + "</span>";
+
+      var right = document.createElement("div");
+      if (m.on_watchlist) {
+        right.innerHTML = '<span class="have">Already followed</span>';
+      } else {
+        var b = document.createElement("button");
+        b.textContent = "Follow";
+        b.onclick = function () {
+          b.disabled = true;
+          api({ watch: "add", cik: m.cik, label: m.name })
+            .then(function (r) {
+              if (r.error) { say(r.error, true); b.disabled = false; return; }
+              say("Now following " + m.name);
+              runFind(); loadWatch();
+            });
+        };
+        right.appendChild(b);
+      }
+
+      div.appendChild(left);
+      div.appendChild(right);
+      box.appendChild(div);
     });
-};
+  }).catch(function (e) { say(e.message, true); });
+}
+
+$("btnFind").onclick = runFind;
+$("wFind").addEventListener("keydown", function (e) { if (e.key === "Enter") runFind(); });
 
 $("btnAddUser").onclick = function () {
   var u = $("nuUser").value.trim().toLowerCase();
