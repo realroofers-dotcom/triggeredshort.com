@@ -112,14 +112,18 @@
         <label for="firm">Firm &mdash; optional</label>
         <input type="text" id="firm" placeholder="Where you work">
       </div>
-      <div style="flex:1 1 140px">
+      <div style="flex:1 1 130px">
         <label for="crd">CRD number &mdash; optional</label>
         <input type="text" id="crd" placeholder="Digits only" inputmode="numeric">
       </div>
+      <div style="flex:1 1 130px">
+        <label for="cik">SEC CIK &mdash; optional</label>
+        <input type="text" id="cik" placeholder="Digits only" inputmode="numeric">
+      </div>
     </div>
     <p class="meta" style="margin-top:.5rem">
-      A CRD number is checked against FINRA BrokerCheck, which is public. Everything on this
-      line is optional and nothing is stored beyond what you type.
+      A CRD number is checked against FINRA BrokerCheck and a CIK against SEC EDGAR. Both are
+      public records. Everything on this line is optional.
     </p>
 
     <div style="margin-top:.7rem"><button id="enter">Continue</button></div>
@@ -161,7 +165,7 @@
 
 <script>
 var API = "https://triggeredshort-crawler.realroofers.workers.dev/";
-var ME = { first: "", last: "", email: "", role: "", firm: "", crd: "" };
+var ME = { first: "", last: "", email: "", role: "", firm: "", crd: "", cik: "" };
 
 function $(id) { return document.getElementById(id); }
 
@@ -186,7 +190,7 @@ function showSearch() {
   if (f) f.addEventListener("click", function (e) {
     e.preventDefault();
     try { localStorage.removeItem("ts_visitor"); } catch (err) {}
-    ME = { first: "", last: "", email: "", role: "", firm: "", crd: "" };
+    ME = { first: "", last: "", email: "", role: "", firm: "", crd: "", cik: "" };
     $("searchcard").style.display = "none";
     $("gate").style.display = "block";
     $("out").innerHTML = "";
@@ -215,6 +219,7 @@ function run(term) {
         (ME.role ? "&role=" + encodeURIComponent(ME.role) : "") +
         (ME.firm ? "&firm=" + encodeURIComponent(ME.firm) : "") +
         (ME.crd ? "&crd=" + encodeURIComponent(ME.crd) : "") +
+        (ME.cik ? "&cik=" + encodeURIComponent(ME.cik) : "") +
         "&email=" + encodeURIComponent(ME.email))
     .then(function (r) {
       if (r.status === 401) throw new Error("Worker returned unauthorized \u2014 the 991-line paste did not take");
@@ -280,7 +285,8 @@ $("enter").addEventListener("click", function () {
   }
   ME = {
     first: f, last: l, email: e.toLowerCase(),
-    role: $("role").value, firm: $("firm").value.trim(), crd: $("crd").value.replace(/\D/g, "")
+    role: $("role").value, firm: $("firm").value.trim(),
+    crd: $("crd").value.replace(/\D/g, ""), cik: $("cik").value.replace(/\D/g, "")
   };
   saveMe();
   $("gatemsg").textContent = "";
