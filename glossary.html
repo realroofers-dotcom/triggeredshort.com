@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary — Triggered Short</title>
+<style>
+/* Strip this whole block to inherit the site stylesheet. */
+:root{--ink:#12355B;--body:#1B2430;--rule:#DCE2E8;--accent:#B3202C;--muted:#5A6472;--panel:#F4F7FA}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 Georgia,"Times New Roman",serif;color:var(--body);background:#fff}
+.wrap{max-width:820px;margin:0 auto;padding:32px 20px 80px}
+h1{font-family:Helvetica,Arial,sans-serif;color:var(--ink);font-size:30px;margin:0 0 6px}
+.sub{color:var(--muted);font-style:italic;margin:0 0 28px}
+.jump{background:var(--panel);border:1px solid var(--rule);padding:14px 18px;margin-bottom:34px;
+      font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:2}
+.jump a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);margin-right:14px;white-space:nowrap}
+.jump a:hover{border-color:var(--accent);color:var(--accent)}
+.term{border-top:2px solid var(--ink);padding-top:18px;margin:38px 0 0}
+.term h2{font-family:Helvetica,Arial,sans-serif;color:var(--ink);font-size:21px;margin:0 0 2px}
+.alsoknown{color:var(--muted);font-size:14px;font-style:italic;margin:0 0 14px}
+.plain{font-size:17px}
+.matters{background:var(--panel);border-left:4px solid var(--accent);padding:12px 16px;margin:16px 0}
+.matters strong{font-family:Helvetica,Arial,sans-serif;font-size:13px;letter-spacing:.06em;
+                text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px}
+.where{font-family:Helvetica,Arial,sans-serif;font-size:14px;color:var(--body);
+       border:1px solid var(--rule);padding:12px 16px;margin:16px 0}
+.where strong{color:var(--ink);display:block;margin-bottom:6px;letter-spacing:.04em;
+              text-transform:uppercase;font-size:12px}
+.where ul{margin:6px 0 0 18px;padding:0}
+.where li{margin-bottom:3px}
+code{background:var(--panel);padding:1px 5px;font-size:14px}
+.note{color:var(--muted);font-size:15px;font-style:italic}
+footer{margin-top:60px;border-top:1px solid var(--rule);padding-top:18px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Glossary</h1>
+<p class="sub">The words that appear in the filings, in plain English — and where to find each one.</p>
+
+<div class="jump">
+<a href="#blocker">Blocker</a><a href="#pirate">Pirate transaction</a><a href="#blockercycle">Blocker cycle</a><a href="#prefunded">Pre-funded warrant</a><a href="#coverage">Warrant coverage</a><a href="#repricing">Repricing / inducement</a><a href="#deemed">Deemed dividend</a><a href="#atm">ATM</a><a href="#elo">Equity line of credit</a><a href="#shelf">Shelf registration</a><a href="#reverse">Reverse split</a><a href="#authorized">Authorized vs outstanding</a><a href="#quorum">Quorum</a><a href="#agent">Placement agent</a><a href="#goingconcern">Going concern</a><a href="#ftd">Fails to deliver</a><a href="#13g">13G vs 13D</a>
+</div>
+
+<!-- ============ BLOCKER ============ -->
+<div class="term" id="blocker">
+<h2>Blocker</h2>
+<p class="alsoknown">Also written as: Beneficial Ownership Limitation &middot; Ownership Cap &middot; 4.99% Limitation &middot; Maximum Percentage</p>
+
+<div class="matters" style="background:#FFF6F6;border-left-color:var(--accent)">
+<strong>If you see one, this is what it is telling you</strong>
+Somebody holds the right to buy shares at a price fixed in the past &mdash; more of them than the ownership number in the filing shows &mdash; and in order to use that right they have to sell shares into the market first. The selling is not optional. It is how the instrument works.
+</div>
+
+<p class="plain">A blocker is a clause inside a warrant or convertible note saying the holder may not convert it if that would push their ownership above a set percentage. Usually 4.99%. Sometimes 9.99%.</p>
+
+<p><strong>It is a cap on converting, not a cap on owning.</strong> That single distinction is the whole thing, and it is where most readers go wrong.</p>
+
+<p>A tap, not a tank. The tank can be any size. The tap controls how fast it empties.</p>
+
+<h3 style="margin-top:22px">Three consequences, in order</h3>
+
+<p><strong>1. The number you see is the ceiling, not the position.</strong> A holder capped at 4.99% reports 4.99% &mdash; even if the warrants behind it would convert to five or ten times that. You are looking at a small position and a large queue, and the filing shows you only the first part.</p>
+
+<p><strong>2. To convert more, they must sell first.</strong> Once a capped holder is at the cap, the only way to exercise another warrant is to bring ownership back down &mdash; which means selling shares. Then exercise. Then sell again. That cycle is a condition of using the instrument, not a view about the company. It is why supply can arrive on good news for reasons that have nothing to do with the news.</p>
+
+<p><strong>3. The cap grows when the company dilutes.</strong> It is a percentage, so it moves with the share count. On roughly 10 million shares outstanding, 4.99% permits about 499,000 shares. On 45,892,668 shares, the same clause permits about 2,290,000. Nothing was renegotiated. The company issued stock and the limit on the capped holder loosened by itself.</p>
+
+<p>The holder can usually raise or lower their own cap by giving the company notice &mdash; commonly 61 days. So even the number itself is a setting, not a wall.</p>
+
+<div class="matters">
+<strong>What it does not tell you</strong>
+Nothing about anyone's intent, and nothing about whether a particular holder sold on a particular day. A blocker is standard language in small-company financing and appears in deals where nobody has done anything wrong. What it tells you is what the structure makes likely &mdash; not what anyone did.
+</div>
+
+<div class="where">
+<strong>Where you will find it</strong>
+Blockers are contract terms, not disclosures. They never appear in a press release or the body of a filing.
+<ul>
+<li><strong>8-K exhibits</strong> &mdash; <code>EX-4.1 Form of Warrant</code>, <code>EX-10.1 Securities Purchase Agreement</code>, the inducement letter. <strong>This is the primary source.</strong> Open the exhibit and search it for &ldquo;4.99&rdquo; or &ldquo;Beneficial Ownership Limitation.&rdquo;</li>
+<li><strong>Schedule 13G and 13G/A footnotes</strong> &mdash; where the holder explains that its reported figure is capped. This is how you learn a cap exists without reading the contract.</li>
+<li><strong>S-1 and S-3</strong> &mdash; &ldquo;Description of Securities We Are Offering,&rdquo; and the selling-stockholder footnotes.</li>
+<li><strong>10-K and 10-Q</strong> &mdash; the equity or warrants note.</li>
+<li><strong>DEF 14A proxy</strong> &mdash; when the arrangement needs a shareholder vote.</li>
+</ul>
+</div>
+</div>
+
+<!-- ============ PRE-FUNDED WARRANT ============ -->
+<div class="term" id="prefunded">
+<h2>Pre-funded warrant</h2>
+<p class="alsoknown">Also written as: Pre-Funded Common Stock Purchase Warrant</p>
+<p class="plain">A warrant where the buyer pays almost the whole price up front and leaves a token amount — often $0.0001 — to be paid at exercise. Economically it is a share. Legally it is not one yet.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+It exists to get around the blocker. A buyer who cannot hold more than 4.99% of the common stock can hold unlimited pre-funded warrants, because unexercised warrants do not count toward beneficial ownership. The money is in the company and the economic position is established, but the shares are not outstanding and do not vote.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>8-K exhibits, <code>EX-4.x Form of Pre-Funded Warrant</code></li>
+<li>Offering press releases, usually one line near the bottom</li>
+<li>S-1 / S-3 prospectus, "Description of Securities"</li></ul>
+</div>
+</div>
+
+<!-- ============ WARRANT COVERAGE ============ -->
+<div class="term" id="coverage">
+<h2>Warrant coverage</h2>
+<p class="plain">The number of warrants issued alongside each share sold, expressed as a percentage. "100% warrant coverage" means every share bought came with a warrant to buy one more share later, at a set price.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+Coverage is future supply. A financing with 200% coverage creates two additional potential shares for every one sold. Those shares are not outstanding yet, so they do not appear in the share count — but they are already committed, at a price already fixed.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>The offering 8-K and its press release</li>
+<li>The warrant exhibit itself, for the exact ratio and price</li>
+<li>10-Q equity note, as "warrants outstanding"</li></ul>
+</div>
+</div>
+
+<!-- ============ REPRICING ============ -->
+<div class="term" id="repricing">
+<h2>Repricing / warrant inducement</h2>
+<p class="plain">The company lowers the exercise price on warrants already outstanding, so that holders will exercise them and hand over cash. Usually the holder also receives new warrants as part of the bargain.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+The company gets cash today. Existing shareholders get dilution today <em>and</em> a fresh set of warrants overhanging the stock tomorrow. Watch the ratio of new warrants to warrants exercised — two-for-one is common and means the overhang doubles.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>8-K, Item 1.01 and Item 3.02, with <code>EX-10.x Inducement Letter</code></li>
+<li>10-Q, in the equity note — this is where the value transferred is quantified</li>
+<li>Proxy, if the exchange needs a shareholder vote</li></ul>
+</div>
+</div>
+
+<!-- ============ DEEMED DIVIDEND ============ -->
+<div class="term" id="deemed">
+<h2>Deemed dividend</h2>
+<p class="plain">An accounting entry recording value handed to one class of holders that was not paid in cash. When a company reprices warrants below what they were worth, the difference is measured and booked as a deemed dividend.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+It is the company's own arithmetic on what the transaction cost. If a company received $4.4 million and recorded $5.9 million of value transferred, the $1.5 million gap is not an outside analyst's estimate — it is the company's number, audited, in its own filing.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>10-Q and 10-K, statement of operations and the equity note</li>
+<li>Look for "deemed dividend" in the loss-per-share reconciliation</li></ul>
+</div>
+</div>
+
+<!-- ============ ATM ============ -->
+<div class="term" id="atm">
+<h2>ATM — at-the-market offering</h2>
+<p class="plain">A standing arrangement with a broker allowing the company to sell new shares directly into the open market, a little at a time, at whatever the price happens to be. No announcement is required before each sale.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+Establishing an ATM is not the same as using one. A $75 million facility may sit unused, or may be sold down steadily with no headline. The only way to know how much was actually sold is the quarterly filing — never the announcement.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>424(b)(5) prospectus supplement, and <code>EX-1.1 Sales Agreement</code> to an 8-K</li>
+<li>10-Q, for shares actually sold and proceeds received</li></ul>
+</div>
+</div>
+
+<!-- ============ ELOC ============ -->
+<div class="term" id="elo">
+<h2>Equity line of credit</h2>
+<p class="alsoknown">Also: ELOC · committed equity facility · standby equity purchase agreement</p>
+<p class="plain">An agreement where an investor commits to buy shares from the company on demand, up to a set dollar amount, usually at a discount to the market price at the time of each draw.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+The discount is fixed but the price is not. As the share price falls, each draw issues more shares for the same money.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>8-K Item 1.01 with the purchase agreement as an exhibit</li>
+<li>S-1 registering the resale of the shares</li></ul>
+</div>
+</div>
+
+<!-- ============ SHELF ============ -->
+<div class="term" id="shelf">
+<h2>Shelf registration</h2>
+<p class="plain">A registration statement, usually Form S-3, that pre-clears a company to sell securities up to a stated amount at any time over the following three years, without starting the process again.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+A shelf is capacity, not a sale. But it tells you what the company has already prepared to do, and it is filed long before anything is sold.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>Form <code>S-3</code>, and each drawdown as a <code>424(b)</code> prospectus supplement</li></ul>
+</div>
+</div>
+
+<!-- ============ REVERSE SPLIT ============ -->
+<div class="term" id="reverse">
+<h2>Reverse split</h2>
+<p class="plain">The company replaces every set number of existing shares with one new share. A 1-for-25 split turns 25 shares into 1, and multiplies the price by roughly 25. Your percentage of the company does not change.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+Nothing is created or destroyed on the day. What matters is what happens next — a reverse split lowers the share count without lowering the authorized ceiling, which restores room to issue. Splits often precede financings. Also: each one changes the CUSIP, so the security identifier on old filings will not match the new one.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>8-K Item 5.03, amendment to the articles of incorporation</li>
+<li>Proxy, if shareholders vote on it — some states allow the board to act alone</li>
+<li>The CUSIP change is visible on the cover page of any 13G or 13D</li></ul>
+</div>
+</div>
+
+<!-- ============ AUTHORIZED ============ -->
+<div class="term" id="authorized">
+<h2>Authorized vs outstanding shares</h2>
+<p class="plain"><strong>Outstanding</strong> is how many shares exist right now. <strong>Authorized</strong> is the maximum the charter permits the company to issue without another shareholder vote. The gap between them is how much dilution is already approved.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+A vote to raise the authorized ceiling is the single most consequential vote most small-company shareholders ever get, and it is usually the least attended. The ceiling is raised years before the shares are issued.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>10-K and 10-Q cover page and balance sheet</li>
+<li>DEF 14A proxy, as a numbered proposal</li>
+<li>8-K Item 5.03 when the charter is amended</li></ul>
+</div>
+</div>
+
+<!-- ============ QUORUM ============ -->
+<div class="term" id="quorum">
+<h2>Quorum</h2>
+<p class="plain">The minimum share participation required for a shareholder meeting to transact business — often one third of the voting power. If it is not reached, nothing can be decided and the meeting fails.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+Failed meetings are a measurable fact about shareholder participation, and they are public. A company that cannot assemble a third of its own float is telling you something about who owns it and whether they are paying attention. Note also that brokers may vote shares they hold for customers who did not instruct them — but only on routine matters. A share issuance is not routine.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>8-K <strong>Item 5.07</strong>, Submission of Matters to a Vote of Security Holders — this reports the actual tallies</li>
+<li>The bylaws, filed as an exhibit, for the quorum threshold and adjournment rules</li></ul>
+</div>
+</div>
+
+<!-- ============ AGENT ============ -->
+<div class="term" id="agent">
+<h2>Placement agent</h2>
+<p class="plain">The broker-dealer that arranges a financing between the company and investors, paid a percentage of the money raised, often plus warrants of its own.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+The agent is the connective tissue between issuers. The same firm often appears across many small companies, and the agreement terms — fee percentage, lockup period, right of first refusal — tend to repeat almost word for word. That repetition is measurable.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>8-K exhibit, <code>EX-1.1 Placement Agency Agreement</code></li>
+<li>The offering press release, usually the final paragraph</li>
+<li>424(b) prospectus supplement, "Plan of Distribution"</li></ul>
+</div>
+</div>
+
+<!-- ============ GOING CONCERN ============ -->
+<div class="term" id="goingconcern">
+<h2>Going concern</h2>
+<p class="plain">A formal statement in the financial statements that there is substantial doubt about whether the company can continue operating for the next twelve months without raising more money.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+It is management and the auditor saying, in the record, that more financing is required. Everything about the terms of the next financing follows from that sentence.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>10-K and 10-Q, Note 1 to the financial statements</li>
+<li>The auditor's report in the 10-K</li></ul>
+</div>
+</div>
+
+<!-- ============ FTD ============ -->
+<div class="term" id="ftd">
+<h2>Fails to deliver</h2>
+<p class="plain">Shares that were sold but not delivered to the buyer by the settlement deadline. The SEC publishes the daily totals for every security, free.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+Fails happen for ordinary operational reasons and are not by themselves evidence of anything. They are useful because they are one of the very few pieces of trading-side data the public can actually get.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>SEC "Fails-to-Deliver Data", published twice monthly, by settlement date and CUSIP</li></ul>
+</div>
+</div>
+
+<!-- ============ PIRATE TRANSACTION ============ -->
+<div class="term" id="pirate">
+<h2>Pirate transaction</h2>
+<p class="alsoknown">Our term, not a term of art. Describes a structure, not a firm.</p>
+
+<p class="plain">A financing that carries all three of these at once:</p>
+<ol style="margin:10px 0 0 20px;padding:0">
+<li style="margin-bottom:5px"><strong>A discounted price</strong> to the investor, below where the stock trades.</li>
+<li style="margin-bottom:5px"><strong>Warrant coverage</strong> on top — the right to buy more later at a fixed price.</li>
+<li style="margin-bottom:5px"><strong>An ownership blocker</strong> — a cap, usually 4.99%, on how much can be converted at once.</li>
+</ol>
+
+<p style="margin-top:12px">Each one is ordinary by itself. Together they describe a deal where supply is committed in advance, at a price the market has not seen yet.</p>
+
+<div class="matters">
+<strong>Why it matters to an ordinary shareholder</strong>
+A reader who spots all three can expect what the structure makes likely — shares sold into strength, exercise at the fixed low price, and the cycle repeating, because a capped holder must sell before it can exercise again.
+<br><br>
+<strong style="text-transform:none;letter-spacing:0;font-size:14px;color:var(--ink);display:inline">Every term is lawful. Every term is filed.</strong> The flag is on the transaction type. It is not a statement about any firm, any person, or anyone's intent.
+</div>
+
+<div class="where">
+<strong>Where you will find it</strong>
+The three terms sit in three different documents, which is why they are rarely seen together.
+<ul>
+<li><strong>The discount</strong> — the offering press release and the <code>424(b)</code> prospectus supplement</li>
+<li><strong>The warrant coverage</strong> — the 8-K announcing the offering</li>
+<li><strong>The blocker</strong> — <code>EX-4.1 Form of Warrant</code>, the exhibit nobody opens</li>
+</ul>
+</div>
+</div>
+
+<!-- ============ THE BLOCKER CYCLE ============ -->
+<div class="term" id="blockercycle">
+<h2>The blocker cycle</h2>
+
+<p class="plain">The repeating sequence a 4.99% cap creates. The holder exercises up to the cap. To exercise any more, it must first sell shares to get back under the cap. Sell, exercise, sell, exercise.</p>
+
+<div class="matters">
+<strong>Why it matters</strong>
+The selling is not a judgement about the company. It is a condition of using the instrument. That is why supply can arrive on good news for reasons that have nothing to do with what the news said.
+</div>
+
+<div class="where">
+<strong>Where you will find it</strong>
+<ul>
+<li><code>EX-4.1 Form of Warrant</code> — the cap and the notice period to change it</li>
+<li>10-Q equity note — warrants outstanding and warrants exercised</li>
+<li>13G/A history — the reported position falling as the warrants are used</li>
+</ul>
+</div>
+</div>
+
+<!-- ============ 13G vs 13D ============ -->
+<div class="term" id="13g">
+<h2>Schedule 13G vs Schedule 13D</h2>
+<p class="plain">Both report ownership above 5%. A <strong>13G</strong> is the short form, for holders who are passive — acquired in the ordinary course, not to influence control. A <strong>13D</strong> is the long form, required when the holder does intend to influence the company, and it must state the purpose.</p>
+<div class="matters">
+<strong>Why it matters</strong>
+A holder switching from 13G to 13D is announcing a change of intent, in advance, on the record. It is one of the few forward-looking signals in the whole system, and it is free to read.
+</div>
+<div class="where">
+<strong>Where you will find it</strong>
+<ul><li>EDGAR, under the <em>holder's</em> name as well as the company's</li>
+<li>Individuals who sit on boards also file <strong>Forms 3, 4 and 5</strong> under their own names — those do not carry the fund name in the header and are missed by a search on the fund alone</li></ul>
+</div>
+</div>
+
+<footer>
+Nothing on this page is investment advice. Definitions are written for ordinary readers and are not legal definitions; the governing language is always the filing itself.
+</footer>
+
+</div>
+</body>
+</html>
