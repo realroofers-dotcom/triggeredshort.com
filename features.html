@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What this site does — Triggered Short</title>
+<style>
+:root{--ink:#12355B;--body:#1B2430;--muted:#5A6472;--rule:#DCE2E8;--panel:#F4F7FA;
+      --accent:#B3202C;--gold:#C8922A;--teal:#1B7F79}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 Georgia,"Times New Roman",serif;color:var(--body);background:#fff}
+.wrap{max-width:820px;margin:0 auto;padding:34px 20px 90px}
+h1{font:700 30px/1.2 Helvetica,Arial,sans-serif;color:var(--ink);margin:0 0 6px}
+.lede{color:var(--muted);font-style:italic;margin:0 0 26px}
+h2{font:700 15px Helvetica,Arial,sans-serif;letter-spacing:.07em;text-transform:uppercase;
+   color:var(--ink);margin:34px 0 4px;border-bottom:2px solid var(--gold);padding-bottom:5px}
+.f{padding:14px 0;border-bottom:1px solid #EEF2F6}
+.f:last-child{border-bottom:0}
+.ft{display:flex;gap:9px;align-items:baseline;flex-wrap:wrap}
+.ft h3{margin:0;font:700 17px Helvetica,Arial,sans-serif;color:var(--ink)}
+.st{font:700 10px Helvetica,Arial;letter-spacing:.08em;text-transform:uppercase;
+    padding:2px 7px;border-radius:3px;white-space:nowrap}
+.st.live{background:#E3F3EC;color:#12604A}
+.st.building{background:#FDF1E3;color:#8A5B10}
+.st.planned{background:#EEF1F4;color:var(--muted)}
+.st.considering{background:#EEF1F4;color:var(--muted)}
+.f p{margin:6px 0 0}
+.why{margin-top:6px;font-size:14.5px;color:var(--muted);border-left:3px solid var(--rule);
+     padding-left:11px;font-style:italic}
+
+.box{margin:40px 0 0;border:1px solid var(--rule);border-top:4px solid var(--ink);
+     border-radius:4px;padding:20px 22px;background:var(--panel)}
+.box h2{margin-top:0;border:0;padding:0}
+.box p{margin:0 0 14px;font-size:15px}
+textarea,input{width:100%;padding:10px 12px;border:1px solid var(--rule);border-radius:4px;
+               font:15px/1.5 Georgia,serif;background:#fff}
+textarea{min-height:120px;resize:vertical}
+.row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.row>*{flex:1;min-width:200px}
+.chk{display:flex;align-items:center;gap:7px;font-size:14px;color:var(--muted);margin-top:10px}
+.chk input{width:auto}
+button{margin-top:14px;padding:11px 20px;border:0;background:var(--ink);color:#fff;border-radius:4px;
+       cursor:pointer;font:600 15px Helvetica,Arial}
+button:disabled{background:#9AA7B4}
+.thanks{margin-top:12px;color:#12604A;font-size:15px}
+.err{margin-top:12px;color:var(--accent);font-size:15px}
+
+.s{padding:14px 0;border-bottom:1px solid #EEF2F6}
+.s .meta{font-size:13px;color:var(--muted);margin-bottom:4px;display:flex;gap:10px;align-items:center}
+.s blockquote{margin:0;font-size:15.5px}
+.s .ans{margin-top:8px;border-left:3px solid var(--teal);padding-left:11px;font-size:15px}
+.s .ans b{color:var(--teal)}
+.mantra{border-top:3px solid var(--ink);border-bottom:1px solid var(--rule);
+        padding:20px 0 18px;margin-bottom:26px;text-align:center}
+.mantra p{margin:0;font:400 21px/1.45 Georgia,"Times New Roman",serif;color:var(--ink)}
+.mantra span{display:inline-block;margin-top:12px;font:700 13px Helvetica,Arial,sans-serif;
+             letter-spacing:.26em;color:var(--accent)}
+@media(max-width:520px){.mantra p{font-size:18px}}
+.tally{background:var(--panel);border:1px solid var(--rule);border-radius:4px;
+       padding:12px 15px;margin-bottom:18px;font-size:14.5px;color:var(--body)}
+.tally b{color:var(--ink)}
+.tally .note{display:block;margin-top:7px;font-size:13.5px;color:var(--muted);font-style:italic}
+.vote{border:1px solid var(--rule);background:#fff;color:var(--ink);border-radius:14px;
+      padding:2px 10px;font:600 12px Helvetica,Arial;cursor:pointer;margin:0}
+footer{margin-top:50px;border-top:1px solid var(--rule);padding-top:16px;font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="mantra">
+  <p>There are no geniuses on Wall Street.<br>Just better informed people.</p>
+  <span>BE INFORMED</span>
+</div>
+
+<h1>What this site does</h1>
+<p class="lede">Everything built so far, everything being built now, and a box to tell us what is missing.</p>
+
+<div id="features">Loading…</div>
+
+<!-- ---------------- suggestion box ---------------- -->
+<div class="box">
+  <h2>Tell us what to build</h2>
+  <p>If something here does not work the way you need it to, or there is a thing you
+     keep wishing existed, write it down. Every suggestion is read. The ones we act on
+     get published on this page with an answer, and the feature says where it came from.</p>
+
+  <textarea id="body" placeholder="What would make this useful to you?"></textarea>
+
+  <div class="row">
+    <input id="name" placeholder="Your name (optional)">
+    <input id="contact" type="email" placeholder="Email, if you want a reply (optional)">
+  </div>
+
+  <label class="chk"><input type="checkbox" id="show"> Show my name if this is published</label>
+
+  <button id="go" onclick="send()">Send it</button>
+  <div id="msg"></div>
+</div>
+
+<h2 style="margin-top:40px">Suggestions</h2>
+<div id="tally" class="tally"></div>
+<div id="sugs"></div>
+
+<footer>
+  <div style="text-align:center;margin-bottom:14px;font:700 12px Helvetica,Arial;
+              letter-spacing:.24em;color:var(--accent)">BE INFORMED</div>
+  Nothing on this site is investment advice. We publish what is in the filings and what
+  can be measured. Where we get something wrong, the correction is published here too.
+</footer>
+
+</div>
+
+<script>
+const API = localStorage.getItem('ts_api') || '';
+const h = s => String(s==null?'':s).replace(/[&<>"']/g,
+  c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const CAT = {
+  rooms:'The rooms', filings:'Reading the filings', research:'The research',
+  newsroom:'The newsroom', data:'The data', money:'How we make money'
+};
+
+async function load(){
+  let d;
+  try { d = await fetch(API + '/api/features').then(r=>r.json()); }
+  catch(e){ document.getElementById('features').innerHTML =
+    '<p class="err">Could not load the feature list.</p>'; return; }
+
+  const byCat = {};
+  for (const f of (d.features||[])) (byCat[f.category] = byCat[f.category] || []).push(f);
+
+  let html = '';
+  for (const [cat, label] of Object.entries(CAT)){
+    if (!byCat[cat]) continue;
+    html += `<h2>${h(label)}</h2>`;
+    for (const f of byCat[cat]){
+      html += `<div class="f"><div class="ft">
+                 <h3>${h(f.title)}</h3>
+                 <span class="st ${h(f.status)}">${h(f.status)}</span></div>
+               <p>${h(f.description)}</p>
+               ${f.why?`<div class="why">${h(f.why)}</div>`:''}</div>`;
+    }
+  }
+  document.getElementById('features').innerHTML = html || '<p>Nothing listed yet.</p>';
+
+  const t = d.tally || {};
+  document.getElementById('tally').innerHTML =
+    `<b>${h(t.received||0)}</b> suggestions received &middot;
+     <b>${h((t.published||0)+(t.building||0)+(t.done||0))}</b> published below &middot;
+     <b>${h(t.unread||0)}</b> still being read &middot;
+     <b>${h(t.declined||0)}</b> declined &middot;
+     <b>${h(t.removed||0)}</b> removed as spam or abuse
+     <span class="note">Every suggestion is read. We publish the substantive ones, and we publish
+     these numbers so you can see how many we did not. We hold back spam, promotion, anything
+     naming a person as a wrongdoer, and anything containing someone's private details — including
+     the sender's own.</span>`;
+
+  const s = (d.suggestions||[]);
+  document.getElementById('sugs').innerHTML = s.length ? s.map(x => `
+    <div class="s">
+      <div class="meta">
+        <button class="vote" onclick="vote('${h(x.suggestion_id)}')">▲ ${h(x.votes||0)}</button>
+        <span>${x.show_name && x.handle ? h(x.handle) : 'A reader'}</span>
+        <span>${new Date(x.created_at*1000).toLocaleDateString('en-US',
+              {month:'short',day:'numeric',year:'numeric'})}</span>
+        <span class="st ${h(x.status)}">${h(x.status)}</span>
+      </div>
+      <blockquote>${h(x.body)}</blockquote>
+      ${x.response?`<div class="ans"><b>Our answer:</b> ${h(x.response)}</div>`:''}
+    </div>`).join('')
+    : '<p style="color:#5A6472">None published yet. Yours could be the first.</p>';
+}
+
+async function send(){
+  const body = document.getElementById('body').value.trim();
+  const msg = document.getElementById('msg');
+  if (!body){ msg.className='err'; msg.textContent='Write something first.'; return; }
+  const btn = document.getElementById('go'); btn.disabled = true;
+  try {
+    const d = await fetch(API + '/api/suggest', {
+      method:'POST', headers:{'content-type':'application/json'},
+      body: JSON.stringify({
+        body,
+        name: document.getElementById('name').value.trim() || null,
+        contact: document.getElementById('contact').value.trim() || null,
+        show_name: document.getElementById('show').checked
+      })
+    }).then(r=>r.json());
+    if (d.error){ msg.className='err'; msg.textContent=d.error; }
+    else {
+      msg.className='thanks'; msg.textContent = d.note;
+      document.getElementById('body').value='';
+    }
+  } catch(e){ msg.className='err'; msg.textContent='Could not send. Try again.'; }
+  btn.disabled = false;
+}
+
+async function vote(id){
+  await fetch(API + '/api/suggest/vote', {
+    method:'POST', headers:{'content-type':'application/json'},
+    body: JSON.stringify({suggestion_id:id})
+  });
+  load();
+}
+
+load();
+</script>
+</body>
+</html>
