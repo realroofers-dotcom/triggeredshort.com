@@ -45,6 +45,9 @@ td.dirty input,td.dirty textarea{background:#FFFCEB;border-color:#E3C77A}
             font:600 13px Helvetica,Arial}
 .msg{margin-left:auto;font-size:13px;color:var(--muted)}
 .empty{color:var(--muted);padding:26px 0}
+.navlink{margin-left:14px;color:#12355B;text-decoration:none;font-weight:600;font-size:14px}
+.navlink:hover{text-decoration:underline}
+.top{display:flex;align-items:center;gap:8px}
 </style>
 </head>
 <body>
@@ -55,6 +58,10 @@ td.dirty input,td.dirty textarea{background:#FFFCEB;border-color:#E3C77A}
   <input id="tok" type="password" placeholder="admin token">
   <button onclick="saveCreds()">Connect</button>
   <span class="msg" id="status"></span>
+  <span style="flex:1"></span>
+  <a href="/chat" class="navlink">Rooms &rarr;</a>
+  <a href="/features" class="navlink">Features</a>
+  <a href="/glossary" class="navlink">Glossary</a>
 </div>
 
 <div class="wrap">
