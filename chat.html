@@ -98,7 +98,7 @@ a{color:var(--ink)}
 .koch{border-top:1px solid #EDF1F4;padding:14px 16px;background:#FCFDFE}
 .koch .kt{font:800 15px Helvetica,Arial,sans-serif;color:#C8922A;letter-spacing:.02em}
 .koch .ks{font-size:14px;color:#1B2430;margin:5px 0 12px}
-.kbars{display:flex;align-items:flex-end;gap:26px;height:120px;margin:0 0 6px}
+.kbars{display:flex;align-items:flex-end;gap:26px;min-height:120px;margin:0 0 6px}
 .kbar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
 .kbar .v{font:800 17px Helvetica,Arial,sans-serif;margin-bottom:5px}
 .kbar .r{width:100%;border-radius:2px 2px 0 0;min-height:4px}
@@ -502,10 +502,10 @@ async function loadCompany(ticker){
     const rcol  = returned ? '#1B7F79' : '#B3202C';
     const sentence = returned
       ? `${h(p.short_name||ticker)} did not take money from investors. It gave ${money(left)} back.`
-      : `Investors put in ${money(left)}${k.is_floor?' at least':''}. What is left is worth ${money(right)}.`;
+      : '';
 
     html += `<div class="koch"><div class="kt">HOW'M I DOIN'?</div>
-      <div class="ks">${sentence}</div>
+      ${sentence ? `<div class="ks">${sentence}</div>` : '<div style="height:8px"></div>'}
       <div class="kbars">
         <div class="kbar"><div class="v" style="color:${lcol}">${money(left)}</div>
           <div class="r" style="background:${lcol};height:${(left/top*88).toFixed(0)}px"></div>
