@@ -98,7 +98,7 @@ a{color:var(--ink)}
 .koch{border-top:1px solid #EDF1F4;padding:14px 16px;background:#FCFDFE}
 .koch .kt{font:800 15px Helvetica,Arial,sans-serif;color:#C8922A;letter-spacing:.02em}
 .koch .ks{font-size:14px;color:#1B2430;margin:5px 0 12px}
-.kbars{display:flex;align-items:flex-end;gap:26px;min-height:120px;margin:0 0 6px}
+.kbars{display:flex;align-items:flex-end;gap:26px;height:120px;margin:0 0 6px}
 .kbar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
 .kbar .v{font:800 17px Helvetica,Arial,sans-serif;margin-bottom:5px}
 .kbar .r{width:100%;border-radius:2px 2px 0 0;min-height:4px}
@@ -242,7 +242,7 @@ a{color:var(--ink)}
     <div class="sidenav">
       <a href="/features">Features</a>
       <a href="/glossary">Glossary</a>
-      <a href="/admin">Admin</a>
+      
     </div>
   </aside>
 
@@ -282,17 +282,42 @@ a{color:var(--ink)}
 </div>
 
 <script>
-const API = localStorage.getItem('ts_api') || 'https://triggeredshort-room.realroofers.workers.dev';
+/* The API base must have a working DEFAULT. A visitor arriving for the first
+   time has nothing in localStorage, and an empty base sends every call to
+   this site instead of the worker, where there is no /api/rooms to answer it.
+   localStorage still overrides, so a test base can be set in the browser. */
+const API_DEFAULT = 'https://triggeredshort-room.realroofers.workers.dev';
+const API = localStorage.getItem('ts_api') || API_DEFAULT;
 const SESSION = localStorage.getItem('ts_session') || ''; // internal_id for now
 let ROOM = 'general:market';
 
 const h = s => String(s==null?'':s).replace(/[&<>"']/g,
   c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-const api = (p, opt={}) => fetch(API + p, {
-  ...opt,
-  headers: { 'content-type':'application/json', 'x-session': SESSION, ...(opt.headers||{}) }
-}).then(r => r.json());
+/* A 404 returns an HTML error page, and r.json() on HTML throws a parse error
+   that says nothing useful. Read the body once and report what actually came
+   back. */
+const api = async (p, opt={}) => {
+  const r = await fetch(API + p, {
+    ...opt,
+    headers: { 'content-type':'application/json', 'x-session': SESSION, ...(opt.headers||{}) }
+  });
+  const text = await r.text();
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    throw new Error('The server returned ' + r.status + ' for ' + p +
+                    ' instead of data. Check the API base.');
+  }
+};
+
+/* One place to show a failure, so a broken call never leaves a blank page. */
+function showFailure(elId, err){
+  const el = document.getElementById(elId);
+  if (!el) return;
+  el.innerHTML = '<div class="empty">Could not reach the server.<br><small>' +
+                 h(err && err.message ? err.message : String(err)) + '</small></div>';
+}
 
 function stamp(iso, unix){
   const d = new Date(iso || unix*1000);
@@ -303,7 +328,9 @@ function stamp(iso, unix){
 
 /* ---------------- rooms ---------------- */
 async function loadRooms(){
-  const d = await api('/api/rooms');
+  let d;
+  try { d = await api('/api/rooms'); }
+  catch(e){ showFailure('rooms', e); return; }
   const gen = (d.rooms||[]).filter(r=>r.kind==='general');
   const tick = (d.rooms||[]).filter(r=>r.kind==='ticker');
   const box = document.getElementById('rooms');
@@ -351,7 +378,9 @@ async function doSearch(){
 async function openRoom(key){
   ROOM = key;
   document.getElementById('side').classList.remove('open');
-  const d = await api('/api/room?key=' + encodeURIComponent(key));
+  let d;
+  try { d = await api('/api/room?key=' + encodeURIComponent(key)); }
+  catch(e){ showFailure('stream', e); return; }
   if (d.error){ document.getElementById('stream').innerHTML='<div class="empty">'+h(d.error)+'</div>'; return; }
 
   const r = d.room;
@@ -502,10 +531,10 @@ async function loadCompany(ticker){
     const rcol  = returned ? '#1B7F79' : '#B3202C';
     const sentence = returned
       ? `${h(p.short_name||ticker)} did not take money from investors. It gave ${money(left)} back.`
-      : '';
+      : `Investors put in ${money(left)}${k.is_floor?' at least':''}. What is left is worth ${money(right)}.`;
 
     html += `<div class="koch"><div class="kt">HOW'M I DOIN'?</div>
-      ${sentence ? `<div class="ks">${sentence}</div>` : '<div style="height:8px"></div>'}
+      <div class="ks">${sentence}</div>
       <div class="kbars">
         <div class="kbar"><div class="v" style="color:${lcol}">${money(left)}</div>
           <div class="r" style="background:${lcol};height:${(left/top*88).toFixed(0)}px"></div>
@@ -693,7 +722,9 @@ async function loadPrices(){
 }
 
 async function loadStream(){
-  const d = await api('/api/stream?room=' + encodeURIComponent(ROOM) + '&limit=60');
+  let d;
+  try { d = await api('/api/stream?room=' + encodeURIComponent(ROOM) + '&limit=60'); }
+  catch(e){ showFailure('stream', e); return; }
   const s = document.getElementById('stream');
   if (!d.items || !d.items.length){
     s.innerHTML = '<div class="empty">Nothing here yet. Say the first thing.</div>';
@@ -773,7 +804,7 @@ document.getElementById('msg').addEventListener('keydown', e => {
   if ((e.metaKey||e.ctrlKey) && e.key==='Enter') send();
 });
 
-loadRooms().then(()=>openRoom(ROOM));
+loadRooms().then(()=>openRoom(ROOM)).catch(e=>showFailure('stream', e));
 setInterval(loadStream, 8000);
 </script>
 </body>
