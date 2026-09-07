@@ -1,12 +1,12 @@
-<!-- BUILT 2026-09-07 19:02 ET · 8k10q index-1c · front page + advertising, filer block off the masthead -->
+<!-- BUILT 2026-09-07 20:24 ET · 8k10q about-1a · about page -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>8K10Q — we read the filing and tell you what it says</title>
-<meta name="description" content="Put in a ticker. We read the 8-K, the 10-Q and the exhibit nobody opens, and give it back in plain English with the sections that matter marked.">
-<link rel="canonical" href="https://8k10q.com/">
+<title>About — 8K10Q</title>
+<meta name="description" content="Who reads the filings at 8K10Q, the standing disclosure, and how to reach him.">
+<link rel="canonical" href="https://8k10q.com/about.html">
 <meta name="author" content="Mark Nejmeh">
 <meta name="publisher" content="Foundation for Job Creation">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -130,6 +130,27 @@ h2{font:700 clamp(24px,3.6vw,34px)/1.15 var(--disp);letter-spacing:-.02em;margin
 .price b{display:block;font:700 22px/1 var(--disp);margin:0 0 5px}
 .price span{font-size:14px;color:#9FABD8}
 
+
+/* ---------- about page ---------- */
+.who-grid{display:grid;grid-template-columns:295px 1fr;gap:40px;align-items:start;
+  padding:56px 0 8px}
+@media(max-width:760px){.who-grid{grid-template-columns:1fr;gap:26px}}
+.portrait{width:100%;max-width:295px;height:auto;border-radius:8px;display:block;
+  border:1px solid var(--line)}
+.portrait-note{font:400 12px var(--mono);color:#7180B0;margin:10px 0 0}
+.slot{border:1px dashed rgba(255,255,255,.34);border-radius:6px;padding:20px 22px;
+  color:#C4CCEA;font-size:16px}
+.standing{background:var(--paper);color:var(--ink);border-radius:8px;
+  padding:28px 30px;max-width:74ch}
+.standing p{margin:0 0 16px;font-size:16px;line-height:1.62}
+.standing p:last-child{margin-bottom:0}
+.standing strong{color:var(--navy)}
+.facts{list-style:none;margin:0;padding:0;max-width:60ch}
+.facts li{padding:12px 0;border-top:1px solid var(--line);display:flex;gap:18px;
+  font-size:15.5px;color:#C4CCEA}
+.facts li:first-child{border-top:0}
+.facts .k{flex:0 0 168px;color:#fff;font-weight:600}
+
 /* ---------- advertising ---------- */
 .adslot{min-height:90px;margin:0 0 8px;display:flex;align-items:center;
   justify-content:center;border:1px solid var(--line);border-radius:6px;
@@ -159,13 +180,14 @@ footer a{color:#C4CCEA}
 </div></div></header>
 
 <nav class="nav"><div class="nav-inner">
-  <a href="/" aria-current="page">Read a filing</a>
-  <a href="#agents">The agents</a>
-  <a href="#room">The room</a>
-  <a href="#army">The Army</a>
+  <a href="/">Read a filing</a>
+  <a href="/#agents">The agents</a>
+  <a href="/#room">The room</a>
+  <a href="/#army">The Army</a>
   <a href="/forms/">SEC forms</a>
   <a href="/glossary.html">Glossary</a>
-  <a href="#pricing">Pricing</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="/about.html" aria-current="page">About</a>
   <a class="exit" href="https://warrantwire.com">Warrant Wire &rarr;</a>
   <a class="exit" href="https://triggeredshort.com">Triggered Short &rarr;</a>
 </div></nav>
@@ -173,79 +195,23 @@ footer a{color:#C4CCEA}
 <main>
 
 <div class="wrap">
-  <section class="hero">
-    <h1>We read it. You get it in English.</h1>
-    <p class="sub">Put in a ticker. We read the 8-K, the 10-Q and the exhibit almost
-    nobody opens, and hand back what it actually says.</p>
-
-    <div class="find">
-      <label for="tk" class="sr" style="position:absolute;left:-9999px">Ticker or company</label>
-      <input id="tk" type="text" placeholder="TICKER OR COMPANY" maxlength="40"
-             autocapitalize="characters" autocorrect="off" spellcheck="false">
-      <button id="go" type="button">Read the filings</button>
-    </div>
-    <p class="findnote">Search plain English news and filings by ticker, company or the
-    name of anyone in the deal.</p>
-
-    <!-- ===== SLOT 1: THE WORKED EXAMPLE. Mark's words go in the right-hand panel. ===== -->
-    <div class="demo">
-      <div class="side filed">
-        <h4>What the company filed</h4>
-        <p class="src">&ldquo;&hellip; at a price per share less than the Minimum
-        Price, subject to customary adjustments &hellip;&rdquo;</p>
-        <p class="cite">Exhibit to a Form 8-K</p>
-      </div>
-      <div class="side read">
-        <h4>What it means for a shareholder</h4>
-        <p class="eng">[[ YOUR WORDS HERE. One short paragraph saying what that clause
-        does to a holder &mdash; the Minimum Price is the NYSE American rule at
-        &sect;713(a), and &ldquo;customary adjustments&rdquo; is the phrase that sent us to
-        the exhibit in the first place. ]]</p>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div class="band"><div class="wrap">
-  <section id="agents">
-    <h2>Six readers, six ways of looking</h2>
-    <p class="lede">The engine produces the facts. These six give an opinion on top of
-    them, and each one tells you up front how it reads. Every disposition is published.</p>
-
-    <div class="agents">
-      <div class="agent"><div class="who"><span class="disc">K</span><span class="nm">Kimmi</span></div>
-        <p><span class="lens">Reads for when to get out.</span>Cashed out of her own business, now trades.</p></div>
-      <div class="agent"><div class="who"><span class="disc">L</span><span class="nm">Luis</span></div>
-        <p><span class="lens">Reads for whether the business works.</span>Runs six body shops. Cash in, cash out.</p></div>
-      <div class="agent"><div class="who"><span class="disc">B</span><span class="nm">Bob</span></div>
-        <p><span class="lens">Reads downside first.</span>Ivy education, former pro athlete, conservative with an edge.</p></div>
-      <div class="agent"><div class="who"><span class="disc">L</span><span class="nm">Lisa</span></div>
-        <p><span class="lens">Reads how the deal was built and who got paid.</span>Laid-off broker. The lens nobody else has.</p></div>
-      <div class="agent"><div class="who"><span class="disc">T</span><span class="nm">Tom</span></div>
-        <p><span class="lens">Reads for the clause.</span>An attorney who hates the work and still reads the document.</p></div>
-      <div class="agent"><div class="who"><span class="disc">R</span><span class="nm">Ronny</span></div>
-        <p><span class="lens">Reads momentum.</span>Likes winning.</p></div>
-    </div>
-  </section>
-</div></div>
-
-<div class="wrap">
-  <section id="room" class="room">
+  <div class="who-grid">
     <div>
-      <h2>The room</h2>
-      <p class="lede">A room for every ticker. The agents post every read into it, so it
-      is never an empty room, and the people in it are not strangers with cartoon names.</p>
-      <a class="btn" href="/chat.html">Open the room</a>
-      <a class="btn ghost" href="#pricing">What it costs</a>
+      <img class="portrait" src="mark-nejmeh.jpg" width="295" height="640"
+           alt="Mark Nejmeh">
+      <p class="portrait-note">Mark Nejmeh</p>
     </div>
-    <ul class="rules">
-      <li><b>Nobody is anonymous.</b> Every poster is identified.</li>
-      <li><b>Positions are declared</b> before anyone argues about a stock.</li>
-      <li><b>Nothing is deleted after 24 hours.</b> The record is the point.</li>
-      <li><b>Every figure carries its accession number.</b></li>
-      <li><b>Corrections publish beside the original.</b></li>
-    </ul>
-  </section>
+    <div>
+      <h1 style="max-width:20ch">The man who reads the filings</h1>
+      <p class="sub">Roofer since 1978. Founder of JobCreation.us. SEC EDGAR filer.
+      Reads the exhibit, not the summary.</p>
+
+      <!-- ===== SLOT: Mark's own account of himself. His words, not written for him. ===== -->
+      <p class="slot">[[ YOUR WORDS HERE. Who you are, what you did before this, and why
+      you started reading filings. As long or short as you want it &mdash; this is the
+      paragraph people will read before they decide whether to trust the reading. ]]</p>
+    </div>
+  </div>
 </div>
 
 <div class="wrap">
@@ -253,34 +219,56 @@ footer a{color:#C4CCEA}
 </div>
 
 <div class="band"><div class="wrap">
-  <section id="army">
-    <div class="army">
-      <h3>Join the 8K10Q <i>Army</i></h3>
-      <p>Shareholders who attend the stockholders meetings and keep up with the filings,
-      to make a better and more transparent market. We cannot be led to slaughter any
-      longer. The equity markets are too important for jobs and our future.</p>
-      <p><!-- ===== SLOT 2: the paid/free membership line. Mark's words. ===== -->
-      [[ YOUR WORDS: what an email gets, and what a paid member gets &mdash; heard,
-      counted, the shirt and hat, entry to the meetings. And the number. ]]</p>
-      <a class="btn" href="/army.html">See the rules and enlist</a>
+  <section>
+    <h2>Standing disclosure</h2>
+    <p class="lede">Stated here once and carried on every report.</p>
+    <div class="standing">
+      <p><strong>Position.</strong> The author holds shares of Theriva Biologics, Inc.
+      (NYSE American: TOVX) and has held them for more than four years. The author formerly
+      held shares of iBio, Inc. (IBIO) and sold that position at a profit.</p>
+      <p><strong>No allegation of wrongdoing.</strong> These reports describe transactions
+      that were disclosed in filings made with the Securities and Exchange Commission.
+      Representing issuers in registered offerings, acting as placement agent, and serving
+      on a board of directors are lawful activities. No report on this site alleges that any
+      person or firm has broken any law.</p>
+      <p><strong>Triggered Short&trade;</strong> is the author's own descriptive term for a
+      financing pattern. It is not an established legal, regulatory, or accounting concept.</p>
     </div>
   </section>
 </div></div>
 
 <div class="wrap">
-  <section id="pricing">
-    <h2>What it costs</h2>
-    <p class="lede">What we found is free. What you want us to find costs money.</p>
-    <div class="prices">
-      <div class="price"><b>$20</b><span>One filing or exhibit, read into plain English</span></div>
-      <div class="price"><b>$16</b><span>An agent&rsquo;s opinion &middot; ten for $129</span></div>
-      <div class="price"><b>$66</b><span>A month to watch one company</span></div>
-      <div class="price"><b>$149</b><span>A deep dive on a company nobody has screened</span></div>
-    </div>
-    <p class="findnote" style="margin-top:20px">Nothing here is investment advice. The same
-    opinion goes to everyone who buys it.</p>
+  <section>
+    <h2>Filer information</h2>
+    <p class="lede">Published so anyone can check who is writing.</p>
+    <ul class="facts">
+      <li><span class="k">Name</span><span>Mark Nejmeh</span></li>
+      <li><span class="k">Publisher</span><span>Foundation for Job Creation &middot;
+        <a href="https://jobcreation.us">jobcreation.us</a></span></li>
+      <li><span class="k">SEC CIK</span><span>0001860507</span></li>
+      <li><span class="k">SEC File No.</span><span>150-11431</span></li>
+      <li><span class="k">Large Trader ID</span><span>71743954</span></li>
+      <li><span class="k">Form 13H</span><span>Accepted May 4, 2021</span></li>
+      <li><span class="k">Education</span><span>Upsala College &mdash; finance and economics</span></li>
+    </ul>
+    <p class="findnote" style="margin-top:22px">EDGAR filer information identifies the author
+    as a registered filer and prior Form 13H registrant. It is not an endorsement, approval,
+    or finding by the Securities and Exchange Commission regarding this site or its contents.</p>
   </section>
 </div>
+
+<div class="band"><div class="wrap">
+  <section>
+    <h2>Reaching him</h2>
+    <p class="lede">Anyone named in a report can answer, and the answer publishes in full
+    and unedited.</p>
+    <ul class="facts">
+      <li><span class="k">Email</span><span><a href="mailto:realroofers@gmail.com">realroofers@gmail.com</a></span></li>
+      <li><span class="k">Telephone</span><span>732-995-3914</span></li>
+      <li><span class="k">Post</span><span>P.O. Box 589, Clifton, New Jersey 07012</span></li>
+    </ul>
+  </section>
+</div></div>
 
 </main>
 
@@ -304,21 +292,6 @@ footer a{color:#C4CCEA}
   <p class="stamp">Built 2026-09-07 &middot; 8k10q index-1c</p>
 </div></footer>
 
-<script>
-(function(){
-  function go(){
-    var t=document.getElementById('tk').value.trim().toUpperCase();
-    if(!t) return;
-    location.href='/company.html?ticker='+encodeURIComponent(t);
-  }
-  document.getElementById('go').addEventListener('click',go);
-  document.getElementById('tk').addEventListener('keydown',function(e){
-    if(e.key==='Enter') go();
-  });
-  var q=new URLSearchParams(location.search).get('ticker');
-  if(q) document.getElementById('tk').value=q.toUpperCase();
-})();
-</script>
 <script src="https://adhotbox.com/box.js" data-auto
   data-not=".demo, .agents, .rules, .army, .prices, .disclaimer, .mast-meta, .find"></script>
 <script src="/clock.js"></script>
