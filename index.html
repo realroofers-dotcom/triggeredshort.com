@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-07 20:58 ET · 8k10q index-1d · front page + advertising, filer block off the masthead + About in nav -->
+<!-- BUILT 2026-09-08 05:40 ET · 8k10q index-2a · front page · real prices · the year · wired to the pay worker -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -129,6 +129,28 @@ h2{font:700 clamp(24px,3.6vw,34px)/1.15 var(--disp);letter-spacing:-.02em;margin
 .price{border:1px solid var(--line);border-radius:6px;padding:16px 18px}
 .price b{display:block;font:700 22px/1 var(--disp);margin:0 0 5px}
 .price span{font-size:14px;color:#9FABD8}
+
+/* ---------- buying ---------- */
+.price{display:flex;flex-direction:column}
+.price span{flex:1 1 auto}
+button.buy{margin-top:14px;background:transparent;border:1.5px solid var(--hot);
+  color:var(--hot);border-radius:5px;padding:10px 14px;font:600 14px var(--body);
+  cursor:pointer;width:100%}
+button.buy:hover{background:var(--hot);color:#fff}
+button.buy:focus-visible{outline:3px solid #FFC7B0;outline-offset:2px}
+button.buy.big{background:var(--hot);color:#fff;font-size:16px;padding:14px 22px;
+  width:auto;margin-top:10px}
+button.buy.big:hover{background:#E03F00}
+.year{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;
+  background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:8px;
+  padding:26px 28px;margin:16px 0 0;max-width:900px}
+.year h3{font:700 21px/1.2 var(--disp);margin:0 0 8px}
+.year p{margin:0;color:#C4CCEA;font-size:15.5px;max-width:60ch}
+.year-buy{text-align:right}
+.year-buy b{display:block;font:900 34px/1 var(--disp)}
+@media(max-width:700px){.year{grid-template-columns:1fr}.year-buy{text-align:left}}
+#buymsg{margin:14px 0 0;font-size:15px;color:#C4CCEA;min-height:22px}
+#buymsg.bad{color:#FFB899}
 
 /* ---------- advertising ---------- */
 .adslot{min-height:90px;margin:0 0 8px;display:flex;align-items:center;
@@ -271,15 +293,43 @@ footer a{color:#C4CCEA}
 <div class="wrap">
   <section id="pricing">
     <h2>What it costs</h2>
-    <p class="lede">What we found is free. What you want us to find costs money.</p>
+    <p class="lede">What you want us to find costs money. Nothing that took work
+    is given away.</p>
+
     <div class="prices">
-      <div class="price"><b>$20</b><span>One filing or exhibit, read into plain English</span></div>
-      <div class="price"><b>$16</b><span>An agent&rsquo;s opinion &middot; ten for $129</span></div>
-      <div class="price"><b>$66</b><span>A month to watch one company</span></div>
-      <div class="price"><b>$149</b><span>A deep dive on a company nobody has screened</span></div>
+      <div class="price">
+        <b>$20</b><span>One filing or exhibit, read into plain English</span>
+        <button class="buy" data-sku="read">Buy a read</button>
+      </div>
+      <div class="price">
+        <b>$40</b><span>An agent&rsquo;s opinion on one filing</span>
+        <button class="buy" data-sku="opinion">Buy an opinion</button>
+      </div>
+      <div class="price">
+        <b>$66</b><span>A month to watch one company</span>
+        <button class="buy" data-sku="watch">Watch a company</button>
+      </div>
+      <div class="price">
+        <b>$149</b><span>A deep dive on a company nobody has screened</span>
+        <button class="buy" data-sku="deep_dive">Order a deep dive</button>
+      </div>
     </div>
-    <p class="findnote" style="margin-top:20px">Nothing here is investment advice. The same
-    opinion goes to everyone who buys it.</p>
+
+    <div class="year">
+      <div>
+        <h3>The year &mdash; every filing read</h3>
+        <p>Any 8-K, any 10-Q, any exhibit, all year, in plain English. Up to
+        <b>25 reads a month</b> and 300 a year &mdash; more on request, just write
+        and ask. Opinions are not included; they stay $40 when you want one.</p>
+      </div>
+      <div class="year-buy">
+        <b>$1,800</b>
+        <button class="buy big" data-sku="k8_year">Take the year</button>
+      </div>
+    </div>
+
+    <p class="findnote" style="margin-top:22px">Nothing here is investment advice.
+    The same read and the same opinion go to everyone who buys them.</p>
   </section>
 </div>
 
@@ -302,7 +352,7 @@ footer a{color:#C4CCEA}
 
   <div class="adslot footad" data-ad="foot"></div>
 
-  <p class="stamp">Built 2026-09-07 &middot; 8k10q index-1d</p>
+  <p class="stamp">Built 2026-09-07 &middot; 8k10q index-2a</p>
 </div></footer>
 
 <script>
@@ -318,6 +368,49 @@ footer a{color:#C4CCEA}
   });
   var q=new URLSearchParams(location.search).get('ticker');
   if(q) document.getElementById('tk').value=q.toUpperCase();
+
+  /* ---------------------------------------------------------------
+     CHECKOUT. The price is NEVER sent from this page — the pay
+     worker holds it and builds the charge from its own table. All
+     this does is name the thing and hand over an email address.
+     ⚠ CHECK THIS ADDRESS. If the pay worker is at a different one,
+     change this single line.
+     --------------------------------------------------------------- */
+  var PAY = 'https://pay.realroofers.workers.dev';
+
+  function msg(t, bad){
+    var m = document.getElementById('buymsg');
+    if(!m) return;
+    m.textContent = t;
+    m.className = bad ? 'bad' : '';
+  }
+
+  function buy(sku){
+    var email = prompt('Your email address — the receipt and your access go here.');
+    if(!email) return;
+    if(email.indexOf('@') < 1){ msg('That does not look like an email address.', true); return; }
+    var ticker = (document.getElementById('tk').value || '').trim().toUpperCase();
+    msg('Opening checkout…');
+    var url = PAY + '/?buy=' + encodeURIComponent(sku)
+            + '&email=' + encodeURIComponent(email)
+            + '&on=k8'
+            + (ticker ? '&ticker=' + encodeURIComponent(ticker) : '');
+    fetch(url).then(function(r){ return r.json(); }).then(function(d){
+      if(d && d.ok && d.url){ location.href = d.url; }
+      else { msg((d && d.error) ? d.error : 'Could not start the checkout.', true); }
+    }).catch(function(){
+      msg('Could not reach the payment desk. Try again in a moment.', true);
+    });
+  }
+
+  var bm = document.createElement('p');
+  bm.id = 'buymsg';
+  var ps = document.getElementById('pricing');
+  if (ps) ps.appendChild(bm);
+
+  Array.prototype.forEach.call(document.querySelectorAll('button.buy'), function(b){
+    b.addEventListener('click', function(){ buy(b.dataset.sku); });
+  });
 })();
 </script>
 <script src="https://adhotbox.com/box.js" data-auto
