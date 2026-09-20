@@ -1,0 +1,172 @@
+<!-- BUILT 2026-09-20 · 8k10q company-1a · THE COMPANY PAGE on 8K10Q: the three tell-tales at the top (name change, reverse split, warrant paper), then everything the company has filed, each readable here for $20. -->
+<!--
+   HIS RULE, 20 Sep 2026: "these warnings also go on 8K10Q." The same wire
+   answers both sites; this page reads it and puts the STOP banner (a name
+   change, high risk, no exception — with the old tickers, always shown and
+   searchable), the reverse split box and the merger box at the top, in
+   8K10Q's dress. Then the EDGAR record: every form, the latest filings, a
+   $20 read on each. Warrant Wire reads the warrant paper; 8K10Q reads the
+   whole filing.
+   The wire at wire.warrantwire.com answers ?wire=1&q=TICKER — an old ticker
+   resolves to the company that carries it today (searched_as).
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The company — 8K10Q</title>
+<meta name="description" content="Everything a company has filed with the SEC since 2001, with the three tell-tales flagged first: a name change, a reverse split, warrant paper. Read any filing in plain English for $20.">
+<meta name="robots" content="index, follow">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;900&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#00208B;--navy-d:#001348;--hot:#FF4A00;--paper:#F4F3EE;--card:#fff;--ink:#12141C;--ink-2:#5A6072;--line:#d8d6cd;--stop:#B3261E;
+  --disp:Rubik,system-ui,sans-serif;--body:"Public Sans",system-ui,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--body)}
+.wrap{max-width:1000px;margin:0 auto;padding:0 22px}
+header{background:var(--navy);color:#fff;padding:22px 0}
+header .mast{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+header .logo{font:900 26px var(--disp);letter-spacing:-.02em;color:#fff;text-decoration:none}
+header .logo i{font-style:normal;color:var(--hot)}
+header nav a{color:#C7D0F0;text-decoration:none;font:600 14px var(--body);margin-left:18px}
+header nav a[aria-current]{color:#fff}
+.search{display:flex;gap:8px;margin:22px 0 0}
+.search input{flex:1 1 200px;font:600 18px var(--disp);padding:12px 14px;border:2px solid var(--navy);border-radius:8px;text-transform:uppercase}
+.search button{font:700 16px var(--body);background:var(--hot);color:#fff;border:0;border-radius:8px;padding:12px 20px;cursor:pointer}
+.who{padding:22px 0 8px}
+.who h1{font:900 clamp(26px,4vw,40px)/1.1 var(--disp);letter-spacing:-.02em;margin:0 0 6px}
+.who h1 small{font:600 16px var(--mono);color:var(--ink-2);letter-spacing:.04em;margin-left:10px}
+.who p{margin:0 0 4px;color:var(--ink-2);font-size:15px}
+.who p b{color:var(--ink)}
+.stop{border:3px solid var(--stop);background:var(--stop);color:#fff;border-radius:12px;padding:16px 20px;margin:16px 0 0}
+.stop .k{display:block;font:800 12px var(--mono);letter-spacing:.18em;text-transform:uppercase;margin:0 0 8px}
+.stop p{margin:0 0 8px;color:#fff}.stop b{color:#fff}.stop a{color:#fff}
+.stop ol{margin:6px 0 10px;padding:0 0 0 20px;font-size:15px}
+.stop .go{display:inline-block;background:#fff;color:var(--stop);font:700 15px var(--body);padding:10px 18px;border-radius:8px;text-decoration:none;border:0;cursor:pointer}
+.warn{border:2px solid var(--hot);border-radius:12px;padding:14px 18px;margin:14px 0 0;background:#fff3ec}
+.warn .k{display:block;font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#b53400;margin:0 0 8px}
+.warn p{margin:0 0 8px;font-size:15.5px}
+.warn ol{margin:0;padding:0;list-style:none;font-size:14px}
+.warn li{display:flex;flex-wrap:wrap;gap:6px 14px;padding:6px 0;border-top:1px solid #f2c9b4}
+.warn .ef{font:600 12px var(--mono);min-width:64px}.warn .ed{font:12px var(--mono);color:var(--ink-2);min-width:90px}
+.warn .fine,.fine{font-size:13px;color:var(--ink-2)}
+.edgar{margin:22px 0 0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.edgar h2{font:800 22px var(--disp);margin:0 0 6px}
+.eforms{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.eforms span{font:12.5px var(--mono);background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px 10px}
+.eforms b{color:var(--navy)}
+.elist{list-style:none;margin:10px 0 0;padding:0}
+.elist li{display:grid;grid-template-columns:90px 110px 1fr auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:14.5px}
+@media(max-width:640px){.elist li{grid-template-columns:1fr 1fr;}}
+.elist .ef{font:600 13px var(--mono)}.elist .ed{font:13px var(--mono);color:var(--ink-2)}
+.elist a{color:var(--navy)}
+.buy{font:700 14px var(--body);background:var(--navy);color:#fff;border:0;border-radius:8px;padding:8px 14px;cursor:pointer}
+.buy:hover{background:var(--navy-d)}
+.quiet{padding:30px 0;color:var(--ink-2)}
+#buymsg{font-size:14px;color:var(--navy);min-height:1.4em}#buymsg.bad{color:var(--stop)}
+footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px solid var(--line);margin-top:30px}
+</style>
+</head>
+<body>
+<header><div class="wrap mast">
+  <a class="logo" href="/">8K<i>10Q</i></a>
+  <nav><a href="/">Read a filing</a><a href="/company.html" aria-current="page">A company</a><a href="/market.html">The market</a><a href="https://warrantwire.com">Warrant Wire</a></nav>
+</div></header>
+
+<main><div class="wrap">
+  <form class="search" id="sf"><input id="tk" placeholder="Ticker — old ones work too" autocomplete="off"><button type="submit">Look it up</button></form>
+  <div id="page"><div class="quiet">Type a ticker above. An old ticker still finds the company &mdash; WGRX finds MEDS.</div></div>
+  <p id="buymsg"></p>
+</div></main>
+
+<footer><div class="wrap">
+  Warrant Wire reads the warrant paper; 8K10Q reads the whole filing, every section, in plain English. The three tell-tales &mdash; a name change, a reverse split, warrant paper &mdash; are flagged on both, from the SEC&rsquo;s own record. Nothing here is investment advice. <a href="https://warrantwire.com/rules.html">The rules &rarr;</a><br>
+  <span style="font:11px var(--mono)">Built 2026-09-20 &middot; 8k10q company-1a &middot; rules version 4</span>
+</div></footer>
+
+<script>
+(function () {
+  "use strict";
+  var WIRE = "https://wire.warrantwire.com", PAY = "https://pay.realroofers.workers.dev";
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]; }); }
+  var qs = new URLSearchParams(location.search), T = (qs.get("ticker") || qs.get("t") || qs.get("q") || "").trim().toUpperCase();
+  var page = document.getElementById("page");
+  document.getElementById("sf").addEventListener("submit", function (e) { e.preventDefault(); var v = document.getElementById("tk").value.trim().toUpperCase(); if (v) location.href = "/company.html?ticker=" + encodeURIComponent(v); });
+  if (!T) return;
+  document.getElementById("tk").value = T;
+  document.title = T + " — 8K10Q";
+  page.innerHTML = '<div class="quiet">Reading the record for ' + esc(T) + '…</div>';
+
+  function stopBox(d, tk) {
+    var r = d.signals && d.signals.renamed; if (!r || !r.former || !r.former.length) return "";
+    var first = d.edgar && d.edgar.first ? String(d.edgar.first).slice(0, 10) : null;
+    var years = first ? (Date.now() - Date.parse(first)) / 31557600000 : null, young = years != null && years < 3;
+    var ft = (d.company && d.company.former_tickers) || [];
+    return '<div class="stop"><span class="k">&#9632; Stop &mdash; this company changed its name</span>'
+      + (d.searched_as ? '<p><b>You searched ' + esc(d.searched_as.ticker) + '.</b> That is a former ticker; the company trades as ' + esc(d.searched_as.now) + ' today. Same company, same record.</p>' : '')
+      + '<p><b>' + esc(r.now || tk) + ' has filed with the SEC under ' + (r.former.length === 1 ? 'another name' : r.former.length + ' other names') + (ft.length ? ' and traded as ' + ft.map(function (x) { return esc(x.ticker); }).join(", ") : '') + '.</b>'
+      + (young ? ' It has been on EDGAR only since ' + esc(first) + ' &mdash; public about ' + (years < 1 ? 'a year' : Math.round(years) + ' years') + ' &mdash; and has already changed its name.' : (first ? ' On EDGAR since ' + esc(first) + '.' : ''))
+      + ' A name change is high risk, without exception: the filings, the warrant paper and the shareholders who held it stay on EDGAR under the old name, and the new name starts clean.</p>'
+      + '<ol>' + r.former.map(function (f) { return '<li><b>' + esc(f.name) + '</b>' + (f.from || f.to ? ' &mdash; ' + esc(f.from || '?') + ' to ' + esc(f.to || '?') : '') + '</li>'; }).join("") + '</ol>'
+      + '<p><b>Read its filings before you do anything else.</b> <a class="go" href="#edgar">The record &darr;</a> <a href="https://warrantwire.com/company.html?t=' + esc(tk) + '" style="margin-left:10px">The warrant verdict at Warrant Wire &rarr;</a></p></div>';
+  }
+  function sigBox(list, title, lead, rule) {
+    if (!list || !list.length) return "";
+    var seen = {}, g = [];
+    list.forEach(function (x) { var k = (x.form || "") + "|" + (x.filed_on || "") + "|" + (x.said || ""); if (seen[k]) { seen[k].n++; return; } seen[k] = { x: x, n: 1 }; g.push(seen[k]); });
+    return '<div class="warn"><span class="k">&#9888; ' + title + '</span><p>' + lead + '</p><ol>'
+      + g.slice(0, 6).map(function (e) { var x = e.x; return '<li><span class="ef">' + esc(x.form || "") + (e.n > 1 ? ' &times;' + e.n : '') + '</span><span class="ed">' + esc(x.filed_on || "") + '</span><span>' + String(x.said || "").split(",").map(function (w) { return "&ldquo;" + esc(w.trim()) + "&rdquo;"; }).join(", ") + '</span>' + (x.url ? '<a href="' + esc(x.url) + '" target="_blank" rel="noopener">EDGAR</a>' : '') + '</li>'; }).join("")
+      + '</ol><p class="fine"><a href="https://warrantwire.com/rules.html#' + rule + '">Rule ' + rule + ' &rarr;</a></p></div>';
+  }
+  function edgarBox(e, tk) {
+    if (!e || !e.filings) return '<div class="edgar" id="edgar"><h2>Nothing on EDGAR since 2001.</h2><p class="fine">No filings on record for this ticker in the period 8K10Q reads.</p></div>';
+    var forms = Object.keys(e.forms || {}).sort(function (x, y) { return e.forms[y] - e.forms[x]; }).slice(0, 8).map(function (f) { return '<span>' + esc(f) + ' <b>' + e.forms[f] + '</b></span>'; }).join("");
+    var rows = (e.recent || []).slice(0, 24).map(function (r) {
+      return '<li><span class="ef">' + esc(r.form) + '</span><span class="ed">' + esc(r.filed_on) + '</span>' + (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">the document on EDGAR</a>' : '<span></span>')
+        + '<button class="buy" data-acc="' + esc(r.accession) + '" data-t="' + esc(tk) + '">Read it here &middot; $20</button></li>';
+    }).join("");
+    return '<div class="edgar" id="edgar"><h2>' + Number(e.filings).toLocaleString("en-US") + ' filings since ' + esc(String(e.since || "2001").slice(0, 4)) + '.</h2>'
+      + '<p class="fine">Every form on record, from the SEC. Pick a filing: 8K10Q reads the whole of it in plain English &mdash; every section &mdash; for $20.' + (e.first ? ' First filing on record ' + esc(String(e.first).slice(0, 10)) + '; latest ' + esc(String(e.latest || "").slice(0, 10)) + '.' : '') + '</p>'
+      + '<div class="eforms">' + forms + '</div><ol class="elist">' + rows + '</ol></div>';
+  }
+  function who(d, tk) {
+    var c = d.company || {}, ft = c.former_tickers || [];
+    return '<section class="who"><h1>' + esc(c.name || tk) + '<small>' + esc(c.ticker || tk) + (c.exchange ? ' &middot; ' + esc(c.exchange) : '') + '</small></h1>'
+      + (c.business ? '<p>' + esc(c.business) + (c.state_inc ? ' &middot; incorporated in ' + esc(c.state_inc) : '') + (c.cik ? ' &middot; CIK ' + esc(c.cik) : '') + '</p>' : '')
+      + ((c.former_names && c.former_names.length) ? '<p>Formerly ' + c.former_names.map(esc).join("; ") + '</p>' : '')
+      + (ft.length ? '<p><b>Formerly traded as ' + ft.map(function (x) { return '<a href="/company.html?ticker=' + esc(x.ticker) + '">' + esc(x.ticker) + '</a>' + (x.name ? ' (' + esc(x.name) + ')' : ''); }).join(", ") + '</b> &mdash; the same company, the same record.</p>' : '')
+      + (c.edgar ? '<p><a href="' + esc(c.edgar) + '" target="_blank" rel="noopener">Its EDGAR page &rarr;</a></p>' : '') + '</section>';
+  }
+  fetch(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (d) {
+    if (!d || !d.ok) { page.innerHTML = '<div class="quiet">The wire did not answer for ' + esc(T) + '.</div>'; return; }
+    var c = d.company || {}, tk = (c.ticker || T).toUpperCase();
+    if (!c.name && !(d.edgar && d.edgar.filings)) { page.innerHTML = '<div class="quiet"><b>' + esc(T) + '</b> is not a ticker on the SEC&rsquo;s map, and not one this wire has seen before. If it is an old ticker, search the company by its name at <a href="https://warrantwire.com/company.html?t=' + esc(T) + '">Warrant Wire</a> and we will learn it.</div>'; return; }
+    document.title = (c.name || tk) + " (" + tk + ") — 8K10Q";
+    var a = d.about || {}, warrants = a.filings ? '<div class="warn"><span class="k">&#9888; Warrant paper on the wire</span><p><b>' + a.filings + ' filing' + (a.filings === 1 ? '' : 's') + ' carrying warrant terms' + (a.first ? ' since ' + esc(String(a.first).slice(0, 10)) : '') + '.</b> The third tell-tale. Warrant Wire renders the verdict on it; 8K10Q reads the filings themselves.</p><p class="fine"><a href="https://warrantwire.com/company.html?t=' + esc(tk) + '">The warrant verdict at Warrant Wire &rarr;</a></p></div>' : '';
+    var s = d.signals || {};
+    page.innerHTML = who(d, tk)
+      + stopBox(d, tk)
+      + sigBox(s.splits, "Reverse split &mdash; high risk", "<b>The company&rsquo;s own filing carries the language of a reverse split.</b> A reverse split changes nothing about the company and everything about the count: the same business, fewer shares, the price marked up to match &mdash; the financier&rsquo;s reset button.", "W12")
+      + sigBox(s.merger, "Merger, sale or wind-down on the table", "<b>The company&rsquo;s own filing carries the language of a merger, a sale, a strategic review or a wind-down.</b> For a company that has lived on warrant paper this is usually how the story ends.", "W10")
+      + warrants
+      + edgarBox(d.edgar, tk);
+    Array.prototype.forEach.call(page.querySelectorAll("button.buy"), function (b) {
+      b.addEventListener("click", function () {
+        var email = prompt("Your email address — the receipt and the reading go here."); if (!email) return;
+        var m = document.getElementById("buymsg");
+        if (email.indexOf("@") < 1) { m.textContent = "That does not look like an email address."; m.className = "bad"; return; }
+        m.className = ""; m.textContent = "Opening checkout…";
+        fetch(PAY + "/?buy=wire_read&email=" + encodeURIComponent(email) + "&on=k8&ticker=" + encodeURIComponent(b.getAttribute("data-t")) + "&ref=" + encodeURIComponent(b.getAttribute("data-t") + ":" + b.getAttribute("data-acc")))
+          .then(function (r) { return r.json(); }).then(function (j) { if (j && j.ok && j.url) location.href = j.url; else { m.textContent = (j && j.error) || "Could not start the checkout."; m.className = "bad"; } })
+          .catch(function () { m.textContent = "Could not reach the payment desk."; m.className = "bad"; });
+      });
+    });
+  }).catch(function () { page.innerHTML = '<div class="quiet">The wire is not answering just now.</div>'; });
+})();
+</script>
+</body>
+</html>
