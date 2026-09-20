@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-20 · 8k10q company-1a · THE COMPANY PAGE on 8K10Q: the three tell-tales at the top (name change, reverse split, warrant paper), then everything the company has filed, each readable here for $20. -->
+<!-- BUILT 2026-09-20 · 8k10q company-1b (1b: the red-flag strip, free, only when there are flags; the split and merger lists are the goods) · THE COMPANY PAGE on 8K10Q: the three tell-tales at the top (name change, reverse split, warrant paper), then everything the company has filed, each readable here for $20. -->
 <!--
    HIS RULE, 20 Sep 2026: "these warnings also go on 8K10Q." The same wire
    answers both sites; this page reads it and puts the STOP banner (a name
@@ -85,7 +85,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
 
 <footer><div class="wrap">
   Warrant Wire reads the warrant paper; 8K10Q reads the whole filing, every section, in plain English. The three tell-tales &mdash; a name change, a reverse split, warrant paper &mdash; are flagged on both, from the SEC&rsquo;s own record. Nothing here is investment advice. <a href="https://warrantwire.com/rules.html">The rules &rarr;</a><br>
-  <span style="font:11px var(--mono)">Built 2026-09-20 &middot; 8k10q company-1a &middot; rules version 4</span>
+  <span style="font:11px var(--mono)">Built 2026-09-20 &middot; 8k10q company-1b &middot; rules version 4</span>
 </div></footer>
 
 <script>
@@ -101,6 +101,21 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
   document.title = T + " — 8K10Q";
   page.innerHTML = '<div class="quiet">Reading the record for ' + esc(T) + '…</div>';
 
+  /* the red flags — free, and only when there are any. The count and the kind;
+     the filings are the goods, and the goods are read here for $20 or in the
+     verdict at Warrant Wire for $12. */
+  function flagsBox(d, tk) {
+    var s = d.signals || {}, a = d.about || {}, f = [];
+    var renamed = s.renamed && s.renamed.former ? s.renamed.former.length : 0, splits = (s.splits || []).length, merger = (s.merger || []).length, warrants = Number(a.filings || 0);
+    if (renamed) f.push("Name change" + (renamed > 1 ? " &times;" + renamed : "") + " &mdash; high risk");
+    if (splits) f.push("Reverse split &mdash; " + splits + " filing" + (splits === 1 ? "" : "s") + " &mdash; high risk");
+    if (warrants) f.push("Warrant paper &mdash; " + warrants + " filing" + (warrants === 1 ? "" : "s"));
+    if (merger) f.push("Merger, sale or wind-down on the table");
+    if (!f.length) return "";
+    return '<div class="warn" style="background:#fff"><span class="k">Red flags &mdash; the warning is free</span>'
+      + '<p><b style="font:800 26px/1 var(--disp);color:var(--hot);margin-right:8px">' + f.length + '</b> <b>' + (f.length === 1 ? 'tell-tale' : 'tell-tales') + ' on ' + esc((d.company && d.company.name) || tk) + '.</b> Which filings, which dates and what they say are the goods: read a filing below for $20, or <a href="https://warrantwire.com/company.html?t=' + esc(tk) + '">the warrant verdict at Warrant Wire, $12</a>.</p>'
+      + '<p style="display:flex;flex-wrap:wrap;gap:6px">' + f.map(function (x) { return '<span style="font:600 13px var(--body);border-radius:999px;padding:4px 11px;background:#fff3ec;color:#b53400;border:1px solid #f2c9b4">' + x + '</span>'; }).join("") + '</p></div>';
+  }
   function stopBox(d, tk) {
     var r = d.signals && d.signals.renamed; if (!r || !r.former || !r.former.length) return "";
     var first = d.edgar && d.edgar.first ? String(d.edgar.first).slice(0, 10) : null;
@@ -118,9 +133,10 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
     if (!list || !list.length) return "";
     var seen = {}, g = [];
     list.forEach(function (x) { var k = (x.form || "") + "|" + (x.filed_on || "") + "|" + (x.said || ""); if (seen[k]) { seen[k].n++; return; } seen[k] = { x: x, n: 1 }; g.push(seen[k]); });
-    return '<div class="warn"><span class="k">&#9888; ' + title + '</span><p>' + lead + '</p><ol>'
-      + g.slice(0, 6).map(function (e) { var x = e.x; return '<li><span class="ef">' + esc(x.form || "") + (e.n > 1 ? ' &times;' + e.n : '') + '</span><span class="ed">' + esc(x.filed_on || "") + '</span><span>' + String(x.said || "").split(",").map(function (w) { return "&ldquo;" + esc(w.trim()) + "&rdquo;"; }).join(", ") + '</span>' + (x.url ? '<a href="' + esc(x.url) + '" target="_blank" rel="noopener">EDGAR</a>' : '') + '</li>'; }).join("")
-      + '</ol><p class="fine"><a href="https://warrantwire.com/rules.html#' + rule + '">Rule ' + rule + ' &rarr;</a></p></div>';
+    var last = list[list.length - 1].filed_on, first = list[0].filed_on;
+    var span = list.length > 1 && last ? ' between ' + esc(String(last).slice(0, 7)) + ' and ' + esc(String(first).slice(0, 7)) : (first ? ' in ' + esc(String(first).slice(0, 7)) : '');
+    return '<div class="warn"><span class="k">&#9888; ' + title + '</span><p>' + lead + ' <b>' + list.length + ' filing' + (list.length === 1 ? '' : 's') + span + '.</b> Which ones, and what they say, are the goods.</p>'
+      + '<p class="fine"><a href="https://warrantwire.com/rules.html#' + rule + '">Rule ' + rule + ' &rarr;</a></p></div>';
   }
   function edgarBox(e, tk) {
     if (!e || !e.filings) return '<div class="edgar" id="edgar"><h2>Nothing on EDGAR since 2001.</h2><p class="fine">No filings on record for this ticker in the period 8K10Q reads.</p></div>';
@@ -149,6 +165,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
     var a = d.about || {}, warrants = a.filings ? '<div class="warn"><span class="k">&#9888; Warrant paper on the wire</span><p><b>' + a.filings + ' filing' + (a.filings === 1 ? '' : 's') + ' carrying warrant terms' + (a.first ? ' since ' + esc(String(a.first).slice(0, 10)) : '') + '.</b> The third tell-tale. Warrant Wire renders the verdict on it; 8K10Q reads the filings themselves.</p><p class="fine"><a href="https://warrantwire.com/company.html?t=' + esc(tk) + '">The warrant verdict at Warrant Wire &rarr;</a></p></div>' : '';
     var s = d.signals || {};
     page.innerHTML = who(d, tk)
+      + flagsBox(d, tk)
       + stopBox(d, tk)
       + sigBox(s.splits, "Reverse split &mdash; high risk", "<b>The company&rsquo;s own filing carries the language of a reverse split.</b> A reverse split changes nothing about the company and everything about the count: the same business, fewer shares, the price marked up to match &mdash; the financier&rsquo;s reset button.", "W12")
       + sigBox(s.merger, "Merger, sale or wind-down on the table", "<b>The company&rsquo;s own filing carries the language of a merger, a sale, a strategic review or a wind-down.</b> For a company that has lived on warrant paper this is usually how the story ends.", "W10")
