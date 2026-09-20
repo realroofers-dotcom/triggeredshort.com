@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-20 · 8k10q company-1b (1b: the red-flag strip, free, only when there are flags; the split and merger lists are the goods) · THE COMPANY PAGE on 8K10Q: the three tell-tales at the top (name change, reverse split, warrant paper), then everything the company has filed, each readable here for $20. -->
+<!-- BUILT 2026-09-20 · 8k10q company-1c (1c: filings in the past year and five, every recent filing listed, JOIN CHAT by the search; 1b: the red-flag strip, free, only when there are flags; the split and merger lists are the goods) · THE COMPANY PAGE on 8K10Q: the three tell-tales at the top (name change, reverse split, warrant paper), then everything the company has filed, each readable here for $20. -->
 <!--
    HIS RULE, 20 Sep 2026: "these warnings also go on 8K10Q." The same wire
    answers both sites; this page reads it and puts the STOP banner (a name
@@ -78,14 +78,15 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
 </div></header>
 
 <main><div class="wrap">
-  <form class="search" id="sf"><input id="tk" placeholder="Ticker — old ones work too" autocomplete="off"><button type="submit">Look it up</button></form>
+  <form class="search" id="sf"><input id="tk" placeholder="Ticker — old ones work too" autocomplete="off"><button type="submit">Look it up</button><a id="joinchat" href="/chat.html" style="background:#fff;color:var(--hot);border:2px solid var(--hot);border-radius:8px;padding:12px 18px;font:700 16px var(--body);text-decoration:none;white-space:nowrap">JOIN CHAT</a></form>
+  <p class="fine" style="margin:6px 0 0">Every company has a room. Everyone registers &mdash; a name, a telephone &mdash; and nobody is anonymous.</p>
   <div id="page"><div class="quiet">Type a ticker above. An old ticker still finds the company &mdash; WGRX finds MEDS.</div></div>
   <p id="buymsg"></p>
 </div></main>
 
 <footer><div class="wrap">
   Warrant Wire reads the warrant paper; 8K10Q reads the whole filing, every section, in plain English. The three tell-tales &mdash; a name change, a reverse split, warrant paper &mdash; are flagged on both, from the SEC&rsquo;s own record. Nothing here is investment advice. <a href="https://warrantwire.com/rules.html">The rules &rarr;</a><br>
-  <span style="font:11px var(--mono)">Built 2026-09-20 &middot; 8k10q company-1b &middot; rules version 4</span>
+  <span style="font:11px var(--mono)">Built 2026-09-20 &middot; 8k10q company-1c &middot; rules version 4</span>
 </div></footer>
 
 <script>
@@ -98,6 +99,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
   document.getElementById("sf").addEventListener("submit", function (e) { e.preventDefault(); var v = document.getElementById("tk").value.trim().toUpperCase(); if (v) location.href = "/company.html?ticker=" + encodeURIComponent(v); });
   if (!T) return;
   document.getElementById("tk").value = T;
+  document.getElementById("joinchat").href = "/chat.html?ticker=" + encodeURIComponent(T);
   document.title = T + " — 8K10Q";
   page.innerHTML = '<div class="quiet">Reading the record for ' + esc(T) + '…</div>';
 
@@ -141,13 +143,16 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
   function edgarBox(e, tk) {
     if (!e || !e.filings) return '<div class="edgar" id="edgar"><h2>Nothing on EDGAR since 2001.</h2><p class="fine">No filings on record for this ticker in the period 8K10Q reads.</p></div>';
     var forms = Object.keys(e.forms || {}).sort(function (x, y) { return e.forms[y] - e.forms[x]; }).slice(0, 8).map(function (f) { return '<span>' + esc(f) + ' <b>' + e.forms[f] + '</b></span>'; }).join("");
-    var rows = (e.recent || []).slice(0, 24).map(function (r) {
+    var rows = (e.recent_all || e.recent || []).slice(0, 40).map(function (r) {
       return '<li><span class="ef">' + esc(r.form) + '</span><span class="ed">' + esc(r.filed_on) + '</span>' + (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">the document on EDGAR</a>' : '<span></span>')
         + '<button class="buy" data-acc="' + esc(r.accession) + '" data-t="' + esc(tk) + '">Read it here &middot; $20</button></li>';
     }).join("");
-    return '<div class="edgar" id="edgar"><h2>' + Number(e.filings).toLocaleString("en-US") + ' filings since ' + esc(String(e.since || "2001").slice(0, 4)) + '.</h2>'
-      + '<p class="fine">Every form on record, from the SEC. Pick a filing: 8K10Q reads the whole of it in plain English &mdash; every section &mdash; for $20.' + (e.first ? ' First filing on record ' + esc(String(e.first).slice(0, 10)) + '; latest ' + esc(String(e.latest || "").slice(0, 10)) + '.' : '') + '</p>'
-      + '<div class="eforms">' + forms + '</div><ol class="elist">' + rows + '</ol></div>';
+    var yf = e.past_year_forms || {}, yforms = Object.keys(yf).sort(function (x, y) { return yf[y] - yf[x]; }).slice(0, 8).map(function (f) { return '<span>' + esc(f) + ' <b>' + yf[f] + '</b></span>'; }).join("");
+    return '<div class="edgar" id="edgar"><h2>' + (e.past_year != null ? Number(e.past_year).toLocaleString("en-US") + ' filing' + (e.past_year === 1 ? '' : 's') + ' in the past year &middot; ' + Number(e.past_five_years).toLocaleString("en-US") + ' in five &middot; ' : '') + Number(e.filings).toLocaleString("en-US") + ' since ' + esc(String(e.since || "2001").slice(0, 4)) + '.</h2>'
+      + '<p class="fine">Every filing is important &mdash; the 8-K, the 10-Q, the Form 4, the notice of late filing. Pick one: 8K10Q reads the whole of it in plain English, every section, for $20.' + (e.first ? ' First filing on record ' + esc(String(e.first).slice(0, 10)) + '; latest ' + esc(String(e.latest || "").slice(0, 10)) + '.' : '') + '</p>'
+      + (yforms ? '<p class="fine" style="margin-bottom:0"><b>The past year, by form:</b></p><div class="eforms">' + yforms + '</div>' : '')
+      + '<p class="fine" style="margin-bottom:0"><b>Since 2001, by form:</b></p><div class="eforms">' + forms + '</div>'
+      + '<p class="fine" style="margin:10px 0 0"><b>The latest ' + (e.recent_all || e.recent || []).length + ', every one:</b></p><ol class="elist">' + rows + '</ol></div>';
   }
   function who(d, tk) {
     var c = d.company || {}, ft = c.former_tickers || [];

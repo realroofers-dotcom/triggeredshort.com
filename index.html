@@ -215,7 +215,10 @@ footer a{color:#C4CCEA}
       <input id="tk" type="text" placeholder="TICKER OR COMPANY" maxlength="40"
              autocapitalize="characters" autocorrect="off" spellcheck="false">
       <button id="go" type="button">Read the filings</button>
+      <!-- JOIN CHAT, right next to the search — his call, 20 Sep: everyone registers, nobody is anonymous; this is the answer to Stocktwits -->
+      <a id="joinchat" href="/chat.html" style="background:#fff;color:var(--hot);border:2px solid var(--hot);border-radius:5px;padding:12px 18px;font:700 15px var(--body);text-decoration:none;white-space:nowrap;align-self:center">JOIN CHAT</a>
     </div>
+    <p class="findnote" style="margin-top:6px"><b>The chat:</b> every company has a room. Everyone registers &mdash; a name, a telephone &mdash; and nobody is anonymous. Say what you see under your own name.</p>
     <p class="findnote">Search plain English news and filings by ticker, company or the
     name of anyone in the deal.</p>
 
@@ -620,6 +623,7 @@ footer a{color:#C4CCEA}
     location.href='/company.html?ticker='+encodeURIComponent(t);
   }
   document.getElementById('go').addEventListener('click',go);
+  document.getElementById('tk').addEventListener('input',function(){ var t=(this.value||'').trim().toUpperCase(); document.getElementById('joinchat').href='/chat.html'+(t?'?ticker='+encodeURIComponent(t):''); });
   document.getElementById('tk').addEventListener('keydown',function(e){
     if(e.key==='Enter') go();
   });

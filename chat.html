@@ -804,7 +804,10 @@ document.getElementById('msg').addEventListener('keydown', e => {
   if ((e.metaKey||e.ctrlKey) && e.key==='Enter') send();
 });
 
-loadRooms().then(()=>openRoom(ROOM)).catch(e=>showFailure('stream', e));
+/* arriving from a company page or the search: open that company's room */
+const WANT = (new URLSearchParams(location.search).get('ticker') || '').trim().toUpperCase();
+if (WANT) { document.getElementById('q').value = WANT; loadRooms().then(doSearch).catch(e=>showFailure('stream', e)); }
+else loadRooms().then(()=>openRoom(ROOM)).catch(e=>showFailure('stream', e));
 setInterval(loadStream, 8000);
 </script>
 </body>
