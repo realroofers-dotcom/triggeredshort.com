@@ -1,0 +1,67 @@
+<!-- BUILT 2026-09-21 · 8k10q thanks-1a · THE FRIENDLY PAGE AFTER A PAYMENT. The pay desk sends every 8K10Q card buyer here: 8k10q.com/thanks.html?s=<session>. It asks the desk what the session bought and prints it; it grants nothing — only the signed webhook does. Until today this address was a 404. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thank you — 8K10Q</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{--paper:#fff;--ink:#14150f;--ink2:#3a3b33;--ink3:#6b6c62;--line:#ddddd5;--hot:#e5b83a;--wash:#fff8e1;--green:#2e9e6b;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;--serif:Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--sans)}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px 50px}
+header{padding:16px 0;border-bottom:1px solid var(--line)}.logo{font:800 26px var(--serif);color:var(--ink);text-decoration:none}
+.tick{width:48px;height:48px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font:700 24px var(--sans);margin:30px 0 14px}
+h1{font:800 clamp(28px,4.5vw,40px)/1.1 var(--serif);margin:0 0 8px}
+.lede{font-size:18px;color:var(--ink2);margin:0 0 22px;max-width:58ch}
+.have{border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin:0 0 16px}
+.have h2{font:700 12px ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.row{display:flex;gap:16px;padding:10px 0;border-top:1px solid var(--line);font-size:16px;color:var(--ink2)}.row:first-child{border-top:0}.row .k{flex:0 0 200px;color:var(--ink);font-weight:700}
+.big{background:var(--wash);border-left:8px solid var(--hot);padding:14px 18px;margin:18px 0;color:var(--ink2)}.big b{color:var(--ink)}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}.steps li{counter-increment:s;position:relative;padding:0 0 12px 38px;color:var(--ink2)}.steps li:before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--line);color:var(--ink);display:grid;place-items:center;font:700 13px var(--sans)}.steps b{color:var(--ink)}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;border-radius:6px;padding:12px 20px;font:700 16px var(--sans);margin:8px 8px 0 0}.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.sess{font:12px ui-monospace,Menlo,monospace;color:var(--ink3);margin-top:16px;word-break:break-all}
+footer{padding:22px 0 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink3);margin-top:30px}a{color:var(--ink)}
+</style>
+</head>
+<body><div class="wrap">
+<header><a class="logo" href="/">8K10Q</a></header>
+<div class="tick">&#10003;</div>
+<h1>Thank you. That went through.</h1>
+<p class="lede">Your receipt is on its way from Stripe. What you now have is below, and how to use it is underneath that.</p>
+<div class="have"><h2>On your account</h2><div id="state">Checking your payment&hellip;</div></div>
+<div class="big"><b>Seven-day money back.</b> Ask within seven days of paying, from the address you paid with, and it is returned &mdash; tell us what was wrong, and nothing you write can lose you the refund. <a href="/terms">The terms</a>. Questions: <b>702-544-2002</b>, a person answers.</div>
+<div class="have"><h2>Using it</h2>
+<ol class="steps">
+  <li><b>Search a ticker or a company name.</b> Every filing it made, one year and five years back, with the red flags &mdash; a name change, a reverse split, warrant paper &mdash; shown free.</li>
+  <li><b>A read arrives by email</b> at the address you paid with, in plain English: what the filing says, what changed, what to look at next.</li>
+  <li><b>Everything here is a named person&rsquo;s reading</b> of public filings &mdash; an opinion, never advice.</li>
+</ol></div>
+<p><a class="btn" href="/">Search a company</a><a class="btn ghost" href="https://warrantwire.com/">Warrant Wire</a></p>
+<p class="sess" id="sess"></p>
+<footer><b>8K10Q</b> &middot; Mark Nejmeh &middot; P.O. Box 589, Clifton, New Jersey 07012 &middot; <a href="/terms">Terms</a> &middot; <a href="https://pay.warrantwire.com/refunds?on=k8">Refunds</a><br><span style="font-size:11px">Built 2026-09-21 &middot; 8k10q thanks-1a</span></footer>
+</div>
+<script>
+(function () {
+  var PAY = "https://pay.warrantwire.com";
+  var LINE = { read: "A filing read, in plain English", opinion: "An agent's opinion", k8_year: "The year — every filing read", deep_dive: "A deep dive", watch: "Watching a company", wire_read: "A filing read, in plain English" };
+  var s = new URLSearchParams(location.search).get("s") || new URLSearchParams(location.search).get("paid") || "";
+  var st = document.getElementById("state");
+  if (s) document.getElementById("sess").textContent = "Reference: " + s;
+  if (!/^cs_(live|test)_/.test(s)) { st.innerHTML = '<span style="color:var(--ink3)">No payment reference in the address. If you just paid, check the email you paid with; if not, <a href="/">start here</a>.</span>'; return; }
+  var tries = 0;
+  (function ask() {
+    fetch(PAY + "/?paid=" + encodeURIComponent(s)).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.paid) {
+        var out = "";
+        (d.skus || []).forEach(function (g) { out += '<div class="row"><span class="k">' + (LINE[g] || g) + '</span><span>' + (d.ref ? "for " + d.ref : "") + (d.ends_on ? " &middot; good until " + d.ends_on : "") + '</span></div>'; });
+        out += '<div class="row"><span class="k">Paid</span><span>$' + ((d.cents || 0) / 100).toFixed(2) + (d.email ? " &middot; receipt from Stripe to " + d.email : "") + '</span></div>';
+        st.innerHTML = out;
+      } else if (tries++ < 8) setTimeout(ask, 1500);
+      else st.innerHTML = '<span style="color:var(--ink3)">Stripe has not confirmed yet &mdash; it usually does within a minute. If your card was charged you are covered; the read comes to your email either way.</span>';
+    }).catch(function () { if (tries++ < 8) setTimeout(ask, 1500); });
+  })();
+})();
+</script>
+</body>
+</html>
