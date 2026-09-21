@@ -74,7 +74,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
 <body>
 <header><div class="wrap mast">
   <a class="logo" href="/">8K<i>10Q</i></a>
-  <nav><a href="/">Read a filing</a><a href="/company.html" aria-current="page">A company</a><a href="https://warrantwire.com/agents.html">Agents for service</a><a href="/market.html">The market</a><a href="https://warrantwire.com">Warrant Wire</a></nav>
+  <nav><a href="/">Read a filing</a><a href="/company.html" aria-current="page">A company</a><a href="https://warrantwire.com/agents.html">Agents for service</a><a href="https://warrantwire.com/states.html">The states</a><a href="/market.html">The market</a><a href="https://warrantwire.com">Warrant Wire</a></nav>
 </div></header>
 
 <main><div class="wrap">
@@ -169,7 +169,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
     return '<section class="who"><h1>' + esc(c.name || tk) + '<small>' + esc(c.ticker || tk) + (c.exchange ? ' &middot; ' + esc(c.exchange) : '') + '</small></h1>'
       + (c.business ? '<p>' + esc(c.business) + (c.state_inc ? ' &middot; incorporated in ' + esc(c.state_inc) : '') + (c.cik ? ' &middot; CIK ' + esc(c.cik) : '') + '</p>' : '')
       + ((c.former_names && c.former_names.length) ? '<p>Formerly ' + c.former_names.map(esc).join("; ") + '</p>' : '')
-      + (c.incorporated ? '<p><b>Incorporated in ' + esc(c.incorporated.name) + '.</b>' + (c.incorporated.registry ? ' Registered agent of record: <a href="' + esc(c.incorporated.registry.url) + '" target="_blank" rel="noopener">' + esc(c.incorporated.registry.name) + ' &rarr;</a>' : '') + '</p>' : '')
+      + (c.incorporated ? '<p><b>Incorporated in ' + esc(c.incorporated.name) + '</b> &mdash; <a href="https://warrantwire.com/states.html">how fair its law is to a shareholder</a>.' + (c.incorporated.registry ? ' Registered agent of record: <a href="' + esc(c.incorporated.registry.url) + '" target="_blank" rel="noopener">' + esc(c.incorporated.registry.name) + ' &rarr;</a>' : '') + '</p>' : '')
       + (c.agent ? '<p><b>Agent for service:</b> ' + esc(c.agent.name) + (c.agent.address ? ', ' + esc(c.agent.address) : '') + (c.agent.phone ? ', ' + esc(c.agent.phone) : '') + ' <span style="color:var(--ink-2)">&mdash; per its ' + esc(c.agent.source.form) + ' of ' + esc(c.agent.source.filed_on) + '</span> &middot; <a href="https://warrantwire.com/agents.html?q=' + esc(tk) + '">the agents page</a></p>'
                  : '<p style="color:var(--stop)"><b>No agent for service disclosed</b> on any registration statement in its record &mdash; a red flag. <a href="https://warrantwire.com/agents.html?q=' + esc(tk) + '" style="color:var(--stop)">The agents page, and a letter to the SEC &rarr;</a></p>')
       + (ft.length ? '<p><b>Formerly traded as ' + ft.map(function (x) { return '<a href="/company.html?ticker=' + esc(x.ticker) + '">' + esc(x.ticker) + '</a>' + (x.name ? ' (' + esc(x.name) + ')' : ''); }).join(", ") + '</b> &mdash; the same company, the same record.</p>' : '')
