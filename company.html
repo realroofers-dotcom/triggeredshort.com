@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-20 · 8k10q company-1c (1c: filings in the past year and five, every recent filing listed, JOIN CHAT by the search; 1b: the red-flag strip, free, only when there are flags; the split and merger lists are the goods) · THE COMPANY PAGE on 8K10Q: the three tell-tales at the top (name change, reverse split, warrant paper), then everything the company has filed, each readable here for $20. -->
+<!-- BUILT 2026-09-21 · 8k10q company-1d (1d: the state and the agent for service on the summary, a flag when none; 1c: filings in the past year and five, every recent filing listed, JOIN CHAT by the search; 1b: the red-flag strip, free, only when there are flags; the split and merger lists are the goods) · THE COMPANY PAGE on 8K10Q: the three tell-tales at the top (name change, reverse split, warrant paper), then everything the company has filed, each readable here for $20. -->
 <!--
    HIS RULE, 20 Sep 2026: "these warnings also go on 8K10Q." The same wire
    answers both sites; this page reads it and puts the STOP banner (a name
@@ -74,7 +74,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
 <body>
 <header><div class="wrap mast">
   <a class="logo" href="/">8K<i>10Q</i></a>
-  <nav><a href="/">Read a filing</a><a href="/company.html" aria-current="page">A company</a><a href="/market.html">The market</a><a href="https://warrantwire.com">Warrant Wire</a></nav>
+  <nav><a href="/">Read a filing</a><a href="/company.html" aria-current="page">A company</a><a href="https://warrantwire.com/agents.html">Agents for service</a><a href="/market.html">The market</a><a href="https://warrantwire.com">Warrant Wire</a></nav>
 </div></header>
 
 <main><div class="wrap">
@@ -86,7 +86,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
 
 <footer><div class="wrap">
   Warrant Wire reads the warrant paper; 8K10Q reads the whole filing, every section, in plain English. The three tell-tales &mdash; a name change, a reverse split, warrant paper &mdash; are flagged on both, from the SEC&rsquo;s own record. Nothing here is investment advice. <a href="https://warrantwire.com/rules.html">The rules &rarr;</a><br>
-  <span style="font:11px var(--mono)">Built 2026-09-20 &middot; 8k10q company-1c &middot; rules version 4</span>
+  <span style="font:11px var(--mono)">Built 2026-09-20 &middot; 8k10q company-1d &middot; rules version 4</span>
 </div></footer>
 
 <script>
@@ -113,22 +113,32 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
     if (splits) f.push("Reverse split &mdash; " + splits + " filing" + (splits === 1 ? "" : "s") + " &mdash; high risk");
     if (warrants) f.push("Warrant paper &mdash; " + warrants + " filing" + (warrants === 1 ? "" : "s"));
     if (merger) f.push("Merger, sale or wind-down on the table");
+    if (!(d.company && d.company.agent)) f.push("No agent for service disclosed &mdash; high risk");
     if (!f.length) return "";
     return '<div class="warn" style="background:#fff"><span class="k">Red flags &mdash; the warning is free</span>'
       + '<p><b style="font:800 26px/1 var(--disp);color:var(--hot);margin-right:8px">' + f.length + '</b> <b>' + (f.length === 1 ? 'tell-tale' : 'tell-tales') + ' on ' + esc((d.company && d.company.name) || tk) + '.</b> Which filings, which dates and what they say are the goods: read a filing below for $20, or <a href="https://warrantwire.com/company.html?t=' + esc(tk) + '">the warrant verdict at Warrant Wire, $12</a>.</p>'
       + '<p style="display:flex;flex-wrap:wrap;gap:6px">' + f.map(function (x) { return '<span style="font:600 13px var(--body);border-radius:999px;padding:4px 11px;background:#fff3ec;color:#b53400;border:1px solid #f2c9b4">' + x + '</span>'; }).join("") + '</p></div>';
   }
-  function stopBox(d, tk) {
+  /* the path of the shell — every name and ticker, oldest first, each one searchable */
+  function pathHtml(d, base) {
+    var p = d.path; if (!p || !p.steps || p.steps.length < 2) return "";
+    var tk = {}; (p.tickers || []).forEach(function (t) { if (t.name) tk[t.name] = t.ticker; });
+    var cur = (p.tickers || []).filter(function (t) { return t.current; })[0];
+    return '<p style="margin-top:10px"><b>The path:</b> ' + p.steps.map(function (s, i) {
+      var q = s.current ? (cur ? cur.ticker : s.name) : (tk[s.name] || s.name);
+      return '<a href="' + base + encodeURIComponent(q) + '" style="font-weight:700">' + esc(s.name) + (tk[s.name] ? ' / ' + esc(tk[s.name]) : (s.current && cur ? ' / ' + esc(cur.ticker) : '')) + '</a> <span style="opacity:.85">(' + esc(s.from || '?') + ' &rarr; ' + (s.current ? 'today' : esc(s.to || '?')) + ')</span>';
+    }).join(' &rarr; ') + '. ' + esc(p.note || '') + '</p>';
+  }  function stopBox(d, tk) {
     var r = d.signals && d.signals.renamed; if (!r || !r.former || !r.former.length) return "";
     var first = d.edgar && d.edgar.first ? String(d.edgar.first).slice(0, 10) : null;
     var years = first ? (Date.now() - Date.parse(first)) / 31557600000 : null, young = years != null && years < 3;
     var ft = (d.company && d.company.former_tickers) || [];
     return '<div class="stop"><span class="k">&#9632; Stop &mdash; this company changed its name</span>'
-      + (d.searched_as ? '<p><b>You searched ' + esc(d.searched_as.ticker) + '.</b> That is a former ticker; the company trades as ' + esc(d.searched_as.now) + ' today. Same company, same record.</p>' : '')
+      + (d.searched_as ? '<p><b>You searched ' + esc(d.searched_as.ticker) + '.</b> ' + esc(d.searched_as.note || ("That is a former name; the company trades as " + d.searched_as.now + " today.")) + '</p>' : '')
       + '<p><b>' + esc(r.now || tk) + ' has filed with the SEC under ' + (r.former.length === 1 ? 'another name' : r.former.length + ' other names') + (ft.length ? ' and traded as ' + ft.map(function (x) { return esc(x.ticker); }).join(", ") : '') + '.</b>'
       + (young ? ' It has been on EDGAR only since ' + esc(first) + ' &mdash; public about ' + (years < 1 ? 'a year' : Math.round(years) + ' years') + ' &mdash; and has already changed its name.' : (first ? ' On EDGAR since ' + esc(first) + '.' : ''))
       + ' A name change is high risk, without exception: the filings, the warrant paper and the shareholders who held it stay on EDGAR under the old name, and the new name starts clean.</p>'
-      + '<ol>' + r.former.map(function (f) { return '<li><b>' + esc(f.name) + '</b>' + (f.from || f.to ? ' &mdash; ' + esc(f.from || '?') + ' to ' + esc(f.to || '?') : '') + '</li>'; }).join("") + '</ol>'
+      + '<ol>' + r.former.map(function (f) { return '<li><b>' + esc(f.name) + '</b>' + (f.from || f.to ? ' &mdash; ' + esc(f.from || '?') + ' to ' + esc(f.to || '?') : '') + '</li>'; }).join("") + '</ol>' + pathHtml(d, "/company.html?ticker=")
       + '<p><b>Read its filings before you do anything else.</b> <a class="go" href="#edgar">The record &darr;</a> <a href="https://warrantwire.com/company.html?t=' + esc(tk) + '" style="margin-left:10px">The warrant verdict at Warrant Wire &rarr;</a></p></div>';
   }
   function sigBox(list, title, lead, rule) {
@@ -159,6 +169,9 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
     return '<section class="who"><h1>' + esc(c.name || tk) + '<small>' + esc(c.ticker || tk) + (c.exchange ? ' &middot; ' + esc(c.exchange) : '') + '</small></h1>'
       + (c.business ? '<p>' + esc(c.business) + (c.state_inc ? ' &middot; incorporated in ' + esc(c.state_inc) : '') + (c.cik ? ' &middot; CIK ' + esc(c.cik) : '') + '</p>' : '')
       + ((c.former_names && c.former_names.length) ? '<p>Formerly ' + c.former_names.map(esc).join("; ") + '</p>' : '')
+      + (c.incorporated ? '<p><b>Incorporated in ' + esc(c.incorporated.name) + '.</b>' + (c.incorporated.registry ? ' Registered agent of record: <a href="' + esc(c.incorporated.registry.url) + '" target="_blank" rel="noopener">' + esc(c.incorporated.registry.name) + ' &rarr;</a>' : '') + '</p>' : '')
+      + (c.agent ? '<p><b>Agent for service:</b> ' + esc(c.agent.name) + (c.agent.address ? ', ' + esc(c.agent.address) : '') + (c.agent.phone ? ', ' + esc(c.agent.phone) : '') + ' <span style="color:var(--ink-2)">&mdash; per its ' + esc(c.agent.source.form) + ' of ' + esc(c.agent.source.filed_on) + '</span> &middot; <a href="https://warrantwire.com/agents.html?q=' + esc(tk) + '">the agents page</a></p>'
+                 : '<p style="color:var(--stop)"><b>No agent for service disclosed</b> on any registration statement in its record &mdash; a red flag. <a href="https://warrantwire.com/agents.html?q=' + esc(tk) + '" style="color:var(--stop)">The agents page, and a letter to the SEC &rarr;</a></p>')
       + (ft.length ? '<p><b>Formerly traded as ' + ft.map(function (x) { return '<a href="/company.html?ticker=' + esc(x.ticker) + '">' + esc(x.ticker) + '</a>' + (x.name ? ' (' + esc(x.name) + ')' : ''); }).join(", ") + '</b> &mdash; the same company, the same record.</p>' : '')
       + (c.edgar ? '<p><a href="' + esc(c.edgar) + '" target="_blank" rel="noopener">Its EDGAR page &rarr;</a></p>' : '') + '</section>';
   }
