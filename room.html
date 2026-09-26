@@ -62,7 +62,7 @@ h1{font:800 clamp(26px,4vw,40px)/1.08 var(--disp);letter-spacing:-.02em;margin:0
 .stat .v{font:700 17px var(--body);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rng{position:relative;height:6px;border-radius:3px;background:rgba(255,255,255,.18);margin:10px 0 4px}
 .rng i{position:absolute;top:-4px;width:4px;height:14px;border-radius:2px;background:var(--hot);transform:translateX(-50%)}
-.rng + .ends{display:flex;justify-content:space-between;font:500 12px var(--mono);color:#B9C3E8}
+.rng + .ends{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;font:500 12px var(--mono);color:#B9C3E8}
 .spark{margin-top:18px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:10px 12px 6px}
 .spark .k{font:600 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#9FABD8;display:flex;justify-content:space-between}
 .spark svg{display:block;width:100%;height:70px}
@@ -158,7 +158,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
   <div class="hgrid">
     <div>
       <div class="sym" id="sym">&nbsp;</div>
-      <h1 id="name">Loading&hellip;</h1>
+      <h1 id="name">&nbsp;</h1>
       <p class="where" id="where">&nbsp;</p>
     </div>
     <div class="px" id="px" aria-live="polite"></div>
@@ -215,6 +215,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
 
   document.title = T + " — the room — 8K10Q";
   $("sym").textContent = T;
+  $("name").textContent = T;
   $("roomtitle").textContent = "The " + T + " room";
   $("go").addEventListener("submit", function (e) { e.preventDefault(); var v = $("gosym").value.trim().toUpperCase(); if (v) location.href = "/room.html?t=" + encodeURIComponent(v); });
 
@@ -358,14 +359,24 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
 
   /* ---------------- go ---------------- */
   var quoteP = loadQuote();
+  var wireP = getJSON(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).catch(function () { return null; });
   Promise.all([
-    getJSON(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).catch(function () { return null; }),
+    wireP,
     getJSON(ROOM + "/api/company/" + encodeURIComponent(T)).catch(function () { return null; }),
     getJSON(ROOM + "/api/status/" + encodeURIComponent(T)).catch(function () { return null; }),
     quoteP
   ]).then(function (r) {
-    if (!r[0] && !r[1]) { $("glance").innerHTML = '<div class="skel">We couldn&rsquo;t reach the filings just now.</div>'; $("name").textContent = T; return; }
+    if (!r[0] && !r[1]) { $("glance").innerHTML = '<div class="skel">We couldn&rsquo;t reach the filings just now.</div>'; return; }
     renderGlance(r[0], r[1], r[2], r[3]);
+    /* The first time a company is asked about, Warrant Wire may still be building its record and
+       answer with part of it. Ask again a little later and redraw with the whole of it. */
+    if (r[0] && r[0].building) {
+      [7000, 20000].forEach(function (ms) {
+        setTimeout(function () {
+          getJSON(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).then(function (w2) { if (w2 && w2.ok) renderGlance(w2, r[1], r[2], r[3]); }).catch(function () {});
+        }, ms);
+      });
+    }
   });
   loadStream();
   setInterval(loadQuote, 60000);
