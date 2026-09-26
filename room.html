@@ -1,0 +1,376 @@
+<!-- BUILT 2026-09-26 · 8k10q room-1a · THE ROOM FOR ONE COMPANY. First appearance matters: the price as it
+     really is (delayed, sessions labelled), the company in plain words (exchange, address, incorporation,
+     name changes, warrants, red flags, each with the filing it came from), and a room where every post
+     carries a real verified name or is labelled as a Warrant Wire program. Nothing here is invented:
+     a number the source did not give is left out, a room with no posts says so.
+     Selling is OFF (see SELLING) until reads are delivered. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The room — 8K10Q</title>
+<meta name="description" content="One company, in plain words: the price, where it is incorporated, what it has been called, its warrants and red flags from its own filings, and a room of verified, named people.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{
+  --navy:#00208B; --navy-d:#001348; --navy-l:#0A2CA8;
+  --hot:#FF4A00; --hot-d:#E03F00; --paper:#F4F3EE; --card:#FFFFFF;
+  --ink:#12141C; --ink-2:#5A6072; --ink-3:#8A8F9E; --line-d:#E3E1D8; --line:rgba(255,255,255,.16);
+  --up:#0E8A5F; --down:#C8321E; --soft-hot:#FFF1EA; --soft-navy:#EEF1FB;
+  --disp:Rubik,system-ui,sans-serif; --body:"Public Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:var(--navy)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #FFC7B0;outline-offset:2px}
+
+/* ---------- top bar ---------- */
+.top{background:var(--navy-d);color:#fff}
+.top .wrap{display:flex;align-items:center;gap:16px;min-height:60px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+.logo{font:900 24px/1 var(--disp);letter-spacing:-.02em;color:#fff;text-decoration:none}
+.logo span{color:var(--hot)}
+.links{display:flex;gap:4px;flex-wrap:wrap}
+.links a{color:#B9C3E8;text-decoration:none;font:600 14px var(--body);padding:8px 10px;border-radius:6px}
+.links a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.links a[aria-current]{color:#fff;box-shadow:inset 0 -2px 0 var(--hot)}
+.go{margin-left:auto;display:flex;gap:6px}
+.go input{width:130px;background:#fff;border:0;border-radius:6px;padding:9px 11px;font:600 14px var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.go button{background:var(--hot);color:#fff;border:0;border-radius:6px;padding:9px 14px;font:700 14px var(--body);cursor:pointer}
+.go button:hover{background:var(--hot-d)}
+
+/* ---------- hero: who and what it costs ---------- */
+.hero{background:var(--navy);color:#fff;padding:26px 0 22px}
+.hgrid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 28px;align-items:end}
+.sym{display:inline-block;font:700 14px var(--mono);letter-spacing:.08em;background:rgba(255,255,255,.12);
+  border:1px solid var(--line);border-radius:6px;padding:4px 10px;margin-bottom:10px}
+h1{font:800 clamp(26px,4vw,40px)/1.08 var(--disp);letter-spacing:-.02em;margin:0 0 6px}
+.where{color:#C4CCEA;margin:0;font-size:15px}
+.px{text-align:right}
+.px .now{font:900 clamp(38px,6vw,56px)/1 var(--disp);letter-spacing:-.02em}
+.px .chg{font:700 17px var(--body);margin-top:6px}
+.px .chg.up{color:#6BE3B0} .px .chg.down{color:#FF9C85}
+.px .asof{font-size:13px;color:#B9C3E8;margin-top:6px}
+.px .ext{display:inline-block;margin-top:8px;font-size:13.5px;background:rgba(255,255,255,.1);border-radius:999px;padding:4px 12px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
+.stat{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.stat .k{font:600 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#9FABD8}
+.stat .v{font:700 17px var(--body);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rng{position:relative;height:6px;border-radius:3px;background:rgba(255,255,255,.18);margin:10px 0 4px}
+.rng i{position:absolute;top:-4px;width:4px;height:14px;border-radius:2px;background:var(--hot);transform:translateX(-50%)}
+.rng + .ends{display:flex;justify-content:space-between;font:500 12px var(--mono);color:#B9C3E8}
+.spark{margin-top:18px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:10px 12px 6px}
+.spark .k{font:600 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#9FABD8;display:flex;justify-content:space-between}
+.spark svg{display:block;width:100%;height:70px}
+.src{font-size:12px;color:#8E9BCD;margin-top:10px}
+
+/* ---------- body ---------- */
+.body{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,1fr);grid-template-areas:"chat glance";gap:22px;padding:24px 20px 60px}
+.card{background:var(--card);border:1px solid var(--line-d);border-radius:14px;box-shadow:0 1px 2px rgba(18,20,28,.04)}
+.card h2{font:800 20px/1.2 var(--disp);letter-spacing:-.01em;margin:0}
+.chat{grid-area:chat;display:flex;flex-direction:column;min-height:560px;overflow:hidden}
+.glance{grid-area:glance;align-self:start}
+@media (max-width:900px){
+  .body{grid-template-columns:1fr;grid-template-areas:"glance" "chat"}
+  .hgrid{grid-template-columns:1fr}.px{text-align:left}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .go{margin-left:0;width:100%}.go input{flex:1}
+}
+
+/* chat */
+.chead{padding:18px 20px 14px;border-bottom:1px solid var(--line-d)}
+.chead p{margin:6px 0 0;color:var(--ink-2);font-size:14.5px}
+.who-here{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-d);border-radius:999px;padding:5px 12px 5px 5px;font-size:13.5px;background:#FBFAF7}
+.chip .av{width:26px;height:26px;font-size:12px}
+.chip small{color:var(--ink-3)}
+.stream{flex:1;overflow-y:auto;padding:14px 20px;display:flex;flex-direction:column;gap:14px;max-height:62vh}
+.post{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:700 16px var(--disp);color:#fff;background:var(--navy)}
+.post.prog .av{background:#fff;color:var(--hot);border:2px solid var(--hot)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:baseline;font-size:13px;color:var(--ink-3)}
+.meta b{font-size:15px;color:var(--ink)}
+.badge{font:700 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 6px}
+.badge.ok{background:var(--soft-navy);color:var(--navy)}
+.badge.prog{background:var(--soft-hot);color:var(--hot-d)}
+.bubble{margin-top:4px;background:#F7F6F2;border:1px solid var(--line-d);border-radius:4px 14px 14px 14px;padding:10px 13px;white-space:pre-wrap;word-wrap:break-word}
+.post.prog .bubble{background:var(--soft-hot);border-color:#FFD7C6}
+.empty{margin:auto 0;text-align:center;color:var(--ink-2);padding:34px 18px}
+.empty .big{font:800 19px var(--disp);color:var(--ink);margin-bottom:6px}
+.composer{border-top:1px solid var(--line-d);padding:14px 20px 18px;background:#FBFAF7}
+.composer textarea{width:100%;min-height:62px;resize:vertical;border:1px solid var(--line-d);border-radius:10px;padding:11px 12px;font:inherit;background:#fff}
+.composer textarea:disabled{background:#F1F0EB;color:var(--ink-3)}
+.crow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
+.crow small{color:var(--ink-2);font-size:13px}
+.btn{display:inline-block;background:var(--hot);color:#fff;border:0;border-radius:8px;padding:10px 16px;font:700 14.5px var(--body);text-decoration:none;cursor:pointer}
+.btn:disabled,.btn[aria-disabled="true"]{opacity:.55;cursor:not-allowed}
+.btn.quiet{background:#fff;color:var(--navy);border:1.5px solid var(--line-d)}
+
+/* glance */
+.glance .top-row{padding:18px 20px 6px}
+.glance .top-row p{margin:4px 0 0;color:var(--ink-2);font-size:14px}
+.facts{list-style:none;margin:0;padding:4px 20px 8px}
+.facts li{padding:12px 0;border-bottom:1px solid var(--line-d)}
+.facts li:last-child{border-bottom:0}
+.fk{font:600 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.fv{font-size:15px}
+.fv .sm{display:block;font-size:13px;color:var(--ink-2);margin-top:3px}
+details summary{cursor:pointer;color:var(--navy);font-weight:600;font-size:14px;margin-top:4px}
+details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
+.flags{padding:6px 20px 16px}
+.flags h3,.files h3{font:800 16px var(--disp);margin:14px 0 8px}
+.flag{border:1px solid #FFD7C6;background:var(--soft-hot);border-radius:10px;padding:11px 13px;margin-bottom:9px}
+.flag b{display:block;font-size:15px}
+.flag p{margin:4px 0 0;font-size:14px;color:#3B3F4C}
+.flag a{font-size:13px}
+.noflag{font-size:14px;color:var(--ink-2)}
+.files{padding:0 20px 18px}
+.file{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line-d);font-size:14px}
+.file:last-child{border-bottom:0}
+.file .f{font:600 12px var(--mono);background:var(--soft-navy);color:var(--navy);border-radius:4px;padding:3px 6px;white-space:nowrap}
+.file .d{color:var(--ink-3);font-size:12.5px}
+.file .rd{font-size:12.5px;color:var(--ink-3);white-space:nowrap}
+.muted{color:var(--ink-3)}
+.foot{color:var(--ink-3);font-size:12.5px;padding:0 20px 18px}
+.skel{color:var(--ink-3);padding:14px 20px}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="/">8K10Q<span>.com</span></a>
+  <nav class="links" aria-label="Main">
+    <a href="/room.html" aria-current="page">Chatroom</a>
+    <a href="/">Read a filing</a>
+    <a href="https://warrantwire.com">Warrant Wire &rarr;</a>
+  </nav>
+  <form class="go" id="go" role="search">
+    <input id="gosym" aria-label="Go to a symbol" placeholder="Symbol" maxlength="10" autocomplete="off">
+    <button type="submit">Go</button>
+  </form>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="hgrid">
+    <div>
+      <div class="sym" id="sym">&nbsp;</div>
+      <h1 id="name">Loading&hellip;</h1>
+      <p class="where" id="where">&nbsp;</p>
+    </div>
+    <div class="px" id="px" aria-live="polite"></div>
+  </div>
+  <div class="stats" id="stats"></div>
+  <div class="spark" id="spark" hidden></div>
+  <div class="src" id="src"></div>
+</div></section>
+
+<main class="wrap body">
+  <aside class="card glance" id="glance" aria-label="The company at a glance">
+    <div class="skel">Reading the company&rsquo;s own filings&hellip;</div>
+  </aside>
+
+  <section class="card chat" aria-label="The room">
+    <div class="chead">
+      <h2 id="roomtitle">The room</h2>
+      <p>Every post here carries a real, verified name &mdash; or comes from a Warrant Wire program and says so. No anonymous posts, no hype, nothing invented.</p>
+      <div class="who-here">
+        <span class="chip"><span class="av" style="background:#fff;color:var(--hot);border:2px solid var(--hot)">S</span><span><b>Stephen</b> <small>Warrant Wire program &middot; the facts of each new filing</small></span></span>
+        <span class="chip"><span class="av" style="background:#fff;color:var(--hot);border:2px solid var(--hot)">B</span><span><b>Barry</b> <small>Warrant Wire program &middot; warrant paper</small></span></span>
+      </div>
+    </div>
+    <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading the room&hellip;</div></div>
+    <div class="composer">
+      <textarea id="msg" disabled placeholder="Posting opens soon, for verified, named members."></textarea>
+      <div class="crow">
+        <small>Your real name goes on every post. We telephone every member before their first one.</small>
+        <button class="btn" disabled title="Opening soon">Join &mdash; opening soon</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  /* ⚠ SELLING IS OFF until a paid read is produced and delivered. Same switch as index.html. */
+  var SELLING = false;
+  var ROOM = "https://triggeredshort-room.realroofers.workers.dev";
+  var WIRE = "https://wire.warrantwire.com";
+  var qs = new URLSearchParams(location.search);
+  var T = (qs.get("t") || qs.get("ticker") || "TOVX").trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, "").slice(0, 10) || "TOVX";
+
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function safeUrl(u) { return /^https:\/\/(www\.sec\.gov|esos\.nv\.gov|warrantwire\.com|[a-z0-9.\-]+\.gov)\//i.test(u || "") ? u : null; }
+  function getJSON(u) { return fetch(u).then(function (r) { return r.json(); }); }
+  function money(v) { if (v == null) return "—"; return "$" + (Math.abs(v) < 1 ? v.toFixed(4) : v.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })); }
+  function big(n) { if (n == null) return "—"; return n >= 1e9 ? (n / 1e9).toFixed(2) + "B" : n >= 1e6 ? (n / 1e6).toFixed(2) + "M" : n >= 1e3 ? (n / 1e3).toFixed(1) + "K" : String(n); }
+  function day(iso) { if (!iso) return ""; var d = new Date(iso.length === 10 ? iso + "T12:00:00Z" : iso); return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }); }
+  function et(iso) { var d = new Date(iso); return d.toLocaleString("en-US", { timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) + " ET"; }
+  function pct(v) { return (v > 0 ? "+" : "") + v.toFixed(2) + "%"; }
+
+  document.title = T + " — the room — 8K10Q";
+  $("sym").textContent = T;
+  $("roomtitle").textContent = "The " + T + " room";
+  $("go").addEventListener("submit", function (e) { e.preventDefault(); var v = $("gosym").value.trim().toUpperCase(); if (v) location.href = "/room.html?t=" + encodeURIComponent(v); });
+
+  /* ---------------- the price ---------------- */
+  function range(label, lo, hi, now) {
+    if (lo == null || hi == null) return '<div class="stat"><div class="k">' + label + '</div><div class="v">—</div></div>';
+    var p = hi > lo && now != null ? Math.max(0, Math.min(100, (now - lo) / (hi - lo) * 100)) : 50;
+    return '<div class="stat"><div class="k">' + label + '</div>'
+      + '<div class="rng" role="img" aria-label="' + label + ' from ' + money(lo) + ' to ' + money(hi) + '"><i style="left:' + p.toFixed(1) + '%"></i></div>'
+      + '<div class="ends"><span>' + money(lo) + '</span><span>' + money(hi) + '</span></div></div>';
+  }
+  function drawSpark(series) {
+    var el = $("spark");
+    if (!series || series.length < 2) { el.hidden = true; return; }
+    var W = 600, H = 70, vals = series.map(function (x) { return x.c; });
+    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), span = (hi - lo) || 1;
+    var pts = series.map(function (x, i) { return (i * W / (series.length - 1)).toFixed(1) + "," + (H - 4 - (x.c - lo) / span * (H - 8)).toFixed(1); }).join(" ");
+    var up = vals[vals.length - 1] >= vals[0], col = up ? "#6BE3B0" : "#FF9C85";
+    el.innerHTML = '<div class="k"><span>The past year</span><span>' + day(series[0].d) + ' &ndash; ' + day(series[series.length - 1].d) + '</span></div>'
+      + '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="Closing prices over the past year">'
+      + '<polyline points="' + pts + '" fill="none" stroke="' + col + '" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>';
+    el.hidden = false;
+  }
+  function loadQuote() {
+    return getJSON("/api/quote?t=" + encodeURIComponent(T)).then(function (q) {
+      if (!q || !q.ok) { $("px").innerHTML = '<div class="asof">No price for ' + esc(T) + ' just now.</div>'; return null; }
+      var dir = q.change > 0 ? "up" : q.change < 0 ? "down" : "";
+      var h = '<div class="now">' + money(q.price) + '</div>';
+      if (q.change != null) h += '<div class="chg ' + dir + '">' + (q.change > 0 ? "▲ +" : q.change < 0 ? "▼ " : "") + money(Math.abs(q.change)).replace("$", q.change < 0 ? "−$" : "$") + ' (' + pct(q.change_pct) + ') today</div>';
+      if (q.as_of) h += '<div class="asof">At the close &middot; ' + esc(et(q.as_of)) + ' &middot; delayed</div>';
+      if (q.extended && q.extended.price != null && q.price) {
+        var ep = (q.extended.price - q.price) / q.price * 100;
+        h += '<div class="ext">' + (q.extended.session === "pre" ? "Pre-market" : "After hours") + ' ' + money(q.extended.price) + ' (' + pct(ep) + ') &middot; ' + esc(et(q.extended.at)) + '</div>';
+      }
+      $("px").innerHTML = h;
+      var vol = q.volume != null ? big(q.volume) + (q.avg_volume_30d ? ' <span style="color:#B9C3E8;font-weight:500">/ avg ' + big(q.avg_volume_30d) + '</span>' : "") : "—";
+      $("stats").innerHTML = range("Today", q.day_low, q.day_high, q.price) + range("52 weeks", q.wk52_low, q.wk52_high, q.price)
+        + '<div class="stat"><div class="k">Previous close</div><div class="v">' + money(q.prev_close) + '</div></div>'
+        + '<div class="stat"><div class="k">Volume</div><div class="v">' + vol + '</div></div>';
+      drawSpark(q.series);
+      $("src").textContent = "Prices are delayed and shown as reported. Pre-market is 4:00–9:30 AM ET and after hours 4:00–8:00 PM ET; overnight trading isn’t shown yet.";
+      return q;
+    }).catch(function () { $("px").innerHTML = '<div class="asof">The price desk isn’t answering just now.</div>'; return null; });
+  }
+
+  /* ---------------- the company, in plain words ---------------- */
+  var FORMS = { "8-K": "Current report", "10-Q": "Quarterly report", "10-K": "Annual report", "S-8": "Employee stock plan", "S-3": "Shelf registration",
+    "S-1": "Registration", "S-1/A": "Registration (amended)", "424B5": "Offering prospectus", "424B3": "Prospectus", "DEF 14A": "Proxy for a shareholder vote",
+    "PRE 14A": "Draft proxy", "4": "Insider trade", "SC 13G": "Large holder", "SC 13D": "Large holder, active", "EX-99.1": "Press release", "EX-10.1": "Agreement",
+    "10-K/A": "Annual report (amended)", "8-K/A": "Current report (amended)", "S-3/A": "Shelf registration (amended)", "DEFA14A": "Proxy material", "144": "Planned insider sale" };
+  function lastOf(list) { return (list || []).slice().sort(function (a, b) { return (b.filed_on || "").localeCompare(a.filed_on || ""); })[0]; }
+  function evidence(x) { var u = x && safeUrl(x.url); return u ? ' <a href="' + esc(u) + '" target="_blank" rel="noopener">Read it in the ' + esc(x.form) + ' of ' + esc(day(x.filed_on)) + ' &rarr;</a>' : ""; }
+
+  function renderGlance(w, c, st, q) {
+    var co = (w && w.company) || {}, ab = (w && w.about) || {}, sg = (w && w.signals) || {}, pr = (c && c.profile) || {};
+    var name = co.name || pr.legal_name || T;
+    $("name").textContent = name;
+    var exch = (q && q.exchange) || co.exchange || pr.exchange || "";
+    var place = pr.hq || [co.city && co.city.charAt(0) + co.city.slice(1).toLowerCase(), co.state_loc].filter(Boolean).join(", ");
+    $("where").textContent = [exch, place].filter(Boolean).join(" · ");
+
+    var f = [];
+    var what = pr.description || co.business || ab.business;
+    if (what) f.push(['What it does', esc(what) + (pr.employees != null ? '<span class="sm">' + esc(pr.employees) + ' employees' + (pr.employees_as_of ? ', as of ' + esc(day(pr.employees_as_of)) : '') + ', from its own reports.</span>' : '')]);
+    if (exch) f.push(['Exchange', esc(exch)]);
+    var ag = co.agent;
+    if (ag && ag.address) f.push(['Address on file', esc(ag.address) + (ag.phone ? '<span class="sm">' + esc(ag.phone) + '</span>' : '') + (ag.source ? '<span class="sm">From its ' + esc(ag.source.form) + ' of ' + esc(day(ag.source.filed_on)) + '.</span>' : '')]);
+    else if (place) f.push(['Headquarters', esc(place)]);
+    var inc = co.incorporated || {};
+    if (inc.name || pr.incorporated_in) {
+      var reg = inc.registry && safeUrl(inc.registry.url);
+      f.push(['Incorporated in', esc(inc.name || pr.incorporated_in) + (reg ? '<span class="sm"><a href="' + esc(reg) + '" target="_blank" rel="noopener">Look it up at the ' + esc(inc.registry.name) + ' &rarr;</a></span>' : '')]);
+    }
+    if (ag && ag.name) f.push(['Agent for legal papers', esc(ag.name)]);
+    var rn = sg.renamed;
+    if (rn && rn.former && rn.former.length) {
+      f.push(['Earlier names', rn.former.length + ' earlier name' + (rn.former.length > 1 ? 's' : '') + ' since ' + esc(String(rn.former[rn.former.length - 1].from || '').slice(0, 4))
+        + '<details><summary>See them</summary><ol>' + rn.former.map(function (x) { return '<li>' + esc(x.name) + ' <span class="muted">(' + esc(String(x.from || '').slice(0, 4)) + '&ndash;' + esc(String(x.to || '').slice(0, 4)) + ')</span></li>'; }).join('') + '</ol></details>']);
+    }
+    if (ab.filings) f.push(['Warrants', esc(ab.filings) + ' filings since ' + esc(day(ab.first)) + ' carry warrant terms.<span class="sm"><a href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '" target="_blank" rel="noopener">The warrant detail is on Warrant Wire &rarr;</a></span>']);
+    else if (w && w.ok) f.push(['Warrants', 'No warrant terms found in its filings since 2021.']);
+    f.push(['Lawsuits', '<span class="muted">Being added: the cases the company reports in its own annual and quarterly reports.</span>']);
+
+    // red flags — each one plain, each one tied to the filing that says it
+    var flags = [];
+    if (sg.splits && sg.splits.length) { var s = lastOf(sg.splits); flags.push(['A reverse stock split is on the table', 'Shares would be combined into fewer shares at a higher price each. The business doesn’t change. Mentioned in ' + sg.splits.length + ' filing' + (sg.splits.length > 1 ? 's' : '') + '.' + evidence(s)]); }
+    if (sg.merger && sg.merger.length) { var m = lastOf(sg.merger); flags.push(['A merger, sale or “strategic alternatives”', 'The company says it is looking at a merger, a sale or other options for its future. Mentioned in ' + sg.merger.length + ' filing' + (sg.merger.length > 1 ? 's' : '') + '.' + evidence(m)]); }
+    if (rn && rn.times >= 3) flags.push(['It has changed its name ' + rn.times + ' times', 'Old filings stay under the old names, so a search on today’s name can miss the history.']);
+    if (w && w.ok && !ag) flags.push(['No agent for legal papers found', 'We could not find who accepts legal papers for this company in its filings.']);
+    ((st && st.labels) || []).forEach(function (L) {
+      if (L.key === 'job_destroyer') flags.push(['Fewer people work there', esc(L.detail) + ', from its own reports.']);
+      else if (L.key === 'wealth_destroyer') flags.push(['Most of the money raised is gone', esc(L.detail) + ' from investors, measured against what the company is worth today.']);
+      else if (L.tone === 'bad') flags.push([esc(L.text), esc(L.detail)]);
+    });
+
+    var files = ((w && w.edgar && w.edgar.recent) || []).slice(0, 6);
+    var h = '<div class="top-row"><h2>' + esc(name) + ' at a glance</h2><p>Everything here comes from its own SEC filings, with a link to the page it came from.</p></div>'
+      + '<ul class="facts">' + f.map(function (x) { return '<li><div class="fk">' + x[0] + '</div><div class="fv">' + x[1] + '</div></li>'; }).join('') + '</ul>'
+      + '<div class="flags"><h3>Red flags</h3>'
+      + (flags.length ? flags.map(function (x) { return '<div class="flag"><b>' + x[0] + '</b><p>' + x[1] + '</p></div>'; }).join('')
+                      : '<p class="noflag">None found in the filings we have read. That is not a clean bill of health, only what the filings say.</p>')
+      + '</div>';
+    if (files.length) h += '<div class="files"><h3>Latest filings</h3>' + files.map(function (x) {
+        var u = safeUrl(x.url);
+        return '<div class="file"><span class="f">' + esc(x.form) + '</span><span>' + (u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(FORMS[x.form] || x.form) + '</a>' : esc(FORMS[x.form] || x.form)) + '<br><span class="d">' + esc(day(x.filed_on)) + '</span></span>'
+          + '<span class="rd">' + (SELLING ? '' : 'Reading opens soon') + '</span></div>';
+      }).join('') + '</div>';
+    h += '<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess.</p>';
+    $("glance").innerHTML = h;
+  }
+
+  /* ---------------- the room ---------------- */
+  var lastSig = "";
+  function initials(n) { return String(n || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(function (p) { return p.charAt(0).toUpperCase(); }).join("") || "?"; }
+  function renderPost(it) {
+    if (it.kind === "ad" || it.kind === "house") return "";          // no ads in the room
+    var a = it.author || {}, prog = a.type === "program";
+    var nm = a.detached ? "A verified member" : (a.display || "A verified member");
+    var badge = prog ? '<span class="badge prog">' + esc(a.firm || "Warrant Wire") + ' program</span>' : '<span class="badge ok">Verified</span>';
+    var when = it.timestamp_utc || (it.at ? new Date(it.at * 1000).toISOString() : null);
+    return '<div class="post' + (prog ? ' prog' : '') + '"><div class="av" aria-hidden="true">' + esc(initials(nm)) + '</div><div>'
+      + '<div class="meta"><b>' + esc(nm) + '</b>' + badge + (when ? '<span>' + esc(et(when)) + '</span>' : '') + '</div>'
+      + '<div class="bubble">' + esc(it.body) + '</div></div></div>';
+  }
+  function loadStream() {
+    return getJSON(ROOM + "/api/stream?room=" + encodeURIComponent(T) + "&limit=60").then(function (d) {
+      var items = ((d && d.items) || []).filter(function (it) { return it.kind !== "ad" && it.kind !== "house"; });
+      var sig = items.map(function (x) { return x.id || x.at; }).join(",");
+      if (sig === lastSig && lastSig) return;
+      lastSig = sig;
+      var s = $("stream"), atBottom = s.scrollHeight - s.scrollTop - s.clientHeight < 40;
+      if (!items.length) {
+        s.innerHTML = '<div class="empty"><div class="big">No one has posted in the ' + esc(T) + ' room yet.</div>'
+          + 'The room opens to verified, named members soon. You&rsquo;ll see real names here, and the facts of each new ' + esc(T) + ' filing as it lands.</div>';
+        return;
+      }
+      s.innerHTML = items.map(renderPost).join("");
+      if (atBottom || !s.dataset.seen) { s.scrollTop = s.scrollHeight; s.dataset.seen = "1"; }
+    }).catch(function () { $("stream").innerHTML = '<div class="empty">The room isn&rsquo;t answering just now. Try again in a moment.</div>'; });
+  }
+
+  /* ---------------- go ---------------- */
+  var quoteP = loadQuote();
+  Promise.all([
+    getJSON(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).catch(function () { return null; }),
+    getJSON(ROOM + "/api/company/" + encodeURIComponent(T)).catch(function () { return null; }),
+    getJSON(ROOM + "/api/status/" + encodeURIComponent(T)).catch(function () { return null; }),
+    quoteP
+  ]).then(function (r) {
+    if (!r[0] && !r[1]) { $("glance").innerHTML = '<div class="skel">We couldn&rsquo;t reach the filings just now.</div>'; $("name").textContent = T; return; }
+    renderGlance(r[0], r[1], r[2], r[3]);
+  });
+  loadStream();
+  setInterval(loadQuote, 60000);
+  setInterval(loadStream, 15000);
+})();
+</script>
+</body>
+</html>
