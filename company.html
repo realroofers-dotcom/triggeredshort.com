@@ -103,6 +103,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
 (function () {
   "use strict";
   var WIRE = "https://wire.warrantwire.com", PAY = "https://pay.realroofers.workers.dev";
+  var SELLING = false; /* no checkout until reads are delivered — see the buttons below */
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]; }); }
   var qs = new URLSearchParams(location.search), T = (qs.get("ticker") || qs.get("t") || qs.get("q") || "").trim().toUpperCase();
   var page = document.getElementById("page");
@@ -200,6 +201,9 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
       + warrants
       + edgarBox(d.edgar, tk);
     Array.prototype.forEach.call(page.querySelectorAll("button.buy"), function (b) {
+      /* ⚠ SELLING IS SWITCHED OFF (26 Sep 2026) until a paid read is actually
+         produced and delivered. See SELLING in index.html. */
+      if (!SELLING) { b.textContent = "Reading opens soon"; b.disabled = true; b.style.opacity = ".55"; b.style.cursor = "not-allowed"; return; }
       b.addEventListener("click", function () {
         var email = prompt("Your email address — the receipt and the reading go here."); if (!email) return;
         var m = document.getElementById("buymsg");

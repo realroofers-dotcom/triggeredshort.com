@@ -640,11 +640,18 @@ footer a{color:#C4CCEA}
      --------------------------------------------------------------- */
   var PAY = 'https://pay.realroofers.workers.dev';
 
+  /* ⚠ SELLING IS SWITCHED OFF (26 Sep 2026). Nothing is delivered after a
+     payment yet — no read is produced, no page unlocks — so no checkout may
+     open until delivery is built. Flip to true only when every product on
+     this page is delivered end to end. */
+  var SELLING = false;
+
   function msg(t,bad){
     var m=document.getElementById('buymsg'); if(!m) return;
     m.textContent=t; m.className = bad ? 'bad' : '';
   }
   function buy(sku){
+    if(!SELLING){ msg('Readings open soon. Nothing is for sale yet, and nothing has been charged.'); return; }
     var email=prompt('Your email address — the receipt and your access go here.');
     if(!email) return;
     if(email.indexOf('@')<1){ msg('That does not look like an email address.',true); return; }
@@ -664,8 +671,10 @@ footer a{color:#C4CCEA}
   var bm=document.createElement('p'); bm.id='buymsg';
   var ps=document.getElementById('pricing'); if(ps) ps.appendChild(bm);
   Array.prototype.forEach.call(document.querySelectorAll('button.buy'),function(b){
+    if(!SELLING){ b.textContent='Opening soon'; b.disabled=true; b.style.opacity='.55'; b.style.cursor='not-allowed'; }
     b.addEventListener('click',function(){ buy(b.getAttribute('data-sku')); });
   });
+  if(!SELLING) msg('Readings open soon. Nothing is for sale yet, and nothing has been charged.');
 })();
 </script>
 <script src="https://adhotbox.com/box.js" data-auto
