@@ -75,7 +75,8 @@ h1{font:800 clamp(26px,4vw,40px)/1.08 var(--disp);letter-spacing:-.02em;margin:0
 .chat{grid-area:chat;display:flex;flex-direction:column;min-height:560px;overflow:hidden}
 .glance{grid-area:glance;align-self:start}
 @media (max-width:900px){
-  .body{grid-template-columns:1fr;grid-template-areas:"glance" "chat"}
+  .body{grid-template-columns:1fr;grid-template-areas:"chat" "glance"}
+  .chat{min-height:440px}
   .hgrid{grid-template-columns:1fr}.px{text-align:left}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .go{margin-left:0;width:100%}.go input{flex:1}
@@ -137,6 +138,24 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
 .muted{color:var(--ink-3)}
 .foot{color:var(--ink-3);font-size:12.5px;padding:0 20px 18px}
 .skel{color:var(--ink-3);padding:14px 20px}
+/* the red flag at the top of a room whose company has issues in its own filings */
+.rfdot{display:inline-flex;align-items:center;justify-content:center;width:1.25em;height:1.25em;border-radius:50%;background:var(--hot);color:#fff;font-size:.8em;margin-right:.3em;vertical-align:.08em}
+.rf{margin:16px 0 0;background:#fff;border:2px solid var(--hot);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 18px;align-items:center;color:var(--ink)}
+.rf b{font:800 17px var(--disp);color:var(--hot)}
+.rf p{margin:4px 0 0;font-size:14.5px;color:#3B3F4C}
+.rf .own{font-size:12.5px;color:var(--ink-3);margin-top:6px}
+.rf .rbtn{font:700 15px var(--body);border-radius:6px;padding:11px 16px;border:0;background:var(--hot);color:#fff;text-decoration:none;white-space:nowrap;cursor:pointer}
+.rf .rbtn[aria-disabled="true"]{background:#E9E7DE;color:var(--ink-3);cursor:not-allowed}
+@media(max-width:620px){.rf{grid-template-columns:1fr}}
+/* on a phone the price and the messages come first: trim the hero to the price, two stats and the flag */
+@media(max-width:620px){
+  .hero{padding:14px 0 12px}
+  .sym{margin-bottom:6px} .hgrid{gap:8px}
+  .stats{margin-top:12px;gap:8px} .stats .stat:nth-child(n+3){display:none}
+  .spark{margin-top:10px} .spark svg{height:44px}
+  .src{display:none}
+  .rf{margin-top:12px;padding:10px 12px;gap:8px} .rf b{font-size:15px}
+}
 </style>
 </head>
 <body>
@@ -163,6 +182,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
     </div>
     <div class="px" id="px" aria-live="polite"></div>
   </div>
+  <div class="rf" id="rf" hidden></div>
   <div class="stats" id="stats"></div>
   <div class="spark" id="spark" hidden></div>
   <div class="src" id="src"></div>
@@ -310,8 +330,12 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
       else if (L.key === 'wealth_destroyer') flags.push(['Most of the money raised is gone', esc(L.detail) + ' from investors, measured against what the company is worth today.']);
       else if (L.tone === 'bad') flags.push([esc(L.text), esc(L.detail)]);
     });
+    // only issues at the company raise the flag on the title; a name history or a record we couldn't find is a note, not an issue
+    var serious = (sg.splits && sg.splits.length ? 1 : 0) + (sg.merger && sg.merger.length ? 1 : 0)
+      + ((st && st.labels) || []).filter(function (L) { return L.key === 'job_destroyer' || L.key === 'wealth_destroyer' || L.tone === 'bad'; }).length;
+    showRedFlag(serious, name);
 
-    var files = ((w && w.edgar && w.edgar.recent) || []).slice(0, 6);
+    var files =((w && w.edgar && w.edgar.recent) || []).slice(0, 6);
     var h = '<div class="top-row"><h2>' + esc(name) + ' at a glance</h2><p>Everything here comes from its own SEC filings, with a link to the page it came from.</p></div>'
       + '<ul class="facts">' + f.map(function (x) { return '<li><div class="fk">' + x[0] + '</div><div class="fv">' + x[1] + '</div></li>'; }).join('') + '</ul>'
       + '<div class="flags"><h3>Red flags</h3>'
@@ -325,6 +349,25 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
       }).join('') + '</div>';
     h += '<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess.</p>';
     $("glance").innerHTML = h;
+  }
+
+  /* ---------------- the red flag on the room's title ----------------
+     ⚠ His rule, 27 Sep 2026: a room whose company has issues in its own filings carries a red flag
+     at its title, recommends a read before anyone trades, and says plainly that a read is for the
+     buyer alone and cannot be shared. The button stays "Reads open soon" while SELLING is false. */
+  function showRedFlag(n, name) {
+    if (!n) return;
+    var label = n + " red flag" + (n > 1 ? "s" : "");
+    document.title = "⚑ " + T + " — " + label + " — 8K10Q";
+    $("roomtitle").innerHTML = '<span class="rfdot" aria-hidden="true">⚑</span>The ' + esc(T) + ' room <small style="font:600 14px var(--body);color:var(--hot)">&middot; ' + label + '</small>';
+    var buy = SELLING
+      ? '<a class="rbtn" href="/?buy=wire_read&amp;ticker=' + encodeURIComponent(T) + '">Get the read</a>'
+      : '<span class="rbtn" role="button" aria-disabled="true" title="Reads open soon">Reads open soon</span>';
+    var box = $("rf");
+    box.innerHTML = '<div><b><span class="rfdot" aria-hidden="true">⚑</span>' + label + ' in ' + esc(name) + '&rsquo;s own filings</b>'
+      + '<p>Before you trade, we recommend a read: the filing behind each flag, in plain English.</p>'
+      + '<p class="own">A read is licensed to you alone. It cannot be shared, forwarded, copied or posted.</p></div>' + buy;
+    box.hidden = false;
   }
 
   /* ---------------- the room ---------------- */

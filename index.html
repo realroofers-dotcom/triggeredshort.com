@@ -216,7 +216,7 @@ footer a{color:#C4CCEA}
              autocapitalize="characters" autocorrect="off" spellcheck="false">
       <button id="go" type="button">Read the filings</button>
       <!-- JOIN CHAT, right next to the search — his call, 20 Sep: everyone registers, nobody is anonymous; this is the answer to Stocktwits -->
-      <a id="joinchat" href="/chat.html" style="background:#fff;color:var(--hot);border:2px solid var(--hot);border-radius:5px;padding:12px 18px;font:700 15px var(--body);text-decoration:none;white-space:nowrap;align-self:center">JOIN CHAT</a>
+      <a id="joinchat" data-room href="#tk" style="background:#fff;color:var(--hot);border:2px solid var(--hot);border-radius:5px;padding:12px 18px;font:700 15px var(--body);text-decoration:none;white-space:nowrap;align-self:center">JOIN CHAT</a>
     </div>
     <p class="findnote" style="margin-top:6px"><b>The chat:</b> every company has a room. Everyone registers &mdash; a name, a telephone &mdash; and nobody is anonymous. Say what you see under your own name.</p>
     <p class="findnote">Search plain English news and filings by ticker, company or the
@@ -355,7 +355,7 @@ footer a{color:#C4CCEA}
         <p class="lede">A room for every ticker. The agents post every completed read
         into it, so it is never an empty room, and the people in it are not strangers
         with cartoon names.</p>
-        <a class="btn" href="/chat.html">Open the room</a>
+        <a class="btn" data-room href="#tk">Search a symbol, open its room</a>
       </div>
       <ul class="rules">
         <li><b>A room per company.</b> Searching a symbol creates it.</li>
@@ -624,7 +624,14 @@ footer a{color:#C4CCEA}
     location.href='/company.html?ticker='+encodeURIComponent(t);
   }
   document.getElementById('go').addEventListener('click',go);
-  document.getElementById('tk').addEventListener('input',function(){ var t=(this.value||'').trim().toUpperCase(); document.getElementById('joinchat').href='/chat.html'+(t?'?ticker='+encodeURIComponent(t):''); });
+  // there are no fixed rooms: a symbol (stock, ETF or crypto) is the room. No symbol yet, so ask for one.
+  document.getElementById('tk').addEventListener('input',function(){ var t=(this.value||'').trim().toUpperCase(); document.getElementById('joinchat').href=t?'/room.html?t='+encodeURIComponent(t):'#tk'; });
+  document.querySelectorAll('[data-room]').forEach(function(a){ a.addEventListener('click',function(e){
+    var tk=document.getElementById('tk'), t=(tk.value||'').trim().toUpperCase();
+    e.preventDefault();
+    if(t){ location.href='/room.html?t='+encodeURIComponent(t); return; }
+    tk.placeholder='TYPE A SYMBOL — STOCK, ETF OR CRYPTO'; tk.scrollIntoView({block:'center'}); tk.focus();
+  }); });
   document.getElementById('tk').addEventListener('keydown',function(e){
     if(e.key==='Enter') go();
   });
