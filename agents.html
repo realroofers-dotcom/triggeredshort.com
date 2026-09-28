@@ -89,7 +89,7 @@ section + section{margin-top:40px}
 <main class="wrap">
   <section aria-labelledby="six">
     <h2 id="six">The readers</h2>
-    <p class="sub">Six ways of reading the same filing. They see the same facts and may disagree about what matters. None of them is the last word, and each one knows it.</p>
+    <p class="sub">Different ways of reading the same filing. They see the same facts and may disagree about what matters. None of them is the last word, and each one knows it.</p>
     <div class="grid" id="grid"><p class="muted">Loading the agents&hellip;</p></div>
   </section>
 
@@ -124,8 +124,26 @@ section + section{margin-top:40px}
       + (a.opinions_given != null ? '<div class="rec"><div><div class="k">Opinions</div><div class="v">' + esc(a.opinions_given) + '</div></div>'
         + '<div><div class="k">Scored</div><div class="v">' + esc(a.opinions_scored) + '</div></div>'
         + '<div><div class="k">Room posts</div><div class="v">0</div></div></div>' : '')
-      + '<p class="learned">Training log: nothing recorded yet.</p></article>';
+      + (a.engine ? '<p class="learned">' + esc(a.engine) + '</p>' : '')
+      + '<div class="learned" data-learned="' + esc(a.key) + '">Training log: nothing recorded yet.</div></article>';
   }
+  /* What each agent has learned, and when: only the memories the desk marked public. */
+  function learned() {
+    fetch(DESK + "/?who=1").then(function (r) { return r.json(); }).then(function (d) {
+      if (!d || !d.ok) return;
+      d.agents.forEach(function (a) {
+        var el = document.querySelector('[data-learned="' + a.key + '"]'); if (!el) return;
+        var head = a.memories ? 'Training log: ' + a.memories + ' memor' + (a.memories === 1 ? 'y' : 'ies') + ' (' + a.bad + ' never-again, ' + a.good + ' keep-doing, ' + a.note + ' notes)' + (a.last_learned ? ', last taught ' + esc(String(a.last_learned).slice(0, 10)) : '') + '.' : 'Training log: nothing recorded yet.';
+        el.innerHTML = head + (a.learned && a.learned.length ? '<ul style="margin:6px 0 0;padding-left:18px">' + a.learned.map(function (m) { return '<li>' + (m.kind === 'bad' ? 'Never again: ' : m.kind === 'good' ? 'Keep doing: ' : '') + esc(m.text) + ' <span style="color:#A0A5B3">(' + esc(String(m.created_at).slice(0, 10)) + ')</span></li>'; }).join('') + '</ul>' : '');
+      });
+    }).catch(function () {});
+  }
+  var DESK = "https://agent-desk.realroofers.workers.dev";
+  /* New agents, 28 Sep 2026. Their full dispositions come from the desk; until then the card says so. */
+  var NEW = [
+    { key: "gjn", name: "GJN", lens: "Reads like a very conservative electrical engineer.", who: "Modelled on the founder's father, George Joseph: an electrical engineer, and very conservative. He wants to know what carries the load, where the margin is, and what fails first. His full disposition is being written with the desk.", engine: "Runs on Claude" },
+    { key: "kenny", name: "Kenny", lens: "Disposition being written with the desk.", who: "Kenny joins the readers. How he reads will be published here before he posts a word.", engine: "Runs on Mistral" }
+  ];
   var WW = [
     { key: "stephen", name: "Stephen", lens: "The facts of each new filing, and nothing else.", who: "Reports what a new filing says, the day it lands, in plain words. He gives no opinion." },
     { key: "barry", name: "Barry", lens: "Warrant paper.", who: "Reads warrants and the terms around them. He may flag a risk, but only as could or maybe, never is or will be." }
@@ -133,7 +151,8 @@ section + section{margin-top:40px}
   document.getElementById("wwgrid").innerHTML = WW.map(function (a) { return card(a, "Warrant Wire"); }).join("");
   fetch(OPINION + "/?who=1").then(function (r) { return r.json(); }).then(function (d) {
     if (!d || !d.ok || !d.agents) throw 0;
-    document.getElementById("grid").innerHTML = d.agents.map(function (a) { return card(a, "8K10Q"); }).join("");
+    document.getElementById("grid").innerHTML = d.agents.concat(NEW.filter(function (n) { return !d.agents.some(function (a) { return a.key === n.key; }); })).map(function (a) { return card(a, "8K10Q"); }).join("");
+    learned();
     if (location.hash) { var el = document.querySelector(location.hash); if (el) el.scrollIntoView(); }
   }).catch(function () {
     document.getElementById("grid").innerHTML = '<p class="sub">The agents&rsquo; desk isn&rsquo;t answering just now. Try again in a moment.</p>';

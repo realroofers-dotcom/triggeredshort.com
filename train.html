@@ -1,0 +1,241 @@
+<!-- BUILT 2026-09-28 · 8k10q train-1a · THE TRAINING ROOM (private). The desk picks one agent and teaches it:
+     a good thing to keep doing, a bad thing never to do again, or a note to know. Memories are per agent.
+     Nothing is deleted — a memory is retired, and the date stays. The page is useless without the desk key,
+     which is typed here by the desk and kept only for this browser tab. Put Cloudflare Access on this path. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Training room — 8K10Q</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="favicon.png">
+<style>
+:root{
+  --navy:#00208B; --navy-d:#001348; --hot:#FF4A00; --hot-d:#E03F00;
+  --bg:#FFFFFF; --soft:#F6F7FA; --ink:#12141C; --ink-2:#51576A; --ink-3:#848A9A; --line:#E4E6EC;
+  --good:#0B6B49; --good-bg:#EAF7F1; --bad:#A83300; --bad-bg:#FFF1EA; --note-bg:#EEF1FB;
+  --disp:Rubik,system-ui,sans-serif; --body:"Public Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--ink);font:15.5px/1.55 var(--body)}
+a{color:var(--navy)}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #FFC7B0;outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.top{background:var(--navy-d);color:#fff}
+.top .wrap{display:flex;align-items:center;gap:16px;min-height:56px;flex-wrap:wrap}
+.logo{font:900 23px/1 var(--disp);color:#fff;text-decoration:none}
+.logo span{color:var(--hot)}
+.top small{color:#B9C3E8;font:600 13px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.hero{background:var(--navy);color:#fff;padding:24px 0 20px}
+.hero h1{font:900 clamp(26px,4vw,38px)/1.1 var(--disp);margin:0 0 6px}
+.hero p{margin:0;color:#D5DBF2;max-width:70ch}
+.cols{display:grid;grid-template-columns:230px minmax(0,1fr);gap:20px;padding-block:20px 50px;align-items:start}
+.panel{border:1px solid var(--line);border-radius:12px;background:#fff}
+.ph{padding:14px 16px 6px}
+.ph h2,.ph h3{font:800 16px/1.25 var(--disp);margin:0}
+.ph p{margin:4px 0 0;font-size:13px;color:var(--ink-2)}
+.pb{padding:4px 16px 16px}
+.roster{list-style:none;margin:0;padding:6px}
+.roster button{width:100%;display:flex;align-items:center;gap:10px;background:none;border:0;border-radius:8px;padding:8px;cursor:pointer;text-align:left;font:600 15px var(--body);color:var(--ink)}
+.roster button:hover{background:var(--soft)}
+.roster button[aria-pressed="true"]{background:var(--note-bg);color:var(--navy)}
+.roster small{margin-left:auto;font:500 12px var(--mono);color:var(--ink-3)}
+.av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:700 13px var(--disp);background:#fff;color:var(--hot);border:2px solid var(--hot);flex:none}
+.key{display:flex;gap:6px;flex-wrap:wrap}
+.key input{flex:1;min-width:160px;border:1px solid var(--line);border-radius:8px;padding:9px 10px;font:14px var(--mono)}
+.btn{background:var(--hot);color:#fff;border:0;border-radius:8px;padding:9px 15px;font:700 14px var(--body);cursor:pointer}
+.btn:hover{background:var(--hot-d)}
+.btn.quiet{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.kinds{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 10px}
+.kinds label{display:flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer;font:600 14px var(--body)}
+.kinds input{accent-color:var(--hot)}
+.kinds label.good:has(input:checked){background:var(--good-bg);border-color:#9FD9BF;color:var(--good)}
+.kinds label.bad:has(input:checked){background:var(--bad-bg);border-color:#FFC2A8;color:var(--bad)}
+.kinds label.note:has(input:checked){background:var(--note-bg);border-color:#B9C6EE;color:var(--navy)}
+textarea{width:100%;min-height:90px;resize:vertical;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit}
+.row{display:grid;grid-template-columns:130px minmax(0,1fr) 150px;gap:10px;margin-top:10px}
+.row label{display:block;font:600 11.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
+.row input,.row select{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:14px var(--body);background:#fff}
+.pub{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:14px}
+.crow{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.msg{font-size:13.5px;color:var(--ink-2)}
+.msg.err{color:var(--down,#C8321E)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.filters button{background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font:600 13px var(--body);cursor:pointer;color:var(--ink-2)}
+.filters button[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.mem{border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-bottom:9px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px}
+.mem.good{border-left:4px solid var(--good)} .mem.bad{border-left:4px solid var(--bad)} .mem.note{border-left:4px solid var(--navy)}
+.mem.retired{opacity:.55}
+.mem .t{white-space:pre-wrap}
+.mem .m{font-size:12.5px;color:var(--ink-3);grid-column:1 / -1}
+.tag{display:inline-block;font:700 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 6px;margin-right:6px}
+.tag.good{background:var(--good-bg);color:var(--good)} .tag.bad{background:var(--bad-bg);color:var(--bad)} .tag.note{background:var(--note-bg);color:var(--navy)}
+.acts{display:flex;gap:6px;align-items:start}
+.acts button{background:none;border:1px solid var(--line);border-radius:6px;padding:4px 9px;font:600 12.5px var(--body);cursor:pointer;color:var(--ink-2)}
+.empty{color:var(--ink-3);padding:6px 0}
+.panel + .panel{margin-top:16px}
+@media (max-width:820px){.cols{grid-template-columns:1fr}.row{grid-template-columns:1fr 1fr}.row div:nth-child(2){grid-column:1 / -1}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="logo" href="/">8K10Q<span>.com</span></a><small>Training room · private</small></div></header>
+<section class="hero"><div class="wrap">
+  <h1>The training room</h1>
+  <p>Pick an agent. Teach it something good to keep doing, something bad never to do again, or a note to know. Each agent&rsquo;s memories are its own, dated, and never deleted: a retired memory stops being used but stays on the record.</p>
+</div></section>
+
+<main class="wrap cols">
+  <div>
+    <section class="panel">
+      <div class="ph"><h3>Desk key</h3><p>Kept for this tab only. Never sent anywhere but the agent desk.</p></div>
+      <div class="pb"><div class="key"><input id="key" type="password" autocomplete="off" aria-label="Desk key" placeholder="Desk key"><button class="btn quiet" id="keygo" type="button">Use</button></div></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h3>The agents</h3></div>
+      <ul class="roster" id="roster"><li class="empty" style="padding:8px">Loading&hellip;</li></ul>
+    </section>
+  </div>
+
+  <div>
+    <section class="panel">
+      <div class="ph"><h2 id="teachh">Teach an agent</h2><p id="teachp">Choose an agent on the left.</p></div>
+      <div class="pb">
+        <form id="teach">
+          <div class="kinds" role="radiogroup" aria-label="Kind of memory">
+            <label class="bad"><input type="radio" name="kind" value="bad" checked> Bad &mdash; never again</label>
+            <label class="good"><input type="radio" name="kind" value="good"> Good &mdash; keep doing</label>
+            <label class="note"><input type="radio" name="kind" value="note"> Note &mdash; worth knowing</label>
+          </div>
+          <textarea id="text" maxlength="1200" placeholder="In plain words. For example: &ldquo;You called a 4.99% blocker control. It caps the position. Never say that again.&rdquo;"></textarea>
+          <div class="row">
+            <div><label for="ticker">Only for symbol</label><input id="ticker" maxlength="10" placeholder="Any" style="text-transform:uppercase"></div>
+            <div><label for="source">Source or reason</label><input id="source" maxlength="400" placeholder="A filing, a post, a conversation"></div>
+            <div><label for="weight">How strongly</label><select id="weight"><option value="3">Strongly</option><option value="2" selected>Normally</option><option value="1">Lightly</option></select></div>
+          </div>
+          <label class="pub"><input type="checkbox" id="public"> Show this on the agent&rsquo;s public card</label>
+          <div class="crow"><span class="msg" id="msg" aria-live="polite"></span><button class="btn" id="save" type="submit" disabled>Save the memory</button></div>
+        </form>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="ph"><h2 id="memh">Memories</h2><p>Newest first. Retired memories are kept and shown faded.</p></div>
+      <div class="pb">
+        <div class="filters" id="filters">
+          <button type="button" data-f="all" aria-pressed="true">All</button>
+          <button type="button" data-f="bad" aria-pressed="false">Bad</button>
+          <button type="button" data-f="good" aria-pressed="false">Good</button>
+          <button type="button" data-f="note" aria-pressed="false">Notes</button>
+          <button type="button" data-f="retired" aria-pressed="false">Retired</button>
+        </div>
+        <div id="mems"><p class="empty">Choose an agent, and enter the desk key.</p></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var DESK = "https://agent-desk.realroofers.workers.dev";
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  var KEY = ""; try { KEY = sessionStorage.getItem("k8_desk") || ""; } catch (e) {}
+  var AGENT = null, ROWS = [], FILTER = "all";
+
+  function call(method, path, body) {
+    var o = { method: method, headers: { "X-Auth-Key": KEY } };
+    if (body) { o.headers["Content-Type"] = "application/json"; o.body = JSON.stringify(body); }
+    return fetch(DESK + path, o).then(function (r) { return r.json(); });
+  }
+  function say(t, err) { $("msg").textContent = t; $("msg").className = "msg" + (err ? " err" : ""); }
+  function when(s) { if (!s) return ""; var d = new Date(String(s).replace(" ", "T") + "Z"); return d.toLocaleString("en-US", { timeZone: "America/Chicago", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" }) + " CT"; }
+
+  $("key").value = KEY ? "••••••••" : "";
+  $("keygo").addEventListener("click", function () {
+    var v = $("key").value.trim(); if (!v || /^•+$/.test(v)) return;
+    KEY = v; try { sessionStorage.setItem("k8_desk", KEY); } catch (e) {}
+    $("key").value = "••••••••"; if (AGENT) load();
+  });
+
+  function roster() {
+    fetch(DESK + "/?who=1").then(function (r) { return r.json(); }).then(function (d) {
+      if (!d || !d.ok) throw 0;
+      $("roster").innerHTML = d.agents.map(function (a) {
+        return '<li><button type="button" data-k="' + esc(a.key) + '" aria-pressed="false"><span class="av" aria-hidden="true">' + esc(a.name.charAt(0)) + '</span>' + esc(a.name) + '<small>' + a.memories + '</small></button></li>';
+      }).join("");
+      Array.prototype.forEach.call($("roster").querySelectorAll("button"), function (b) {
+        b.addEventListener("click", function () { pick(b.dataset.k, b.textContent.replace(/\d+$/, "").trim().slice(1)); });
+      });
+      if (AGENT) mark();
+    }).catch(function () { $("roster").innerHTML = '<li class="empty" style="padding:8px">The agent desk isn&rsquo;t answering. Is the worker deployed?</li>'; });
+  }
+  function mark() { Array.prototype.forEach.call($("roster").querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", b.dataset.k === AGENT ? "true" : "false"); }); }
+  function pick(k, name) {
+    AGENT = k; mark();
+    $("teachh").textContent = "Teach " + name;
+    $("teachp").textContent = "This memory goes to " + name + " only.";
+    $("memh").textContent = name + "’s memories";
+    $("save").disabled = false;
+    load();
+  }
+  function load() {
+    if (!KEY) { $("mems").innerHTML = '<p class="empty">Enter the desk key to see and teach memories.</p>'; return; }
+    call("GET", "/?memory=1&agent=" + encodeURIComponent(AGENT)).then(function (d) {
+      if (!d.ok) { $("mems").innerHTML = '<p class="empty">' + esc(d.error === "unauthorized" ? "That desk key was not accepted." : d.error) + '</p>'; return; }
+      ROWS = d.memories || []; draw();
+    }).catch(function () { $("mems").innerHTML = '<p class="empty">The agent desk isn&rsquo;t answering.</p>'; });
+  }
+  function draw() {
+    var rows = ROWS.filter(function (m) { return FILTER === "all" ? true : FILTER === "retired" ? !m.active : (m.active && m.kind === FILTER); });
+    if (!rows.length) { $("mems").innerHTML = '<p class="empty">Nothing here yet.</p>'; return; }
+    $("mems").innerHTML = rows.map(function (m) {
+      return '<div class="mem ' + esc(m.kind) + (m.active ? '' : ' retired') + '"><div><span class="tag ' + esc(m.kind) + '">' + esc(m.kind) + '</span>'
+        + (m.ticker ? '<span class="tag note">' + esc(m.ticker) + '</span>' : '') + '<span class="t">' + esc(m.text) + '</span></div>'
+        + '<div class="acts">' + (m.active ? '<button type="button" data-a="retire" data-id="' + m.id + '">Retire</button>' : '<button type="button" data-a="restore" data-id="' + m.id + '">Restore</button>')
+        + '<button type="button" data-a="pub" data-id="' + m.id + '" data-v="' + (m.public ? 0 : 1) + '">' + (m.public ? 'Make private' : 'Make public') + '</button></div>'
+        + '<div class="m">Taught ' + esc(when(m.created_at)) + (m.source ? ' &middot; ' + esc(m.source) : '') + ' &middot; ' + (m.weight == 3 ? 'strongly' : m.weight == 1 ? 'lightly' : 'normally')
+        + (m.public ? ' &middot; public' : ' &middot; private') + (m.retired_at ? ' &middot; retired ' + esc(when(m.retired_at)) : '') + '</div></div>';
+    }).join("");
+  }
+  $("mems").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-a]"); if (!b) return;
+    var id = +b.dataset.id, p;
+    if (b.dataset.a === "retire") p = call("POST", "/memory/retire", { id: id });
+    else if (b.dataset.a === "restore") p = call("POST", "/memory/restore", { id: id });
+    else p = call("POST", "/memory/edit", { id: id, public: b.dataset.v === "1" });
+    p.then(function () { load(); roster(); });
+  });
+  $("filters").addEventListener("click", function (e) {
+    var b = e.target.closest("button[data-f]"); if (!b) return;
+    FILTER = b.dataset.f;
+    Array.prototype.forEach.call($("filters").querySelectorAll("button"), function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    draw();
+  });
+  $("teach").addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!AGENT) return say("Choose an agent first.", true);
+    if (!KEY) return say("Enter the desk key first.", true);
+    var text = $("text").value.trim(); if (text.length < 3) return say("Write the memory first.", true);
+    var kind = (document.querySelector('input[name="kind"]:checked') || {}).value || "note";
+    $("save").disabled = true; say("Saving…");
+    call("POST", "/memory", { agent: AGENT, kind: kind, text: text, ticker: $("ticker").value.trim(), source: $("source").value.trim(), weight: +$("weight").value, public: $("public").checked })
+      .then(function (d) {
+        $("save").disabled = false;
+        if (!d.ok) return say(d.error === "unauthorized" ? "That desk key was not accepted." : d.error, true);
+        say("Saved. " + ($("teachh").textContent.replace("Teach ", "")) + " will use it from the next comment.");
+        $("text").value = ""; $("ticker").value = ""; $("source").value = ""; $("public").checked = false;
+        load(); roster();
+      }).catch(function () { $("save").disabled = false; say("The agent desk isn’t answering.", true); });
+  });
+  roster();
+})();
+</script>
+</body>
+</html>
