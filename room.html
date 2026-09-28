@@ -1,8 +1,8 @@
-<!-- BUILT 2026-09-26 · 8k10q room-1a · THE ROOM FOR ONE COMPANY. First appearance matters: the price as it
-     really is (delayed, sessions labelled), the company in plain words (exchange, address, incorporation,
-     name changes, warrants, red flags, each with the filing it came from), and a room where every post
-     carries a real verified name or is labelled as a Warrant Wire program. Nothing here is invented:
-     a number the source did not give is left out, a room with no posts says so.
+<!-- BUILT 2026-09-28 · 8k10q room-2a · THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+     a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
+     the conversation in the centre, the price and the company on the right. On a phone the centre comes first
+     and the other two are one tap away. Every post carries its date and time. Every post is archived.
+     Nothing here is invented: a number the source did not give is left out, a room with no posts says so.
      Selling is OFF (see SELLING) until reads are delivered. -->
 <!DOCTYPE html>
 <html lang="en">
@@ -10,151 +10,196 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The room — 8K10Q</title>
-<meta name="description" content="One company, in plain words: the price, where it is incorporated, what it has been called, its warrants and red flags from its own filings, and a room of verified, named people.">
+<meta name="description" content="One symbol, one room: the price, the company in plain words from its own filings, and a room of verified, named people and labelled programs.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700;900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="favicon.png">
 <style>
 :root{
-  --navy:#00208B; --navy-d:#001348; --navy-l:#0A2CA8;
-  --hot:#FF4A00; --hot-d:#E03F00; --paper:#F4F3EE; --card:#FFFFFF;
-  --ink:#12141C; --ink-2:#5A6072; --ink-3:#8A8F9E; --line-d:#E3E1D8; --line:rgba(255,255,255,.16);
-  --up:#0E8A5F; --down:#C8321E; --soft-hot:#FFF1EA; --soft-navy:#EEF1FB;
+  --navy:#00208B; --navy-d:#001348; --hot:#FF4A00; --hot-d:#E03F00;
+  --bg:#FFFFFF; --panel:#FFFFFF; --soft:#F6F7FA; --ink:#12141C; --ink-2:#51576A; --ink-3:#848A9A;
+  --line:#E4E6EC; --up:#0E8A5F; --down:#C8321E; --soft-hot:#FFF1EA; --soft-navy:#EEF1FB;
   --disp:Rubik,system-ui,sans-serif; --body:"Public Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+html,body{background:var(--bg)}
+body{margin:0;color:var(--ink);font:15.5px/1.55 var(--body);-webkit-font-smoothing:antialiased}
 a{color:var(--navy)}
-.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #FFC7B0;outline-offset:2px}
+.wrap{max-width:1360px;margin:0 auto;padding:0 20px}
 
 /* ---------- top bar ---------- */
 .top{background:var(--navy-d);color:#fff}
-.top .wrap{display:flex;align-items:center;gap:16px;min-height:60px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
-.logo{font:900 24px/1 var(--disp);letter-spacing:-.02em;color:#fff;text-decoration:none}
+.top .wrap{display:flex;align-items:center;gap:16px;min-height:56px;flex-wrap:wrap;padding-top:6px;padding-bottom:6px}
+.logo{font:900 23px/1 var(--disp);letter-spacing:-.02em;color:#fff;text-decoration:none}
 .logo span{color:var(--hot)}
-.links{display:flex;gap:4px;flex-wrap:wrap}
+.links{display:flex;gap:2px;flex-wrap:wrap}
 .links a{color:#B9C3E8;text-decoration:none;font:600 14px var(--body);padding:8px 10px;border-radius:6px}
 .links a:hover{color:#fff;background:rgba(255,255,255,.07)}
 .links a[aria-current]{color:#fff;box-shadow:inset 0 -2px 0 var(--hot)}
-.go{margin-left:auto;display:flex;gap:6px}
-.go input{width:130px;background:#fff;border:0;border-radius:6px;padding:9px 11px;font:600 14px var(--mono);letter-spacing:.05em;text-transform:uppercase}
-.go button{background:var(--hot);color:#fff;border:0;border-radius:6px;padding:9px 14px;font:700 14px var(--body);cursor:pointer}
-.go button:hover{background:var(--hot-d)}
 
-/* ---------- hero: who and what it costs ---------- */
-.hero{background:var(--navy);color:#fff;padding:26px 0 22px}
-.hgrid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px 28px;align-items:end}
-.sym{display:inline-block;font:700 14px var(--mono);letter-spacing:.08em;background:rgba(255,255,255,.12);
-  border:1px solid var(--line);border-radius:6px;padding:4px 10px;margin-bottom:10px}
-h1{font:800 clamp(26px,4vw,40px)/1.08 var(--disp);letter-spacing:-.02em;margin:0 0 6px}
+/* ---------- hero: who it is and what it costs (navy, the part people love) ---------- */
+.hero{background:var(--navy);color:#fff;padding:24px 0 20px}
+.hgrid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 28px;align-items:end}
+.sym{display:inline-block;font:700 14px var(--mono);letter-spacing:.08em;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.16);border-radius:6px;padding:4px 10px;margin-bottom:10px}
+.nm{font:800 clamp(26px,4vw,40px)/1.08 var(--disp);letter-spacing:-.02em;margin:0 0 6px}
 .where{color:#C4CCEA;margin:0;font-size:15px}
 .px{text-align:right}
-.px .now{font:900 clamp(38px,6vw,56px)/1 var(--disp);letter-spacing:-.02em}
-.px .chg{font:700 17px var(--body);margin-top:6px}
-.px .chg.up{color:#6BE3B0} .px .chg.down{color:#FF9C85}
-.px .asof{font-size:13px;color:#B9C3E8;margin-top:6px}
-.px .ext{display:inline-block;margin-top:8px;font-size:13.5px;background:rgba(255,255,255,.1);border-radius:999px;padding:4px 12px}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:22px}
-.stat{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
-.stat .k{font:600 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#9FABD8}
-.stat .v{font:700 17px var(--body);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pxnow{font:900 clamp(38px,6vw,56px)/1 var(--disp);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.pxchg{font:700 17px var(--body);margin-top:6px;font-variant-numeric:tabular-nums}
+.pxchg.up{color:#6BE3B0} .pxchg.down{color:#FF9C85}
+.pxas{font-size:13px;color:#B9C3E8;margin-top:6px}
+.pxext{display:inline-block;margin-top:8px;font-size:13.5px;background:rgba(255,255,255,.1);border-radius:999px;padding:4px 12px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.lab{display:inline-flex;align-items:center;gap:6px;font:600 13px var(--body);border-radius:999px;padding:5px 11px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#E4E8F7;white-space:nowrap}
+.lab.bad{background:rgba(255,74,0,.18);border-color:rgba(255,140,100,.55);color:#FFD9C9}
+.lab.good{background:rgba(107,227,176,.14);border-color:rgba(107,227,176,.45);color:#C9F5E2}
+.lab b{font-weight:700;color:#fff}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+.stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:11px 13px;min-width:0}
+.stat .k,.spark .k{font:600 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#9FABD8}
+.stat .v{font:700 17px var(--body);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
 .rng{position:relative;height:6px;border-radius:3px;background:rgba(255,255,255,.18);margin:10px 0 4px}
 .rng i{position:absolute;top:-4px;width:4px;height:14px;border-radius:2px;background:var(--hot);transform:translateX(-50%)}
-.rng + .ends{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;font:500 12px var(--mono);color:#B9C3E8}
-.spark{margin-top:18px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:10px 12px 6px}
-.spark .k{font:600 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#9FABD8;display:flex;justify-content:space-between}
-.spark svg{display:block;width:100%;height:70px}
+.ends{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;font:500 12px var(--mono);color:#B9C3E8}
+.spark{margin-top:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:10px 12px 6px}
+.spark .k{display:flex;justify-content:space-between}
+.spark svg{display:block;width:100%;height:64px}
 .src{font-size:12px;color:#8E9BCD;margin-top:10px}
+.rf{margin:16px 0 0;background:#fff;border:2px solid var(--hot);border-radius:12px;padding:13px 15px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 16px;align-items:center;color:var(--ink)}
+/* ---------- three columns ---------- */
+.cols{display:grid;grid-template-columns:250px minmax(0,1fr) 340px;gap:20px;padding-top:18px;padding-bottom:40px;align-items:start}
+.col{min-width:0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.panel + .panel{margin-top:14px}
+.ph{padding:14px 16px 6px}
+.ph h2,.ph h3{font:800 15.5px/1.25 var(--disp);margin:0}
+.ph p{margin:4px 0 0;font-size:13px;color:var(--ink-2)}
+.pb{padding:4px 16px 14px}
+.side{position:static}
 
-/* ---------- body ---------- */
-.body{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,1fr);grid-template-areas:"chat glance";gap:22px;padding:24px 20px 60px}
-.card{background:var(--card);border:1px solid var(--line-d);border-radius:14px;box-shadow:0 1px 2px rgba(18,20,28,.04)}
-.card h2{font:800 20px/1.2 var(--disp);letter-spacing:-.01em;margin:0}
-.chat{grid-area:chat;display:flex;flex-direction:column;min-height:560px;overflow:hidden}
-.glance{grid-area:glance;align-self:start}
-@media (max-width:900px){
-  .body{grid-template-columns:1fr;grid-template-areas:"chat" "glance"}
-  .chat{min-height:440px}
-  .hgrid{grid-template-columns:1fr}.px{text-align:left}
-  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .go{margin-left:0;width:100%}.go input{flex:1}
-}
+/* left: you, your rooms, the agents */
+.hello{font-size:14px}
+.hello b{font:700 15px var(--body)}
+.find{display:flex;gap:6px;margin-top:8px}
+.find input{flex:1;min-width:0;border:1px solid var(--line);border-radius:8px;padding:9px 10px;font:600 14px var(--mono);letter-spacing:.05em;text-transform:uppercase;background:#fff}
+.find button{background:var(--hot);color:#fff;border:0;border-radius:8px;padding:9px 12px;font:700 14px var(--body);cursor:pointer}
+.find button:hover{background:var(--hot-d)}
+.rooms{list-style:none;margin:0;padding:0}
+.rooms li a{display:flex;justify-content:space-between;gap:8px;padding:7px 8px;border-radius:8px;text-decoration:none;color:var(--ink);font:600 14px var(--mono);letter-spacing:.04em}
+.rooms li a:hover{background:var(--soft)}
+.rooms li a[aria-current]{background:var(--soft-navy);color:var(--navy)}
+.rooms li a small{font:400 12px var(--body);color:var(--ink-3);letter-spacing:0}
+.agents{list-style:none;margin:0;padding:0}
+.agents li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:9px;padding:8px 0;border-bottom:1px solid var(--line)}
+.agents li:last-child{border-bottom:0}
+.agents b{font-size:14px}
+.agents li > div span{display:block;font-size:12.5px;color:var(--ink-2);line-height:1.4}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:700 15px var(--disp);color:#fff;background:var(--navy);flex:none}
+.av.sm{width:30px;height:30px;font-size:12.5px}
+.av.prog{background:#fff;color:var(--hot);border:2px solid var(--hot)}
+.more{display:inline-block;margin-top:8px;font:600 13.5px var(--body)}
+.note{font-size:12.5px;color:var(--ink-3);margin:8px 0 0}
 
-/* chat */
-.chead{padding:18px 20px 14px;border-bottom:1px solid var(--line-d)}
-.chead p{margin:6px 0 0;color:var(--ink-2);font-size:14.5px}
-.who-here{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-d);border-radius:999px;padding:5px 12px 5px 5px;font-size:13.5px;background:#FBFAF7}
-.chip .av{width:26px;height:26px;font-size:12px}
-.chip small{color:var(--ink-3)}
-.stream{flex:1;overflow-y:auto;padding:14px 20px;display:flex;flex-direction:column;gap:14px;max-height:62vh}
-.post{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px}
-.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:700 16px var(--disp);color:#fff;background:var(--navy)}
-.post.prog .av{background:#fff;color:var(--hot);border:2px solid var(--hot)}
-.meta{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:baseline;font-size:13px;color:var(--ink-3)}
+/* centre: the room */
+.room{display:flex;flex-direction:column;min-height:620px}
+.chead{padding:16px 18px 12px;border-bottom:1px solid var(--line)}
+.chead h1{font:800 21px/1.2 var(--disp);letter-spacing:-.01em;margin:0}
+.counts{margin:5px 0 0;font-size:13.5px;color:var(--ink-2)}
+.counts b{color:var(--ink)}
+.rules{margin:6px 0 0;font-size:13px;color:var(--ink-3)}
+.stream{flex:1;overflow-y:auto;padding:14px 18px;display:flex;flex-direction:column;gap:16px;max-height:68vh}
+.post{display:grid;grid-template-columns:40px minmax(0,1fr);gap:11px}
+.meta{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;font-size:12.5px;color:var(--ink-3)}
 .meta b{font-size:15px;color:var(--ink)}
+.meta time{font-variant-numeric:tabular-nums}
 .badge{font:700 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 6px}
 .badge.ok{background:var(--soft-navy);color:var(--navy)}
 .badge.prog{background:var(--soft-hot);color:var(--hot-d)}
-.bubble{margin-top:4px;background:#F7F6F2;border:1px solid var(--line-d);border-radius:4px 14px 14px 14px;padding:10px 13px;white-space:pre-wrap;word-wrap:break-word}
+.badge.pro{background:#EAF7F1;color:#0B6B49}
+.basis{display:block;font-size:12px;color:var(--ink-3);margin-top:1px}
+.bubble{margin-top:4px;background:var(--soft);border:1px solid var(--line);border-radius:4px 14px 14px 14px;padding:10px 13px;white-space:pre-wrap;word-wrap:break-word}
 .post.prog .bubble{background:var(--soft-hot);border-color:#FFD7C6}
 .empty{margin:auto 0;text-align:center;color:var(--ink-2);padding:34px 18px}
-.empty .big{font:800 19px var(--disp);color:var(--ink);margin-bottom:6px}
-.composer{border-top:1px solid var(--line-d);padding:14px 20px 18px;background:#FBFAF7}
-.composer textarea{width:100%;min-height:62px;resize:vertical;border:1px solid var(--line-d);border-radius:10px;padding:11px 12px;font:inherit;background:#fff}
-.composer textarea:disabled{background:#F1F0EB;color:var(--ink-3)}
-.crow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;flex-wrap:wrap}
-.crow small{color:var(--ink-2);font-size:13px}
-.btn{display:inline-block;background:var(--hot);color:#fff;border:0;border-radius:8px;padding:10px 16px;font:700 14.5px var(--body);text-decoration:none;cursor:pointer}
-.btn:disabled,.btn[aria-disabled="true"]{opacity:.55;cursor:not-allowed}
-.btn.quiet{background:#fff;color:var(--navy);border:1.5px solid var(--line-d)}
+.empty .big{font:800 18px var(--disp);color:var(--ink);margin-bottom:6px}
+.composer{border-top:1px solid var(--line);padding:12px 18px 16px;background:var(--soft);border-radius:0 0 12px 12px}
+.composer textarea{width:100%;min-height:58px;resize:vertical;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff}
+.composer textarea:disabled{background:#F1F2F5;color:var(--ink-3)}
+.crow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:9px;flex-wrap:wrap}
+.crow small{color:var(--ink-2);font-size:12.5px}
+.btn{display:inline-block;background:var(--hot);color:#fff;border:0;border-radius:8px;padding:9px 15px;font:700 14px var(--body);text-decoration:none;cursor:pointer}
+.btn:disabled{opacity:.55;cursor:not-allowed}
 
-/* glance */
-.glance .top-row{padding:18px 20px 6px}
-.glance .top-row p{margin:4px 0 0;color:var(--ink-2);font-size:14px}
-.facts{list-style:none;margin:0;padding:4px 20px 8px}
-.facts li{padding:12px 0;border-bottom:1px solid var(--line-d)}
-.facts li:last-child{border-bottom:0}
-.fk{font:600 11.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:3px}
-.fv{font-size:15px}
-.fv .sm{display:block;font-size:13px;color:var(--ink-2);margin-top:3px}
-details summary{cursor:pointer;color:var(--navy);font-weight:600;font-size:14px;margin-top:4px}
-details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
-.flags{padding:6px 20px 16px}
-.flags h3,.files h3{font:800 16px var(--disp);margin:14px 0 8px}
-.flag{border:1px solid #FFD7C6;background:var(--soft-hot);border-radius:10px;padding:11px 13px;margin-bottom:9px}
-.flag b{display:block;font-size:15px}
-.flag p{margin:4px 0 0;font-size:14px;color:#3B3F4C}
-.flag a{font-size:13px}
-.noflag{font-size:14px;color:var(--ink-2)}
-.files{padding:0 20px 18px}
-.file{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line-d);font-size:14px}
-.file:last-child{border-bottom:0}
-.file .f{font:600 12px var(--mono);background:var(--soft-navy);color:var(--navy);border-radius:4px;padding:3px 6px;white-space:nowrap}
-.file .d{color:var(--ink-3);font-size:12.5px}
-.file .rd{font-size:12.5px;color:var(--ink-3);white-space:nowrap}
-.muted{color:var(--ink-3)}
-.foot{color:var(--ink-3);font-size:12.5px;padding:0 20px 18px}
-.skel{color:var(--ink-3);padding:14px 20px}
 /* the red flag at the top of a room whose company has issues in its own filings */
 .rfdot{display:inline-flex;align-items:center;justify-content:center;width:1.25em;height:1.25em;border-radius:50%;background:var(--hot);color:#fff;font-size:.8em;margin-right:.3em;vertical-align:.08em}
-.rf{margin:16px 0 0;background:#fff;border:2px solid var(--hot);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 18px;align-items:center;color:var(--ink)}
-.rf b{font:800 17px var(--disp);color:var(--hot)}
-.rf p{margin:4px 0 0;font-size:14.5px;color:#3B3F4C}
-.rf .own{font-size:12.5px;color:var(--ink-3);margin-top:6px}
-.rf .rbtn{font:700 15px var(--body);border-radius:6px;padding:11px 16px;border:0;background:var(--hot);color:#fff;text-decoration:none;white-space:nowrap;cursor:pointer}
-.rf .rbtn[aria-disabled="true"]{background:#E9E7DE;color:var(--ink-3);cursor:not-allowed}
-@media(max-width:620px){.rf{grid-template-columns:1fr}}
-/* on a phone the price and the messages come first: trim the hero to the price, two stats and the flag */
-@media(max-width:620px){
-  .hero{padding:14px 0 12px}
-  .sym{margin-bottom:6px} .hgrid{gap:8px}
-  .stats{margin-top:12px;gap:8px} .stats .stat:nth-child(n+3){display:none}
-  .spark{margin-top:10px} .spark svg{height:44px}
-  .src{display:none}
-  .rf{margin-top:12px;padding:10px 12px;gap:8px} .rf b{font-size:15px}
+.rf b{font:800 16px var(--disp);color:var(--hot)}
+.rf p{margin:3px 0 0;font-size:14px;color:#3B3F4C}
+.rf .own{font-size:12.5px;color:var(--ink-3);margin-top:5px}
+.rf .rbtn{font:700 14.5px var(--body);border-radius:6px;padding:10px 15px;border:0;background:var(--hot);color:#fff;text-decoration:none;white-space:nowrap}
+.rf .rbtn[aria-disabled="true"]{background:#ECEDF1;color:var(--ink-3);cursor:not-allowed}
+
+/* right: the company */
+.fk{font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.facts{list-style:none;margin:0;padding:0}
+.facts li{padding:10px 0;border-bottom:1px solid var(--line)}
+.facts li:last-child{border-bottom:0}
+.fv{font-size:14.5px}
+.fv .sm{display:block;font-size:12.5px;color:var(--ink-2);margin-top:3px}
+details summary{cursor:pointer;color:var(--navy);font-weight:600;font-size:13.5px;margin-top:4px}
+details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
+.flag{border:1px solid #FFD7C6;background:var(--soft-hot);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.flag b{display:block;font-size:14.5px}
+.flag p{margin:3px 0 0;font-size:13.5px;color:#3B3F4C}
+.flag.note{border-color:var(--line);background:var(--soft)}
+.noflag{font-size:13.5px;color:var(--ink-2);margin:0}
+.file{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.file:last-child{border-bottom:0}
+.file .f{font:600 11.5px var(--mono);background:var(--soft-navy);color:var(--navy);border-radius:4px;padding:3px 6px;white-space:nowrap}
+.file .d{color:var(--ink-3);font-size:12px}
+.muted{color:var(--ink-3)}
+.skel{color:var(--ink-3);padding:14px 16px}
+.foot{color:var(--ink-3);font-size:12px;padding:6px 20px 30px;text-align:center}
+
+/* advertisers: labelled, approved, never dressed up as a post */
+.ad{display:block;background:#fff;border:1px dashed #C9CEDA;border-radius:12px;padding:12px 14px;margin-top:14px}
+.ad .al{font:700 10.5px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.ad b{display:block;font:700 15px var(--body);margin-top:4px}
+.ad p{margin:4px 0 0;font-size:13.5px;color:var(--ink-2)}
+.ad img{max-width:100%;border-radius:8px;margin-top:8px;display:block}
+.ad a.cta{display:inline-block;margin-top:8px;font:700 13.5px var(--body)}
+.ad .disc{display:block;margin-top:6px;font-size:11.5px;color:var(--ink-3)}
+.ad[hidden]{display:none}
+.adtop{margin:12px 18px 0}
+.post.adpost{grid-template-columns:1fr}
+.adcall .ph h3{font-size:14.5px}
+
+/* ---------- phone and tablet: the room first, the rest one tap away ---------- */
+.tabs{display:none}
+@media (max-width:1180px){
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cols{grid-template-columns:minmax(0,1fr) 320px}
+  .cleft{grid-column:1 / -1;order:3}
+  .cleft .side{position:static;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+  .cleft .panel + .panel{margin-top:0}
+}
+@media (max-width:820px){
+  .tabs{display:flex;gap:4px;padding:0 20px 10px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:4}
+  .tabs button{flex:1;background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:8px 6px;font:700 13.5px var(--body);color:var(--ink-2);cursor:pointer}
+  .tabs button[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+  .hgrid{grid-template-columns:1fr} .px{text-align:left} .hero{padding:16px 0 14px}
+  .rf{grid-template-columns:1fr;padding:11px 12px} .rf b{font-size:15px}
+  .stats .stat:nth-child(n+3){display:none} .spark svg{height:44px} .src{display:none}
+  .cols{grid-template-columns:1fr;padding-top:12px}
+  .col{display:none}
+  .cols[data-tab="room"] .ccentre,.cols[data-tab="company"] .cright,.cols[data-tab="rooms"] .cleft{display:block}
+  .side{position:static}
+  .cleft .side{display:block}
+  .cleft .panel + .panel{margin-top:14px}
+  .chips{margin-left:0}
+  .nm{max-width:100%;white-space:normal}
+  .room{min-height:460px}
+  .stream{max-height:none}
 }
 </style>
 </head>
@@ -164,23 +209,26 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
   <a class="logo" href="/">8K10Q<span>.com</span></a>
   <nav class="links" aria-label="Main">
     <a href="/room.html" aria-current="page">Chatroom</a>
+    <a href="/agents.html">Agents</a>
     <a href="/">Read a filing</a>
     <a href="https://warrantwire.com">Warrant Wire &rarr;</a>
   </nav>
-  <form class="go" id="go" role="search">
-    <input id="gosym" aria-label="Go to a symbol" placeholder="Symbol" maxlength="10" autocomplete="off">
-    <button type="submit">Go</button>
-  </form>
 </div></header>
 
 <section class="hero"><div class="wrap">
   <div class="hgrid">
     <div>
       <div class="sym" id="sym">&nbsp;</div>
-      <h1 id="name">&nbsp;</h1>
+      <h2 class="nm" id="name">&nbsp;</h2>
       <p class="where" id="where">&nbsp;</p>
+      <div class="chips" id="chips"></div>
     </div>
-    <div class="px" id="px" aria-live="polite"></div>
+    <div class="px" aria-live="polite">
+      <div class="pxnow" id="pxnow"></div>
+      <div class="pxchg" id="pxchg"></div>
+      <div class="pxas" id="pxas"></div>
+      <div id="pxext"></div>
+    </div>
   </div>
   <div class="rf" id="rf" hidden></div>
   <div class="stats" id="stats"></div>
@@ -188,30 +236,83 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
   <div class="src" id="src"></div>
 </div></section>
 
-<main class="wrap body">
-  <aside class="card glance" id="glance" aria-label="The company at a glance">
-    <div class="skel">Reading the company&rsquo;s own filings&hellip;</div>
-  </aside>
+<div class="tabs" role="tablist" aria-label="Sections">
+  <button role="tab" data-t="room" aria-selected="true">Room</button>
+  <button role="tab" data-t="company" aria-selected="false">Company</button>
+  <button role="tab" data-t="rooms" aria-selected="false">Your rooms</button>
+</div>
 
-  <section class="card chat" aria-label="The room">
-    <div class="chead">
-      <h2 id="roomtitle">The room</h2>
-      <p>Every post here carries a real, verified name &mdash; or comes from a Warrant Wire program and says so. No anonymous posts, no hype, nothing invented.</p>
-      <div class="who-here">
-        <span class="chip"><span class="av" style="background:#fff;color:var(--hot);border:2px solid var(--hot)">S</span><span><b>Stephen</b> <small>Warrant Wire program &middot; the facts of each new filing</small></span></span>
-        <span class="chip"><span class="av" style="background:#fff;color:var(--hot);border:2px solid var(--hot)">B</span><span><b>Barry</b> <small>Warrant Wire program &middot; warrant paper</small></span></span>
+<main class="wrap cols" id="cols" data-tab="room">
+
+  <!-- LEFT: you, your rooms, the agents -->
+  <div class="col cleft"><div class="side">
+    <section class="panel" aria-label="You">
+      <div class="ph"><h3 id="hello">Welcome</h3><p id="hellop">Search any stock, ETF or crypto. Its room opens.</p></div>
+      <div class="pb">
+        <form class="find" id="go" role="search">
+          <input id="gosym" aria-label="Go to a symbol" placeholder="Symbol" maxlength="10" autocomplete="off">
+          <button type="submit">Go</button>
+        </form>
       </div>
-    </div>
-    <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading the room&hellip;</div></div>
-    <div class="composer">
-      <textarea id="msg" disabled placeholder="Posting opens soon, for verified, named members."></textarea>
-      <div class="crow">
-        <small>Your real name goes on every post. We telephone every member before their first one.</small>
-        <button class="btn" disabled title="Opening soon">Join &mdash; opening soon</button>
+    </section>
+    <section class="panel" aria-label="Your rooms">
+      <div class="ph"><h3>Your rooms</h3><p>The rooms you&rsquo;ve opened on this device.</p></div>
+      <div class="pb"><ul class="rooms" id="rooms"></ul></div>
+    </section>
+    <section class="panel" aria-label="The agents">
+      <div class="ph"><h3>The agents</h3><p>Programs, not people. Each one is labelled on every post.</p></div>
+      <div class="pb"><ul class="agents" id="agents"><li class="muted" style="grid-template-columns:1fr">Loading&hellip;</li></ul>
+        <a class="more" href="/agents.html">Meet the agents &rarr;</a></div>
+    </section>
+    <section class="panel" aria-label="Who can post">
+      <div class="ph"><h3>Who&rsquo;s in the room</h3><p>No anonymous users. Nobody posts before we telephone them.</p></div>
+      <div class="pb">
+        <ul class="facts">
+          <li><span class="badge ok">Verified</span> <span class="fv">Members, under their real names. Phone-verified by the desk.</span></li>
+          <li><span class="badge pro">Licensed</span> <span class="fv">Professionals with their licence and firm on file and shown on every post.</span></li>
+          <li><span class="badge prog">Program</span> <span class="fv">The agents. Labelled on every post, never passed off as people.</span></li>
+        </ul>
       </div>
-    </div>
-  </section>
+    </section>
+    <aside class="ad" data-slot="sidebar" hidden></aside>
+  </div></div>
+
+  <!-- CENTRE: the conversation -->
+  <div class="col ccentre">
+    <section class="panel room" aria-label="The room">
+      <div class="chead">
+        <h1 id="roomtitle">The room</h1>
+        <p class="counts" id="counts">&nbsp;</p>
+        <p class="rules">Every post carries a real, verified name or is labelled as a program. Every post shows its date and time and is kept in the archive. Nothing is deleted.</p>
+      </div>
+      <aside class="ad adtop" data-slot="room_header" hidden></aside>
+      <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading the room&hellip;</div></div>
+      <div class="composer">
+        <textarea id="msg" disabled placeholder="Posting opens soon, for verified, named members."></textarea>
+        <div class="crow">
+          <small>Your real name goes on every post. We telephone every member before their first one.</small>
+          <button class="btn" disabled title="Opening soon">Join &mdash; opening soon</button>
+        </div>
+      </div>
+    </section>
+    <aside class="ad" data-slot="below_composer" hidden></aside>
+  </div>
+
+  <!-- RIGHT: the company, and the advertiser -->
+  <div class="col cright"><div class="side">
+    <section class="panel" id="glance" aria-label="The company at a glance">
+      <div class="skel">Reading the company&rsquo;s own filings&hellip;</div>
+    </section>
+    <aside class="ad" data-slot="sidebar" hidden></aside>
+    <section class="panel adcall" aria-label="Advertise">
+      <div class="ph"><h3>Advertise to verified members</h3><p>Every reader here is a named, phone-verified person, and the professionals are licensed. Ads are labelled, approved by the desk, and never dressed up as posts.</p></div>
+      <div class="pb"><span class="muted" style="font-size:13px">Write to the desk: <b style="user-select:all">contact@8k10q.com</b></span></div>
+    </section>
+  </div></div>
+
 </main>
+
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-2a &middot; 2026-09-28</span></p>
 
 <script>
 (function () {
@@ -220,8 +321,9 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
   var SELLING = false;
   var ROOM = "https://triggeredshort-room.realroofers.workers.dev";
   var WIRE = "https://wire.warrantwire.com";
+  var OPINION = "https://opinion.realroofers.workers.dev";
   var qs = new URLSearchParams(location.search);
-  var T = (qs.get("t") || qs.get("ticker") || "TOVX").trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, "").slice(0, 10) || "TOVX";
+  var T = (qs.get("t") || qs.get("ticker") || "").trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, "").slice(0, 10);
 
   var $ = function (id) { return document.getElementById(id); };
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
@@ -231,13 +333,74 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
   function big(n) { if (n == null) return "—"; return n >= 1e9 ? (n / 1e9).toFixed(2) + "B" : n >= 1e6 ? (n / 1e6).toFixed(2) + "M" : n >= 1e3 ? (n / 1e3).toFixed(1) + "K" : String(n); }
   function day(iso) { if (!iso) return ""; var d = new Date(iso.length === 10 ? iso + "T12:00:00Z" : iso); return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }); }
   function et(iso) { var d = new Date(iso); return d.toLocaleString("en-US", { timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) + " ET"; }
+  /* every post: the full date and the time, Eastern — the market's clock */
+  function stamp(iso) { var d = new Date(iso); return d.toLocaleString("en-US", { timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" }) + " ET"; }
   function pct(v) { return (v > 0 ? "+" : "") + v.toFixed(2) + "%"; }
+  function store(k, v) { try { if (v === undefined) return JSON.parse(localStorage.getItem(k) || "null"); localStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } }
+
+  /* ---------------- remember the visitor: their name, their rooms ---------------- */
+  var me = store("ts_visitor");
+  if (me && me.first) {
+    $("hello").textContent = "Welcome back, " + me.first;
+    $("hellop").textContent = "Search any stock, ETF or crypto. Its room opens.";
+  }
+  var rooms = store("k8_rooms") || [];
+  if (T) {
+    rooms = [T].concat(rooms.filter(function (x) { return x !== T; })).slice(0, 10);
+    store("k8_rooms", rooms);
+  }
+  function drawRooms() {
+    $("rooms").innerHTML = rooms.length
+      ? rooms.map(function (r) { return '<li><a href="/room.html?t=' + encodeURIComponent(r) + '"' + (r === T ? ' aria-current="page"' : '') + '>' + esc(r) + (r === T ? '<small>you are here</small>' : '') + '</a></li>'; }).join("")
+      : '<li class="muted" style="font-size:13.5px">None yet. Search a symbol to open its room.</li>';
+  }
+  drawRooms();
+
+  $("go").addEventListener("submit", function (e) { e.preventDefault(); var v = $("gosym").value.trim().toUpperCase(); if (v) location.href = "/room.html?t=" + encodeURIComponent(v); });
+
+  /* ---------------- phone tabs ---------------- */
+  Array.prototype.forEach.call(document.querySelectorAll(".tabs button"), function (b) {
+    b.addEventListener("click", function () {
+      $("cols").dataset.tab = b.dataset.t;
+      Array.prototype.forEach.call(document.querySelectorAll(".tabs button"), function (x) { x.setAttribute("aria-selected", x === b ? "true" : "false"); });
+      window.scrollTo(0, 0);
+    });
+  });
+
+  /* ---------------- the agents on the left ---------------- */
+  var WW = [
+    { key: "stephen", name: "Stephen", lens: "Warrant Wire program · the facts of each new filing" },
+    { key: "barry", name: "Barry", lens: "Warrant Wire program · warrant paper" }
+  ];
+  function drawAgents(list) {
+    $("agents").innerHTML = list.map(function (a) {
+      return '<li><span class="av sm prog" aria-hidden="true">' + esc(a.name.charAt(0)) + '</span><div><b>' + esc(a.name) + '</b><span>' + esc(a.lens) + '</span></div></li>';
+    }).join("");
+  }
+  drawAgents(WW);
+  getJSON(OPINION + "/?who=1").then(function (d) {
+    if (d && d.ok && d.agents) drawAgents(d.agents.map(function (a) { return { key: a.key, name: a.name, lens: a.lens }; }).concat(WW));
+  }).catch(function () {});
+
+  /* ---------------- no symbol yet: ask for one ---------------- */
+  if (!T) {
+    document.title = "The room — 8K10Q";
+    $("sym").textContent = "8K10Q";
+    $("name").textContent = "Search a stock, ETF or crypto";
+    $("roomtitle").textContent = "Pick a symbol";
+    $("counts").textContent = "There are no fixed rooms. Every symbol has one, and it opens when you search it.";
+    $("stream").innerHTML = '<div class="empty"><div class="big">Which symbol?</div>Type it in the box on the left (or under &ldquo;Your rooms&rdquo; on a phone) and press Go.</div>';
+    $("glance").innerHTML = '<div class="skel">The company&rsquo;s own filings appear here once you pick a symbol.</div>';
+    $("stats").innerHTML = "";
+    $("cols").dataset.tab = "rooms";
+    Array.prototype.forEach.call(document.querySelectorAll(".tabs button"), function (x) { x.setAttribute("aria-selected", x.dataset.t === "rooms" ? "true" : "false"); });
+    return;
+  }
 
   document.title = T + " — the room — 8K10Q";
   $("sym").textContent = T;
   $("name").textContent = T;
   $("roomtitle").textContent = "The " + T + " room";
-  $("go").addEventListener("submit", function (e) { e.preventDefault(); var v = $("gosym").value.trim().toUpperCase(); if (v) location.href = "/room.html?t=" + encodeURIComponent(v); });
 
   /* ---------------- the price ---------------- */
   function range(label, lo, hi, now) {
@@ -250,10 +413,10 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
   function drawSpark(series) {
     var el = $("spark");
     if (!series || series.length < 2) { el.hidden = true; return; }
-    var W = 600, H = 70, vals = series.map(function (x) { return x.c; });
+    var W = 600, H = 64, vals = series.map(function (x) { return x.c; });
     var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), span = (hi - lo) || 1;
     var pts = series.map(function (x, i) { return (i * W / (series.length - 1)).toFixed(1) + "," + (H - 4 - (x.c - lo) / span * (H - 8)).toFixed(1); }).join(" ");
-    var up = vals[vals.length - 1] >= vals[0], col = up ? "#6BE3B0" : "#FF9C85";
+    var col = vals[vals.length - 1] >= vals[0] ? "#6BE3B0" : "#FF9C85";
     el.innerHTML = '<div class="k"><span>The past year</span><span>' + day(series[0].d) + ' &ndash; ' + day(series[series.length - 1].d) + '</span></div>'
       + '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="Closing prices over the past year">'
       + '<polyline points="' + pts + '" fill="none" stroke="' + col + '" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>';
@@ -261,16 +424,14 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
   }
   function loadQuote() {
     return getJSON("/api/quote?t=" + encodeURIComponent(T)).then(function (q) {
-      if (!q || !q.ok) { $("px").innerHTML = '<div class="asof">No price for ' + esc(T) + ' just now.</div>'; return null; }
+      if (!q || !q.ok) { $("pxas").textContent = "No price just now"; return null; }
       var dir = q.change > 0 ? "up" : q.change < 0 ? "down" : "";
-      var h = '<div class="now">' + money(q.price) + '</div>';
-      if (q.change != null) h += '<div class="chg ' + dir + '">' + (q.change > 0 ? "▲ +" : q.change < 0 ? "▼ " : "") + money(Math.abs(q.change)).replace("$", q.change < 0 ? "−$" : "$") + ' (' + pct(q.change_pct) + ') today</div>';
-      if (q.as_of) h += '<div class="asof">At the close &middot; ' + esc(et(q.as_of)) + ' &middot; delayed</div>';
-      if (q.extended && q.extended.price != null && q.price) {
-        var ep = (q.extended.price - q.price) / q.price * 100;
-        h += '<div class="ext">' + (q.extended.session === "pre" ? "Pre-market" : "After hours") + ' ' + money(q.extended.price) + ' (' + pct(ep) + ') &middot; ' + esc(et(q.extended.at)) + '</div>';
-      }
-      $("px").innerHTML = h;
+      $("pxnow").textContent = money(q.price);
+      $("pxchg").className = "pxchg " + dir;
+      $("pxchg").textContent = q.change != null ? (q.change > 0 ? "▲ +" : q.change < 0 ? "▼ " : "") + money(Math.abs(q.change)).replace("$", q.change < 0 ? "−$" : "$") + " (" + pct(q.change_pct) + ") today" : "";
+      $("pxas").textContent = q.as_of ? "At the close · " + et(q.as_of) + " · delayed" : "Delayed";
+      $("pxext").innerHTML = (q.extended && q.extended.price != null && q.price)
+        ? '<span class="pxext">' + (q.extended.session === "pre" ? "Pre-market" : "After hours") + " " + money(q.extended.price) + " (" + pct((q.extended.price - q.price) / q.price * 100) + ") &middot; " + esc(et(q.extended.at)) + "</span>" : "";
       var vol = q.volume != null ? big(q.volume) + (q.avg_volume_30d ? ' <span style="color:#B9C3E8;font-weight:500">/ avg ' + big(q.avg_volume_30d) + '</span>' : "") : "—";
       $("stats").innerHTML = range("Today", q.day_low, q.day_high, q.price) + range("52 weeks", q.wk52_low, q.wk52_high, q.price)
         + '<div class="stat"><div class="k">Previous close</div><div class="v">' + money(q.prev_close) + '</div></div>'
@@ -278,7 +439,21 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
       drawSpark(q.series);
       $("src").textContent = "Prices are delayed and shown as reported. Pre-market is 4:00–9:30 AM ET and after hours 4:00–8:00 PM ET; overnight trading isn’t shown yet.";
       return q;
-    }).catch(function () { $("px").innerHTML = '<div class="asof">The price desk isn’t answering just now.</div>'; return null; });
+    }).catch(function () { $("pxas").textContent = "The price desk isn’t answering just now"; return null; });
+  }
+
+  /* ---------------- the labels in the symbol bar: computed from filings, never voted ---------------- */
+  function drawChips(st, ml, flags) {
+    var h = "";
+    if (flags) h += '<span class="lab bad"><span class="rfdot" aria-hidden="true">⚑</span><b>' + flags + ' red flag' + (flags > 1 ? 's' : '') + '</b></span>';
+    ((st && st.labels) || []).forEach(function (L) {
+      h += '<span class="lab ' + (L.tone === 'bad' ? 'bad' : L.tone === 'good' ? 'good' : '') + '" title="' + esc(L.rule || '') + '"><b>' + esc(L.text) + '</b> ' + esc(L.detail || '') + '</span>';
+    });
+    if (ml && ml.light) {
+      var l = ml.light, v = l.pct_above != null ? l.pct_above : l.value;
+      h += '<span class="lab" title="The share of this morning&rsquo;s volume that traded above the current price. Arithmetic, not a vote."><b>Morning light</b> ' + esc(v != null ? v + '%' : '') + '</span>';
+    }
+    $("chips").innerHTML = h;
   }
 
   /* ---------------- the company, in plain words ---------------- */
@@ -289,13 +464,14 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
   function lastOf(list) { return (list || []).slice().sort(function (a, b) { return (b.filed_on || "").localeCompare(a.filed_on || ""); })[0]; }
   function evidence(x) { var u = x && safeUrl(x.url); return u ? ' <a href="' + esc(u) + '" target="_blank" rel="noopener">Read it in the ' + esc(x.form) + ' of ' + esc(day(x.filed_on)) + ' &rarr;</a>' : ""; }
 
-  function renderGlance(w, c, st, q) {
+  function renderGlance(w, c, st, q, ml) {
     var co = (w && w.company) || {}, ab = (w && w.about) || {}, sg = (w && w.signals) || {}, pr = (c && c.profile) || {};
     var name = co.name || pr.legal_name || T;
     $("name").textContent = name;
     var exch = (q && q.exchange) || co.exchange || pr.exchange || "";
     var place = pr.hq || [co.city && co.city.charAt(0) + co.city.slice(1).toLowerCase(), co.state_loc].filter(Boolean).join(", ");
     $("where").textContent = [exch, place].filter(Boolean).join(" · ");
+    var filer = !!(w && w.ok && (co.name || (w.edgar && w.edgar.recent && w.edgar.recent.length)));
 
     var f = [];
     var what = pr.description || co.business || ab.business;
@@ -316,38 +492,36 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
         + '<details><summary>See them</summary><ol>' + rn.former.map(function (x) { return '<li>' + esc(x.name) + ' <span class="muted">(' + esc(String(x.from || '').slice(0, 4)) + '&ndash;' + esc(String(x.to || '').slice(0, 4)) + ')</span></li>'; }).join('') + '</ol></details>']);
     }
     if (ab.filings) f.push(['Warrants', esc(ab.filings) + ' filings since ' + esc(day(ab.first)) + ' carry warrant terms.<span class="sm"><a href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '" target="_blank" rel="noopener">The warrant detail is on Warrant Wire &rarr;</a></span>']);
-    else if (w && w.ok) f.push(['Warrants', 'No warrant terms found in its filings since 2021.']);
-    f.push(['Lawsuits', '<span class="muted">Being added: the cases the company reports in its own annual and quarterly reports.</span>']);
+    else if (filer) f.push(['Warrants', 'No warrant terms found in its filings since 2021.']);
 
-    // red flags — each one plain, each one tied to the filing that says it
-    var flags = [];
+    // red flags: issues at the company, each tied to the filing that says it
+    var flags = [], notes = [];
     if (sg.splits && sg.splits.length) { var s = lastOf(sg.splits); flags.push(['A reverse stock split is on the table', 'Shares would be combined into fewer shares at a higher price each. The business doesn’t change. Mentioned in ' + sg.splits.length + ' filing' + (sg.splits.length > 1 ? 's' : '') + '.' + evidence(s)]); }
     if (sg.merger && sg.merger.length) { var m = lastOf(sg.merger); flags.push(['A merger, sale or “strategic alternatives”', 'The company says it is looking at a merger, a sale or other options for its future. Mentioned in ' + sg.merger.length + ' filing' + (sg.merger.length > 1 ? 's' : '') + '.' + evidence(m)]); }
-    if (rn && rn.times >= 3) flags.push(['It has changed its name ' + rn.times + ' times', 'Old filings stay under the old names, so a search on today’s name can miss the history.']);
-    if (w && w.ok && !ag) flags.push(['No agent for legal papers found', 'We could not find who accepts legal papers for this company in its filings.']);
     ((st && st.labels) || []).forEach(function (L) {
       if (L.key === 'job_destroyer') flags.push(['Fewer people work there', esc(L.detail) + ', from its own reports.']);
       else if (L.key === 'wealth_destroyer') flags.push(['Most of the money raised is gone', esc(L.detail) + ' from investors, measured against what the company is worth today.']);
       else if (L.tone === 'bad') flags.push([esc(L.text), esc(L.detail)]);
     });
-    // only issues at the company raise the flag on the title; a name history or a record we couldn't find is a note, not an issue
-    var serious = (sg.splits && sg.splits.length ? 1 : 0) + (sg.merger && sg.merger.length ? 1 : 0)
-      + ((st && st.labels) || []).filter(function (L) { return L.key === 'job_destroyer' || L.key === 'wealth_destroyer' || L.tone === 'bad'; }).length;
-    showRedFlag(serious, name);
+    // notes: worth knowing, not an issue at the company
+    if (rn && rn.times >= 3) notes.push(['It has changed its name ' + rn.times + ' times', 'Old filings stay under the old names, so a search on today’s name can miss the history.']);
+    if (filer && !ag) notes.push(['No agent for legal papers found', 'We could not find who accepts legal papers for this company in its filings.']);
+    showRedFlag(flags.length, name);
+    drawChips(st, ml, flags.length);
 
-    var files =((w && w.edgar && w.edgar.recent) || []).slice(0, 6);
-    var h = '<div class="top-row"><h2>' + esc(name) + ' at a glance</h2><p>Everything here comes from its own SEC filings, with a link to the page it came from.</p></div>'
-      + '<ul class="facts">' + f.map(function (x) { return '<li><div class="fk">' + x[0] + '</div><div class="fv">' + x[1] + '</div></li>'; }).join('') + '</ul>'
-      + '<div class="flags"><h3>Red flags</h3>'
+    var files = ((w && w.edgar && w.edgar.recent) || []).slice(0, 6);
+    var h = '<div class="ph"><h3>' + esc(name) + ' at a glance</h3><p>' + (filer ? 'From its own SEC filings, with a link to the page each fact came from.' : 'We found no SEC filings for ' + esc(T) + '. ETFs and crypto file differently, or not at all; the room still works.') + '</p></div>'
+      + '<div class="pb">';
+    if (f.length) h += '<ul class="facts">' + f.map(function (x) { return '<li><div class="fk">' + x[0] + '</div><div class="fv">' + x[1] + '</div></li>'; }).join('') + '</ul>';
+    h += '<div class="ph" style="padding:12px 0 8px"><h3>Red flags</h3></div>'
       + (flags.length ? flags.map(function (x) { return '<div class="flag"><b>' + x[0] + '</b><p>' + x[1] + '</p></div>'; }).join('')
                       : '<p class="noflag">None found in the filings we have read. That is not a clean bill of health, only what the filings say.</p>')
-      + '</div>';
-    if (files.length) h += '<div class="files"><h3>Latest filings</h3>' + files.map(function (x) {
+      + notes.map(function (x) { return '<div class="flag note"><b>' + x[0] + '</b><p>' + x[1] + '</p></div>'; }).join('');
+    if (files.length) h += '<div class="ph" style="padding:12px 0 6px"><h3>Latest filings</h3></div>' + files.map(function (x) {
         var u = safeUrl(x.url);
-        return '<div class="file"><span class="f">' + esc(x.form) + '</span><span>' + (u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(FORMS[x.form] || x.form) + '</a>' : esc(FORMS[x.form] || x.form)) + '<br><span class="d">' + esc(day(x.filed_on)) + '</span></span>'
-          + '<span class="rd">' + (SELLING ? '' : 'Reading opens soon') + '</span></div>';
-      }).join('') + '</div>';
-    h += '<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess.</p>';
+        return '<div class="file"><span class="f">' + esc(x.form) + '</span><span>' + (u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(FORMS[x.form] || x.form) + '</a>' : esc(FORMS[x.form] || x.form)) + ' <span class="d">&middot; ' + esc(day(x.filed_on)) + '</span></span></div>';
+      }).join('');
+    h += '</div>';
     $("glance").innerHTML = h;
   }
 
@@ -371,28 +545,44 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
   }
 
   /* ---------------- the room ---------------- */
+  function drawCounts(room) {
+    var r = (room && room.room) || {};
+    var m = r.member_count || 0, p = r.post_count || 0;
+    $("counts").innerHTML = '<b>' + m.toLocaleString("en-US") + '</b> verified member' + (m === 1 ? '' : 's') + ' &middot; <b>' + p.toLocaleString("en-US") + '</b> post' + (p === 1 ? '' : 's') + ' in the archive'
+      + (r.created_at ? ' &middot; room opened ' + esc(day(new Date(r.created_at * 1000).toISOString())) : '');
+  }
   var lastSig = "";
   function initials(n) { return String(n || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(function (p) { return p.charAt(0).toUpperCase(); }).join("") || "?"; }
   function renderPost(it) {
-    if (it.kind === "ad" || it.kind === "house") return "";          // no ads in the room
-    var a = it.author || {}, prog = a.type === "program";
+    if (it.kind === "ad" || it.kind === "house") return renderAd(it, true);
+    var a = it.author || {}, prog = a.type === "program", pro = a.tier === "professional";
     var nm = a.detached ? "A verified member" : (a.display || "A verified member");
-    var badge = prog ? '<span class="badge prog">' + esc(a.firm || "Warrant Wire") + ' program</span>' : '<span class="badge ok">Verified</span>';
+    var badge = prog ? '<span class="badge prog">' + esc(a.firm || "8K10Q") + ' program</span>'
+      : pro ? '<span class="badge pro">Licensed' + (a.firm ? ' · ' + esc(a.firm) : '') + '</span>'
+      : '<span class="badge ok">Verified</span>';
     var when = it.timestamp_utc || (it.at ? new Date(it.at * 1000).toISOString() : null);
-    return '<div class="post' + (prog ? ' prog' : '') + '"><div class="av" aria-hidden="true">' + esc(initials(nm)) + '</div><div>'
-      + '<div class="meta"><b>' + esc(nm) + '</b>' + badge + (when ? '<span>' + esc(et(when)) + '</span>' : '') + '</div>'
+    // how this person was verified and since when: a burner has nothing to show here
+    var basis = [];
+    if (!prog && a.verified_via) basis.push("Verified by " + a.verified_via);
+    if (!prog && a.member_since) basis.push("member since " + day(typeof a.member_since === "number" ? new Date(a.member_since * 1000).toISOString() : a.member_since));
+    if (pro && a.crd) basis.push("CRD " + a.crd);
+    if (prog) basis.push("A program, not a person");
+    return '<div class="post' + (prog ? ' prog' : '') + '"><div class="av' + (prog ? ' prog' : '') + '" aria-hidden="true">' + esc(initials(nm)) + '</div><div>'
+      + '<div class="meta"><b>' + esc(nm) + '</b>' + badge + (when ? '<time datetime="' + esc(when) + '">' + esc(stamp(when)) + '</time>' : '') + '</div>'
+      + (basis.length ? '<span class="basis">' + esc(basis.join(" · ")) + '</span>' : '')
       + '<div class="bubble">' + esc(it.body) + '</div></div></div>';
   }
   function loadStream() {
     return getJSON(ROOM + "/api/stream?room=" + encodeURIComponent(T) + "&limit=60").then(function (d) {
-      var items = ((d && d.items) || []).filter(function (it) { return it.kind !== "ad" && it.kind !== "house"; });
+      var items = (d && d.items) || [];
+      var posts = items.filter(function (it) { return it.kind !== "ad" && it.kind !== "house"; });
       var sig = items.map(function (x) { return x.id || x.at; }).join(",");
       if (sig === lastSig && lastSig) return;
       lastSig = sig;
       var s = $("stream"), atBottom = s.scrollHeight - s.scrollTop - s.clientHeight < 40;
-      if (!items.length) {
+      if (!posts.length) {
         s.innerHTML = '<div class="empty"><div class="big">No one has posted in the ' + esc(T) + ' room yet.</div>'
-          + 'The room opens to verified, named members soon. You&rsquo;ll see real names here, and the facts of each new ' + esc(T) + ' filing as it lands.</div>';
+          + 'The room opens to verified, named members soon. Every post will show who wrote it, how they were verified, and the date and time.</div>';
         return;
       }
       s.innerHTML = items.map(renderPost).join("");
@@ -400,28 +590,61 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:14px;color:var(--ink-2)}
     }).catch(function () { $("stream").innerHTML = '<div class="empty">The room isn&rsquo;t answering just now. Try again in a moment.</div>'; });
   }
 
+  /* ---------------- advertisers ----------------
+     Direct campaigns approved by the desk, in the slots the room worker defines (ad_slots). An ad is always
+     labelled "Advertiser" and carries its disclosure; a house item is labelled "From 8K10Q". */
+  function renderAd(x, inStream) {
+    var isAd = x.kind !== "house";
+    var url = x.cta_url || x.url || "";
+    var ok = /^https:\/\//i.test(url) ? url : "";
+    var h = '<div class="al">' + (isAd ? "Advertiser" : "From 8K10Q") + '</div>'
+      + '<b>' + esc(x.headline || "") + '</b>'
+      + ((x.body || x.summary) ? '<p>' + esc(x.body || x.summary) + '</p>' : "")
+      + (x.image_url && /^https:\/\//i.test(x.image_url) ? '<img src="' + esc(x.image_url) + '" alt="">' : "")
+      + (ok ? '<a class="cta" href="' + esc(ok) + '" target="_blank" rel="noopener sponsored" data-cid="' + esc(isAd ? (x.id || x.campaign_id || "") : "") + '">' + esc(x.cta_text || "Learn more") + ' &rarr;</a>' : "")
+      + (x.disclosure ? '<span class="disc">' + esc(x.disclosure) + '</span>' : "");
+    return inStream ? '<div class="post adpost"><aside class="ad" style="margin-top:0">' + h + '</aside></div>' : h;
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a.cta[data-cid]");
+    if (a && a.dataset.cid) { try { fetch(ROOM + "/api/ad/click", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ campaign_id: a.dataset.cid, ticker: T }) }); } catch (err) {} }
+  });
+  function loadAds() {
+    Array.prototype.forEach.call(document.querySelectorAll("[data-slot]"), function (el) {
+      getJSON(ROOM + "/api/ads?slot=" + encodeURIComponent(el.dataset.slot) + "&t=" + encodeURIComponent(T)).then(function (d) {
+        var x = d && d.ok && d.ads && d.ads[0];
+        if (!x) return;
+        el.innerHTML = renderAd(x, false);
+        el.hidden = false;
+      }).catch(function () {});
+    });
+  }
+
   /* ---------------- go ---------------- */
   var quoteP = loadQuote();
   var wireP = getJSON(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).catch(function () { return null; });
+  getJSON(ROOM + "/api/room?key=" + encodeURIComponent(T)).then(drawCounts).catch(function () { $("counts").textContent = ""; });
   Promise.all([
     wireP,
     getJSON(ROOM + "/api/company/" + encodeURIComponent(T)).catch(function () { return null; }),
     getJSON(ROOM + "/api/status/" + encodeURIComponent(T)).catch(function () { return null; }),
-    quoteP
+    quoteP,
+    getJSON(ROOM + "/api/morning/" + encodeURIComponent(T)).catch(function () { return null; })
   ]).then(function (r) {
-    if (!r[0] && !r[1]) { $("glance").innerHTML = '<div class="skel">We couldn&rsquo;t reach the filings just now.</div>'; return; }
-    renderGlance(r[0], r[1], r[2], r[3]);
+    if (!r[0] && !r[1]) { $("glance").innerHTML = '<div class="skel">We couldn&rsquo;t reach the filings just now.</div>'; drawChips(r[2], r[4], 0); return; }
+    renderGlance(r[0], r[1], r[2], r[3], r[4]);
     /* The first time a company is asked about, Warrant Wire may still be building its record and
        answer with part of it. Ask again a little later and redraw with the whole of it. */
     if (r[0] && r[0].building) {
       [7000, 20000].forEach(function (ms) {
         setTimeout(function () {
-          getJSON(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).then(function (w2) { if (w2 && w2.ok) renderGlance(w2, r[1], r[2], r[3]); }).catch(function () {});
+          getJSON(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).then(function (w2) { if (w2 && w2.ok) renderGlance(w2, r[1], r[2], r[3], r[4]); }).catch(function () {});
         }, ms);
       });
     }
   });
   loadStream();
+  loadAds();
   setInterval(loadQuote, 60000);
   setInterval(loadStream, 15000);
 })();
