@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-28 · 8k10q room-2b · THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-28 · 8k10q room-2c · THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -169,7 +169,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
 .ad img{max-width:100%;border-radius:8px;margin-top:8px;display:block}
 .ad a.cta{display:inline-block;margin-top:8px;font:700 13.5px var(--body)}
 .ad .disc{display:block;margin-top:6px;font-size:11.5px;color:var(--ink-3)}
-.ad[hidden]{display:none}
+.ad[hidden],.ad:empty{display:none}
 .adtop{margin:12px 18px 0}
 .post.adpost{grid-template-columns:1fr}
 .adcall .ph h3{font-size:14.5px}
@@ -274,7 +274,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
         </ul>
       </div>
     </section>
-    <aside class="ad" data-slot="sidebar" hidden></aside>
+    <div class="ad" data-ad="card"></div>
   </div></div>
 
   <!-- CENTRE: the conversation -->
@@ -285,7 +285,6 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
         <p class="counts" id="counts">&nbsp;</p>
         <p class="rules">Every post carries a real, verified name or is labelled as a program. Every post shows its date and time and is kept in the archive. Nothing is deleted.</p>
       </div>
-      <aside class="ad adtop" data-slot="room_header" hidden></aside>
       <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading the room&hellip;</div></div>
       <div class="composer">
         <textarea id="msg" disabled placeholder="Posting opens soon, for verified, named members."></textarea>
@@ -295,7 +294,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
         </div>
       </div>
     </section>
-    <aside class="ad" data-slot="below_composer" hidden></aside>
+    <div class="ad" data-ad="mid"></div>
   </div>
 
   <!-- RIGHT: the company, and the advertiser -->
@@ -303,7 +302,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
     <section class="panel" id="glance" aria-label="The company at a glance">
       <div class="skel">Reading the company&rsquo;s own filings&hellip;</div>
     </section>
-    <aside class="ad" data-slot="sidebar" hidden></aside>
+    <div class="ad" data-ad="card"></div>
     <section class="panel adcall" aria-label="Advertise">
       <div class="ph"><h3>Advertise to verified members</h3><p>Every reader here is a named, phone-verified person, and the professionals are licensed. Ads are labelled, approved by the desk, and never dressed up as posts.</p></div>
       <div class="pb"><span class="muted" style="font-size:13px">Write to the desk: <b style="user-select:all">contact@8k10q.com</b></span></div>
@@ -312,7 +311,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
 
 </main>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-2b &middot; 2026-09-28</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-2c &middot; 2026-09-28</span></p>
 
 <script>
 (function () {
@@ -594,7 +593,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
   }
 
   /* ---------------- advertisers ----------------
-     Direct campaigns approved by the desk, in the slots the room worker defines (ad_slots). An ad is always
+     In the stream: direct campaigns approved by the desk (the room worker's stream_inline slot). In the side columns and under the composer: AdHotBox, through box.js and data-ad slots, exactly as on about.html and cases.html. An ad is always
      labelled "Advertiser" and carries its disclosure; a house item is labelled "From 8K10Q". */
   function renderAd(x, inStream) {
     var isAd = x.kind !== "house";
@@ -612,17 +611,6 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
     var a = e.target.closest && e.target.closest("a.cta[data-cid]");
     if (a && a.dataset.cid) { try { fetch(ROOM + "/api/ad/click", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ campaign_id: a.dataset.cid, ticker: T }) }); } catch (err) {} }
   });
-  function loadAds() {
-    Array.prototype.forEach.call(document.querySelectorAll("[data-slot]"), function (el) {
-      getJSON(ROOM + "/api/ads?slot=" + encodeURIComponent(el.dataset.slot) + "&t=" + encodeURIComponent(T)).then(function (d) {
-        var x = d && d.ok && d.ads && d.ads[0];
-        if (!x) return;
-        el.innerHTML = renderAd(x, false);
-        el.hidden = false;
-      }).catch(function () {});
-    });
-  }
-
   /* ---------------- go ---------------- */
   var quoteP = loadQuote();
   var wireP = getJSON(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).catch(function () { return null; });
@@ -647,10 +635,10 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
     }
   });
   loadStream();
-  loadAds();
   setInterval(loadQuote, 60000);
   setInterval(loadStream, 15000);
 })();
 </script>
+<script src="https://adhotbox.com/box.js"></script>
 </body>
 </html>
