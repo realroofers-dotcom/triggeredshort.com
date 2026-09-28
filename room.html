@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-28 · 8k10q room-2c · THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-28 · 8k10q room-2d · THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -170,6 +170,8 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
 .ad a.cta{display:inline-block;margin-top:8px;font:700 13.5px var(--body)}
 .ad .disc{display:block;margin-top:6px;font-size:11.5px;color:var(--ink-3)}
 .ad[hidden],.ad:empty{display:none}
+.adwrap{margin-top:14px} .adwrap .ad{margin-top:0} .adwrap:has(.ad:empty){display:none}
+.adlab{display:block;font:600 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin:0 0 5px}
 .adtop{margin:12px 18px 0}
 .post.adpost{grid-template-columns:1fr}
 .adcall .ph h3{font-size:14.5px}
@@ -274,7 +276,6 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
         </ul>
       </div>
     </section>
-    <div class="ad" data-ad="card"></div>
   </div></div>
 
   <!-- CENTRE: the conversation -->
@@ -294,7 +295,6 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
         </div>
       </div>
     </section>
-    <div class="ad" data-ad="mid"></div>
   </div>
 
   <!-- RIGHT: the company, and the advertiser -->
@@ -302,7 +302,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
     <section class="panel" id="glance" aria-label="The company at a glance">
       <div class="skel">Reading the company&rsquo;s own filings&hellip;</div>
     </section>
-    <div class="ad" data-ad="card"></div>
+    <div class="adwrap"><span class="adlab">Advertisement</span><div class="ad" data-ad="card"></div></div>
     <section class="panel adcall" aria-label="Advertise">
       <div class="ph"><h3>Advertise to verified members</h3><p>Every reader here is a named, phone-verified person, and the professionals are licensed. Ads are labelled, approved by the desk, and never dressed up as posts.</p></div>
       <div class="pb"><span class="muted" style="font-size:13px">Write to the desk: <b style="user-select:all">contact@8k10q.com</b></span></div>
@@ -311,7 +311,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
 
 </main>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-2c &middot; 2026-09-28</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-2d &middot; 2026-09-28</span></p>
 
 <script>
 (function () {

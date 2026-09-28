@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-28 · 8k10q index-5a · three columns under the hero: you, your rooms and the agents on the left; the page in the centre; the rooms and the advertisers on the right. (index-4a 2026-09-08: halts, ACH discount, every product) -->
+<!-- BUILT 2026-09-28 · 8k10q index-5b · three columns under the hero: you, your rooms and the agents on the left; the page in the centre; the rooms and the advertisers on the right. (index-4a 2026-09-08: halts, ACH discount, every product) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -214,7 +214,11 @@ button.buy.big:hover{background:#E03F00}
   .hcentre > .band{padding:0 16px}
 }
 
-footer{background:var(--navy-d);border-top:1px solid var(--line);padding:38px 0 46px;
+/* ads: one at a time, labelled, in the page's own card style */
+.adwrap{margin:0 0 18px}
+.adlab{display:block;font:600 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#7F8CC0;margin:0 0 5px}
+.adwrap:has(.adslot:empty){display:none}
+.hcentre .adwrap .adslot,.rail .adwrap .adslot{display:block;min-height:0;padding:0;border:0;background:none;margin:0}footer{background:var(--navy-d);border-top:1px solid var(--line);padding:38px 0 46px;
   font:400 13.5px/1.85 var(--body);color:#9FABD8}
 footer b{color:#fff}
 footer a{color:#C4CCEA}
@@ -323,7 +327,6 @@ footer a{color:#C4CCEA}
       <li><b class="bd p">Program</b> The agents, never passed off as people.</li>
     </ul>
   </div>
-  <div class="adslot" data-ad="card"></div>
 </aside>
 
 <div class="hcentre">
@@ -392,7 +395,7 @@ footer a{color:#C4CCEA}
   </section>
 </div>
 
-<div class="wrap"><div class="adslot" data-ad="mid1"></div></div>
+<div class="wrap adwrap"><span class="adlab">Advertisement</span><div class="adslot" data-ad="mid1"></div></div>
 
 <!-- ========================== THE HUMAN SIDE ========================== -->
 <div class="band pale"><div class="wrap">
@@ -498,7 +501,7 @@ footer a{color:#C4CCEA}
   </section>
 </div></div>
 
-<div class="wrap"><div class="adslot" data-ad="mid2"></div></div>
+<div class="wrap adwrap"><span class="adlab">Advertisement</span><div class="adslot" data-ad="mid2"></div></div>
 
 <!-- ============================== HALTS ============================== -->
 <div class="band"><div class="wrap">
@@ -687,13 +690,12 @@ footer a{color:#C4CCEA}
     <ul class="rlist" id="hallrooms"><li class="rs">Loading&hellip;</li></ul>
     <a class="rmore" href="/room">Open a room &rarr;</a>
   </div>
-  <div class="adslot" data-ad="card"></div>
+  <div class="adwrap"><span class="adlab">Advertisement</span><div class="adslot" data-ad="card"></div></div>
   <div class="rp">
     <h3>Advertise to verified members</h3>
     <p class="rs">Every reader here is a named, phone-verified person, and the professionals are licensed. Ads are labelled, approved by the desk, and never dressed up as posts.</p>
     <p class="rs" style="margin-top:8px">Write to the desk: <b style="user-select:all;color:#fff">contact@8k10q.com</b></p>
   </div>
-  <div class="adslot" data-ad="card"></div>
 </aside>
 
 </div><!-- /homegrid -->
@@ -709,7 +711,7 @@ footer a{color:#C4CCEA}
   SEC EDGAR filer information &mdash; CIK 0001860507 &middot; SEC File No. 150-11431 &middot;
   LTID 71743954 &middot; Form 13H accepted May 4, 2021
 
-  <div class="adslot" data-ad="foot" style="margin-top:26px"></div>
+  <div class="adwrap" style="margin-top:26px"><span class="adlab">Advertisement</span><div class="adslot" data-ad="foot"></div></div>
 
   <p><a href="/terms">Terms</a> &middot; seven-day money back on anything paid by card.</p>
 <p class="disclaimer">EDGAR filer information is provided solely to identify the author
@@ -791,8 +793,7 @@ footer a{color:#C4CCEA}
   if(!SELLING) msg('Readings open soon. Nothing is for sale yet, and nothing has been charged.');
 })();
 </script>
-<script src="https://adhotbox.com/box.js" data-auto
-  data-not=".demo, .agents, .rules, .army, .four, .year, .disclaimer, .mast-meta, .find, .gov, .card-anat, .rail, .rp, .hero"></script>
+<script src="https://adhotbox.com/box.js"></script>
 <script src="/clock.js"></script>
 <script>
 /* index-5a · the rails: remember the visitor and their rooms, list the agents and the open rooms */
