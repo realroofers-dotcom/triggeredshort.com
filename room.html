@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-28 · 8k10q room-2a · THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-28 · 8k10q room-2b · THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -312,7 +312,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
 
 </main>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-2a &middot; 2026-09-28</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-2b &middot; 2026-09-28</span></p>
 
 <script>
 (function () {
@@ -429,7 +429,10 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
       $("pxnow").textContent = money(q.price);
       $("pxchg").className = "pxchg " + dir;
       $("pxchg").textContent = q.change != null ? (q.change > 0 ? "▲ +" : q.change < 0 ? "▼ " : "") + money(Math.abs(q.change)).replace("$", q.change < 0 ? "−$" : "$") + " (" + pct(q.change_pct) + ") today" : "";
-      $("pxas").textContent = q.as_of ? "At the close · " + et(q.as_of) + " · delayed" : "Delayed";
+      /* "At the close" only after 4:00 PM ET; during the session it is a delayed quote "as of" its time */
+      var closed = false;
+      if (q.as_of) { var hm = new Date(q.as_of).toLocaleString("en-US", { timeZone: "America/New_York", hour: "2-digit", minute: "2-digit", hour12: false }).replace(/\D/g, ""); closed = +hm >= 1600 || +hm < 930; }
+      $("pxas").textContent = q.as_of ? (closed ? "At the close · " : "As of ") + et(q.as_of) + " · delayed" : "Delayed";
       $("pxext").innerHTML = (q.extended && q.extended.price != null && q.price)
         ? '<span class="pxext">' + (q.extended.session === "pre" ? "Pre-market" : "After hours") + " " + money(q.extended.price) + " (" + pct((q.extended.price - q.price) / q.price * 100) + ") &middot; " + esc(et(q.extended.at)) + "</span>" : "";
       var vol = q.volume != null ? big(q.volume) + (q.avg_volume_30d ? ' <span style="color:#B9C3E8;font-weight:500">/ avg ' + big(q.avg_volume_30d) + '</span>' : "") : "—";
