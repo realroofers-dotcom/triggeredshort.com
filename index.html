@@ -46,7 +46,8 @@ a{color:inherit}
 #nyc{color:#9FABD8}
 
 .nav{border-bottom:1px solid var(--line);background:var(--navy-d)}
-.nav-inner{display:flex;gap:2px;overflow-x:auto;padding:0 24px;max-width:1120px;margin:0 auto}
+.nav-inner{display:flex;gap:2px;overflow-x:auto;padding:0 24px;max-width:1120px;margin:0 auto;scrollbar-width:none;-ms-overflow-style:none}
+.nav-inner::-webkit-scrollbar{display:none}
 .nav a{font:600 13px/1 var(--body);color:#B9C3E8;text-decoration:none;
   padding:15px 14px 13px;border-bottom:2px solid transparent;white-space:nowrap}
 .nav a:hover,.nav a:focus{color:#fff}
@@ -186,9 +187,9 @@ footer a{color:#C4CCEA}
 
 <nav class="nav"><div class="nav-inner">
   <a href="/" aria-current="page">Read a filing</a>
-  <a href="#agents">The agents</a>
+  <a href="/room">The room</a>
+  <a href="/agents">The agents</a>
   <a href="#humans">Named humans</a>
-  <a href="#room">The room</a>
   <a href="#deck">Management</a>
   <a href="#halts">Halts</a>
   <a href="#list">The list</a>
