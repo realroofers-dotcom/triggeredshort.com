@@ -151,6 +151,9 @@ const iso = ts => new Date(ts * 1000).toISOString();
 const ymd = ts => new Date(ts * 1000).toISOString().slice(0, 10);
 const num = v => (typeof v === 'number' && isFinite(v) ? round(v) : null);
 const round = v => Math.round(v * 10000) / 10000;
+/* Warrant Wire shows the current price on its company page (his rule, 28 Sep 2026: the description and the
+   current price are free there). Reading is open; the sister site is named so it is plain who uses it. */
 function json(o, status = 200, cc = 'no-store') {
-  return new Response(JSON.stringify(o), { status, headers: { 'content-type': 'application/json', 'cache-control': cc } });
+  return new Response(JSON.stringify(o), { status, headers: { 'content-type': 'application/json', 'cache-control': cc,
+    'access-control-allow-origin': '*', 'x-served-for': '8k10q.com, warrantwire.com' } });
 }
