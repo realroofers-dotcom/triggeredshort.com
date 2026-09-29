@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-28 · 8k10q room-3a · THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-28 · 8k10q room-3b · THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -218,6 +218,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 .sales li.soon b{color:var(--ink-3)}
 .sellp{border-color:#FFC7B0}
 .sellbtn{display:block;text-align:center}
+.fwords{font:800 16px/1.6 var(--disp);margin:4px 0 10px}.fwords b{color:var(--hot)}.fwords i{font-style:normal;margin:0 7px;color:#D9B3A6}.readnow{letter-spacing:.02em}
 /* ---------- phone and tablet: the room first, the rest one tap away ---------- */
 .tabs{display:none}
 @media (max-width:1180px){
@@ -364,7 +365,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
 <dialog id="descdlg" aria-labelledby="descttl"><div class="dlg"><h3 id="descttl">What it does</h3><div id="descbody"></div><form method="dialog"><button class="btn">Close</button></form></div></dialog>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3a &middot; 2026-09-28</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3b &middot; 2026-09-28</span></p>
 
 <script>
 (function () {
@@ -588,7 +589,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     /* everything else about the company goes in the pop-up */
     var more = '';
     if (f.length) more += '<ul class="facts">' + f.map(function (x) { return '<li><div class="fk">' + x[0] + '</div><div class="fv">' + x[1].replace(/ <button[^>]*id="morebtn"[^>]*>.*?<\/button>/, '') + '</div></li>'; }).join('') + '</ul>';
-    more += '<h4>Red flags</h4>' + (flags.length ? flags.map(function (x) { return '<div class="flag"><b>' + x[0] + '</b><p>' + x[1] + '</p></div>'; }).join('')
+    /* words only, and READ IT NOW (his rule, 28 Sep 2026): the what, when and which filing are in the report */
+    more += '<h4>Red flags</h4>' + (flags.length ? '<p class="fwords">' + flags.map(function (x) { return '<b>' + x[0] + '</b>'; }).join('<i>&middot;</i>') + '</p><a class="btn readnow" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">READ IT NOW &middot; $12</a>'
       : '<p class="noflag">None found in the filings we have read. That is not a clean bill of health, only what the filings say.</p>')
       + notes.map(function (x) { return '<div class="flag note"><b>' + x[0] + '</b><p>' + x[1] + '</p></div>'; }).join('');
     if (files.length) more += '<h4>Latest filings</h4>' + files.map(function (x) {
@@ -656,10 +658,10 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     $("roomtitle").innerHTML = '<span class="rfdot" aria-hidden="true">⚑</span>The ' + esc(T) + ' room <small style="font:600 14px var(--body);color:var(--hot)">&middot; ' + label + '</small>';
     var buy = SELLING
       ? '<a class="rbtn" href="/?buy=wire_read&amp;ticker=' + encodeURIComponent(T) + '">Get the read</a>'
-      : '<span class="rbtn" role="button" aria-disabled="true" title="Reads open soon">Reads open soon</span>';
+      : '<a class="rbtn" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">READ IT NOW &middot; $12</a>';
     var box = $("rf");
     box.innerHTML = '<div><b><span class="rfdot" aria-hidden="true">⚑</span>' + label + ' in ' + esc(name) + '&rsquo;s own filings</b>'
-      + '<p>Before you trade, we recommend a read: the filing behind each flag, in plain English.</p>'
+      + '<p>Before you trade, read what the company filed. Which filings, and when, are in the report.</p>'
       + '<p class="own">A read is licensed to you alone. It cannot be shared, forwarded, copied or posted.</p></div>' + buy;
     box.hidden = false;
   }
