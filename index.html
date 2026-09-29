@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-28 · 8k10q index-5c · three columns under the hero: you, your rooms and the agents on the left; the page in the centre; the rooms and the advertisers on the right. (index-4a 2026-09-08: halts, ACH discount, every product) -->
+<!-- BUILT 2026-09-28 · 8k10q index-6a · the search at the top with the microcaps and the most active under it; the room in the centre; everything else folded in the left column; the reports and the ad on the right. (5c: three columns under the hero: you, your rooms and the agents on the left; the page in the centre; the rooms and the advertisers on the right. (index-4a 2026-09-08: halts, ACH discount, every product) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,9 +167,73 @@ button.buy.big:hover{background:#E03F00}
 #buymsg{margin:16px 0 0;font-size:15px;color:#C4CCEA;min-height:22px}
 #buymsg.bad{color:#FFB899}
 
+/* ---------- the search at the top, and the day's lists (index-6a) ---------- */
+.vh{position:absolute;left:-9999px}
+.topsearch{background:var(--navy);border-bottom:1px solid var(--line);padding:18px 0 12px}
+.tsf{display:flex;gap:8px;flex-wrap:wrap;max-width:880px}
+.tsf input{flex:1 1 280px;min-width:0;background:#fff;border:0;border-radius:8px;padding:13px 15px;font:600 16px var(--mono);color:var(--ink);letter-spacing:.03em}
+.tsf input::placeholder{color:#8B90A2;letter-spacing:0;font-family:var(--body);font-weight:500}
+.tsroom{background:var(--hot);color:#fff;border-radius:8px;padding:13px 18px;font:700 15px var(--body);text-decoration:none;white-space:nowrap}
+.tsroom:hover{background:#E03F00}
+.tsread{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35);border-radius:8px;padding:12px 16px;font:600 14.5px var(--body);cursor:pointer;white-space:nowrap}
+.actives{display:flex;align-items:center;gap:10px;margin-top:12px;min-width:0}
+.alab{flex:none;font:700 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#9FABD8;width:150px}
+.alab.hot{color:#FFB08F}
+.arow{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0;padding-bottom:2px}
+.arow::-webkit-scrollbar{display:none}
+.chip{flex:none;display:flex;gap:7px;align-items:baseline;background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:999px;padding:5px 11px;text-decoration:none;color:#fff;font:600 13px var(--mono)}
+.chip:hover{background:rgba(255,255,255,.14)}
+.chip .p{font:500 12px var(--body);color:#C4CCEA}
+.chip .c.up{color:#6BE3B0} .chip .c.dn{color:#FF9C85}
+.asrc{margin:8px 0 0;font-size:11.5px;color:#7F8CC0}
+@media(max-width:620px){.alab{width:auto}.actives{flex-direction:column;align-items:stretch;gap:5px}.tsroom,.tsread{flex:1 1 auto;text-align:center}}
+
+/* the room, in the centre */
+.hroom{background:#fff;color:var(--ink);border-radius:12px;padding:0!important;overflow:hidden}
+.hrh{padding:16px 18px 12px;border-bottom:1px solid #E4E6EC}
+.hrh h2{font:800 20px/1.2 var(--disp);margin:0;color:var(--ink)}
+.hroom .rs{color:#51576A}
+.hstream{min-height:360px;max-height:62vh;overflow-y:auto;padding:12px 18px;display:flex;flex-direction:column;gap:14px}
+.hpost{display:grid;grid-template-columns:36px minmax(0,1fr);gap:10px}
+.hpost .av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:700 14px var(--disp);color:#fff;background:var(--navy)}
+.hpost.prog .av{background:#fff;color:var(--hot);border:2px solid var(--hot)}
+.hmeta{font-size:12px;color:#848A9A}
+.hmeta b{font-size:14.5px;color:var(--ink)}
+.hmeta a{color:var(--navy);font-weight:700;text-decoration:none}
+.hbody{margin-top:3px;background:#F6F7FA;border:1px solid #E4E6EC;border-radius:4px 12px 12px 12px;padding:9px 12px;white-space:pre-wrap;word-wrap:break-word;font-size:15px;line-height:1.5}
+.hcomp{border-top:1px solid #E4E6EC;padding:12px 18px;background:#F6F7FA}
+.hcomp textarea{width:100%;min-height:52px;border:1px solid #E4E6EC;border-radius:10px;padding:10px 12px;font:inherit;font-size:15px;background:#F1F2F5}
+.hcrow{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.hcrow .btn{margin:0;padding:9px 14px;font-size:14px;opacity:.6}
+.hsell{border-top:2px solid var(--hot);background:#FFF4EE;padding:14px 18px;display:grid;gap:6px}
+.hsell b{font:800 16px var(--disp);color:var(--ink)}
+.hsell .rgo input{border:1px solid #E4E6EC}
+.rp.sell{border-color:rgba(255,120,70,.55)}
+/* everything else on the page, folded in the left column */
+.lsec{background:var(--navy-d);border:1px solid var(--line);border-radius:10px;margin:0 0 10px;overflow:hidden}
+.lsec > summary{cursor:pointer;list-style:none;padding:12px 16px;font:800 14.5px/1.3 var(--disp);color:#fff;display:flex;justify-content:space-between;gap:8px}
+.lsec > summary::-webkit-details-marker{display:none}
+.lsec > summary::after{content:"+";color:#FFB08F;font-weight:700}
+.lsec[open] > summary::after{content:"\2212"}
+.lsec section{padding:0 16px 14px!important}
+.lsec h2{font-size:17px}
+.lsec h3{font-size:15.5px}
+.lsec .lede,.lsec p,.lsec li{font-size:13.5px!important;line-height:1.55}
+.lsec .four,.lsec .agents,.lsec .split2,.lsec .card-anat,.lsec .year{grid-template-columns:1fr!important;gap:10px}
+.lsec .four .card b.p{font-size:22px}
+.lsec .year-buy b{font-size:24px}
+.lsec .army{padding:16px;max-width:none}
+.lsec .gov{padding:14px;max-width:none}
+.lsec .btn,.lsec button.buy{font-size:13.5px;padding:9px 12px}
+.rl .band,.rl .band.pale{background:none;border:0;padding:0;margin:0}
+.rl .band .wrap,.rl .wrap{padding:0;max-width:none}
+.rl .band.pale .lsec{background:var(--paper);border-color:var(--line-d)}
+.rl .band.pale .lsec > summary{color:var(--ink)}
+.whatis h3{font-size:15px}
+
 /* ---------- three columns under the hero (2026-09-28) ---------- */
 .homegrid{max-width:1360px;margin:0 auto;padding:18px 20px 40px;display:grid;
-  grid-template-columns:250px minmax(0,1fr) 290px;gap:22px;align-items:start}
+  grid-template-columns:300px minmax(0,1fr) 290px;gap:22px;align-items:start}
 .hcentre{min-width:0}
 .hcentre .wrap{max-width:none;padding:0}
 .hcentre > .band{border:1px solid var(--line);border-radius:10px;padding:0 24px;margin:0 0 18px}
@@ -255,28 +319,20 @@ footer a{color:#C4CCEA}
 
 <main>
 
-<!-- ============================== HERO ============================== -->
-<div class="wrap">
-  <section class="hero">
-    <h1>We read it. You get it in English.</h1>
-    <p class="sub">Put in a ticker. We read the 8-K, the 10-Q and the exhibit almost
-    nobody opens, and hand back what it actually says.</p>
-
-    <div class="find">
-      <label for="tk" style="position:absolute;left:-9999px">Ticker or company</label>
-      <input id="tk" type="text" placeholder="TICKER OR COMPANY" maxlength="40"
-             autocapitalize="characters" autocorrect="off" spellcheck="false">
-      <button id="go" type="button">Read the filings</button>
-      <!-- JOIN CHAT, right next to the search — his call, 20 Sep: everyone registers, nobody is anonymous; this is the answer to Stocktwits -->
-      <a id="joinchat" data-room href="#tk" style="background:#fff;color:var(--hot);border:2px solid var(--hot);border-radius:5px;padding:12px 18px;font:700 15px var(--body);text-decoration:none;white-space:nowrap;align-self:center">JOIN CHAT</a>
-    </div>
-    <p class="findnote" style="margin-top:6px"><b>The chat:</b> every company has a room. Everyone registers &mdash; a name, a telephone &mdash; and nobody is anonymous. Say what you see under your own name.</p>
-    <p class="findnote">Search plain English news and filings by ticker, company or the
-    name of anyone in the deal.</p>
-
-  </section>
-</div>
-
+<!-- ============ THE SEARCH, AND TODAY'S MOST ACTIVE (index-6a, 2026-09-28) ============
+     His rule: a search at the top of the page, like StockTwits, because that lures activity in; the most
+     actives of the day just below it. Enter opens the symbol's room. -->
+<div class="topsearch"><div class="wrap">
+  <form class="tsf" id="tsf" role="search" onsubmit="return false">
+    <label for="tk" class="vh">Search a symbol, a company or a person in the deal</label>
+    <input id="tk" type="text" placeholder="Search a stock, ETF or crypto" maxlength="40" autocapitalize="characters" autocorrect="off" spellcheck="false" autocomplete="off">
+    <a id="joinchat" data-room href="#tk" class="tsroom">Open its room</a>
+    <button id="go" type="button" class="tsread">Read the filings</button>
+  </form>
+  <div class="actives" aria-label="Microcaps on the move today"><span class="alab hot">Microcaps on the move</span><div class="arow" id="amicro"><span class="rs">Loading&hellip;</span></div></div>
+  <div class="actives" aria-label="Most active today"><span class="alab">Most active today</span><div class="arow" id="abig"><span class="rs">Loading&hellip;</span></div></div>
+  <p class="asrc" id="asrc"></p>
+</div></div>
 <!-- ======================= THREE COLUMNS (2026-09-28) =======================
      Left: you, your rooms, the agents, who is in the room. Centre: the page. Right: the rooms
      and the advertisers. On a phone the centre comes first and the rails follow. -->
@@ -285,11 +341,7 @@ footer a{color:#C4CCEA}
 <aside class="rail rl" aria-label="You, your rooms and the agents">
   <div class="rp">
     <h3 id="hhello">Welcome</h3>
-    <p class="rs">Search any stock, ETF or crypto. Its room opens.</p>
-    <form class="rgo" id="rgo" role="search">
-      <input id="rgosym" aria-label="Open a room" placeholder="SYMBOL" maxlength="10" autocomplete="off">
-      <button type="submit">Go</button>
-    </form>
+    <p class="rs">Search any stock, ETF or crypto at the top. Its room opens.</p>
   </div>
   <div class="rp">
     <h3>Your rooms</h3>
@@ -311,14 +363,16 @@ footer a{color:#C4CCEA}
       <li><b class="bd p">Program</b> The agents, never passed off as people.</li>
     </ul>
   </div>
-</aside>
+  <div class="rp whatis">
+    <h3>We read it. You get it in English.</h3>
+    <p class="rs">Put in a ticker. We read the 8-K, the 10-Q and the exhibit almost nobody opens, and hand back what it actually says.</p>
+  </div>
 
-<div class="hcentre">
 
 <!-- ====================== FOUR THINGS PER FILING ====================== -->
 <div class="band"><div class="wrap">
-  <section id="four">
-    <h2>Four things you can get on any filing</h2>
+  <details class="lsec" id="four"><summary>Four things you can get on any filing</summary><section>
+    
     <p class="lede">A machine for speed and volume. A named human for the ones that
     matter. You pick.</p>
 
@@ -352,13 +406,13 @@ footer a{color:#C4CCEA}
         <a class="btn ghost" href="#humans" style="padding:10px 14px;font-size:14px">See who is reading &rarr;</a>
       </div>
     </div>
-  </section>
+  </section></details>
 </div></div>
 
 <!-- ============================== AGENTS ============================== -->
 <div class="wrap">
-  <section id="agents">
-    <h2>Six readers, six ways of looking</h2>
+  <details class="lsec" id="agents"><summary>The readers, and how each one looks</summary><section>
+    
     <p class="lede">The engine produces the facts. These six give an opinion on top of
     them, and each one tells you up front how it reads.</p>
 
@@ -376,15 +430,13 @@ footer a{color:#C4CCEA}
       <div class="agent"><div class="who"><span class="disc">R</span><span class="nm">Ronny</span></div>
         <p><span class="lens">Reads momentum.</span>Likes winning.</p></div>
     </div>
-  </section>
+  </section></details>
 </div>
-
-<div class="wrap adwrap"><span class="adlab">Advertisement</span><div class="adslot" data-ad="mid1"></div></div>
 
 <!-- ========================== THE HUMAN SIDE ========================== -->
 <div class="band pale"><div class="wrap">
-  <section id="humans">
-    <h2>Named humans, competing with the machines</h2>
+  <details class="lsec" id="humans"><summary>Named humans, competing with the machines</summary><section>
+    
     <p class="lede">A verified person reads the same filing the agents read, and his
     opinion sits beside theirs on the same document. Batting averages are computed on
     both, in public. Being right is worth something here.</p>
@@ -417,15 +469,15 @@ footer a{color:#C4CCEA}
         <li><b>Nothing is deleted after 24 hours.</b> The record is the point.</li>
       </ul>
     </div>
-  </section>
+  </section></details>
 </div></div>
 
 <!-- ============================== THE ROOM ============================== -->
 <div class="wrap">
-  <section id="room">
+  <details class="lsec" id="room"><summary>The room</summary><section>
     <div class="split2">
       <div>
-        <h2>The room</h2>
+        
         <p class="lede">A room for every ticker. The agents post every completed read
         into it, so it is never an empty room, and the people in it are not strangers
         with cartoon names.</p>
@@ -438,13 +490,13 @@ footer a{color:#C4CCEA}
         <li><b>Professionals are welcome</b> and say what they do.</li>
       </ul>
     </div>
-  </section>
+  </section></details>
 </div>
 
 <!-- ============================== THE DECK ============================== -->
 <div class="band"><div class="wrap">
-  <section id="deck">
-    <h2>Management</h2>
+  <details class="lsec" id="deck"><summary>Management</summary><section>
+    
     <p class="lede">Printed cards. Every CEO, CFO, CTO, COO, corporate counsel and
     financier who takes part in the public market. It ties the same names across
     companies &mdash; and the same names come up again and again.</p>
@@ -482,15 +534,13 @@ footer a{color:#C4CCEA}
     and any response publishes in full and unedited.</p>
 
     <a class="btn ghost" href="/management.html">Search the cards</a>
-  </section>
+  </section></details>
 </div></div>
-
-<div class="wrap adwrap"><span class="adlab">Advertisement</span><div class="adslot" data-ad="mid2"></div></div>
 
 <!-- ============================== HALTS ============================== -->
 <div class="band"><div class="wrap">
-  <section id="halts">
-    <h2>Halts &mdash; and whether we already flagged it</h2>
+  <details class="lsec" id="halts"><summary>Halts</summary><section>
+    
     <p class="lede">Every trading halt across the US exchanges, live, the moment it
     lands. Anyone can tell you a stock halted. We tell you whether its warrant paper
     was already on our wire, and on what date.</p>
@@ -521,13 +571,13 @@ footer a{color:#C4CCEA}
     feed and prints as it comes, credited. Our warrant flag sits in its own column.</p>
 
     <a class="btn ghost" href="/halts.html">See today's halts</a>
-  </section>
+  </section></details>
 </div></div>
 
 <!-- ============================== THE LIST ============================== -->
 <div class="wrap">
-  <section id="list">
-    <h2>The list &mdash; suspected possible violations of transparency</h2>
+  <details class="lsec" id="list"><summary>The list</summary><section>
+    
     <p class="lede">When a document written for shareholders cannot be understood by
     people who read filings for a living, that is the transparency problem itself
     &mdash; whatever any rule says. Those filings go on a list.</p>
@@ -545,12 +595,12 @@ footer a{color:#C4CCEA}
     clean are published the same as the ones that do not.</p>
 
     <a class="btn ghost" href="/list.html">See the list</a>
-  </section>
+  </section></details>
 </div>
 
 <!-- ============================== THE ARMY ============================== -->
 <div class="band"><div class="wrap">
-  <section id="army">
+  <details class="lsec" id="army"><summary>The 8K10Q Army</summary><section>
     <div class="army">
       <h3>Join the 8K10Q <i>Army</i></h3>
       <p>Shareholders who attend the stockholders meetings and keep up with the filings,
@@ -562,13 +612,13 @@ footer a{color:#C4CCEA}
       meetings. And the number. ]]</p>
       <a class="btn" href="/army.html">See the rules and enlist</a>
     </div>
-  </section>
+  </section></details>
 </div></div>
 
 <!-- ============================== PRICING ============================== -->
 <div class="wrap">
-  <section id="pricing">
-    <h2>What it costs</h2>
+  <details class="lsec" id="pricing"><summary>What it costs</summary><section>
+    
     <p class="lede">What you want us to find costs money. Nothing that took work is
     given away.</p>
 
@@ -637,13 +687,13 @@ footer a{color:#C4CCEA}
 
     <p class="findnote">Nothing here is investment advice. The same read and the same
     opinion go to everyone who buys them.</p>
-  </section>
+  </section></details>
 </div>
 
 <!-- ====================== REGULATORS AND PRESS ====================== -->
 <div class="band pale"><div class="wrap">
-  <section id="access">
-    <h2>Free to regulators and to the press</h2>
+  <details class="lsec" id="access"><summary>Free to regulators and to the press</summary><section>
+    
     <p class="lede">The work is meant to be checked by the people whose job it is. The
     file is open to them, whether or not they take it up.</p>
 
@@ -662,9 +712,30 @@ footer a{color:#C4CCEA}
       has been here, and we never say that any agency is looking at any company.</p>
       <a class="btn" href="/access.html" style="margin-top:16px">Request access</a>
     </div>
-  </section>
+  </section></details>
 </div></div>
 
+
+</aside>
+
+<div class="hcentre">
+  <section class="hroom" aria-label="The room">
+    <div class="hrh">
+      <h2>The room</h2>
+      <p class="rs" id="hroomcount">The whole market, in one room. Search a symbol above for its own room.</p>
+      <p class="rs">Every post carries a real, verified name, a licensed professional&rsquo;s licence and firm, or a program label. Every post shows its date and time and is kept.</p>
+    </div>
+    <div class="hstream" id="hstream" aria-live="polite"><p class="rs" style="padding:18px">Loading the room&hellip;</p></div>
+    <div class="hcomp">
+      <textarea disabled placeholder="Posting opens soon, for verified, named members."></textarea>
+      <div class="hcrow"><span class="rs">Your real name goes on every post. We telephone every member before their first one.</span><button class="btn" disabled>Join &mdash; opening soon</button></div>
+    </div>
+    <div class="hsell" id="hsell">
+      <b>Before you trade, read what the company filed.</b>
+      <span class="rs">The warrant verdict: the rules that fired, every filing, and what the paper permits. One company, one payment.</span>
+      <form class="rgo" id="hsellf"><input id="hsellsym" placeholder="SYMBOL" maxlength="10" aria-label="Symbol for the report"><button type="submit">The report &middot; $12</button></form>
+    </div>
+  </section>
 </div><!-- /hcentre -->
 
 <aside class="rail rr" aria-label="The rooms and the advertisers">
@@ -673,6 +744,12 @@ footer a{color:#C4CCEA}
     <p class="rs">Every symbol has one. These are the rooms people have opened.</p>
     <ul class="rlist" id="hallrooms"><li class="rs">Loading&hellip;</li></ul>
     <a class="rmore" href="/room">Open a room &rarr;</a>
+  </div>
+  <div class="rp sell">
+    <h3>Get the report</h3>
+    <p class="rs">Every warrant filing a company has made, the rules that fired, and what the paper lets insiders and financiers do. One company, one payment, delivered at Warrant Wire.</p>
+    <form class="rgo" id="rsellf"><input id="rsellsym" placeholder="SYMBOL" maxlength="10" aria-label="Symbol for the report"><button type="submit">$12</button></form>
+    <p class="rs" style="margin-top:8px">The whole filing in plain English, at 8K10Q: opening soon.</p>
   </div>
   <div class="adwrap"><span class="adlab">Advertisement</span><div class="adslot" data-ad="card"></div></div>
   <div class="rp">
@@ -791,7 +868,39 @@ footer a{color:#C4CCEA}
   var rooms = get("k8_rooms") || [];
   $("hrooms").innerHTML = rooms.length ? rooms.map(function (r) { return '<li><a href="/room?t=' + encodeURIComponent(r) + '">' + esc(r) + '</a></li>'; }).join("")
     : '<li class="rs">None yet. Search a symbol to open its room.</li>';
-  $("rgo").addEventListener("submit", function (e) { e.preventDefault(); var v = $("rgosym").value.trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, ""); if (v) location.href = "/room?t=" + encodeURIComponent(v); });
+  /* ---- index-6a: the day's lists under the search ---- */
+  function chip(x) {
+    var c = x.change_pct, cls = c > 0 ? "up" : c < 0 ? "dn" : "";
+    var p = x.price == null ? "" : "$" + (x.price < 1 ? x.price.toFixed(4) : x.price.toFixed(2));
+    return '<a class="chip" href="/room?t=' + encodeURIComponent(x.symbol) + '" title="' + esc(x.name || x.symbol) + '">' + esc(x.symbol)
+      + '<span class="p">' + p + '</span>' + (c != null ? '<span class="c ' + cls + '">' + (c > 0 ? "+" : "") + c.toFixed(1) + '%</span>' : '') + '</a>';
+  }
+  fetch("/api/actives?n=20").then(function (r) { return r.json(); }).then(function (d) {
+    if (!d || !d.ok) throw 0;
+    $("amicro").innerHTML = (d.micro || []).map(chip).join("") || '<span class="rs">None just now.</span>';
+    $("abig").innerHTML = (d.big || []).map(chip).join("");
+    $("asrc").textContent = "Delayed. Microcaps: under $300 million in market value, ranked by volume. As of " + new Date(d.as_of).toLocaleString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" }) + " ET.";
+  }).catch(function () { $("amicro").innerHTML = $("abig").innerHTML = '<span class="rs">The lists aren&rsquo;t answering just now.</span>'; });
+
+  /* ---- the room in the centre: the whole-market room ---- */
+  function when(iso) { return new Date(iso).toLocaleString("en-US", { timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" }) + " ET"; }
+  function ini(n) { return String(n || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(function (p) { return p.charAt(0).toUpperCase(); }).join("") || "?"; }
+  fetch(ROOM + "/api/stream?room=general:market&limit=40").then(function (r) { return r.json(); }).then(function (d) {
+    var items = ((d && d.items) || []).filter(function (x) { return x.kind !== "ad" && x.kind !== "house"; });
+    if (!items.length) { $("hstream").innerHTML = '<p class="rs" style="padding:18px"><b style="color:#12141C">The room opens to verified, named members soon.</b><br>Until then, open a microcap from the list above: each one has its own room with the price, the company&rsquo;s own filings and its red flags.</p>'; return; }
+    $("hstream").innerHTML = items.map(function (it) {
+      var a = it.author || {}, prog = a.type === "program", nm = a.display || "A verified member";
+      var at = it.timestamp_utc || (it.at ? new Date(it.at * 1000).toISOString() : null);
+      return '<div class="hpost' + (prog ? ' prog' : '') + '"><div class="av">' + esc(ini(nm)) + '</div><div><div class="hmeta"><b>' + esc(nm) + '</b> '
+        + (prog ? 'program' : a.tier === 'professional' ? 'licensed' : 'verified') + (it.ticker ? ' &middot; <a href="/room?t=' + encodeURIComponent(it.ticker) + '">' + esc(it.ticker) + '</a>' : '') + (at ? ' &middot; ' + esc(when(at)) : '') + '</div>'
+        + '<div class="hbody">' + esc(it.body) + '</div></div></div>';
+    }).join("");
+  }).catch(function () { $("hstream").innerHTML = '<p class="rs" style="padding:18px">The room isn&rsquo;t answering just now.</p>'; });
+
+  /* ---- selling the report: the Warrant Wire verdict, delivered there ---- */
+  function sellTo(inp) { var v = ($(inp).value || "").trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, ""); if (v) location.href = "https://warrantwire.com/company.html?t=" + encodeURIComponent(v) + "#auto"; }
+  $("hsellf").addEventListener("submit", function (e) { e.preventDefault(); sellTo("hsellsym"); });
+  $("rsellf").addEventListener("submit", function (e) { e.preventDefault(); sellTo("rsellsym"); });
   var EXTRA = [{ name: "Kenny", lens: "Disposition being written with the desk." }, { name: "GJN", lens: "A very conservative electrical engineer." },
                { name: "Stephen", lens: "Warrant Wire · the facts of each new filing" }, { name: "Barry", lens: "Warrant Wire · warrant paper" }];
   function agents(list) { $("hagents").innerHTML = list.map(function (a) { return '<li><span class="d" aria-hidden="true">' + esc(a.name.charAt(0)) + '</span><div><b>' + esc(a.name) + '</b><span class="l">' + esc(a.lens) + '</span></div></li>'; }).join(""); }
