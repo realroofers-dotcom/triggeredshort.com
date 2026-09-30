@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-30 · 8k10q room-3j · 3j: every chat head says how many SEC documents the company has filed and that trading without reading them is dangerous. 3i: the agents' roundtable starts on the first visit of the trading day. 3h: Buy the report button in every chat head; join the room (apply, desk approves) and post under a real name. 3g: no price block; the red-flags READ IT NOW box tops the left column. 3f: the chat head is just the symbol, price, one-line summary and a CEO-cards icon (cards fold away); no "The X room"; no heavy blocks (price block now white). 3e: icon menu with a light search in the bar; left "What we do" icon tiles; thin right column of news (/api/news) and text ads (AdHotBox rail); phone: Chat and Order a read always one tap away; lite text ads between chats. 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-30 · 8k10q room-3k · 3k: key words that link, not paragraphs (warning = filings · flagged · unread = dangerous · Read them $12); counts = posts only; no "the X room" wording. 3j: every chat head says how many SEC documents the company has filed and that trading without reading them is dangerous. 3i: the agents' roundtable starts on the first visit of the trading day. 3h: Buy the report button in every chat head; join the room (apply, desk approves) and post under a real name. 3g: no price block; the red-flags READ IT NOW box tops the left column. 3f: the chat head is just the symbol, price, one-line summary and a CEO-cards icon (cards fold away); no "The X room"; no heavy blocks (price block now white). 3e: icon menu with a light search in the bar; left "What we do" icon tiles; thin right column of news (/api/news) and text ads (AdHotBox rail); phone: Chat and Order a read always one tap away; lite text ads between chats. 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The room — 8K10Q</title>
+<title>Chat — 8K10Q</title>
 <meta name="description" content="One symbol, one room: the price, the company in plain words from its own filings, and a room of verified, named people and labelled programs.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -221,10 +221,12 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 .fwords{font:800 16px/1.6 var(--disp);margin:4px 0 10px}.fwords b{color:var(--hot)}.fwords i{font-style:normal;margin:0 7px;color:#D9B3A6}.readnow{letter-spacing:.02em}
 /* ---------- phone and tablet: the room first, the rest one tap away ---------- */
 /* room-3j: read-before-you-trade warning in every chat head */
-.readwarn{display:flex;gap:10px 14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:8px 0 2px;padding:9px 12px;border:1px solid #F3C4B4;border-left:4px solid var(--hot);border-radius:8px;background:#FFF6F2;font-size:13.5px;line-height:1.45;color:var(--ink)}
+.readwarn{display:flex;gap:6px 14px;align-items:center;flex-wrap:wrap;margin:6px 0 0;font-size:13px}
+.readwarn a{color:var(--hot);text-decoration:none;font-weight:700}
+.readwarn a:hover{text-decoration:underline}
 .readwarn[hidden]{display:none}
-.readwarn div{flex:1 1 320px}
-.rwbtn{white-space:nowrap;background:var(--hot);color:#fff;border-radius:999px;padding:6px 12px;font:800 12.5px var(--body);text-decoration:none}
+
+.readwarn a.rwbtn{white-space:nowrap;background:var(--hot);color:#fff;border-radius:999px;padding:3px 10px;font:800 12px var(--body)}
 /* room-3h: report button in every chat head; join form; posting */
 .buybtn{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--hot);color:#fff;border-radius:999px;padding:6px 13px;font:800 13px var(--body);text-decoration:none;white-space:nowrap}
 .buybtn:hover{background:var(--hot-d)}
@@ -244,6 +246,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 .chead.lite{padding:10px 16px 8px;border-bottom:1px solid var(--line)}
 .cline{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .csym{font:800 22px/1.1 var(--mono);letter-spacing:.04em;margin:0;color:var(--navy)}
+.symin{width:6.2ch;font:inherit;letter-spacing:inherit;color:inherit;background:transparent;border:0;border-bottom:2px dashed #C9CDD8;padding:0 2px;outline:none;text-transform:uppercase}
+.symin:hover,.symin:focus{border-bottom-color:var(--hot);background:#FFF6F2}
 .cpx{font:800 20px var(--body);font-variant-numeric:tabular-nums}
 .cchg{font:700 14px var(--body)} .cchg.up{color:#0E8A55} .cchg.down{color:#C23A1E}
 .cardbtn{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font:700 13px var(--body);color:var(--navy);cursor:pointer}
@@ -353,7 +357,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   <a class="logo" href="/">8K10Q<span>.com</span></a>
   <form class="hsearch" id="hsearch" role="search"><svg class="ic"><use href="#i-search"/></svg><input id="hq" placeholder="Stock, ETF or crypto" aria-label="Search a symbol" autocomplete="off" maxlength="10"></form>
   <nav class="links icons" aria-label="Main">
-    <a href="/room" aria-current="page" title="The room"><svg class="ic"><use href="#i-chat"/></svg><span>Room</span></a>
+    <a href="/room" aria-current="page" title="Chat"><svg class="ic"><use href="#i-chat"/></svg><span>Chat</span></a>
     <a href="/agents.html" title="The agents"><svg class="ic"><use href="#i-bot"/></svg><span>Agents</span></a>
     <a href="/" title="Read a filing"><svg class="ic"><use href="#i-doc"/></svg><span>Filings</span></a>
     <a href="/army" title="The 8K10Q Army"><svg class="ic"><use href="#i-flag"/></svg><span>Army</span></a>
@@ -416,7 +420,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         <a class="more" href="/agents.html">Meet the agents &rarr;</a></div>
     </section>
     <section class="panel" aria-label="Who can post">
-      <div class="ph"><h3>Who&rsquo;s in the room</h3><p>No anonymous users. Nobody posts before we telephone them.</p></div>
+      <div class="ph"><h3>Who&rsquo;s here</h3><p>No anonymous users. Nobody posts before we telephone them.</p></div>
       <div class="pb">
         <ul class="facts">
           <li><span class="badge ok">Verified</span> <span class="fv">Members, under their real names. Phone-verified by the desk.</span></li>
@@ -429,10 +433,10 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
   <!-- CENTRE: the conversation -->
   <div class="col ccentre">
-<section class="panel room" aria-label="The room">
+<section class="panel room" aria-label="Chat">
       <div class="chead lite">
         <div class="cline">
-          <h1 id="roomtitle" class="csym">&nbsp;</h1>
+          <h1 class="csym"><input id="symin" class="symin" maxlength="10" spellcheck="false" autocomplete="off" aria-label="Company symbol: highlight it and type another"></h1><span id="roomtitle"></span>
           <span class="cpx" id="cpx"></span><span class="cchg" id="cchg"></span>
           <a class="buybtn" id="buybtn" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-report"/></svg><span>Buy the report &middot; $12</span></a>
           <button type="button" class="cardbtn" id="cardbtn" hidden aria-expanded="false" title="The officers' baseball cards"><svg class="ic"><use href="#i-card"/></svg><span>CEO cards</span></button>
@@ -442,13 +446,13 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         <div class="readwarn" id="readwarn" hidden></div>
       </div>
       <div class="cardrow" id="cards" aria-label="The officers and directors" hidden></div>
-      <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading the room&hellip;</div></div>
+      <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading&hellip;</div></div>
       <div class="composer" id="composer">
         <div id="cguest">
-          <div class="crow"><small>Real names only. The desk approves every member before their first post.</small><button class="btn" id="joinbtn" type="button">Join the room</button></div>
+          <div class="crow"><small>Real names only &middot; read free &middot; join to post</small><button class="btn" id="joinbtn" type="button">Join</button></div>
         </div>
         <form id="cjoin" class="joinf" hidden autocomplete="on">
-          <b>Join the room</b>
+          <b>Join</b>
           <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
           <div class="jrow"><input name="name" required placeholder="Full real name" autocomplete="name"><input name="state" required placeholder="State" autocomplete="address-level1"></div>
           <div class="jrow"><input name="email" type="email" required placeholder="Email" autocomplete="email"><input name="phone" type="tel" required placeholder="Phone" autocomplete="tel"></div>
@@ -457,7 +461,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         </form>
         <div id="cwait" hidden class="cwait"></div>
         <div id="cmember" hidden>
-          <textarea id="msg" maxlength="4000" placeholder="Talk to the room, under your real name&hellip;"></textarea>
+          <textarea id="msg" maxlength="4000" placeholder="Write under your real name&hellip;"></textarea>
           <div class="crow"><small id="whoami"></small><button class="btn" id="postbtn" type="button">Post</button></div>
         </div>
       </div>
@@ -489,7 +493,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
 <dialog id="descdlg" aria-labelledby="descttl"><div class="dlg"><h3 id="descttl">What it does</h3><div id="descbody"></div><form method="dialog"><button class="btn">Close</button></form></div></dialog>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3j &middot; 2026-09-30</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3k &middot; 2026-09-30</span></p>
 
 <script>
 (function () {
@@ -597,13 +601,24 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     if (d && d.ok && d.agents) drawAgents(d.agents.map(function (a) { return { key: a.key, name: a.name, lens: a.lens }; }).concat(WW));
   }).catch(function () {});
 
+  /* room-3k (his call, 30 Sep 2026): the symbol is the field; highlight it, type another, press Enter */
+  (function () {
+    var f = $("symin");
+    f.addEventListener("focus", function () { setTimeout(function () { f.select(); }, 0); });
+    f.addEventListener("input", function () { f.value = f.value.toUpperCase().replace(/[^A-Z0-9.\-]/g, ""); });
+    f.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { var t = f.value.trim(); if (t && t !== T) location.href = "/room?t=" + encodeURIComponent(t); }
+      if (e.key === "Escape") { f.value = T || ""; f.blur(); }
+    });
+    f.addEventListener("blur", function () { if (!f.value.trim()) f.value = T || ""; });
+  })();
   /* ---------------- no symbol yet: ask for one ---------------- */
   if (!T) {
-    document.title = "The room — 8K10Q";
+    document.title = "Chat — 8K10Q";
     $("sym").textContent = "8K10Q";
     $("name").textContent = "Search a stock, ETF or crypto";
-    $("roomtitle").textContent = "Pick a symbol";
-    $("counts").textContent = "There are no fixed rooms. Every symbol has one, and it opens when you search it.";
+    $("symin").placeholder = "SYMBOL"; setTimeout(function () { $("symin").focus(); }, 0);
+    $("counts").textContent = "Type a symbol and press Enter.";
     $("stream").innerHTML = '<div class="empty"><div class="big">Which symbol?</div>Type it in the box on the left (or under &ldquo;Your rooms&rdquo; on a phone) and press Go.</div>';
     $("glance").innerHTML = '<div class="skel">The company&rsquo;s own filings appear here once you pick a symbol.</div>';
     $("stats").innerHTML = "";
@@ -612,11 +627,11 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     return;
   }
 
-  document.title = T + " — the room — 8K10Q";
+  document.title = T + " — 8K10Q";
   $("sellbtn").href = $("sell1").href = $("sell2").href = "https://warrantwire.com/company.html?t=" + encodeURIComponent(T) + "#auto";
   $("sym").textContent = T;
   $("name").textContent = T;
-  $("roomtitle").textContent = T;
+  $("symin").value = T;
 
   /* ---------------- the price ---------------- */
   function range(label, lo, hi, now) {
@@ -746,7 +761,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     if (exch) bits.push(esc(exch));
     if (inc2) bits.push('Incorporated in ' + esc(inc2));
     if (rn && rn.former && rn.former.length) bits.push(rn.former.length + ' earlier name' + (rn.former.length > 1 ? 's' : ''));
-    var briefLine = (f[0] && f[0][0] === 'What it does') ? f[0][1] : (filer ? '' : 'We found no SEC filings for ' + esc(T) + '. ETFs and crypto file differently, or not at all; the room still works.');
+    var briefLine = (f[0] && f[0][0] === 'What it does') ? f[0][1] : (filer ? '' : 'We found no SEC filings for ' + esc(T) + '. ETFs and crypto file differently, or not at all; the chat still works.');
     var h = '<p class="cobrief">' + briefLine + (briefLine && !/morebtn/.test(briefLine) && filer ? ' <button type="button" class="morebtn" id="morebtn">More &rsaquo;</button>' : '') + '</p>'
       + (bits.length ? '<p class="cobits">' + bits.join(' &middot; ') + '</p>' : '');
     /* everything else about the company goes in the pop-up */
@@ -825,7 +840,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     if (!n) return;
     var label = n + " red flag" + (n > 1 ? "s" : "");
     document.title = "⚑ " + T + " — " + label + " — 8K10Q";
-    $("roomtitle").innerHTML = esc(T) + ' <a class="flagmini" href="#rf" title="' + label + ' in the company&rsquo;s own filings"><span class="rfdot" aria-hidden="true">⚑</span>' + label + '</a>';
+    $("roomtitle").innerHTML = '<a class="flagmini" href="#rf" title="' + label + ' in the company&rsquo;s own filings"><span class="rfdot" aria-hidden="true">⚑</span>' + label + '</a>';
     var buy = SELLING
       ? '<a class="rbtn" href="/?buy=wire_read&amp;ticker=' + encodeURIComponent(T) + '">Get the read</a>'
       : '<a class="rbtn" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">READ IT NOW &middot; $12</a>';
@@ -840,8 +855,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   function drawCounts(room) {
     var r = (room && room.room) || {};
     var m = r.member_count || 0, p = r.post_count || 0;
-    $("counts").innerHTML = '<b>' + m.toLocaleString("en-US") + '</b> verified member' + (m === 1 ? '' : 's') + ' &middot; <b>' + p.toLocaleString("en-US") + '</b> post' + (p === 1 ? '' : 's') + ' in the archive'
-      + (r.created_at ? ' &middot; room opened ' + esc(day(new Date(r.created_at * 1000).toISOString())) : '');
+    $("counts").innerHTML = p ? '<b>' + p.toLocaleString("en-US") + '</b> post' + (p === 1 ? '' : 's') + (m ? ' &middot; <b>' + m + '</b> member' + (m === 1 ? '' : 's') : '') : '';
   }
   var lastSig = "";
   function initials(n) { return String(n || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(function (p) { return p.charAt(0).toUpperCase(); }).join("") || "?"; }
@@ -877,7 +891,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       if (d && d.signedIn && d.user && d.user.status === "member") {
         show("cmember"); $("whoami").textContent = "Posting as " + d.user.handle + ", under your real name";
       } else if (d && d.signedIn) {
-        show("cwait"); $("cwait").innerHTML = "<b>Thank you, " + esc(d.user.handle) + ".</b> The desk reviews every member before their first post. You can read the room meanwhile; this box opens the moment you&rsquo;re approved.";
+        show("cwait"); $("cwait").innerHTML = "<b>Thank you, " + esc(d.user.handle) + ".</b> The desk reviews every member before their first post. You can read meanwhile; this box opens the moment you&rsquo;re approved.";
       } else { try { localStorage.removeItem(SKEY); } catch (e) {} show("cguest"); }
     }).catch(function () { show("cguest"); });
   }
@@ -898,7 +912,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   if (T) fetch(ROOM + "/api/roundtable?t=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (d) {
     if (d && d.started) [20000, 40000].forEach(function (ms) { setTimeout(function () { lastSig = ""; loadStream(); }, ms); });
   }).catch(function () {});
-      }).catch(function () { btn.disabled = false; alert("The room isn't answering just now. Try again in a moment."); });
+      }).catch(function () { btn.disabled = false; alert("The chat isn't answering just now. Try again in a moment."); });
   });
   function sendPost() {
     var m = $("msg"), txt = (m.value || "").trim(), btn = $("postbtn");
@@ -913,7 +927,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         m.value = "";
         if (res.d.note) alert(res.d.note);
         lastSig = ""; loadStream().then(function () { var s = $("stream"); s.scrollTop = s.scrollHeight; });
-      }).catch(function () { btn.disabled = false; alert("The room isn't answering just now. Try again in a moment."); });
+      }).catch(function () { btn.disabled = false; alert("The chat isn't answering just now. Try again in a moment."); });
   }
   if ($("postbtn")) $("postbtn").addEventListener("click", sendPost);
   if ($("msg")) $("msg").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); sendPost(); } });
@@ -933,13 +947,13 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       lastSig = sig;
       var s = $("stream"), atBottom = s.scrollHeight - s.scrollTop - s.clientHeight < 40;
       if (!posts.length) {
-        s.innerHTML = '<div class="empty"><div class="big">No one has posted in the ' + esc(T) + ' room yet.</div>'
+        s.innerHTML = '<div class="empty"><div class="big">' + esc(T) + ': no posts yet.</div>'
           + 'Be the first. Join below; every post shows who wrote it, how they were verified, and the date and time.</div>';
         return;
       }
       s.innerHTML = items.map(renderPost).join("");
       if (atBottom || !s.dataset.seen) { s.scrollTop = s.scrollHeight; s.dataset.seen = "1"; }
-    }).catch(function () { $("stream").innerHTML = '<div class="empty">The room isn&rsquo;t answering just now. Try again in a moment.</div>'; });
+    }).catch(function () { $("stream").innerHTML = '<div class="empty">The chat isn&rsquo;t answering just now. Try again in a moment.</div>'; });
   }
 
   /* ---------------- advertisers ----------------
@@ -970,15 +984,14 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     var box = $("readwarn"); if (!box) return;
     var ab = w && w.about, name = (w && w.company && w.company.name) || T;
     var buy = '<a class="rwbtn" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">We read them for you &middot; $12</a>';
+    var rep = "https://warrantwire.com/company.html?t=" + encodeURIComponent(T) + "#auto";
     if (ab && ab.filings > 0) {
-      box.innerHTML = '<div><b>&#9888; Read before you trade.</b> ' + esc(name) + ' has filed <b>' + ab.filings + ' documents</b> with the SEC since ' + esc(day(ab.first))
-        + (ab.heavy ? ', and <b>' + ab.heavy + ' of them</b> carry warrant, reverse-split or merger language' : '') + '. '
-        + 'Trading without reading them is dangerous. Companies do disclose dilution, new shares, reverse splits and mergers, but in the fine print of filings most shareholders never read.</div>' + buy;
+      box.innerHTML = '<a href="' + rep + '" title="' + esc(name) + ' has filed ' + ab.filings + ' documents with the SEC since ' + esc(day(ab.first)) + '. Companies disclose dilution, reverse splits and mergers in the fine print."><b>&#9888; ' + ab.filings + ' filings</b></a>'
+        + (ab.heavy ? '<a href="' + rep + '" title="' + ab.heavy + ' carry warrant, reverse-split or merger language">' + ab.heavy + ' flagged</a>' : '')
+        + '<a href="' + rep + '">Unread = dangerous</a><a class="rwbtn" href="' + rep + '">Read them &middot; $12</a>';
     } else {
-      box.innerHTML = '<div><b>&#9888; Read before you trade.</b> We have not read ' + esc(T) + '&rsquo;s filings yet. Every company&rsquo;s own SEC filings are where dilution, reverse splits and mergers are disclosed; trading without reading them is dangerous.</div>'
-        + '<a class="rwbtn" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;company=&amp;CIK=' + encodeURIComponent(T) + '&amp;type=&amp;owner=include&amp;count=40" rel="noopener">Its filings at the SEC &rsaquo;</a>';
-    }
-    box.hidden = false;
+      box.innerHTML = '<a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=' + encodeURIComponent(T) + '&amp;owner=include&amp;count=40" rel="noopener"><b>&#9888; Filings not read yet</b></a><a href="' + rep + '">Unread = dangerous</a>';
+    }    box.hidden = false;
   });
   getJSON(ROOM + "/api/room?key=" + encodeURIComponent(T)).then(drawCounts).catch(function () { $("counts").textContent = ""; });
   Promise.all([
