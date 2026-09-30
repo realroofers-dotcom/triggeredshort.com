@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-30 · 8k10q room-3e · 3e: icon menu with a light search in the bar; left "What we do" icon tiles; thin right column of news (/api/news) and text ads (AdHotBox rail); phone: Chat and Order a read always one tap away; lite text ads between chats. 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-30 · 8k10q room-3h · 3h: Buy the report button in every chat head; join the room (apply, desk approves) and post under a real name. 3g: no price block; the red-flags READ IT NOW box tops the left column. 3f: the chat head is just the symbol, price, one-line summary and a CEO-cards icon (cards fold away); no "The X room"; no heavy blocks (price block now white). 3e: icon menu with a light search in the bar; left "What we do" icon tiles; thin right column of news (/api/news) and text ads (AdHotBox rail); phone: Chat and Order a read always one tap away; lite text ads between chats. 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -220,6 +220,42 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 .sellbtn{display:block;text-align:center}
 .fwords{font:800 16px/1.6 var(--disp);margin:4px 0 10px}.fwords b{color:var(--hot)}.fwords i{font-style:normal;margin:0 7px;color:#D9B3A6}.readnow{letter-spacing:.02em}
 /* ---------- phone and tablet: the room first, the rest one tap away ---------- */
+/* room-3h: report button in every chat head; join form; posting */
+.buybtn{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--hot);color:#fff;border-radius:999px;padding:6px 13px;font:800 13px var(--body);text-decoration:none;white-space:nowrap}
+.buybtn:hover{background:var(--hot-d)}
+.buybtn + .cardbtn{margin-left:0}
+.joinf{display:grid;gap:8px}
+.joinf b{font:800 15px var(--disp)}
+.jrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.joinf input:not([type=checkbox]){border:1px solid var(--line);border-radius:8px;padding:9px 10px;font:inherit;font-size:15px;background:#fff;min-width:0}
+.jagree{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--ink-2);line-height:1.4}
+.jagree input{margin-top:3px}
+.cwait{font-size:14px;color:var(--ink-2);padding:4px 0}
+@media (max-width:560px){.jrow{grid-template-columns:1fr}.buybtn span{font-size:12.5px}}
+/* room-3g: no price block at all; the price is in the chat head. The block stays in the page, hidden, because the page script fills it. */
+.hero.quote{display:none !important}
+.cleft .rf{margin:0 0 14px;grid-template-columns:1fr}
+/* room-3f (2026-09-30): the chat head is the symbol, the price, a one-line summary and the CEO-cards icon; no heavy blocks */
+.chead.lite{padding:10px 16px 8px;border-bottom:1px solid var(--line)}
+.cline{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.csym{font:800 22px/1.1 var(--mono);letter-spacing:.04em;margin:0;color:var(--navy)}
+.cpx{font:800 20px var(--body);font-variant-numeric:tabular-nums}
+.cchg{font:700 14px var(--body)} .cchg.up{color:#0E8A55} .cchg.down{color:#C23A1E}
+.cardbtn{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font:700 13px var(--body);color:var(--navy);cursor:pointer}
+.cardbtn:hover,.cardbtn[aria-expanded="true"]{border-color:var(--navy)}
+.chead.lite .coline{padding:4px 0 0}
+.chead.lite .counts{font-size:12px;color:var(--ink-3);margin:2px 0 0}
+.flagmini{font:700 12.5px var(--body);color:var(--hot);text-decoration:none;margin-left:6px}
+.hero.quote{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.hero.quote .sym{background:var(--soft-navy);border-color:var(--line);color:var(--navy)}
+.hero.quote .where,.hero.quote .pxas,.hero.quote .ends,.hero.quote .src{color:var(--ink-3)}
+.hero.quote .pxext{background:var(--soft)}
+.hero.quote .stat{background:var(--soft);border-color:var(--line)}
+.hero.quote .stat .k,.hero.quote .spark .k{color:var(--ink-3)}
+.hero.quote .rng{background:var(--line)}
+.hero.quote .spark{background:var(--soft);border-color:var(--line)}
+.hero.quote .lab{background:var(--soft);border-color:var(--line);color:var(--ink-2)} .hero.quote .lab b{color:var(--ink)}
+.hero.quote .pxchg.up{color:#0E8A55} .hero.quote .pxchg.down{color:#C23A1E}
 /* room-3e (2026-09-30): icons, light search, What we do tiles, thin news/ads column, phone action bar, lite ads */
 .ic{width:20px;height:20px;flex:none;vertical-align:middle}
 .ic.sm{width:16px;height:16px;margin:-2px 2px 0 0}
@@ -305,6 +341,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   <symbol id="i-report" viewBox="0 0 24 24"><path d="M5 20V10M10 20V4M15 20v-7M20 20V8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
   <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z M14 6l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
   <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4z M10 21h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7.5 18c1-2.3 2.6-3.3 4.5-3.3s3.5 1 4.5 3.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-news" viewBox="0 0 24 24"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z M17 9h3v8a2 2 0 0 1-2 2 M7 9h7M7 13h7M7 16h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
 </svg>
 <header class="top"><div class="wrap">
@@ -345,11 +382,12 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       <div id="pxext"></div>
     </div>
   </div>
-  <div class="rf" id="rf" hidden></div>
+  
   <div class="stats" id="stats"></div>
   <div class="spark" id="spark" hidden></div>
   <div class="src" id="src"></div>
 </section>
+    <div class="rf" id="rf" hidden></div>
     <section class="panel salesp" aria-label="What 8K10Q does">
       <div class="ph"><h3>What we do</h3><p>We read the filings so you don&rsquo;t have to, and sell only what we can deliver.</p></div>
       <div class="pb"><ul class="dotiles">
@@ -387,19 +425,34 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   <!-- CENTRE: the conversation -->
   <div class="col ccentre">
 <section class="panel room" aria-label="The room">
-      <div class="chead">
-        <h1 id="roomtitle">The room</h1>
+      <div class="chead lite">
+        <div class="cline">
+          <h1 id="roomtitle" class="csym">&nbsp;</h1>
+          <span class="cpx" id="cpx"></span><span class="cchg" id="cchg"></span>
+          <a class="buybtn" id="buybtn" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-report"/></svg><span>Buy the report &middot; $12</span></a>
+          <button type="button" class="cardbtn" id="cardbtn" hidden aria-expanded="false" title="The officers' baseball cards"><svg class="ic"><use href="#i-card"/></svg><span>CEO cards</span></button>
+        </div>
+        <div class="coline" id="glance"><span class="muted">Reading the company&rsquo;s own filings&hellip;</span></div>
         <p class="counts" id="counts">&nbsp;</p>
-        <p class="rules">Every post carries a real, verified name or is labelled as a program. Every post shows its date and time and is kept in the archive. Nothing is deleted.</p>
       </div>
-      <div class="coline" id="glance"><span class="muted">Reading the company&rsquo;s own filings&hellip;</span></div>
       <div class="cardrow" id="cards" aria-label="The officers and directors" hidden></div>
       <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading the room&hellip;</div></div>
-      <div class="composer">
-        <textarea id="msg" disabled placeholder="Posting opens soon, for verified, named members."></textarea>
-        <div class="crow">
-          <small>Your real name goes on every post. We telephone every member before their first one.</small>
-          <button class="btn" disabled title="Opening soon">Join &mdash; opening soon</button>
+      <div class="composer" id="composer">
+        <div id="cguest">
+          <div class="crow"><small>Real names only. The desk approves every member before their first post.</small><button class="btn" id="joinbtn" type="button">Join the room</button></div>
+        </div>
+        <form id="cjoin" class="joinf" hidden autocomplete="on">
+          <b>Join the room</b>
+          <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+          <div class="jrow"><input name="name" required placeholder="Full real name" autocomplete="name"><input name="state" required placeholder="State" autocomplete="address-level1"></div>
+          <div class="jrow"><input name="email" type="email" required placeholder="Email" autocomplete="email"><input name="phone" type="tel" required placeholder="Phone" autocomplete="tel"></div>
+          <label class="jagree"><input type="checkbox" name="agree" required> I will post under my real name, stick to facts and filings, disclose any position or pay to promote, and I accept that nothing I post is deleted.</label>
+          <div class="crow"><small>Your phone and email are never shown. The desk reviews every member.</small><button class="btn" type="submit">Apply to join</button></div>
+        </form>
+        <div id="cwait" hidden class="cwait"></div>
+        <div id="cmember" hidden>
+          <textarea id="msg" maxlength="4000" placeholder="Talk to the room, under your real name&hellip;"></textarea>
+          <div class="crow"><small id="whoami"></small><button class="btn" id="postbtn" type="button">Post</button></div>
         </div>
       </div>
     </section>
@@ -430,7 +483,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
 <dialog id="descdlg" aria-labelledby="descttl"><div class="dlg"><h3 id="descttl">What it does</h3><div id="descbody"></div><form method="dialog"><button class="btn">Close</button></form></div></dialog>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3e &middot; 2026-09-30</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3h &middot; 2026-09-30</span></p>
 
 <script>
 (function () {
@@ -557,7 +610,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   $("sellbtn").href = $("sell1").href = $("sell2").href = "https://warrantwire.com/company.html?t=" + encodeURIComponent(T) + "#auto";
   $("sym").textContent = T;
   $("name").textContent = T;
-  $("roomtitle").textContent = "The " + T + " room";
+  $("roomtitle").textContent = T;
 
   /* ---------------- the price ---------------- */
   function range(label, lo, hi, now) {
@@ -573,7 +626,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     var W = 600, H = 64, vals = series.map(function (x) { return x.c; });
     var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals), span = (hi - lo) || 1;
     var pts = series.map(function (x, i) { return (i * W / (series.length - 1)).toFixed(1) + "," + (H - 4 - (x.c - lo) / span * (H - 8)).toFixed(1); }).join(" ");
-    var col = vals[vals.length - 1] >= vals[0] ? "#6BE3B0" : "#FF9C85";
+    var col = vals[vals.length - 1] >= vals[0] ? "#0E8A55" : "#C23A1E";
     el.innerHTML = '<div class="k"><span>The past year</span><span>' + day(series[0].d) + ' &ndash; ' + day(series[series.length - 1].d) + '</span></div>'
       + '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="Closing prices over the past year">'
       + '<polyline points="' + pts + '" fill="none" stroke="' + col + '" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>';
@@ -585,6 +638,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       var dir = q.change > 0 ? "up" : q.change < 0 ? "down" : "";
       $("pxnow").textContent = money(q.price);
       $("pxchg").className = "pxchg " + dir;
+      $("cpx").textContent = money(q.price); $("cchg").className = "cchg " + dir;
+      $("cchg").textContent = q.change != null ? (q.change > 0 ? "▲ " : q.change < 0 ? "▼ " : "") + pct(q.change_pct) : "";
       $("pxchg").textContent = q.change != null ? (q.change > 0 ? "▲ +" : q.change < 0 ? "▼ " : "") + money(Math.abs(q.change)).replace("$", q.change < 0 ? "−$" : "$") + " (" + pct(q.change_pct) + ") today" : "";
       /* "At the close" only after 4:00 PM ET; during the session it is a delayed quote "as of" its time */
       var closed = false;
@@ -711,6 +766,13 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
      set of fields, every one from the record, blank when the record is silent, and no adjectives: the numbers
      do the talking. The front is free. The back, where else they have been, is the report. */
   function titleName(n) { return String(n || "").toLowerCase().replace(/\b[a-z]/g, function (c) { return c.toUpperCase(); }).replace(/^(\S+)\s+(.+)$/, function (m, last, rest) { return rest + " " + last; }); }
+  /* room-3f: the cards stay folded until the CEO-cards icon is pressed */
+  function showCardBtn() {
+    var b = $("cardbtn"), box = $("cards");
+    if (!b || b.dataset.ready) { if (b) b.hidden = false; return; }
+    b.dataset.ready = "1"; b.hidden = false;
+    b.addEventListener("click", function () { box.hidden = !box.hidden; b.setAttribute("aria-expanded", box.hidden ? "false" : "true"); if (!box.hidden) box.scrollIntoView({ behavior: "smooth", block: "nearest" }); });
+  }
   function drawCards(coName, splits) {
     fetch(PEOPLE + "/?people=1&ticker=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (d) {
       var box = $("cards");
@@ -718,7 +780,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         .concat(((d && d.directors) || []).map(function (p) { p._pos = "Director"; return p; }));
       if (!d || !d.ok || !list.length) {
         box.innerHTML = '<div class="ph"><h3>The officers&rsquo; cards</h3><p>No officer or director of ' + esc(coName) + ' files US insider reports (Forms 3 and 4). Companies from outside the US often don&rsquo;t. The report names who signed its filings.</p></div>';
-        box.hidden = false; return;
+        showCardBtn(); return;
       }
       var dates = list.map(function (p) { return p.first_filed; }).filter(Boolean);
       var sinceP = dates.length ? getJSON("/api/since?t=" + encodeURIComponent(T) + "&d=" + dates.join(",")).catch(function () { return null; }) : Promise.resolve(null);
@@ -745,7 +807,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
               + '<a class="bback" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">The back of the card: where else they have been &middot; in the report, $12 &rarr;</a>'
               + '</article>';
           }).join("") + '</div>';
-        box.hidden = false;
+        showCardBtn();
       });
     }).catch(function () {});
   }
@@ -757,7 +819,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     if (!n) return;
     var label = n + " red flag" + (n > 1 ? "s" : "");
     document.title = "⚑ " + T + " — " + label + " — 8K10Q";
-    $("roomtitle").innerHTML = '<span class="rfdot" aria-hidden="true">⚑</span>The ' + esc(T) + ' room <small style="font:600 14px var(--body);color:var(--hot)">&middot; ' + label + '</small>';
+    $("roomtitle").innerHTML = esc(T) + ' <a class="flagmini" href="#rf" title="' + label + ' in the company&rsquo;s own filings"><span class="rfdot" aria-hidden="true">⚑</span>' + label + '</a>';
     var buy = SELLING
       ? '<a class="rbtn" href="/?buy=wire_read&amp;ticker=' + encodeURIComponent(T) + '">Get the read</a>'
       : '<a class="rbtn" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">READ IT NOW &middot; $12</a>';
@@ -796,6 +858,58 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       + (basis.length ? '<span class="basis">' + esc(basis.join(" · ")) + '</span>' : '')
       + '<div class="bubble">' + esc(it.body) + '</div></div></div>';
   }
+/* ---------------- join and post (room-3h) ----------------
+     Apply: real name, email, phone, state, the rules. Signed in at once on this device (a session token,
+     kept in this browser), waiting until the desk approves. Approved members post under their real name. */
+  var SKEY = "k8_session";
+  function sess() { try { return localStorage.getItem(SKEY) || ""; } catch (e) { return ""; } }
+  function show(id) { ["cguest", "cjoin", "cwait", "cmember"].forEach(function (k) { var el = $(k); if (el) el.hidden = k !== id; }); }
+  function showComposer() {
+    var t = sess();
+    if (!t) { show("cguest"); return; }
+    fetch(ROOM + "/api/me", { headers: { "x-session": t } }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.signedIn && d.user && d.user.status === "member") {
+        show("cmember"); $("whoami").textContent = "Posting as " + d.user.handle + ", under your real name";
+      } else if (d && d.signedIn) {
+        show("cwait"); $("cwait").innerHTML = "<b>Thank you, " + esc(d.user.handle) + ".</b> The desk reviews every member before their first post. You can read the room meanwhile; this box opens the moment you&rsquo;re approved.";
+      } else { try { localStorage.removeItem(SKEY); } catch (e) {} show("cguest"); }
+    }).catch(function () { show("cguest"); });
+  }
+  if ($("joinbtn")) $("joinbtn").addEventListener("click", function () { show("cjoin"); var n = $("cjoin").elements.name; if (n) n.focus(); });
+  if ($("cjoin")) $("cjoin").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = e.target, btn = f.querySelector("button[type=submit]");
+    var body = { name: f.name.value, email: f.email.value, phone: f.phone.value, state: f.state.value, agree: f.agree.checked, website: f.website.value };
+    btn.disabled = true;
+    fetch(ROOM + "/api/join", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        btn.disabled = false;
+        if (!res.ok) { alert((res.d && res.d.error) || "Please check the form."); return; }
+        if (res.d.session) { try { localStorage.setItem(SKEY, res.d.session); } catch (err) {} }
+        showComposer();
+      }).catch(function () { btn.disabled = false; alert("The room isn't answering just now. Try again in a moment."); });
+  });
+  function sendPost() {
+    var m = $("msg"), txt = (m.value || "").trim(), btn = $("postbtn");
+    if (!txt) return;
+    btn.disabled = true;
+    fetch(ROOM + "/api/post", { method: "POST", headers: { "Content-Type": "application/json", "x-session": sess() },
+      body: JSON.stringify({ ticker: T, room_key: T, body: txt }) })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        btn.disabled = false;
+        if (!res.ok) { alert((res.d && res.d.error) || "That didn't post. Try again."); return; }
+        m.value = "";
+        if (res.d.note) alert(res.d.note);
+        lastSig = ""; loadStream().then(function () { var s = $("stream"); s.scrollTop = s.scrollHeight; });
+      }).catch(function () { btn.disabled = false; alert("The room isn't answering just now. Try again in a moment."); });
+  }
+  if ($("postbtn")) $("postbtn").addEventListener("click", sendPost);
+  if ($("msg")) $("msg").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); sendPost(); } });
+  if (T) { var bb = $("buybtn"); if (bb) bb.href = "https://warrantwire.com/company.html?t=" + encodeURIComponent(T) + "#auto"; }
+  showComposer();
+
   function loadStream() {
     return getJSON(ROOM + "/api/stream?room=" + encodeURIComponent(T) + "&limit=60").then(function (d) {
       var items = (d && d.items) || [];
@@ -806,7 +920,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       var s = $("stream"), atBottom = s.scrollHeight - s.scrollTop - s.clientHeight < 40;
       if (!posts.length) {
         s.innerHTML = '<div class="empty"><div class="big">No one has posted in the ' + esc(T) + ' room yet.</div>'
-          + 'The room opens to verified, named members soon. Every post will show who wrote it, how they were verified, and the date and time.</div>';
+          + 'Be the first. Join below; every post shows who wrote it, how they were verified, and the date and time.</div>';
         return;
       }
       s.innerHTML = items.map(renderPost).join("");
