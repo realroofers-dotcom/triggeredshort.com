@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-30 · 8k10q room-3c · 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-30 · 8k10q room-3d · 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -220,6 +220,20 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 .sellbtn{display:block;text-align:center}
 .fwords{font:800 16px/1.6 var(--disp);margin:4px 0 10px}.fwords b{color:var(--hot)}.fwords i{font-style:normal;margin:0 7px;color:#D9B3A6}.readnow{letter-spacing:.02em}
 /* ---------- phone and tablet: the room first, the rest one tap away ---------- */
+/* room-3d: the quote block tops the left column; the conversation is the focal point */
+.rf[hidden],.spark[hidden]{display:none}
+.cols{grid-template-columns:320px minmax(0,1fr) 250px;padding-top:12px}
+.hero.quote{border-radius:12px;padding:14px 14px 12px;margin:0 0 14px}
+.hero.quote .hgrid{grid-template-columns:1fr;gap:8px}
+.hero.quote .px{text-align:left}
+.hero.quote .nm{font-size:20px}
+.hero.quote .where{font-size:13px}
+.hero.quote .pxnow{font-size:34px}
+.hero.quote .pxchg{font-size:15px}
+.hero.quote .stats{grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.hero.quote .spark svg{height:44px}
+.hero.quote .rf{grid-template-columns:1fr;padding:10px 11px}
+.hero.quote .src{display:none}
 .tabs{display:none}
 @media (max-width:1180px){
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -238,6 +252,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   .cols{grid-template-columns:1fr;padding-top:12px}
   .col{display:none}
   .cols[data-tab="room"] .ccentre,.cols[data-tab="company"] .cleft,.cols[data-tab="reports"] .cright{display:block}
+  /* room-3d: on a phone the price block still shows above the room */
+  .cols[data-tab="room"] .cleft{display:block;order:-1} .cols[data-tab="room"] .cleft .panel{display:none} .cols[data-tab="room"] .cleft .hero.quote{margin-bottom:0}
   .side{position:static}
   .cright .side{display:block}
   .cright .panel + .panel,.cright .adwrap{margin-top:14px}
@@ -260,7 +276,18 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   </nav>
 </div></header>
 
-<section class="hero"><div class="wrap">
+<div class="tabs" role="tablist" aria-label="Sections">
+  <button role="tab" data-t="room" aria-selected="true">Room</button>
+  <button role="tab" data-t="company" aria-selected="false">What we sell</button>
+  <button role="tab" data-t="reports" aria-selected="false">Reports</button>
+</div>
+
+<main class="wrap cols" id="cols" data-tab="room">
+
+  <!-- LEFT: our sales information, and you (room-3a: his rule, the left is for our sales info; the company and its cards sit in the centre under the chat heading) -->
+  <div class="col cleft"><div class="side">
+    <!-- room-3d (2026-09-30): the price and company block sits at the top of the left column; the conversation is the focal point, top of the centre -->
+    <section class="hero quote" aria-label="The price">
   <div class="hgrid">
     <div>
       <div class="sym" id="sym">&nbsp;</div>
@@ -279,18 +306,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   <div class="stats" id="stats"></div>
   <div class="spark" id="spark" hidden></div>
   <div class="src" id="src"></div>
-</div></section>
-
-<div class="tabs" role="tablist" aria-label="Sections">
-  <button role="tab" data-t="room" aria-selected="true">Room</button>
-  <button role="tab" data-t="company" aria-selected="false">What we sell</button>
-  <button role="tab" data-t="reports" aria-selected="false">Reports</button>
-</div>
-
-<main class="wrap cols" id="cols" data-tab="room">
-
-  <!-- LEFT: our sales information, and you (room-3a: his rule, the left is for our sales info; the company and its cards sit in the centre under the chat heading) -->
-  <div class="col cleft"><div class="side">
+</section>
     <section class="panel salesp" aria-label="What 8K10Q sells">
       <div class="ph"><h3>What we read for you</h3><p>We sell information, read from the filings, and nothing we can&rsquo;t deliver.</p></div>
       <div class="pb">
@@ -328,7 +344,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
   <!-- CENTRE: the conversation -->
   <div class="col ccentre">
-    <section class="panel room" aria-label="The room">
+<section class="panel room" aria-label="The room">
       <div class="chead">
         <h1 id="roomtitle">The room</h1>
         <p class="counts" id="counts">&nbsp;</p>
@@ -365,7 +381,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
 <dialog id="descdlg" aria-labelledby="descttl"><div class="dlg"><h3 id="descttl">What it does</h3><div id="descbody"></div><form method="dialog"><button class="btn">Close</button></form></div></dialog>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3c &middot; 2026-09-30</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3d &middot; 2026-09-30</span></p>
 
 <script>
 (function () {
