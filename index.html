@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-30 · 8k10q index-6d · 6d: home chat = symbol field (highlight, type, Enter) + price + key words that link; no "the X room" wording; "Real names only · read free · join to post" (his words). 6c: the home chat box says how many SEC documents the company filed and that not reading them is dangerous. 6b: the chat box always shows a company chat (the day's most active stock, its roundtable started on first visit; else the latest active room). 6a: the search at the top with the microcaps and the most active under it; the room in the centre; everything else folded in the left column; the reports and the ad on the right. (5c: three columns under the hero: you, your rooms and the agents on the left; the page in the centre; the rooms and the advertisers on the right. (index-4a 2026-09-08: halts, ACH discount, every product) -->
+<!-- BUILT 2026-09-30 · 8k10q index-6e · 6e: company logo beside the symbol. 6d: home chat = symbol field (highlight, type, Enter) + price + key words that link; no "the X room" wording; "Real names only · read free · join to post" (his words). 6c: the home chat box says how many SEC documents the company filed and that not reading them is dangerous. 6b: the chat box always shows a company chat (the day's most active stock, its roundtable started on first visit; else the latest active room). 6a: the search at the top with the microcaps and the most active under it; the room in the centre; everything else folded in the left column; the reports and the ad on the right. (5c: three columns under the hero: you, your rooms and the agents on the left; the page in the centre; the rooms and the advertisers on the right. (index-4a 2026-09-08: halts, ACH discount, every product) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -192,6 +192,7 @@ button.buy.big:hover{background:#E03F00}
 .hroom{background:#fff;color:var(--ink);border-radius:12px;padding:0!important;overflow:hidden}
 .hrh{padding:16px 18px 12px;border-bottom:1px solid #E4E6EC}
 .hrh h2{font:800 20px/1.2 var(--disp);margin:0;color:var(--ink)}
+.hlogo{width:30px;height:30px;border-radius:7px;object-fit:contain;align-self:center;background:#fff}
 .hsymline{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .hsym{width:6.2ch;font:800 22px/1.1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:.04em;color:var(--ink);background:transparent;border:0;border-bottom:2px dashed #C9CDD8;padding:0 2px;outline:none;text-transform:uppercase}
 .hsym:hover,.hsym:focus{border-bottom-color:#C23A1E;background:#FFF6F2}
@@ -725,7 +726,7 @@ footer a{color:#C4CCEA}
 <div class="hcentre">
   <section class="hroom" aria-label="Chat">
     <div class="hrh">
-      <h2 class="hsymline"><input id="hsym" class="hsym" value="TOVX" maxlength="10" spellcheck="false" autocomplete="off" aria-label="Company symbol: highlight it and type another"><span class="hpx" id="hpx"></span><span class="hchg" id="hchg"></span></h2>
+      <h2 class="hsymline"><img id="hlogo" class="hlogo" alt="" hidden><input id="hsym" class="hsym" value="TOVX" maxlength="10" spellcheck="false" autocomplete="off" aria-label="Company symbol: highlight it and type another"><span class="hpx" id="hpx"></span><span class="hchg" id="hchg"></span></h2>
       <p class="rs hkeys" id="hroomcount"></p>
     </div>
     <div class="hstream" id="hstream" aria-live="polite"><p class="rs" style="padding:18px">Loading&hellip;</p></div>
@@ -784,7 +785,7 @@ footer a{color:#C4CCEA}
   The author holds shares of Theriva Biologics, Inc. (NYSE American: TOVX). Any person named
   in anything published here may answer, and the answer publishes in full and unedited.</p>
 
-  <p class="stamp">Built 2026-09-30 &middot; 8k10q index-6d</p>
+  <p class="stamp">Built 2026-09-30 &middot; 8k10q index-6e</p>
 </div></footer>
 
 <script>
@@ -901,10 +902,18 @@ footer a{color:#C4CCEA}
       if (q.change_pct != null) { $("hchg").textContent = (q.change_pct > 0 ? "▲ " : q.change_pct < 0 ? "▼ " : "") + Math.abs(q.change_pct).toFixed(1) + "%"; $("hchg").className = "hchg " + (q.change_pct > 0 ? "up" : q.change_pct < 0 ? "dn" : ""); }
     }).catch(function () {});
   }
+  /* index-6e: the company logo beside the symbol; hidden when neither source has one */
+  function logo(sym) {
+    var lg = $("hlogo"), srcs = ["https://assets.parqet.com/logos/symbol/" + encodeURIComponent(sym) + "?format=png", "https://financialmodelingprep.com/image-stock/" + encodeURIComponent(sym) + ".png"], k = 0;
+    lg.hidden = true;
+    lg.onload = function () { lg.hidden = false; };
+    lg.onerror = function () { k++; if (k < srcs.length) lg.src = srcs[k]; else lg.hidden = true; };
+    lg.src = srcs[0];
+  }
   var shown = "";
   function drawHome(sym, items) {
     var u = "/room?t=" + encodeURIComponent(sym), rep = "https://warrantwire.com/company.html?t=" + encodeURIComponent(sym) + "#auto";
-    if (shown !== sym) { shown = sym; quote(sym); }
+    if (shown !== sym) { shown = sym; quote(sym); logo(sym); }
     if (document.activeElement !== $("hsym")) $("hsym").value = sym;
     $("hroomcount").innerHTML = '<a href="' + u + '">Full chat &rsaquo;</a>';
     $("hjoin").href = u;
@@ -946,7 +955,7 @@ footer a{color:#C4CCEA}
     }).catch(function () {});
     return posts(sym).then(function (items) {
       if (items.length) { drawHome(sym, items); return; }
-      shown = sym; quote(sym); $("hsym").value = sym;
+      shown = sym; quote(sym); logo(sym); $("hsym").value = sym;
       var u = "/room?t=" + encodeURIComponent(sym);
       $("hroomcount").innerHTML = '<a href="' + u + '">Full chat &rsaquo;</a>'; $("hjoin").href = u;
       $("hstream").innerHTML = '<p class="rs" style="padding:18px">' + esc(sym) + ': no posts yet. The agents are reading today&rsquo;s numbers&hellip;</p>';

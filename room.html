@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-30 · 8k10q room-3k · 3k: key words that link, not paragraphs (warning = filings · flagged · unread = dangerous · Read them $12); counts = posts only; no "the X room" wording. 3j: every chat head says how many SEC documents the company has filed and that trading without reading them is dangerous. 3i: the agents' roundtable starts on the first visit of the trading day. 3h: Buy the report button in every chat head; join the room (apply, desk approves) and post under a real name. 3g: no price block; the red-flags READ IT NOW box tops the left column. 3f: the chat head is just the symbol, price, one-line summary and a CEO-cards icon (cards fold away); no "The X room"; no heavy blocks (price block now white). 3e: icon menu with a light search in the bar; left "What we do" icon tiles; thin right column of news (/api/news) and text ads (AdHotBox rail); phone: Chat and Order a read always one tap away; lite text ads between chats. 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-30 · 8k10q room-3l · 3l: company logo beside the symbol; the officers' cards show open under the description (no CEO-cards button). 3k: key words that link, not paragraphs (warning = filings · flagged · unread = dangerous · Read them $12); counts = posts only; no "the X room" wording. 3j: every chat head says how many SEC documents the company has filed and that trading without reading them is dangerous. 3i: the agents' roundtable starts on the first visit of the trading day. 3h: Buy the report button in every chat head; join the room (apply, desk approves) and post under a real name. 3g: no price block; the red-flags READ IT NOW box tops the left column. 3f: the chat head is just the symbol, price, one-line summary and a CEO-cards icon (cards fold away); no "The X room"; no heavy blocks (price block now white). 3e: icon menu with a light search in the bar; left "What we do" icon tiles; thin right column of news (/api/news) and text ads (AdHotBox rail); phone: Chat and Order a read always one tap away; lite text ads between chats. 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -196,7 +196,7 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
 .brook{display:block;color:var(--ink-3);font-size:11.5px;margin-top:2px}
 .bstats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--soft)}
 .bstats div{padding:5px 4px;text-align:center;min-width:0}
-.bstats span{display:block;font:600 9px var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap}
+.bstats span{display:flex;align-items:flex-end;justify-content:center;min-height:2.3em;font:600 9px/1.15 var(--mono);letter-spacing:0;text-transform:uppercase;color:var(--ink-3);white-space:normal}
 .bstats b{display:block;font:800 14px var(--disp);font-variant-numeric:tabular-nums}
 .bstats b.neg{color:var(--down)} .bstats b.pos{color:var(--up)}
 .bfoot{padding:6px 9px 2px;color:var(--ink-2);font-size:11.5px}
@@ -246,6 +246,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 .chead.lite{padding:10px 16px 8px;border-bottom:1px solid var(--line)}
 .cline{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
 .csym{font:800 22px/1.1 var(--mono);letter-spacing:.04em;margin:0;color:var(--navy)}
+.clogo{width:30px;height:30px;border-radius:7px;object-fit:contain;align-self:center;background:#fff}
 .symin{width:6.2ch;font:inherit;letter-spacing:inherit;color:inherit;background:transparent;border:0;border-bottom:2px dashed #C9CDD8;padding:0 2px;outline:none;text-transform:uppercase}
 .symin:hover,.symin:focus{border-bottom-color:var(--hot);background:#FFF6F2}
 .cpx{font:800 20px var(--body);font-variant-numeric:tabular-nums}
@@ -436,16 +437,15 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 <section class="panel room" aria-label="Chat">
       <div class="chead lite">
         <div class="cline">
-          <h1 class="csym"><input id="symin" class="symin" maxlength="10" spellcheck="false" autocomplete="off" aria-label="Company symbol: highlight it and type another"></h1><span id="roomtitle"></span>
+          <img id="clogo" class="clogo" alt="" hidden><h1 class="csym"><input id="symin" class="symin" maxlength="10" spellcheck="false" autocomplete="off" aria-label="Company symbol: highlight it and type another"></h1><span id="roomtitle"></span>
           <span class="cpx" id="cpx"></span><span class="cchg" id="cchg"></span>
           <a class="buybtn" id="buybtn" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-report"/></svg><span>Buy the report &middot; $12</span></a>
-          <button type="button" class="cardbtn" id="cardbtn" hidden aria-expanded="false" title="The officers' baseball cards"><svg class="ic"><use href="#i-card"/></svg><span>CEO cards</span></button>
         </div>
         <div class="coline" id="glance"><span class="muted">Reading the company&rsquo;s own filings&hellip;</span></div>
-        <p class="counts" id="counts">&nbsp;</p>
+        <div class="cardrow" id="cards" aria-label="The officers and directors" hidden></div>
+          <p class="counts" id="counts">&nbsp;</p>
         <div class="readwarn" id="readwarn" hidden></div>
       </div>
-      <div class="cardrow" id="cards" aria-label="The officers and directors" hidden></div>
       <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading&hellip;</div></div>
       <div class="composer" id="composer">
         <div id="cguest">
@@ -493,7 +493,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
 <dialog id="descdlg" aria-labelledby="descttl"><div class="dlg"><h3 id="descttl">What it does</h3><div id="descbody"></div><form method="dialog"><button class="btn">Close</button></form></div></dialog>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3k &middot; 2026-09-30</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3l &middot; 2026-09-30</span></p>
 
 <script>
 (function () {
@@ -632,6 +632,13 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   $("sym").textContent = T;
   $("name").textContent = T;
   $("symin").value = T;
+  /* room-3l (his call, 30 Sep 2026): the company logo beside the symbol; hidden when neither source has one */
+  (function () {
+    var lg = $("clogo"), srcs = ["https://assets.parqet.com/logos/symbol/" + encodeURIComponent(T) + "?format=png", "https://financialmodelingprep.com/image-stock/" + encodeURIComponent(T) + ".png"], k = 0;
+    lg.onload = function () { lg.hidden = false; };
+    lg.onerror = function () { k++; if (k < srcs.length) lg.src = srcs[k]; else lg.hidden = true; };
+    lg.src = srcs[0];
+  })();
 
   /* ---------------- the price ---------------- */
   function range(label, lo, hi, now) {
@@ -790,8 +797,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   /* room-3f: the cards stay folded until the CEO-cards icon is pressed */
   function showCardBtn() {
     var b = $("cardbtn"), box = $("cards");
-    if (!b || b.dataset.ready) { if (b) b.hidden = false; return; }
-    b.dataset.ready = "1"; b.hidden = false;
+    if (!b || b.dataset.ready) { box.hidden = false; return; }
+    b.dataset.ready = "1"; box.hidden = false; return;   /* room-3l (his call, 30 Sep 2026): the cards show under the description, open */
     b.addEventListener("click", function () { box.hidden = !box.hidden; b.setAttribute("aria-expanded", box.hidden ? "false" : "true"); if (!box.hidden) box.scrollIntoView({ behavior: "smooth", block: "nearest" }); });
   }
   function drawCards(coName, splits) {
