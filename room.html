@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-30 · 8k10q room-3i · 3i: the agents' roundtable starts on the first visit of the trading day. 3h: Buy the report button in every chat head; join the room (apply, desk approves) and post under a real name. 3g: no price block; the red-flags READ IT NOW box tops the left column. 3f: the chat head is just the symbol, price, one-line summary and a CEO-cards icon (cards fold away); no "The X room"; no heavy blocks (price block now white). 3e: icon menu with a light search in the bar; left "What we do" icon tiles; thin right column of news (/api/news) and text ads (AdHotBox rail); phone: Chat and Order a read always one tap away; lite text ads between chats. 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-30 · 8k10q room-3j · 3j: every chat head says how many SEC documents the company has filed and that trading without reading them is dangerous. 3i: the agents' roundtable starts on the first visit of the trading day. 3h: Buy the report button in every chat head; join the room (apply, desk approves) and post under a real name. 3g: no price block; the red-flags READ IT NOW box tops the left column. 3f: the chat head is just the symbol, price, one-line summary and a CEO-cards icon (cards fold away); no "The X room"; no heavy blocks (price block now white). 3e: icon menu with a light search in the bar; left "What we do" icon tiles; thin right column of news (/api/news) and text ads (AdHotBox rail); phone: Chat and Order a read always one tap away; lite text ads between chats. 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -220,6 +220,11 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 .sellbtn{display:block;text-align:center}
 .fwords{font:800 16px/1.6 var(--disp);margin:4px 0 10px}.fwords b{color:var(--hot)}.fwords i{font-style:normal;margin:0 7px;color:#D9B3A6}.readnow{letter-spacing:.02em}
 /* ---------- phone and tablet: the room first, the rest one tap away ---------- */
+/* room-3j: read-before-you-trade warning in every chat head */
+.readwarn{display:flex;gap:10px 14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin:8px 0 2px;padding:9px 12px;border:1px solid #F3C4B4;border-left:4px solid var(--hot);border-radius:8px;background:#FFF6F2;font-size:13.5px;line-height:1.45;color:var(--ink)}
+.readwarn[hidden]{display:none}
+.readwarn div{flex:1 1 320px}
+.rwbtn{white-space:nowrap;background:var(--hot);color:#fff;border-radius:999px;padding:6px 12px;font:800 12.5px var(--body);text-decoration:none}
 /* room-3h: report button in every chat head; join form; posting */
 .buybtn{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--hot);color:#fff;border-radius:999px;padding:6px 13px;font:800 13px var(--body);text-decoration:none;white-space:nowrap}
 .buybtn:hover{background:var(--hot-d)}
@@ -434,6 +439,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         </div>
         <div class="coline" id="glance"><span class="muted">Reading the company&rsquo;s own filings&hellip;</span></div>
         <p class="counts" id="counts">&nbsp;</p>
+        <div class="readwarn" id="readwarn" hidden></div>
       </div>
       <div class="cardrow" id="cards" aria-label="The officers and directors" hidden></div>
       <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading the room&hellip;</div></div>
@@ -483,7 +489,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
 <dialog id="descdlg" aria-labelledby="descttl"><div class="dlg"><h3 id="descttl">What it does</h3><div id="descbody"></div><form method="dialog"><button class="btn">Close</button></form></div></dialog>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3i &middot; 2026-09-30</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3j &middot; 2026-09-30</span></p>
 
 <script>
 (function () {
@@ -958,6 +964,22 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   /* ---------------- go ---------------- */
   var quoteP = loadQuote();
   var wireP = getJSON(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).catch(function () { return null; });
+  /* room-3j (2026-09-30): his rule - the room tells people how many documents there are to read, and that it is
+     dangerous not to read them. Counts come from Warrant Wire's record of the company's own SEC filings. */
+  wireP.then(function (w) {
+    var box = $("readwarn"); if (!box) return;
+    var ab = w && w.about, name = (w && w.company && w.company.name) || T;
+    var buy = '<a class="rwbtn" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">We read them for you &middot; $12</a>';
+    if (ab && ab.filings > 0) {
+      box.innerHTML = '<div><b>&#9888; Read before you trade.</b> ' + esc(name) + ' has filed <b>' + ab.filings + ' documents</b> with the SEC since ' + esc(day(ab.first))
+        + (ab.heavy ? ', and <b>' + ab.heavy + ' of them</b> carry warrant, reverse-split or merger language' : '') + '. '
+        + 'Trading without reading them is dangerous: that is where dilution, new shares, reverse splits and mergers are disclosed.</div>' + buy;
+    } else {
+      box.innerHTML = '<div><b>&#9888; Read before you trade.</b> We have not read ' + esc(T) + '&rsquo;s filings yet. Every company&rsquo;s own SEC filings are where dilution, reverse splits and mergers are disclosed; trading without reading them is dangerous.</div>'
+        + '<a class="rwbtn" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;company=&amp;CIK=' + encodeURIComponent(T) + '&amp;type=&amp;owner=include&amp;count=40" rel="noopener">Its filings at the SEC &rsaquo;</a>';
+    }
+    box.hidden = false;
+  });
   getJSON(ROOM + "/api/room?key=" + encodeURIComponent(T)).then(drawCounts).catch(function () { $("counts").textContent = ""; });
   Promise.all([
     wireP,

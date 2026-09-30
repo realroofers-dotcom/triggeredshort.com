@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-30 · 8k10q index-6b · 6b: the chat box always shows a company chat (the day's most active stock, its roundtable started on first visit; else the latest active room). 6a: the search at the top with the microcaps and the most active under it; the room in the centre; everything else folded in the left column; the reports and the ad on the right. (5c: three columns under the hero: you, your rooms and the agents on the left; the page in the centre; the rooms and the advertisers on the right. (index-4a 2026-09-08: halts, ACH discount, every product) -->
+<!-- BUILT 2026-09-30 · 8k10q index-6c · 6c: the home chat box says how many SEC documents the company filed and that not reading them is dangerous. 6b: the chat box always shows a company chat (the day's most active stock, its roundtable started on first visit; else the latest active room). 6a: the search at the top with the microcaps and the most active under it; the room in the centre; everything else folded in the left column; the reports and the ad on the right. (5c: three columns under the hero: you, your rooms and the agents on the left; the page in the centre; the rooms and the advertisers on the right. (index-4a 2026-09-08: halts, ACH discount, every product) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -897,6 +897,13 @@ footer a{color:#C4CCEA}
         + '<div class="hbody">' + esc(it.body) + '</div></div></div>';
     }).join("");
     var hs = $("hstream"); hs.scrollTop = 0;
+    /* index-6c: how many documents there are to read, and that it is dangerous not to (his rule, 30 Sep 2026) */
+    fetch("https://wire.warrantwire.com/?wire=1&q=" + encodeURIComponent(sym)).then(function (r) { return r.json(); }).then(function (w) {
+      var ab = w && w.about; if (!ab || !(ab.filings > 0)) return;
+      $("hroomcount").innerHTML = '<b style="color:#C23A1E">&#9888; Read before you trade.</b> ' + esc((w.company && w.company.name) || sym) + ' has filed <b>' + ab.filings + ' documents</b> with the SEC'
+        + (ab.heavy ? ', <b>' + ab.heavy + '</b> of them with warrant, reverse-split or merger language' : '')
+        + '. Trading without reading them is dangerous. <a href="/room?t=' + encodeURIComponent(sym) + '">Open the ' + esc(sym) + ' room &rsaquo;</a>';
+    }).catch(function () {});
   }
   function posts(sym) {
     return fetch(ROOM + "/api/stream?room=" + encodeURIComponent(sym) + "&limit=40").then(function (r) { return r.json(); })
