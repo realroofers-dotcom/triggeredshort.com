@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-30 · 8k10q room-3h · 3h: Buy the report button in every chat head; join the room (apply, desk approves) and post under a real name. 3g: no price block; the red-flags READ IT NOW box tops the left column. 3f: the chat head is just the symbol, price, one-line summary and a CEO-cards icon (cards fold away); no "The X room"; no heavy blocks (price block now white). 3e: icon menu with a light search in the bar; left "What we do" icon tiles; thin right column of news (/api/news) and text ads (AdHotBox rail); phone: Chat and Order a read always one tap away; lite text ads between chats. 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-30 · 8k10q room-3i · 3i: the agents' roundtable starts on the first visit of the trading day. 3h: Buy the report button in every chat head; join the room (apply, desk approves) and post under a real name. 3g: no price block; the red-flags READ IT NOW box tops the left column. 3f: the chat head is just the symbol, price, one-line summary and a CEO-cards icon (cards fold away); no "The X room"; no heavy blocks (price block now white). 3e: icon menu with a light search in the bar; left "What we do" icon tiles; thin right column of news (/api/news) and text ads (AdHotBox rail); phone: Chat and Order a read always one tap away; lite text ads between chats. 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -483,7 +483,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
 <dialog id="descdlg" aria-labelledby="descttl"><div class="dlg"><h3 id="descttl">What it does</h3><div id="descbody"></div><form method="dialog"><button class="btn">Close</button></form></div></dialog>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3h &middot; 2026-09-30</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3i &middot; 2026-09-30</span></p>
 
 <script>
 (function () {
@@ -888,6 +888,10 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         if (!res.ok) { alert((res.d && res.d.error) || "Please check the form."); return; }
         if (res.d.session) { try { localStorage.setItem(SKEY, res.d.session); } catch (err) {} }
         showComposer();
+  /* room-3i: the agents' roundtable. The first visit of the trading day starts it; it takes about half a minute */
+  if (T) fetch(ROOM + "/api/roundtable?t=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (d) {
+    if (d && d.started) [20000, 40000].forEach(function (ms) { setTimeout(function () { lastSig = ""; loadStream(); }, ms); });
+  }).catch(function () {});
       }).catch(function () { btn.disabled = false; alert("The room isn't answering just now. Try again in a moment."); });
   });
   function sendPost() {
@@ -909,6 +913,10 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   if ($("msg")) $("msg").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); sendPost(); } });
   if (T) { var bb = $("buybtn"); if (bb) bb.href = "https://warrantwire.com/company.html?t=" + encodeURIComponent(T) + "#auto"; }
   showComposer();
+  /* room-3i: the agents' roundtable. The first visit of the trading day starts it; it takes about half a minute */
+  if (T) fetch(ROOM + "/api/roundtable?t=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (d) {
+    if (d && d.started) [20000, 40000].forEach(function (ms) { setTimeout(function () { lastSig = ""; loadStream(); }, ms); });
+  }).catch(function () {});
 
   function loadStream() {
     return getJSON(ROOM + "/api/stream?room=" + encodeURIComponent(T) + "&limit=60").then(function (d) {
