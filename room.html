@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-30 · 8k10q room-3d · 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-30 · 8k10q room-3e · 3e: icon menu with a light search in the bar; left "What we do" icon tiles; thin right column of news (/api/news) and text ads (AdHotBox rail); phone: Chat and Order a read always one tap away; lite text ads between chats. 3d: no full-width price band; the three columns start under the menu, the conversation tops the centre, the blue price block tops the left column. 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -220,9 +220,35 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 .sellbtn{display:block;text-align:center}
 .fwords{font:800 16px/1.6 var(--disp);margin:4px 0 10px}.fwords b{color:var(--hot)}.fwords i{font-style:normal;margin:0 7px;color:#D9B3A6}.readnow{letter-spacing:.02em}
 /* ---------- phone and tablet: the room first, the rest one tap away ---------- */
+/* room-3e (2026-09-30): icons, light search, What we do tiles, thin news/ads column, phone action bar, lite ads */
+.ic{width:20px;height:20px;flex:none;vertical-align:middle}
+.ic.sm{width:16px;height:16px;margin:-2px 2px 0 0}
+.links.icons{margin-left:auto}
+.links.icons a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 9px;font-size:11.5px;line-height:1.1}
+.links.icons a span{font-weight:600}
+.hsearch{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:4px 12px;color:#B9C3E8;flex:0 1 260px}
+.hsearch input{background:transparent;border:0;outline:0;color:#fff;font:600 13.5px var(--mono);letter-spacing:.04em;text-transform:uppercase;width:100%;min-width:0;padding:4px 0}
+.hsearch input::placeholder{color:#8E9BCD;text-transform:none;letter-spacing:0;font-family:var(--body);font-weight:400}
+.dotiles{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dotiles li a,.dotiles li span{display:flex;flex-direction:column;gap:3px;height:100%;padding:10px;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink);background:#fff}
+.dotiles li a:hover{border-color:var(--hot)}
+.dotiles .ic{color:var(--hot);width:22px;height:22px}
+.dotiles b{font-size:13px;line-height:1.2}
+.dotiles small{font-size:11.5px;color:var(--ink-2)}
+.dotiles li.soon span{opacity:.6}
+.news{list-style:none;margin:0;padding:0}
+.news li{padding:8px 0;border-top:1px solid var(--line);font-size:13px;line-height:1.35}
+.news li:first-child{border-top:0}
+.news a{color:var(--ink);text-decoration:none;font-weight:600}
+.news a:hover{color:var(--hot)}
+.news small{display:block;color:var(--ink-3);font-size:11.5px;margin-top:2px}
+.cright .ph h3 #newssym{font-family:var(--mono);color:var(--ink-3);font-size:12.5px}
+.adpost.lite .ad{background:var(--soft);border:1px dashed var(--line);padding:8px 10px;font-size:13px}
+.adpost.lite .ad b{font-size:13.5px}
+.actbar{display:none}
 /* room-3d: the quote block tops the left column; the conversation is the focal point */
 .rf[hidden],.spark[hidden]{display:none}
-.cols{grid-template-columns:320px minmax(0,1fr) 250px;padding-top:12px}
+.cols{grid-template-columns:300px minmax(0,1fr) 220px;padding-top:12px}
 .hero.quote{border-radius:12px;padding:14px 14px 12px;margin:0 0 14px}
 .hero.quote .hgrid{grid-template-columns:1fr;gap:8px}
 .hero.quote .px{text-align:left}
@@ -237,10 +263,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 .tabs{display:none}
 @media (max-width:1180px){
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .cols{grid-template-columns:300px minmax(0,1fr)}
-  .cright{grid-column:1 / -1;order:3}
-  .cright .side{position:static;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-  .cright .panel + .panel,.cright .adwrap{margin-top:0}
+  .cols{grid-template-columns:260px minmax(0,1fr) 190px;gap:14px}
+  .links.icons a span{display:none}
 }
 @media (max-width:820px){
   .tabs{display:flex;gap:4px;padding:0 20px 10px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:4}
@@ -260,26 +284,45 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   .chips{margin-left:0}
   .nm{max-width:100%;white-space:normal}
   .room{min-height:460px}
+  .hsearch{order:3;flex:1 1 100%} .links.icons{margin-left:auto}
+  .actbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:8px 12px calc(8px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(0,0,0,.08)}
+  .actbar a{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border-radius:10px;font:800 15px var(--body);text-decoration:none}
+  .actbar .chat{background:var(--navy);color:#fff} .actbar .order{background:var(--hot);color:#fff}
+  body{padding-bottom:76px}
   .stream{max-height:none}
 }
 </style>
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v10H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4v4M9 13h.01M15 13h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z M14 3v4h4 M10 12h5M10 16h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4 M6 4h11l-2 4 2 4H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 16l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M5 20V10M10 20V4M15 20v-7M20 20V8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z M14 6l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4z M10 21h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-news" viewBox="0 0 24 24"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z M17 9h3v8a2 2 0 0 1-2 2 M7 9h7M7 13h7M7 16h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+</svg>
 <header class="top"><div class="wrap">
   <a class="logo" href="/">8K10Q<span>.com</span></a>
-  <nav class="links" aria-label="Main">
-    <a href="/room.html" aria-current="page">Chatroom</a>
-    <a href="/agents.html">Agents</a>
-    <a href="/">Read a filing</a>
-    <a href="https://warrantwire.com">Warrant Wire &rarr;</a>
+  <form class="hsearch" id="hsearch" role="search"><svg class="ic"><use href="#i-search"/></svg><input id="hq" placeholder="Stock, ETF or crypto" aria-label="Search a symbol" autocomplete="off" maxlength="10"></form>
+  <nav class="links icons" aria-label="Main">
+    <a href="/room" aria-current="page" title="The room"><svg class="ic"><use href="#i-chat"/></svg><span>Room</span></a>
+    <a href="/agents.html" title="The agents"><svg class="ic"><use href="#i-bot"/></svg><span>Agents</span></a>
+    <a href="/" title="Read a filing"><svg class="ic"><use href="#i-doc"/></svg><span>Filings</span></a>
+    <a href="/army" title="The 8K10Q Army"><svg class="ic"><use href="#i-flag"/></svg><span>Army</span></a>
+    <a href="https://warrantwire.com" title="Warrant Wire"><svg class="ic"><use href="#i-bolt"/></svg><span>Warrant Wire</span></a>
   </nav>
 </div></header>
 
 <div class="tabs" role="tablist" aria-label="Sections">
-  <button role="tab" data-t="room" aria-selected="true">Room</button>
-  <button role="tab" data-t="company" aria-selected="false">What we sell</button>
-  <button role="tab" data-t="reports" aria-selected="false">Reports</button>
+  <button role="tab" data-t="room" aria-selected="true">Chat</button>
+  <button role="tab" data-t="company" aria-selected="false">Order a read</button>
+  <button role="tab" data-t="reports" aria-selected="false">News</button>
 </div>
 
 <main class="wrap cols" id="cols" data-tab="room">
@@ -307,17 +350,16 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   <div class="spark" id="spark" hidden></div>
   <div class="src" id="src"></div>
 </section>
-    <section class="panel salesp" aria-label="What 8K10Q sells">
-      <div class="ph"><h3>What we read for you</h3><p>We sell information, read from the filings, and nothing we can&rsquo;t deliver.</p></div>
-      <div class="pb">
-        <ul class="sales">
-          <li><b>The warrant report &middot; $12</b><span>The verdict, every warrant filing, what the paper permits, and where the officers have been. Delivered at Warrant Wire.</span><a id="sell1" href="https://warrantwire.com/company.html">Get it for this company &rarr;</a></li>
-          <li><b>The founder&rsquo;s verdict &middot; $200</b><span>Mark Nejmeh reads the paper himself, signed and dated.</span><a href="https://warrantwire.com/company.html" id="sell2">Request it &rarr;</a></li>
-          <li class="soon"><b>The reverse-merger watch &middot; $100 a year</b><span>An alert when a company on your list files for a reverse split or a merger. Opening soon at Warrant Wire.</span></li>
-          <li class="soon"><b>A filing in plain English &middot; $20</b><span>Any filing, every section. Opening soon.</span></li>
-          <li class="soon"><b>An agent&rsquo;s opinion &middot; $40</b><span>One of the readers, on one filing. Opening soon.</span></li>
-        </ul>
-      </div>
+    <section class="panel salesp" aria-label="What 8K10Q does">
+      <div class="ph"><h3>What we do</h3><p>We read the filings so you don&rsquo;t have to, and sell only what we can deliver.</p></div>
+      <div class="pb"><ul class="dotiles">
+        <li><a id="sell1" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-report"/></svg><b>Warrant report</b><small>$12 &middot; every warrant filing</small></a></li>
+        <li><a id="sell2" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-pen"/></svg><b>Founder&rsquo;s verdict</b><small>$200 &middot; Mark reads it</small></a></li>
+        <li class="soon"><span><svg class="ic"><use href="#i-bell"/></svg><b>Reverse-merger watch</b><small>$100/yr &middot; soon</small></span></li>
+        <li class="soon"><span><svg class="ic"><use href="#i-doc"/></svg><b>Filing in plain English</b><small>$20 &middot; soon</small></span></li>
+        <li class="soon"><span><svg class="ic"><use href="#i-bot"/></svg><b>An agent&rsquo;s opinion</b><small>$40 &middot; soon</small></span></li>
+        <li><a href="/army"><svg class="ic"><use href="#i-flag"/></svg><b>The Army</b><small>Free &middot; attend the meeting</small></a></li>
+      </ul></div>
     </section>    <section class="panel" aria-label="You">
       <div class="ph"><h3 id="hello">Welcome</h3><p id="hellop">Search any stock, ETF or crypto. Its room opens.</p></div>
     </section>
@@ -365,23 +407,30 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
   <!-- RIGHT: the report and the advertiser (narrower than the left, room-3a) -->
   <div class="col cright"><div class="side">
+    <section class="panel newsp" aria-label="News">
+      <div class="ph"><h3><svg class="ic sm"><use href="#i-news"/></svg> News <span id="newssym"></span></h3></div>
+      <div class="pb"><ul class="news" id="news"><li class="muted">Loading&hellip;</li></ul></div>
+    </section>
+    <div class="adwrap"><span class="adlab">Advertisements</span><div class="ad" data-ad="rail"></div></div>
     <section class="panel sellp" aria-label="Get the report">
-      <div class="ph"><h3>Get the report</h3><p>Every warrant filing this company has made, the rules that fired, what the paper lets insiders and financiers do, and where its officers and directors have been. One payment, delivered at Warrant Wire.</p></div>
-      <div class="pb"><a class="btn sellbtn" id="sellbtn" href="https://warrantwire.com/company.html">The report &middot; $12</a>
-        <p class="note">The whole filing in plain English, at 8K10Q: opening soon.</p></div>
+      <div class="ph"><h3>Get the report</h3><p>Every warrant filing, what the paper lets insiders and financiers do, and where the officers have been.</p></div>
+      <div class="pb"><a class="btn sellbtn" id="sellbtn" href="https://warrantwire.com/company.html">The report &middot; $12</a></div>
     </section>
     <div class="adwrap"><span class="adlab">Advertisement</span><div class="ad" data-ad="card"></div></div>
     <section class="panel adcall" aria-label="Advertise">
-      <div class="ph"><h3>Advertise to verified members</h3><p>Every reader here is a named, phone-verified person, and the professionals are licensed. Ads are labelled, approved by the desk, and never dressed up as posts.</p></div>
-      <div class="pb"><span class="muted" style="font-size:13px">Write to the desk: <b style="user-select:all">contact@8k10q.com</b></span></div>
+      <div class="ph"><h3>Advertise here</h3><p>Text ads to named, verified readers. Labelled, approved by the desk, never dressed up as posts.</p></div>
+      <div class="pb"><span class="muted" style="font-size:12.5px">contact@8k10q.com</span></div>
     </section>
   </div></div>
 
 </main>
 
+
+<nav class="actbar" aria-label="Quick actions"><a class="chat" href="#msg" id="actchat"><svg class="ic"><use href="#i-chat"/></svg>Chat</a><a class="order" href="https://warrantwire.com/company.html" id="actorder"><svg class="ic"><use href="#i-report"/></svg>Order a read</a></nav>
+
 <dialog id="descdlg" aria-labelledby="descttl"><div class="dlg"><h3 id="descttl">What it does</h3><div id="descbody"></div><form method="dialog"><button class="btn">Close</button></form></div></dialog>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3d &middot; 2026-09-30</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3e &middot; 2026-09-30</span></p>
 
 <script>
 (function () {
@@ -398,6 +447,33 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   /* room-3c (2026-09-30): with no symbol chosen, the room opens on today's most active stock
      (rank 1 by volume in /api/actives, the same list as the home page). If that list can't be
      reached, the "Pick a symbol" page shows as before. */
+  /* room-3e: the header search opens a symbol's room */
+  var hs = document.getElementById("hsearch");
+  if (hs) hs.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = (document.getElementById("hq").value || "").trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, "").slice(0, 10);
+    if (v) location.href = "/room?t=" + encodeURIComponent(v);
+  });
+  /* room-3e: news for this symbol in the thin right column */
+  if (T) {
+    var ns = document.getElementById("newssym"); if (ns) ns.textContent = T;
+    fetch("/api/news?t=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (d) {
+      var items = (d && d.items) || [], box = document.getElementById("news");
+      if (!box) return;
+      if (!items.length) { box.innerHTML = '<li class="muted">No recent headlines for ' + esc(T) + '.</li>'; return; }
+      box.innerHTML = items.slice(0, 8).map(function (it) {
+        var when = new Date(it.at), mins = Math.round((Date.now() - when) / 60000);
+        var ago = mins < 60 ? mins + "m ago" : mins < 1440 ? Math.round(mins / 60) + "h ago" : Math.round(mins / 1440) + "d ago";
+        return '<li><a href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(it.title) + '</a><small>' + esc(it.source || "") + ' &middot; ' + ago + '</small></li>';
+      }).join("");
+    }).catch(function () { var box = document.getElementById("news"); if (box) box.innerHTML = '<li class="muted">News isn&rsquo;t answering just now.</li>'; });
+    var ord = document.getElementById("actorder"); if (ord) ord.href = "https://warrantwire.com/company.html?q=" + encodeURIComponent(T);
+  }
+  var ac = document.getElementById("actchat"); if (ac) ac.addEventListener("click", function (e) {
+    e.preventDefault();
+    var tb = document.querySelector('.tabs button[data-t="room"]'); if (tb) tb.click();
+    var m = document.getElementById("msg"); if (m) { m.scrollIntoView({ behavior: "smooth", block: "center" }); if (!m.disabled) m.focus(); }
+  });
   if (!T) {
     fetch("/api/actives?n=1").then(function (r) { return r.json(); }).then(function (d) {
       var top = d && d.big && d.big[0] && d.big[0].symbol;
@@ -751,7 +827,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       + (x.image_url && /^https:\/\//i.test(x.image_url) ? '<img src="' + esc(x.image_url) + '" alt="">' : "")
       + (ok ? '<a class="cta" href="' + esc(ok) + '" target="_blank" rel="noopener sponsored" data-cid="' + esc(isAd ? (x.id || x.campaign_id || "") : "") + '">' + esc(x.cta_text || "Learn more") + ' &rarr;</a>' : "")
       + (x.disclosure ? '<span class="disc">' + esc(x.disclosure) + '</span>' : "");
-    return inStream ? '<div class="post adpost"><aside class="ad" style="margin-top:0">' + h + '</aside></div>' : h;
+    return inStream ? '<div class="post adpost lite"><aside class="ad" style="margin-top:0">' + h.replace(/<img[^>]*>/g, "") + '</aside></div>' : h;
   }
   document.addEventListener("click", function (e) {
     var a = e.target.closest && e.target.closest("a.cta[data-cid]");
