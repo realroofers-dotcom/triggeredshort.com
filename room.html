@@ -973,7 +973,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     if (ab && ab.filings > 0) {
       box.innerHTML = '<div><b>&#9888; Read before you trade.</b> ' + esc(name) + ' has filed <b>' + ab.filings + ' documents</b> with the SEC since ' + esc(day(ab.first))
         + (ab.heavy ? ', and <b>' + ab.heavy + ' of them</b> carry warrant, reverse-split or merger language' : '') + '. '
-        + 'Trading without reading them is dangerous: that is where dilution, new shares, reverse splits and mergers are disclosed.</div>' + buy;
+        + 'Trading without reading them is dangerous. Companies do disclose dilution, new shares, reverse splits and mergers, but in the fine print of filings most shareholders never read.</div>' + buy;
     } else {
       box.innerHTML = '<div><b>&#9888; Read before you trade.</b> We have not read ' + esc(T) + '&rsquo;s filings yet. Every company&rsquo;s own SEC filings are where dilution, reverse splits and mergers are disclosed; trading without reading them is dangerous.</div>'
         + '<a class="rwbtn" href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;company=&amp;CIK=' + encodeURIComponent(T) + '&amp;type=&amp;owner=include&amp;count=40" rel="noopener">Its filings at the SEC &rsaquo;</a>';
