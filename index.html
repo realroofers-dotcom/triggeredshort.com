@@ -902,7 +902,7 @@ footer a{color:#C4CCEA}
       var ab = w && w.about; if (!ab || !(ab.filings > 0)) return;
       $("hroomcount").innerHTML = '<b style="color:#C23A1E">&#9888; Read before you trade.</b> ' + esc((w.company && w.company.name) || sym) + ' has filed <b>' + ab.filings + ' documents</b> with the SEC'
         + (ab.heavy ? ', <b>' + ab.heavy + '</b> of them with warrant, reverse-split or merger language' : '')
-        + '. Trading without reading them is dangerous. <a href="/room?t=' + encodeURIComponent(sym) + '">Open the ' + esc(sym) + ' room &rsaquo;</a>';
+        + '. Trading without reading them is dangerous: companies disclose dilution and reverse splits in the fine print most shareholders never read. <a href="/room?t=' + encodeURIComponent(sym) + '">Open the ' + esc(sym) + ' room &rsaquo;</a>';
     }).catch(function () {});
   }
   function posts(sym) {
