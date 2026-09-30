@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-28 · 8k10q index-6a · the search at the top with the microcaps and the most active under it; the room in the centre; everything else folded in the left column; the reports and the ad on the right. (5c: three columns under the hero: you, your rooms and the agents on the left; the page in the centre; the rooms and the advertisers on the right. (index-4a 2026-09-08: halts, ACH discount, every product) -->
+<!-- BUILT 2026-09-30 · 8k10q index-6b · 6b: the chat box always shows a company chat (the day's most active stock, its roundtable started on first visit; else the latest active room). 6a: the search at the top with the microcaps and the most active under it; the room in the centre; everything else folded in the left column; the reports and the ad on the right. (5c: three columns under the hero: you, your rooms and the agents on the left; the page in the centre; the rooms and the advertisers on the right. (index-4a 2026-09-08: halts, ACH discount, every product) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -718,14 +718,13 @@ footer a{color:#C4CCEA}
 <div class="hcentre">
   <section class="hroom" aria-label="The room">
     <div class="hrh">
-      <h2>The room</h2>
-      <p class="rs" id="hroomcount">The whole market, in one room. Search a symbol above for its own room.</p>
+      <h2 id="hroomttl">The room</h2>
+      <p class="rs" id="hroomcount">A company&rsquo;s room, talking now.</p>
       <p class="rs">Every post carries a real, verified name, a licensed professional&rsquo;s licence and firm, or a program label. Every post shows its date and time and is kept.</p>
     </div>
     <div class="hstream" id="hstream" aria-live="polite"><p class="rs" style="padding:18px">Loading the room&hellip;</p></div>
     <div class="hcomp">
-      <textarea disabled placeholder="Posting opens soon, for verified, named members."></textarea>
-      <div class="hcrow"><span class="rs">Your real name goes on every post. We telephone every member before their first one.</span><button class="btn" disabled>Join &mdash; opening soon</button></div>
+      <div class="hcrow"><span class="rs">Real names only. Join and talk in the company&rsquo;s own room.</span><a class="btn" id="hjoin" href="/room">Open the room &amp; join</a></div>
     </div>
     <div class="hsell" id="hsell">
       <b>Before you trade, read what the company filed.</b>
@@ -882,18 +881,49 @@ footer a{color:#C4CCEA}
   /* ---- the room in the centre: the whole-market room ---- */
   function when(iso) { return new Date(iso).toLocaleString("en-US", { timeZone: "America/New_York", weekday: "short", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" }) + " ET"; }
   function ini(n) { return String(n || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(function (p) { return p.charAt(0).toUpperCase(); }).join("") || "?"; }
-  fetch(ROOM + "/api/stream?room=general:market&limit=40").then(function (r) { return r.json(); }).then(function (d) {
-    var items = ((d && d.items) || []).filter(function (x) { return x.kind !== "ad" && x.kind !== "house"; });
-    if (!items.length) { $("hstream").innerHTML = '<p class="rs" style="padding:18px"><b style="color:#12141C">The room opens to verified, named members soon.</b><br>Until then, open a microcap from the list above: each one has its own room with the price, the company&rsquo;s own filings and its red flags.</p>'; return; }
+  /* index-6b (2026-09-30): the chat box always shows a company's chat, so a visitor sees activity:
+     the TOVX room (his call, 30 Sep 2026). Its agents' roundtable starts on the first visit of
+     the trading day; if that room is still empty, the most recently active room is shown instead. */
+  function drawHome(sym, items) {
+    $("hroomttl").innerHTML = 'The ' + esc(sym) + ' room';
+    $("hroomcount").innerHTML = 'Talking now. <a href="/room?t=' + encodeURIComponent(sym) + '">Open the ' + esc(sym) + ' room &rsaquo;</a>';
+    $("hjoin").href = "/room?t=" + encodeURIComponent(sym);
+    $("hsellsym").value = sym;
     $("hstream").innerHTML = items.map(function (it) {
       var a = it.author || {}, prog = a.type === "program", nm = a.display || "A verified member";
       var at = it.timestamp_utc || (it.at ? new Date(it.at * 1000).toISOString() : null);
       return '<div class="hpost' + (prog ? ' prog' : '') + '"><div class="av">' + esc(ini(nm)) + '</div><div><div class="hmeta"><b>' + esc(nm) + '</b> '
-        + (prog ? 'program' : a.tier === 'professional' ? 'licensed' : 'verified') + (it.ticker ? ' &middot; <a href="/room?t=' + encodeURIComponent(it.ticker) + '">' + esc(it.ticker) + '</a>' : '') + (at ? ' &middot; ' + esc(when(at)) : '') + '</div>'
+        + (prog ? 'program' : a.tier === 'professional' ? 'licensed' : 'verified') + (at ? ' &middot; ' + esc(when(at)) : '') + '</div>'
         + '<div class="hbody">' + esc(it.body) + '</div></div></div>';
     }).join("");
-  }).catch(function () { $("hstream").innerHTML = '<p class="rs" style="padding:18px">The room isn&rsquo;t answering just now.</p>'; });
-
+    var hs = $("hstream"); hs.scrollTop = 0;
+  }
+  function posts(sym) {
+    return fetch(ROOM + "/api/stream?room=" + encodeURIComponent(sym) + "&limit=40").then(function (r) { return r.json(); })
+      .then(function (d) { return ((d && d.items) || []).filter(function (x) { return x.kind !== "ad" && x.kind !== "house"; }); });
+  }
+  function fallback() {
+    return fetch(ROOM + "/api/rooms").then(function (r) { return r.json(); }).then(function (d) {
+      var r = ((d && d.rooms) || []).filter(function (x) { return x.kind === "ticker" && x.ticker && x.post_count > 0; })
+        .sort(function (a, b) { return (b.last_post_at || 0) - (a.last_post_at || 0); })[0];
+      if (!r) throw 0;
+      return posts(r.ticker).then(function (items) { if (items.length) drawHome(r.ticker, items); else throw 0; });
+    });
+  }
+  Promise.resolve("TOVX").then(function (sym) {   /* his call, 30 Sep 2026: the home chat is the TOVX room */
+    /* start today's roundtable if it hasn't run (once per trading day), then refresh the box */
+    fetch(ROOM + "/api/roundtable?t=" + encodeURIComponent(sym)).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.started) [30000, 50000].forEach(function (ms) { setTimeout(function () { posts(sym).then(function (it) { if (it.length) drawHome(sym, it); }); }, ms); });
+    }).catch(function () {});
+    return posts(sym).then(function (items) {
+      if (items.length) { drawHome(sym, items); return; }
+      $("hstream").innerHTML = '<p class="rs" style="padding:18px">The ' + esc(sym) + ' room is opening; the agents are reading today&rsquo;s numbers&hellip;</p>';
+      [15000, 30000, 45000].forEach(function (ms) { setTimeout(function () { posts(sym).then(function (it) { if (it.length) drawHome(sym, it); }); }, ms); });
+      return fallback().catch(function () {});
+    });
+  }).catch(function () {
+    fallback().catch(function () { $("hstream").innerHTML = '<p class="rs" style="padding:18px">The room isn&rsquo;t answering just now.</p>'; });
+  });
   /* ---- selling the report: the Warrant Wire verdict, delivered there ---- */
   function sellTo(inp) { var v = ($(inp).value || "").trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, ""); if (v) location.href = "https://warrantwire.com/company.html?t=" + encodeURIComponent(v) + "#auto"; }
   $("hsellf").addEventListener("submit", function (e) { e.preventDefault(); sellTo("hsellsym"); });
