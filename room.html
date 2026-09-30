@@ -1,4 +1,4 @@
-<!-- BUILT 2026-09-28 · 8k10q room-3b · THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
+<!-- BUILT 2026-09-30 · 8k10q room-3c · 3c: with no symbol, opens on the day's most active stock (rank 1 of /api/actives). THE ROOM FOR ONE SYMBOL. There are no fixed rooms: a visitor searches
      a stock, ETF or crypto and lands in its room. Three columns on white: your rooms and the agents on the left,
      the conversation in the centre, the price and the company on the right. On a phone the centre comes first
      and the other two are one tap away. Every post carries its date and time. Every post is archived.
@@ -365,7 +365,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
 <dialog id="descdlg" aria-labelledby="descttl"><div class="dlg"><h3 id="descttl">What it does</h3><div id="descbody"></div><form method="dialog"><button class="btn">Close</button></form></div></dialog>
 
-<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3b &middot; 2026-09-28</span></p>
+<p class="foot">Facts, not advice. Where we found nothing, we say so rather than guess. &middot; <span id="build">room-3c &middot; 2026-09-30</span></p>
 
 <script>
 (function () {
@@ -378,6 +378,16 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   var PEOPLE = "https://people.realroofers.workers.dev";
   var qs = new URLSearchParams(location.search);
   var T = (qs.get("t") || qs.get("ticker") || "").trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, "").slice(0, 10);
+
+  /* room-3c (2026-09-30): with no symbol chosen, the room opens on today's most active stock
+     (rank 1 by volume in /api/actives, the same list as the home page). If that list can't be
+     reached, the "Pick a symbol" page shows as before. */
+  if (!T) {
+    fetch("/api/actives?n=1").then(function (r) { return r.json(); }).then(function (d) {
+      var top = d && d.big && d.big[0] && d.big[0].symbol;
+      if (top) location.replace("/room?t=" + encodeURIComponent(top));
+    }).catch(function () {});
+  }
 
   var $ = function (id) { return document.getElementById(id); };
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
