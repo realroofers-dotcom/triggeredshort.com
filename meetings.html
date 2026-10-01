@@ -16,27 +16,56 @@
 .marks{display:grid;gap:10px;margin:14px 0}.mk{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:start}.tag{font:800 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:6px;text-align:center;color:#fff}.tag.red{background:var(--red)}.tag.green{background:var(--green)}.tag.gray{background:#8a8b80}.mk p{margin:0}
 .case{border:2px solid var(--red);border-radius:12px;padding:16px 18px;margin:16px 0}.case h3{font:800 20px var(--serif);margin:0 0 6px}.verdict{display:inline-block;background:var(--red);color:#fff;font:800 13px var(--sans);letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:6px;margin:0 0 10px}
 .tbl{overflow-x:auto;margin:10px 0}table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}th,td{text-align:left;padding:8px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{font:700 12px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}td.abroad{color:var(--red);font-weight:700}
-form{border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:12px;margin:16px 0}label{display:grid;gap:4px;font:600 14px var(--sans);color:var(--ink)}input,select,textarea{font:inherit;font-size:16px;font-weight:400;padding:10px 12px;border:1px solid var(--line);border-radius:8px;width:100%}button{justify-self:start;background:var(--navy);color:#fff;border:0;border-radius:8px;padding:11px 18px;font:700 16px var(--sans);cursor:pointer}.note{font-size:13.5px;color:var(--ink3)}.price{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.price div{border:1px solid var(--line);border-radius:10px;padding:12px 14px}.price b{display:block;font:800 24px var(--serif);color:var(--ink)}footer{padding:22px 0 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink3);margin-top:30px}@media(max-width:560px){.mk{grid-template-columns:1fr}.price{grid-template-columns:1fr}}</style>
+form{border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:12px;margin:16px 0}label{display:grid;gap:4px;font:600 14px var(--sans);color:var(--ink)}input,select,textarea{font:inherit;font-size:16px;font-weight:400;padding:10px 12px;border:1px solid var(--line);border-radius:8px;width:100%}button{justify-self:start;background:var(--navy);color:#fff;border:0;border-radius:8px;padding:11px 18px;font:700 16px var(--sans);cursor:pointer}.note{font-size:13.5px;color:var(--ink3)}.price{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.price div{border:1px solid var(--line);border-radius:10px;padding:12px 14px}.price b{display:block;font:800 24px var(--serif);color:var(--ink)}footer{padding:22px 0 0;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink3);margin-top:30px}@media(max-width:560px){.mk{grid-template-columns:1fr}.price{grid-template-columns:1fr}}.ic{width:22px;height:22px;flex:none}.inav{display:flex;gap:2px;flex-wrap:wrap}.inav a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 8px;border-radius:8px;font:600 11.5px/1.1 var(--sans);color:var(--ink2);text-decoration:none}.inav a[aria-current]{color:var(--ink);box-shadow:inset 0 -2px 0 var(--hot)}.inav a:hover{background:var(--wash)}.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:14px 0}.tile{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:6px;align-content:start;text-decoration:none;color:var(--ink)}.tile .ic{width:34px;height:34px;color:var(--navy)}.tile b{font:800 16px/1.2 var(--sans)}.tile small{font-size:13.5px;color:var(--ink3);line-height:1.4}.tile.red{border-color:var(--red);background:#fdf3f1}.tile.red .ic{color:var(--red)}.tile.green{border-color:var(--green);background:#eff7f1}.tile.green .ic{color:var(--green)}.tile .tag{justify-self:start}@media(max-width:560px){header{flex-wrap:wrap}}</style>
 </head>
-<body><div class="wrap">
-<header><a class="logo" href="/">8K10Q</a><a class="r" href="/attend">We attend for you &rarr;</a></header>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z M14 3v4h4 M10 12h5M10 16h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v10H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24"><rect x="5" y="8" width="14" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M12 4v4M9 13h.01M15 13h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M7.5 18c1-2.3 2.6-3.3 4.5-3.3s3.5 1 4.5 3.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4 M6 4h11l-2 4 2 4H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M16 16l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="12" cy="10" r="2.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-case" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M9 8V5h6v3 M3 13h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M3 20c.8-3.4 3-5 6-5s5.2 1.6 6 5 M16 5.5a3 3 0 0 1 0 5.5 M18 15c1.6.6 2.6 2.2 3 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M10 9v6 M14 9v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11 M9 12h11 M9 18h11 M4 6h.01 M4 12h.01 M4 18h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z M4 19V5 M8 7h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="7.5" cy="8" r="1.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M12 11v6 M12 7.5h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-screen" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M8 20h8 M12 16v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M3 12h18 M12 3c3 3.2 3 14.8 0 18 M12 3c-3 3.2-3 14.8 0 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-cast" viewBox="0 0 24 24"><path d="M5 19a14 14 0 0 1 0-14 M19 5a14 14 0 0 1 0 14 M8.5 15.5a7 7 0 0 1 0-7 M15.5 8.5a7 7 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="12" cy="12" r="1.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-ask" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M10 9a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6 1v.3 M12 14h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M3 10h18 M8 3v4 M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+</svg>
+<div class="wrap">
+<header><a class="logo" href="/">8K10Q</a><nav class="inav" aria-label="Main"><a href="/" title="Home"><svg class="ic"><use href="#i-doc"/></svg><span>Home</span></a><a href="/room" title="Chat"><svg class="ic"><use href="#i-chat"/></svg><span>Chat</span></a><a aria-current="page" href="/meetings" title="Meetings"><svg class="ic"><use href="#i-pin"/></svg><span>Meetings</span></a><a href="/attend" title="We attend"><svg class="ic"><use href="#i-case"/></svg><span>We attend</span></a><a href="/army" title="Army"><svg class="ic"><use href="#i-flag"/></svg><span>Army</span></a></nav></header>
 <p class="k">8K10Q &middot; stockholder meetings &middot; 1 October 2026</p>
 <h1>Where and when is the <i>meeting?</i></h1>
-<p class="lede">Where a company holds its stockholder meeting, when, and whether you can get in, see it and ask a question is <b>a critical way to evaluate the company</b>. A board that wants to hear from its owners makes the meeting easy to reach. A board that does not, doesn&rsquo;t.</p>
+<p class="lede">Where, when and how a company meets its owners is <b>a critical way to evaluate the company</b>.</p>
 
-<div class="big">
-<p><b>For every company, 8K10Q tells you:</b> the date and time, the place, whether it is in person, broadcast, or online only, whether anyone can ask a question, and our mark &mdash; with the line from the company&rsquo;s own proxy that it rests on.</p>
+<p class="k">For every company we show</p>
+<div class="tiles">
+  <div class="tile"><svg class="ic"><use href="#i-cal"/></svg><b>When</b><small>Date, time, record date</small></div>
+  <div class="tile"><svg class="ic"><use href="#i-pin"/></svg><b>Where</b><small>The address, in the proxy&rsquo;s words</small></div>
+  <div class="tile"><svg class="ic"><use href="#i-people"/></svg><b>In person?</b><small>Can you walk in</small></div>
+  <div class="tile"><svg class="ic"><use href="#i-cast"/></svg><b>Broadcast?</b><small>Can everyone watch</small></div>
+  <div class="tile"><svg class="ic"><use href="#i-ask"/></svg><b>Questions?</b><small>Can anyone ask</small></div>
 </div>
 
-<h2>How we mark a meeting</h2>
-<div class="marks">
-  <div class="mk"><span class="tag red">Red mark</span><p><b>Virtual only.</b> No room, no faces, no follow-up. The company controls which questions are read out.</p></div>
-  <div class="mk"><span class="tag red">Red mark</span><p><b>Held in another country, or made hard to reach.</b> A US-listed company that meets its US shareholders overseas, or somewhere almost nobody can get to.</p></div>
-  <div class="mk"><span class="tag green">Very positive</span><p><b>In person AND broadcast, with questions open to everyone.</b> Only counts if the company also holds the meeting in person.</p></div>
-</div>
-<p class="note">Marks are 8K10Q&rsquo;s opinion, drawn from the company&rsquo;s filings. They are not investment advice.</p>
+<p class="k">How we mark it</p>
+<div class="tiles">
+  <div class="tile red"><svg class="ic"><use href="#i-screen"/></svg><span class="tag red">Red mark</span><b>Virtual only</b><small>No room, no faces, no follow-up.</small></div>
+  <div class="tile red"><svg class="ic"><use href="#i-globe"/></svg><span class="tag red">Red mark</span><b>Another country, or hard to reach</b><small>US owners, overseas meeting.</small></div>
+  <div class="tile green"><svg class="ic"><use href="#i-cast"/></svg><span class="tag green">Very positive</span><b>In person + broadcast + open questions</b><small>Only if they also meet in person.</small></div>
+</div><p class="note">Marks are 8K10Q&rsquo;s opinion, drawn from the company&rsquo;s filings. They are not investment advice.</p>
 
-<h2>First case: Theriva Biologics (TOVX)</h2>
+<h2><svg class="ic" style="color:var(--red);vertical-align:-4px"><use href="#i-globe"/></svg> First case: Theriva Biologics (TOVX)</h2>
 <div class="case">
   <span class="verdict">Red mark &middot; meetings moved to Spain</span>
   <h3>A Nevada company whose last US meeting was December 2025</h3>
@@ -56,12 +85,11 @@ form{border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;g
   <p class="note">Sources: Theriva&rsquo;s DEF 14A proxy statements and Item 5.07 8-Ks on SEC EDGAR, linked in each row. Quorum failures for the Dec 15, Feb 11 and Apr 9 meetings are stated in the company&rsquo;s DEF 14A of April 30, 2026.</p>
 </div>
 
-<h2>Can&rsquo;t get there? We&rsquo;ll go for you</h2>
-<div class="big"><p><b>8K10Q will attend any stockholder meeting, for anyone, and ask the shareholders&rsquo; questions.</b> You pay only travel and hotel &mdash; usually $500&ndash;$700 in the US, $1,500&ndash;$2,000 overseas. <a href="/attend">How it works and ask us to go &rarr;</a></p></div>
-
-<p>Going yourself? You&rsquo;re in <a href="/army">the 8K10Q Army</a> if you attend.</p>
-
+<div class="tiles">
+  <a class="tile" href="/attend"><svg class="ic"><use href="#i-case"/></svg><b>Can&rsquo;t get there? We go for you</b><small>At cost: about $500&ndash;$700 US, $1,500&ndash;$2,000 overseas. We ask your questions.</small></a>
+  <a class="tile" href="/army"><svg class="ic"><use href="#i-flag"/></svg><b>Going yourself?</b><small>You&rsquo;re in the 8K10Q Army if you attend.</small></a>
+</div>
 <footer><b>8K10Q</b> &middot; Mark Nejmeh &middot; <a href="/">Home</a> &middot; <a href="/room">The room</a> &middot; <a href="/army">The Army</a> &middot; <a href="/terms">Terms</a></footer>
-<p class="k" style="font-size:11px">Built 2026-10-01 &middot; 8k10q meetings-1a</p>
+<p class="k" style="font-size:11px">Built 2026-10-01 &middot; 8k10q meetings-1b</p>
 </div>
 </body></html>
