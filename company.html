@@ -1,11 +1,11 @@
-<!-- BUILT 2026-09-21 · 8k10q company-1d (1d: the state and the agent for service on the summary, a flag when none; 1c: filings in the past year and five, every recent filing listed, JOIN CHAT by the search; 1b: the red-flag strip, free, only when there are flags; the split and merger lists are the goods) · THE COMPANY PAGE on 8K10Q: the three tell-tales at the top (name change, reverse split, warrant paper), then everything the company has filed, each readable here for $20. -->
+<!-- BUILT 2026-09-21 · 8k10q company-1d (1d: the state and the agent for service on the summary, a flag when none; 1c: filings in the past year and five, every recent filing listed, JOIN CHAT by the search; 1b: the red-flag strip, free, only when there are flags; the split and merger lists are the goods) · THE COMPANY PAGE on 8K10Q: the three tell-tales at the top (name change, reverse split, warrant paper), then everything the company has filed, each readable here for $12. -->
 <!--
    HIS RULE, 20 Sep 2026: "these warnings also go on 8K10Q." The same wire
    answers both sites; this page reads it and puts the STOP banner (a name
    change, high risk, no exception — with the old tickers, always shown and
    searchable), the reverse split box and the merger box at the top, in
    8K10Q's dress. Then the EDGAR record: every form, the latest filings, a
-   $20 read on each. Warrant Wire reads the warrant paper; 8K10Q reads the
+   $12 read on each (was $20 until 8 Nov 2026). Warrant Wire reads the warrant paper; 8K10Q reads the
    whole filing.
    The wire at wire.warrantwire.com answers ?wire=1&q=TICKER — an old ticker
    resolves to the company that carries it today (searched_as).
@@ -16,18 +16,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The company — 8K10Q</title>
-<meta name="description" content="Everything a company has filed with the SEC since 2001, with the three tell-tales flagged first: a name change, a reverse split, warrant paper. Read any filing in plain English for $20.">
+<meta name="description" content="Everything a company has filed with the SEC since 2001, with the three tell-tales flagged first: a name change, a reverse split, warrant paper. Read any filing in plain English for $12.">
 <link rel="canonical" href="https://8k10q.com/company.html">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="8K10Q">
 <meta property="og:title" content="The company — 8K10Q">
-<meta property="og:description" content="Everything a company has filed with the SEC since 2001, with the three tell-tales flagged first: a name change, a reverse split, warrant paper. Read any filing in plain English for $20.">
+<meta property="og:description" content="Everything a company has filed with the SEC since 2001, with the three tell-tales flagged first: a name change, a reverse split, warrant paper. Read any filing in plain English for $12.">
 <meta property="og:url" content="https://8k10q.com/company.html">
 <meta property="og:image" content="https://8k10q.com/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The company — 8K10Q">
-<meta name="twitter:description" content="Everything a company has filed with the SEC since 2001, with the three tell-tales flagged first: a name change, a reverse split, warrant paper. Read any filing in plain English for $20.">
+<meta name="twitter:description" content="Everything a company has filed with the SEC since 2001, with the three tell-tales flagged first: a name change, a reverse split, warrant paper. Read any filing in plain English for $12.">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -115,7 +115,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
   page.innerHTML = '<div class="quiet">Reading the record for ' + esc(T) + '…</div>';
 
   /* the red flags — free, and only when there are any. The count and the kind;
-     the filings are the goods, and the goods are read here for $20 or in the
+     the filings are the goods, and the goods are read here for $12 or in the
      verdict at Warrant Wire for $12. */
   function flagsBox(d, tk) {
     var s = d.signals || {}, a = d.about || {}, f = [];
@@ -127,7 +127,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
     if (!(d.company && d.company.agent)) f.push("No agent for service disclosed &mdash; high risk");
     if (!f.length) return "";
     return '<div class="warn" style="background:#fff"><span class="k">Red flags &mdash; the warning is free</span>'
-      + '<p><b style="font:800 26px/1 var(--disp);color:var(--hot);margin-right:8px">' + f.length + '</b> <b>' + (f.length === 1 ? 'tell-tale' : 'tell-tales') + ' on ' + esc((d.company && d.company.name) || tk) + '.</b> Which filings, which dates and what they say are the goods: read a filing below for $20, or <a href="https://warrantwire.com/company.html?t=' + esc(tk) + '">the warrant verdict at Warrant Wire, $12</a>.</p>'
+      + '<p><b style="font:800 26px/1 var(--disp);color:var(--hot);margin-right:8px">' + f.length + '</b> <b>' + (f.length === 1 ? 'tell-tale' : 'tell-tales') + ' on ' + esc((d.company && d.company.name) || tk) + '.</b> Which filings, which dates and what they say are the goods: read a filing below for $12, or <a href="https://warrantwire.com/company.html?t=' + esc(tk) + '">the warrant verdict at Warrant Wire, $12</a>.</p>'
       + '<p style="display:flex;flex-wrap:wrap;gap:6px">' + f.map(function (x) { return '<span style="font:600 13px var(--body);border-radius:999px;padding:4px 11px;background:#fff3ec;color:#b53400;border:1px solid #f2c9b4">' + x + '</span>'; }).join("") + '</p></div>';
   }
   /* the path of the shell — every name and ticker, oldest first, each one searchable */
@@ -166,11 +166,11 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
     var forms = Object.keys(e.forms || {}).sort(function (x, y) { return e.forms[y] - e.forms[x]; }).slice(0, 8).map(function (f) { return '<span>' + esc(f) + ' <b>' + e.forms[f] + '</b></span>'; }).join("");
     var rows = (e.recent_all || e.recent || []).slice(0, 40).map(function (r) {
       return '<li><span class="ef">' + esc(r.form) + '</span><span class="ed">' + esc(r.filed_on) + '</span>' + (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">the document on EDGAR</a>' : '<span></span>')
-        + '<button class="buy" data-acc="' + esc(r.accession) + '" data-t="' + esc(tk) + '">Read it here &middot; $20</button></li>';
+        + '<button class="buy" data-acc="' + esc(r.accession) + '" data-t="' + esc(tk) + '">Read it here &middot; $12</button></li>';
     }).join("");
     var yf = e.past_year_forms || {}, yforms = Object.keys(yf).sort(function (x, y) { return yf[y] - yf[x]; }).slice(0, 8).map(function (f) { return '<span>' + esc(f) + ' <b>' + yf[f] + '</b></span>'; }).join("");
     return '<div class="edgar" id="edgar"><h2>' + (e.past_year != null ? Number(e.past_year).toLocaleString("en-US") + ' filing' + (e.past_year === 1 ? '' : 's') + ' in the past year &middot; ' + Number(e.past_five_years).toLocaleString("en-US") + ' in five &middot; ' : '') + Number(e.filings).toLocaleString("en-US") + ' since ' + esc(String(e.since || "2001").slice(0, 4)) + '.</h2>'
-      + '<p class="fine">Every filing is important &mdash; the 8-K, the 10-Q, the Form 4, the notice of late filing. Pick one: 8K10Q reads the whole of it in plain English, every section, for $20.' + (e.first ? ' First filing on record ' + esc(String(e.first).slice(0, 10)) + '; latest ' + esc(String(e.latest || "").slice(0, 10)) + '.' : '') + '</p>'
+      + '<p class="fine">Every filing is important &mdash; the 8-K, the 10-Q, the Form 4, the notice of late filing. Pick one: 8K10Q reads the whole of it in plain English, every section, for $12.' + (e.first ? ' First filing on record ' + esc(String(e.first).slice(0, 10)) + '; latest ' + esc(String(e.latest || "").slice(0, 10)) + '.' : '') + '</p>'
       + (yforms ? '<p class="fine" style="margin-bottom:0"><b>The past year, by form:</b></p><div class="eforms">' + yforms + '</div>' : '')
       + '<p class="fine" style="margin-bottom:0"><b>Since 2001, by form:</b></p><div class="eforms">' + forms + '</div>'
       + '<p class="fine" style="margin:10px 0 0"><b>The latest ' + (e.recent_all || e.recent || []).length + ', every one:</b></p><ol class="elist">' + rows + '</ol></div>';
