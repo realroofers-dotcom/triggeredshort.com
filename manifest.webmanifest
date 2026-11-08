@@ -1,0 +1,14 @@
+{
+  "name": "8K10Q - keep up with the action",
+  "short_name": "8K10Q",
+  "description": "The rooms: what people are seeing in the filings, as it happens.",
+  "start_url": "/room",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#eeece7",
+  "theme_color": "#14181d",
+  "icons": [
+    { "src": "/favicon-32.png",      "sizes": "32x32",   "type": "image/png" },
+    { "src": "/apple-touch-icon.png","sizes": "180x180", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
