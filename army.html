@@ -4,6 +4,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#14181d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="8K10Q">
+<script src="/action.js" defer></script>
 <title>The 8K10Q Army: you're in if you attend the shareholder meeting</title>
 <meta name="description" content="The 8K10Q Army is the shareholders who show up. Attend a company's shareholder meeting, in person or online, tell us, and you're on the muster roll. No fee, no rank.">
 <link rel="canonical" href="https://8k10q.com/army">
@@ -20,6 +25,85 @@
 </head>
 <body><div class="wrap">
 <header><a class="logo" href="/">8K10Q</a><a class="r" href="/room">The room &rarr;</a></header>
+<!-- ⚠ 8 Nov 2026 - RIGHT UNDER THE MASTHEAD, AND SLIM. Mark: "it should be right under the words
+     below the logo", "responsive", "keep it reasonable size dont mess up the beautiful page".
+     It was first put in a side panel, which on a phone is one tap away and therefore never seen.
+     One quiet line in the site's own soft-navy, a small pill, no shouting. Note the class is
+     wwact and NOT actbar - actbar is already the fixed bottom bar on this page.
+     ONE SWITCH FOR THE WHOLE WIRE, not per room: a man who plays momentum will not pre-join forty
+     rooms on the chance one wakes up. No name, no email, no login. -->
+<div class="wwact" id="wwactbox">
+  <div class="wrap">
+    <button id="wwactbtn" type="button">Keep up with the action</button>
+    <span id="wwactnote">A notice on your phone when a room heats up. No name, no email.</span>
+  </div>
+</div>
+<style>
+  .wwact{background:var(--soft-navy);border-bottom:1px solid var(--line)}
+  .wwact .wrap{display:flex;align-items:center;gap:10px;padding:7px 16px;flex-wrap:wrap}
+  .wwact button{flex:0 0 auto;padding:6px 14px;border-radius:999px;border:1px solid var(--navy);
+    cursor:pointer;background:var(--navy);color:#fff;font:600 13px/1.2 var(--body)}
+  .wwact button:hover{background:var(--navy-d)}
+  .wwact button[disabled]{opacity:.55;cursor:default}
+  .wwact #wwactnote{flex:1 1 200px;min-width:0;font:400 12.5px/1.35 var(--body);color:var(--ink-2)}
+  .wwact.on button{background:var(--up);border-color:var(--up)}
+  /* a phone: the pill first and full width, the words wrapping under it */
+  @media (max-width:560px){
+    .wwact .wrap{flex-direction:column;align-items:stretch;gap:5px;padding:8px 12px}
+    .wwact button{width:100%;padding:9px 14px;font-size:14px}
+    .wwact #wwactnote{flex:none;font-size:11.5px}
+  }
+</style>
+<script>
+(function () {
+  var btn = document.getElementById('wwactbtn'),
+      note = document.getElementById('wwactnote'),
+      box = document.getElementById('wwactbox');
+  if (!btn) return;
+  function say(t) { note.textContent = t; }
+  function paint() {
+    if (!window.WWAction) { box.hidden = true; return; }
+    var s = WWAction.state();
+    /* never offer what cannot work */
+    if (s === 'unsupported') { box.hidden = true; return; }
+    if (s === 'ios-install') {
+      btn.textContent = 'Add to home screen first';
+      btn.disabled = true;
+      say('On an iPhone: Share, then Add to Home Screen. Open it from there and this turns on. Apple\u2019s rule, not ours.');
+      return;
+    }
+    if (s === 'granted') {
+      box.classList.add('on');
+      btn.textContent = 'You are on \u00b7 tap to stop';
+      say('You will be told when a room heats up \u2014 the ticker, how busy, and what somebody is seeing.');
+      btn.onclick = function () {
+        btn.disabled = true; say('Switching off\u2026');
+        WWAction.off().then(function () {
+          box.classList.remove('on'); btn.disabled = false; btn.onclick = null;
+          btn.textContent = 'Keep up with the action';
+          say('Switched off. Nothing of yours is kept.');
+          paint();
+        });
+      };
+      return;
+    }
+    btn.onclick = function () {
+      btn.disabled = true; say('Asking your phone\u2026');
+      WWAction.on().then(function (d) {
+        btn.disabled = false; paint();
+        if (d && d.watching) say('You are on. ' + d.watching + (d.watching === 1 ? ' phone is' : ' phones are') + ' watching the wire.');
+      }).catch(function (e) {
+        btn.disabled = false;
+        say(e && e.message === 'ios-install'
+          ? 'Add 8K10Q to your home screen first, then open it from there.'
+          : (e && e.message) || 'Your phone would not turn it on.');
+      });
+    };
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paint);
+  else paint();
+})();
+</script>
 <p class="k">8K10Q &middot; the Army &middot; 30 September 2026</p>
 <h1>The 8K10Q <i>Army</i></h1>
 <p class="lede">Shareholders who read the filings, vote the proxy and <b>show up at the shareholder meeting</b>, to make a better and more transparent market. We cannot be led to slaughter any longer. The equity markets are too important for jobs and our future.</p>
