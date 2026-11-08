@@ -446,7 +446,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         <a class="more" href="/agents.html">Meet the agents &rarr;</a></div>
     </section>
     <section class="panel" aria-label="Who can post">
-      <div class="ph"><h3>Who&rsquo;s here</h3><p>No anonymous users. Nobody posts before we telephone them.</p></div>
+      <div class="ph"><h3>Who&rsquo;s here</h3><p>No anonymous users. Nobody posts before Mark Nejmeh telephones them himself.</p></div>
       <div class="pb">
         <ul class="facts">
           <li><span class="badge ok">Verified</span> <span class="fv">Members, under their real names. Phone-verified by the desk.</span></li>
@@ -482,7 +482,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
           <div class="jrow"><input name="name" required placeholder="Full real name" autocomplete="name"><input name="state" required placeholder="State" autocomplete="address-level1"></div>
           <div class="jrow"><input name="email" type="email" required placeholder="Email" autocomplete="email"><input name="phone" type="tel" required placeholder="Phone" autocomplete="tel"></div>
           <label class="jagree"><input type="checkbox" name="agree" required> I will post under my real name, stick to facts and filings, disclose any position or pay to promote, and I accept that nothing I post is deleted.</label>
-          <div class="crow"><small>Your phone and email are never shown. The desk reviews every member.</small><button class="btn" type="submit">Apply to join</button></div>
+          <div class="crow"><small>Your phone and email are never shown. Mark Nejmeh reviews every member himself.</small><button class="btn" type="submit">Apply to join</button></div>
         </form>
         <div id="cwait" hidden class="cwait"></div>
         <div id="cmember" hidden>
@@ -914,7 +914,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   }
 /* ---------------- join and post (room-3h) ----------------
      Apply: real name, email, phone, state, the rules. Signed in at once on this device (a session token,
-     kept in this browser), waiting until the desk approves. Approved members post under their real name. */
+     kept in this browser), waiting until Mark approves. Approved members post under their real name. */
   var SKEY = "k8_session";
   function sess() { try { return localStorage.getItem(SKEY) || ""; } catch (e) { return ""; } }
   function show(id) { ["cguest", "cjoin", "cwait", "cmember"].forEach(function (k) { var el = $(k); if (el) el.hidden = k !== id; }); }
@@ -925,7 +925,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       if (d && d.signedIn && d.user && d.user.status === "member") {
         show("cmember"); $("whoami").textContent = "Posting as " + d.user.handle + ", under your real name";
       } else if (d && d.signedIn) {
-        show("cwait"); $("cwait").innerHTML = "<b>Thank you, " + esc(d.user.handle) + ".</b> The desk reviews every member before their first post. You can read meanwhile; this box opens the moment you&rsquo;re approved.";
+        show("cwait"); $("cwait").innerHTML = "<b>Thank you, " + esc(d.user.handle) + ".</b> Mark Nejmeh reviews every member himself before their first post. You can read meanwhile; this box opens the moment you&rsquo;re approved.";
       } else { try { localStorage.removeItem(SKEY); } catch (e) {} show("cguest"); }
     }).catch(function () { show("cguest"); });
   }

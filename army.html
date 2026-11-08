@@ -35,7 +35,7 @@
 <li><b>Own the stock</b> on the meeting&rsquo;s record date, so you are entitled to attend and vote. The company&rsquo;s proxy statement gives the date, the time and how to join.</li>
 <li><b>Attend the meeting</b>, in person or online.</li>
 <li><b>Tell us</b> with the form below: the company, the date, and how you attended.</li>
-<li>The desk puts you on the <b>muster roll</b>, under your real name, with the meetings you&rsquo;ve attended.</li>
+<li>Mark puts you on the <b>muster roll</b>, under your real name, with the meetings you&rsquo;ve attended.</li>
 </ol>
 
 <h2>The rules</h2>
@@ -56,7 +56,7 @@
   <label>How you attended<select name="How"><option>Online</option><option>In person</option></select></label>
   <label>Anything you asked or saw (optional)<textarea name="Notes" rows="3"></textarea></label>
   <button type="submit">I attended. Put me on the roll.</button>
-  <p class="note" id="enlistnote">The desk telephones every member before the roll shows a name &mdash; same as the room: nobody here is anonymous. <b>Never send anyone your control number or your broker login.</b> Not us, not anybody.</p>
+  <p class="note" id="enlistnote">Mark Nejmeh telephones every member himself before the roll shows a name &mdash; same as the room: nobody here is anonymous. <b>Never send anyone your control number or your broker login.</b> Not us, not anybody.</p>
 </form>
 
 <!-- ⚠ 8 Nov 2026 — THE COUNT, because the count is the argument.
@@ -125,7 +125,7 @@ fetch(DESK + "/?roll=1").then(function (r) { return r.json(); }).then(function (
   var n = d.on_the_roll || 0, w = d.waiting_on_a_call || 0, m = d.meetings_attended || 0;
   if (!n && !w && !m) return;
   var el = document.getElementById("rollcount");
-  el.textContent = n + " on the roll" + (w ? ", " + w + " waiting on a call from the desk" : "") +
+  el.textContent = n + " on the roll" + (w ? ", " + w + " waiting on a call from Mark" : "") +
     (m ? " · " + m + " meetings attended" : "");
   el.hidden = false;
 }).catch(function () {});
