@@ -168,8 +168,15 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
     if (!e || !e.filings) return '<div class="edgar" id="edgar"><h2>Nothing on EDGAR since 2001.</h2><p class="fine">No filings on record for this ticker in the period 8K10Q reads.</p></div>';
     var forms = Object.keys(e.forms || {}).sort(function (x, y) { return e.forms[y] - e.forms[x]; }).slice(0, 8).map(function (f) { return '<span>' + esc(f) + ' <b>' + e.forms[f] + '</b></span>'; }).join("");
     var rows = (e.recent_all || e.recent || []).slice(0, 40).map(function (r) {
-      return '<li><span class="ef">' + esc(r.form) + '</span><span class="ed">' + esc(r.filed_on) + '</span>' + (r.url ? '<a href="' + esc(r.url) + '" target="_blank" rel="noopener">the document on EDGAR</a>' : '<span></span>')
-        + '<button class="buy" data-acc="' + esc(r.accession) + '" data-t="' + esc(tk) + '">Read it here &middot; $12</button></li>';
+      /* ⚠ 8 Nov 2026 — NO LINK TO EDGAR HERE. Mark: "we are sending them to edgar when
+         we should be reading for them ... we should only show a date not a link and they
+         should ask us to read."
+         The filing IS the goods. Handing a man the document free, on the very page meant
+         to sell him the reading of it, gives away the only reason he came. The form and
+         the date stay — that is the record, and it shows we have it. The document itself
+         is the thing we read FOR him. */
+      return '<li><span class="ef">' + esc(r.form) + '</span><span class="ed">' + esc(r.filed_on) + '</span><span></span>'
+        + '<button class="buy" data-acc="' + esc(r.accession) + '" data-t="' + esc(tk) + '" data-form="' + esc(r.form || "") + '" data-filed="' + esc(r.filed_on || "") + '">Read it here &middot; $12</button></li>';
     }).join("");
     var yf = e.past_year_forms || {}, yforms = Object.keys(yf).sort(function (x, y) { return yf[y] - yf[x]; }).slice(0, 8).map(function (f) { return '<span>' + esc(f) + ' <b>' + yf[f] + '</b></span>'; }).join("");
     return '<div class="edgar" id="edgar"><h2>' + (e.past_year != null ? Number(e.past_year).toLocaleString("en-US") + ' filing' + (e.past_year === 1 ? '' : 's') + ' in the past year &middot; ' + Number(e.past_five_years).toLocaleString("en-US") + ' in five &middot; ' : '') + Number(e.filings).toLocaleString("en-US") + ' since ' + esc(String(e.since || "2001").slice(0, 4)) + '.</h2>'
@@ -206,7 +213,44 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
     Array.prototype.forEach.call(page.querySelectorAll("button.buy"), function (b) {
       /* ⚠ SELLING IS SWITCHED OFF (26 Sep 2026) until a paid read is actually
          produced and delivered. See SELLING in index.html. */
-      if (!SELLING) { b.textContent = "Reading opens soon"; b.disabled = true; b.style.opacity = ".55"; b.style.cursor = "not-allowed"; return; }
+      /* ⚠ 8 Nov 2026 — A DEAD BUTTON IS WORSE THAN NO BUTTON. "Reading opens
+         soon", greyed out and unclickable, was the only thing beside every
+         filing. Mark: "they should ask us to read."
+         Selling STAYS OFF — his own rule is never sell what isn't delivered,
+         and the reader has produced nothing since 8 Sep. But asking costs him
+         nothing, is honest about where we are, and leaves the one record we
+         have never had: WHAT PEOPLE ACTUALLY WANT READ. That list is the
+         reading queue, and the day reading opens it is a list of people to
+         tell. */
+      if (!SELLING) {
+        b.textContent = "Ask us to read this";
+        b.addEventListener("click", function () {
+          if (b.dataset.asked) return;
+          b.disabled = true; b.textContent = "Asking…";
+          var qs = "want=1&accession=" + encodeURIComponent(b.getAttribute("data-acc")) +
+                   "&ticker=" + encodeURIComponent(b.getAttribute("data-t") || "") +
+                   "&form=" + encodeURIComponent(b.getAttribute("data-form") || "") +
+                   "&filed=" + encodeURIComponent(b.getAttribute("data-filed") || "");
+          fetch("https://read.realroofers.workers.dev/?" + qs)
+            .then(function (r) { return r.json(); })
+            .then(function (j) {
+              if (!j || !j.ok) throw new Error((j && j.error) || "no");
+              b.dataset.asked = "1";
+              b.textContent = j.asked_for_this_filing > 1
+                ? "Asked · " + j.asked_for_this_filing + " want this read"
+                : "Asked. You are the first.";
+              b.style.opacity = ".85";
+              var m = document.getElementById("buymsg");
+              if (m) m.textContent = j.note;
+            })
+            .catch(function () {
+              b.disabled = false; b.textContent = "Ask us to read this";
+              var m = document.getElementById("buymsg");
+              if (m) { m.textContent = "The desk is not answering just now. Try again in a moment."; m.className = "bad"; }
+            });
+        });
+        return;
+      }
       b.addEventListener("click", function () {
         var email = prompt("Your email address — the receipt and the reading go here."); if (!email) return;
         var m = document.getElementById("buymsg");
