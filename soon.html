@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!-- BUILT 2026-11-08 · soon-1a. Mark: "we dont want bounces on sites".
+     Three buttons on the home page pointed at pages that were never built -
+     /management.html (Search the cards), /halts.html (See today's halts) and
+     /access.html (Request access). Every one of them was a 404: a man pressed
+     a button, got an error page, and left. They point here instead.
+     This page says plainly what is not built yet and hands him something that
+     IS, rather than pretending. Nothing on it is a claim about any company. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, follow">
+<title>Not built yet &mdash; 8K10Q</title>
+<style>
+  :root{--ink:#14181d;--muted:#5d6975;--line:#d9dee4;--bg:#eeece7;--accent:#8f1d24}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       padding:1.5rem}
+  .wrap{max-width:640px;margin:0 auto}
+  .box{background:#fff;border:1px solid var(--line);border-radius:6px;padding:1.6rem 1.9rem;margin-bottom:1rem}
+  .code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;letter-spacing:.12em;
+        text-transform:uppercase;color:var(--accent);margin:0 0 .6rem}
+  h1{margin:0 0 .9rem;font-size:1.45rem;line-height:1.25}
+  h2{margin:0 0 .5rem;font-size:1.1rem}
+  p{margin:0 0 .9rem;color:var(--muted)}
+  a{color:#12355B}
+  ul{margin:0;padding-left:1.1rem}
+  li{margin-bottom:.35rem}
+  .rule{border:0;border-top:1px solid var(--line);margin:1.2rem 0}
+  .foot{font-size:.82rem;color:var(--muted);text-align:center}
+</style>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script src="/pulse.js" data-mode="dot" data-colour="#2678d6" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="box">
+    <p class="code">not built yet</p>
+    <h1>This part is not finished, and we would rather say so.</h1>
+    <p>You pressed a button for something that is described on this site but is
+       not running yet. It is listed below with what it will do. Everything else
+       on 8K10Q works now, and the links under each one are live today.</p>
+  </div>
+
+  <div class="box" id="cards">
+    <h2>The cards</h2>
+    <p>A searchable card for every officer and director, front and back, built
+       from the filings. Before anything is printed the person on the card is
+       sent what we have and invited to correct it or answer, and any response
+       publishes in full and unedited.</p>
+    <p><strong>Working now instead:</strong></p>
+    <ul>
+      <li><a href="/records.html">The records</a> &mdash; shares, votes and fails</li>
+      <li><a href="/company.html">Any company</a> &mdash; everything it has filed since 2001</li>
+    </ul>
+  </div>
+
+  <div class="box" id="halts">
+    <h2>Today's halts</h2>
+    <p>Trading halts as they come from Nasdaq's trade halt feed, credited, with
+       our warrant flag in its own column &mdash; because a halt on a company
+       with fresh warrant paper is a different row from a pause on a stock that
+       just moved.</p>
+    <p><strong>Working now instead:</strong></p>
+    <ul>
+      <li><a href="/data.html">Market data</a></li>
+      <li><a href="/index.html">The docket</a> &mdash; what was filed today</li>
+    </ul>
+  </div>
+
+  <div class="box" id="access">
+    <h2>Free access for regulators and the press</h2>
+    <p>Reads, the docket and the search, free to the SEC, FINRA, the PCAOB,
+       state securities regulators and working journalists. It costs identity,
+       not money: a one-time code to a work address. We never publish who has
+       been here, and we never say that any agency is looking at any company.</p>
+    <p><strong>Until it is running:</strong> write to the desk and say who you
+       are and where you work.</p>
+    <ul>
+      <li><a href="/about.html">Who runs this</a></li>
+    </ul>
+  </div>
+
+  <hr class="rule">
+  <p class="foot">8K10Q &middot; Triggered Short&trade; &middot; Mark Nejmeh &middot;
+     Foundation for Job Creation</p>
+
+</div>
+</body>
+</html>
