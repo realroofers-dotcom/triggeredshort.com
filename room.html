@@ -1024,7 +1024,12 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         + (ab.heavy ? '<a href="' + rep + '" title="' + ab.heavy + ' carry warrant, reverse-split or merger language">' + ab.heavy + ' flagged</a>' : '')
         + '<a href="' + rep + '">Unread = dangerous</a><a class="rwbtn" href="' + rep + '">Read them &middot; $12</a>';
     } else {
-      box.innerHTML = '<a href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=' + encodeURIComponent(T) + '&amp;owner=include&amp;count=40" rel="noopener"><b>&#9888; Filings not read yet</b></a><a href="' + rep + '">Unread = dangerous</a>';
+      /* ⚠ 8 Nov 2026 — NOT OFF TO EDGAR. Mark: "get rid of the edgar page we read for
+         them and they pay they cannot decipher like we can anyway."
+         When the wire has not read this company yet, the old line sent the man to
+         sec.gov to squint at the raw filings himself — from the one site that exists
+         because nobody can read them. Keep him here and offer the read instead. */
+      box.innerHTML = '<b>&#9888; Filings not read yet</b><a href="' + rep + '">Unread = dangerous</a><a class="rwbtn" href="' + rep + '">Have them read &middot; $12</a>';
     }    box.hidden = false;
   });
   getJSON(ROOM + "/api/room?key=" + encodeURIComponent(T)).then(drawCounts).catch(function () { $("counts").textContent = ""; });

@@ -829,7 +829,8 @@ footer a{color:#C4CCEA}
   function go(){
     var t=(document.getElementById('tk').value||'').trim().toUpperCase();
     if(!t) return;
-    location.href='/company.html?ticker='+encodeURIComponent(t);
+    /* ⚠ 8 Nov 2026 - THE SEARCH OPENS THE ROOM, NOT THE FREE PAGE. Mark: "when they want to go to a chat room for NVDA bring them there with comments posted not the page we have with free info", and "in the rooms we should post with our agents the free info if anything". The room already has the agents in it - 13,484 posts across 1,565 rooms, 47 on NVDA alone - and the site's own line says a symbol IS the room. The search was sending every one of them to company.html instead: a page of free information with nothing happening on it. */
+      location.href='/room?t='+encodeURIComponent(t);
   }
   document.getElementById('go').addEventListener('click',go);
   // there are no fixed rooms: a symbol (stock, ETF or crypto) is the room. No symbol yet, so ask for one.

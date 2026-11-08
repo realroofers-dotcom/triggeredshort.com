@@ -194,7 +194,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
       + (c.agent ? '<p><b>Agent for service:</b> ' + esc(c.agent.name) + (c.agent.address ? ', ' + esc(c.agent.address) : '') + (c.agent.phone ? ', ' + esc(c.agent.phone) : '') + ' <span style="color:var(--ink-2)">&mdash; per its ' + esc(c.agent.source.form) + ' of ' + esc(c.agent.source.filed_on) + '</span> &middot; <a href="https://warrantwire.com/agents.html?q=' + esc(tk) + '">the agents page</a></p>'
                  : '<p style="color:var(--stop)"><b>No agent for service disclosed</b> on any registration statement in its record &mdash; a red flag. <a href="https://warrantwire.com/agents.html?q=' + esc(tk) + '" style="color:var(--stop)">The agents page, and a letter to the SEC &rarr;</a></p>')
       + (ft.length ? '<p><b>Formerly traded as ' + ft.map(function (x) { return '<a href="/company.html?ticker=' + esc(x.ticker) + '">' + esc(x.ticker) + '</a>' + (x.name ? ' (' + esc(x.name) + ')' : ''); }).join(", ") + '</b> &mdash; the same company, the same record.</p>' : '')
-      + (c.edgar ? '<p><a href="' + esc(c.edgar) + '" target="_blank" rel="noopener">Its EDGAR page &rarr;</a></p>' : '') + '</section>';
+      /* ⚠ 8 Nov 2026 - THE EDGAR PAGE IS GONE. Mark: "get rid of the edgar page we read for them and they pay they cannot decipher like we can anyway." It was the last door off this page straight to the raw filings, free. */ + '' + '</section>';
   }
   fetch(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (d) {
     if (!d || !d.ok) { page.innerHTML = '<div class="quiet">The wire did not answer for ' + esc(T) + '.</div>'; return; }
