@@ -56,20 +56,78 @@
   <label>How you attended<select name="How"><option>Online</option><option>In person</option></select></label>
   <label>Anything you asked or saw (optional)<textarea name="Notes" rows="3"></textarea></label>
   <button type="submit">I attended. Put me on the roll.</button>
-  <p class="note">This opens an email to the desk with your answers filled in. If you have a screenshot or photo from the meeting, attach it, with your control number covered.</p>
+  <p class="note" id="enlistnote">The desk telephones every member before the roll shows a name &mdash; same as the room: nobody here is anonymous. <b>Never send anyone your control number or your broker login.</b> Not us, not anybody.</p>
 </form>
 
+<!-- ⚠ 8 Nov 2026 — THE COUNT, because the count is the argument.
+     Mark: "we want to create the 8k10q army to clean up the corruption on wall st".
+     An army nobody can count is a page. This asks the desk how many have shown up and
+     says so; if it cannot be reached it stays quiet rather than showing a nought. -->
+<p class="k" id="rollcount" hidden></p>
+
 <footer><b>8K10Q</b> &middot; Mark Nejmeh &middot; <a href="/">Home</a> &middot; <a href="/room">The room</a> &middot; <a href="/terms">Terms</a></footer>
-<p class="k" style="font-size:11px">Built 2026-10-01 &middot; 8k10q army-1b</p>
+<p class="k" style="font-size:11px">Built 2026-10-01 &middot; 8k10q army-1c &middot; the roll is a record, 8 Nov 2026</p>
 </div>
 <script>
-document.getElementById("enlist").addEventListener("submit", function (e) {
-  e.preventDefault();
-  var f = e.target, lines = [];
+/* ⚠ 8 Nov 2026 — THE ROLL IS A RECORD NOW, NOT AN EMAIL.
+   It used to open the man's mail program. That is not a muster roll: it cannot be
+   counted, cannot be shown, and half the people who press a button never finish an
+   email they did not expect to write. The desk writes it down instead.
+   The mail path is kept as the fallback and nothing else, so a man whose browser
+   cannot reach the desk still gets through rather than losing what he typed. */
+var DESK = "https://meetings.realroofers.workers.dev";
+
+function mailFallback(f) {
+  var lines = [];
   Array.prototype.forEach.call(f.elements, function (el) { if (el.name) lines.push(el.name + ": " + el.value); });
   lines.push("", "Sent from 8k10q.com/army on " + new Date().toLocaleString());
   location.href = "mailto:contact@8k10q.com?subject=" + encodeURIComponent("8K10Q Army: I attended " + (f.Ticker.value || "").toUpperCase()) +
     "&body=" + encodeURIComponent(lines.join("\n"));
+}
+
+document.getElementById("enlist").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var f = e.target, note = document.getElementById("enlistnote");
+  var btn = f.querySelector("button[type=submit]");
+  btn.disabled = true; btn.textContent = "Sending…";
+
+  var qs = "join=1" +
+    "&name="   + encodeURIComponent(f.Name.value || "") +
+    "&email="  + encodeURIComponent(f.Email.value || "") +
+    "&ticker=" + encodeURIComponent((f.Ticker.value || "").toUpperCase()) +
+    "&date="   + encodeURIComponent(f["Meeting date"].value || "") +
+    "&how="    + encodeURIComponent(f.How.value || "") +
+    "&note="   + encodeURIComponent(f.Notes.value || "");
+
+  fetch(DESK + "/?" + qs)
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (!d || !d.ok) throw new Error((d && d.error) || "the desk refused that");
+      f.style.display = "none";
+      note.innerHTML = "<b>You are on the roll" + (d.company ? " for " + d.company : "") + ".</b> " + d.note +
+        (d.on_the_roll ? " That makes " + d.on_the_roll + " of us." : "");
+      note.scrollIntoView({ block: "center", behavior: "smooth" });
+    })
+    .catch(function (err) {
+      btn.disabled = false; btn.textContent = "I attended. Put me on the roll.";
+      /* a refusal is the desk telling him something useful; show it, do not bury it */
+      if (String(err.message || "").length > 3 && String(err.message).indexOf("Failed to fetch") < 0) {
+        note.innerHTML = "<b>" + String(err.message) + "</b>";
+        return;
+      }
+      mailFallback(f);
+    });
 });
+
+/* the count, asked for quietly; silent if the desk cannot be reached */
+fetch(DESK + "/?roll=1").then(function (r) { return r.json(); }).then(function (d) {
+  if (!d || !d.ok) return;
+  var n = d.on_the_roll || 0, w = d.waiting_on_a_call || 0, m = d.meetings_attended || 0;
+  if (!n && !w && !m) return;
+  var el = document.getElementById("rollcount");
+  el.textContent = n + " on the roll" + (w ? ", " + w + " waiting on a call from the desk" : "") +
+    (m ? " · " + m + " meetings attended" : "");
+  el.hidden = false;
+}).catch(function () {});
 </script>
 </body></html>
