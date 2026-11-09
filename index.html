@@ -845,7 +845,7 @@ footer a{color:#C4CCEA}
 <div class="hcentre">
   <section class="hroom" aria-label="Chat">
     <div class="hrh">
-      <h2 class="hsymline"><img id="hlogo" class="hlogo" alt="" hidden><input id="hsym" class="hsym" value="TOVX" maxlength="10" spellcheck="false" autocomplete="off" aria-label="Company symbol: highlight it and type another"><span class="hpx" id="hpx"></span><span class="hchg" id="hchg"></span></h2>
+      <h2 class="hsymline"><img id="hlogo" class="hlogo" alt="" hidden><input id="hsym" class="hsym" value="MRVL" maxlength="10" spellcheck="false" autocomplete="off" aria-label="Company symbol: highlight it and type another"><span class="hpx" id="hpx"></span><span class="hchg" id="hchg"></span></h2>
       <p class="rs hkeys" id="hroomcount"></p>
     </div>
     <div class="hstream" id="hstream" aria-live="polite"><p class="rs" style="padding:18px">Loading&hellip;</p></div>
@@ -1067,7 +1067,7 @@ footer a{color:#C4CCEA}
       return posts(r.ticker).then(function (items) { if (items.length) drawHome(r.ticker, items); else throw 0; });
     });
   }
-  function load(sym, first) {   /* his call, 30 Sep 2026: the home chat opens on TOVX */
+  function load(sym, first) {   /* his call, 30 Sep 2026: the home chat opened on TOVX; 9 Nov 2026 he changed it: "Open on MRVL" */
     shown = ""; $("hstream").innerHTML = '<p class="rs" style="padding:18px">Loading ' + esc(sym) + '&hellip;</p>';
     /* start today's roundtable if it hasn't run (once per trading day), then refresh the box */
     fetch(ROOM + "/api/roundtable?t=" + encodeURIComponent(sym)).then(function (r) { return r.json(); }).then(function (d) {
@@ -1083,7 +1083,7 @@ footer a{color:#C4CCEA}
       if (first) return fallback().catch(function () {});
     });
   }
-  load("TOVX", true).catch(function () {
+  load("MRVL", true).catch(function () {
     fallback().catch(function () { $("hstream").innerHTML = '<p class="rs" style="padding:18px">The chat isn&rsquo;t answering just now.</p>'; });
   });
   /* the symbol is the field: highlight it, type another, press Enter */
