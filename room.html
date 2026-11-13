@@ -134,6 +134,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .bubble{margin-top:4px;background:var(--soft);border:1px solid var(--line);border-radius:4px 14px 14px 14px;padding:10px 13px;white-space:pre-wrap;word-wrap:break-word}
 .post.prog .bubble{background:var(--soft-hot);border-color:#FFD7C6}
 .empty{margin:auto 0;text-align:center;color:var(--ink-2);padding:34px 18px}
+/* host-1a (2026-11-12): Mark's own line at the top of every room */
+.hostnote{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 18px 0;padding:9px 12px;background:var(--soft-navy);border:1px solid #D5DCF3;border-radius:10px;font:500 14px/1.4 var(--body);color:var(--ink)}
+.hostnote .ic{width:18px;height:18px;color:var(--navy);flex:0 0 auto}
+.hostnote a{font-weight:700;color:var(--navy);white-space:nowrap}
+.hostnote span{flex:1 1 0;min-width:0}
 .empty .big{font:800 18px var(--disp);color:var(--ink);margin-bottom:6px}
 .composer{border-top:1px solid var(--line);padding:12px 18px 16px;background:var(--soft);border-radius:0 0 12px 12px}
 .composer textarea{width:100%;min-height:58px;resize:vertical;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff}
@@ -380,6 +385,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   <symbol id="i-ask" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M10 9a2 2 0 1 1 2.6 1.9c-.4.2-.6.5-.6 1v.3 M12 14h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M3 10h18 M8 3v4 M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><path d="M3 7l9 6 9-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h3l2 5-2.5 1.5a11 11 0 0 0 7 7L16 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
   <symbol id="i-news" viewBox="0 0 24 24"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z M17 9h3v8a2 2 0 0 1-2 2 M7 9h7M7 13h7M7 16h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
 </svg>
@@ -561,6 +567,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
           <p class="counts" id="counts">&nbsp;</p>
         <div class="readwarn" id="readwarn" hidden></div>
       </div>
+      <!-- host-1a (2026-11-12). Mark: "When someone enters a room I want a message in the room that says that I run the site feel free to call me 215-219-7699" -->
+      <div class="hostnote" id="hostnote"><svg class="ic" aria-hidden="true"><use href="#i-phone"/></svg><span><b>Mark Nejmeh:</b> I run the site. Feel free to call me, <a href="tel:+12152197699">215-219-7699</a>.</span></div>
       <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading&hellip;</div></div>
       <div class="composer" id="composer">
         <div id="cguest">
