@@ -1061,6 +1061,9 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   if (T) fetch(ROOM + "/api/roundtable?t=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (d) {
     if (d && d.started) [20000, 40000].forEach(function (ms) { setTimeout(function () { lastSig = ""; loadStream(); }, ms); });
   }).catch(function () {});
+  /* rooms-open-1a (2026-11-12): tell the room desk this room was opened, so Mark's phone is told which room (Mark: "make me aware when a room is entered") */
+  if (T) { var oh = { "Content-Type": "application/json" }; if (sess()) oh["x-session"] = sess();
+    fetch(ROOM + "/api/opened", { method: "POST", headers: oh, body: JSON.stringify({ t: T }), keepalive: true }).catch(function () {}); }
 
   function loadStream() {
     return getJSON(ROOM + "/api/stream?room=" + encodeURIComponent(T) + "&limit=60").then(function (d) {
