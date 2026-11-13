@@ -574,9 +574,19 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading&hellip;</div></div>
       <div class="composer" id="composer">
         <div id="cguest">
-          <div class="crow"><small>Read free &middot; post as a guest, or join as a verified member</small><span><button class="btn" id="guestbtn" type="button">Post as guest</button> <button class="btn" id="joinbtn" type="button">Join verified</button></span></div>
+          <div class="crow"><small>Read free &middot; sign in by email to post</small><span><button class="btn" id="emailbtn" type="button">Sign in by email</button> <button class="btn" id="guestbtn" type="button">Post as guest</button> <button class="btn" id="joinbtn" type="button">Join verified</button></span></div>
         </div>
         <!-- guest-1a (2026-11-13). Mark: "guests that choose a screen name and then verified users ... everyone that wants to post unverified should have a caution attached"; "we want to get some action in there". -->
+        <!-- email-signin-1a (2026-11-13). Mark: "it should be easy not difficult"; "yes email sign in is great and better"; "and we build an email list". -->
+        <form id="cemailf" class="joinf" hidden autocomplete="on">
+          <b>Sign in by email</b>
+          <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+          <div class="jrow"><input name="email" type="email" required placeholder="Your email" autocomplete="email"><input name="screen_name" maxlength="24" placeholder="Screen name (new here)"></div>
+          <label class="jagree"><input type="checkbox" name="news"> Send me 8K10Q news (you can unsubscribe in one click).</label>
+          <label class="jagree"><input type="checkbox" name="agree"> New here: I will stick to facts and filings, disclose any position or pay to promote, and I accept that nothing I post is deleted.</label>
+          <div class="crow"><small>We email you a link. Tap it and you are in, on that device, for a year. No password.</small><button class="btn" type="submit">Email me a link</button></div>
+        </form>
+        <div id="csent" hidden class="cwait"></div>
         <form id="cguestf" class="joinf" hidden autocomplete="off">
           <b>Post as a guest</b>
           <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
@@ -1028,7 +1038,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
      kept in this browser), waiting until Mark approves. Approved members post under their real name. */
   var SKEY = "k8_session";
   function sess() { try { return localStorage.getItem(SKEY) || ""; } catch (e) { return ""; } }
-  function show(id) { ["cguest", "cguestf", "cjoin", "cwait", "cmember"].forEach(function (k) { var el = $(k); if (el) el.hidden = k !== id; }); }
+  function show(id) { ["cguest", "cemailf", "csent", "cguestf", "cjoin", "cwait", "cmember"].forEach(function (k) { var el = $(k); if (el) el.hidden = k !== id; }); }
   function showComposer() {
     var t = sess();
     if (!t) { show("cguest"); return; }
@@ -1042,6 +1052,26 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       } else { try { localStorage.removeItem(SKEY); } catch (e) {} show("cguest"); }
     }).catch(function () { show("cguest"); });
   }
+  if ($("emailbtn")) $("emailbtn").addEventListener("click", function () { show("cemailf"); var n = $("cemailf").elements.email; if (n) n.focus(); });
+  if ($("cemailf")) $("cemailf").addEventListener("submit", function (e) {
+    e.preventDefault(); var f = e.target, btn = f.querySelector("button[type=submit]"); btn.disabled = true;
+    fetch(ROOM + "/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: f.email.value, screen_name: f.screen_name.value, news: f.news.checked, agree: f.agree.checked, website: f.website.value, t: T }) })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) { btn.disabled = false; if (!res.ok) { alert((res.d && res.d.error) || "Please check the form."); return; }
+        show("csent"); $("csent").innerHTML = "<b>Check your email.</b> " + esc(res.d.note || "") + " Tap the link in it and you are signed in."; })
+      .catch(function () { btn.disabled = false; alert("The chat isn't answering just now. Try again in a moment."); });
+  });
+  /* email-signin-1a: arriving from the emailed link (?login=...) signs this device in, then the address bar is cleaned */
+  (function () {
+    var m = /[?&]login=([A-Za-z0-9_\-]{30,})/.exec(location.search); if (!m) return;
+    fetch(ROOM + "/api/login/verify", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: m[1] }) })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        try { history.replaceState(null, "", location.pathname + (T ? "?t=" + encodeURIComponent(T) : "")); } catch (e) {}
+        if (!res.ok) { alert((res.d && res.d.error) || "That sign-in link did not work. Ask for a new one."); return; }
+        try { localStorage.setItem(SKEY, res.d.session); } catch (e) {} showComposer();
+      }).catch(function () {});
+  })();
   if ($("guestbtn")) $("guestbtn").addEventListener("click", function () { show("cguestf"); var n = $("cguestf").elements.screen_name; if (n) n.focus(); });
   if ($("cguestf")) $("cguestf").addEventListener("submit", function (e) {
     e.preventDefault(); var f = e.target, btn = f.querySelector("button[type=submit]"); btn.disabled = true;
