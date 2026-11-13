@@ -26,13 +26,23 @@ button{border:0;border-radius:8px;padding:10px 16px;font:700 15px var(--sans);co
 <h1>The desk</h1>
 <p>People who applied to join the 8K10Q room. Approve and they can post under their real name; decline and they can&rsquo;t. Nothing is deleted.</p>
 <div class="row"><input id="tok" type="password" placeholder="Room admin token" autocomplete="off"><button id="load">Show who&rsquo;s waiting</button></div>
+<!-- staff-signin-1a (2026-11-13). Mark: "when i visit the site i should not have to fill out the chat room form". One tap per device: the rooms then know him for 30 days. -->
+<div class="row"><button id="meon" type="button">Sign me in as Mark on this device</button> <span id="meonmsg"></span></div>
 <div id="list"></div>
-<p class="done" style="margin-top:24px">Built 2026-09-30 &middot; desk-1a</p>
+<p class="done" style="margin-top:24px">Built 2026-09-30 &middot; desk-1a &middot; staff-signin-1a 2026-11-13</p>
 </div>
 <script>
 (function () {
   var ROOM = "https://triggeredshort-room.realroofers.workers.dev";
   var tok = document.getElementById("tok"), list = document.getElementById("list");
+  document.getElementById("meon").addEventListener("click", function () {
+    var m = document.getElementById("meonmsg"); m.textContent = "Signing in...";
+    fetch(ROOM + "/api/admin/session", { method: "POST", headers: { "Content-Type": "application/json", "x-admin-token": tok.value }, body: JSON.stringify({ internal_id: "MARK" }) })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (x) { if (!x.ok || !x.d.session) { m.textContent = (x.d && x.d.error) || "Type the room admin token first."; return; }
+        try { localStorage.setItem("k8_session", x.d.session); } catch (e) {} m.textContent = "Done. The rooms know you on this device for " + (x.d.days || 30) + " days."; })
+      .catch(function () { m.textContent = "The room is not answering; try again."; });
+  });
   try { tok.value = sessionStorage.getItem("k8_desk") || ""; } catch (e) {}
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function load() {

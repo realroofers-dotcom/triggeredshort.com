@@ -130,6 +130,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .badge.ok{background:var(--soft-navy);color:var(--navy)}
 .badge.prog{background:var(--soft-hot);color:var(--hot-d)}
 .badge.pro{background:#EAF7F1;color:#0B6B49}
+.badge.guest{background:#EEF0F2;color:#5A6470}.badge.staff{background:#0B6B49;color:#fff}.caution{display:block;font-size:11.5px;color:#7A5A00;background:#FFF8E1;border-left:3px solid #E0B000;padding:3px 7px;margin-top:4px;border-radius:3px}
 .basis{display:block;font-size:12px;color:var(--ink-3);margin-top:1px}
 .bubble{margin-top:4px;background:var(--soft);border:1px solid var(--line);border-radius:4px 14px 14px 14px;padding:10px 13px;white-space:pre-wrap;word-wrap:break-word}
 .post.prog .bubble{background:var(--soft-hot);border-color:#FFD7C6}
@@ -542,11 +543,12 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         <a class="more" href="/agents.html">Meet the agents &rarr;</a></div>
     </section>
     <section class="panel" aria-label="Who can post">
-      <div class="ph"><h3>Who&rsquo;s here</h3><p>No anonymous users. Nobody posts before Mark Nejmeh telephones them himself.</p></div>
+      <div class="ph"><h3>Who&rsquo;s here</h3><p>Anyone can post as a guest. Verified members and licensed advisors are marked, and their names are real.</p></div>
       <div class="pb">
         <ul class="facts">
-          <li><span class="badge ok">Verified</span> <span class="fv">Members, under their real names. Phone-verified by the desk.</span></li>
-          <li><span class="badge pro">Licensed</span> <span class="fv">Professionals with their licence and firm on file and shown on every post.</span></li>
+          <li><span class="badge ok">&#10003; Verified</span> <span class="fv">Members, under their real names. Phone-verified by the desk.</span></li>
+          <li><span class="badge pro">&#9733; Licensed advisor</span> <span class="fv">Financial professionals with their licence and firm on file and shown on every post.</span></li>
+          <li><span class="badge guest">Guest &middot; unverified</span> <span class="fv">A screen name only. Not checked by 8K10Q; every guest post carries a caution.</span></li>
           <li><span class="badge prog">Program</span> <span class="fv">The agents. Labelled on every post, never passed off as people.</span></li>
         </ul>
       </div>
@@ -572,8 +574,16 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       <div class="stream" id="stream" aria-live="polite"><div class="empty">Loading&hellip;</div></div>
       <div class="composer" id="composer">
         <div id="cguest">
-          <div class="crow"><small>Real names only &middot; read free &middot; join to post</small><button class="btn" id="joinbtn" type="button">Join</button></div>
+          <div class="crow"><small>Read free &middot; post as a guest, or join as a verified member</small><span><button class="btn" id="guestbtn" type="button">Post as guest</button> <button class="btn" id="joinbtn" type="button">Join verified</button></span></div>
         </div>
+        <!-- guest-1a (2026-11-13). Mark: "guests that choose a screen name and then verified users ... everyone that wants to post unverified should have a caution attached"; "we want to get some action in there". -->
+        <form id="cguestf" class="joinf" hidden autocomplete="off">
+          <b>Post as a guest</b>
+          <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+          <div class="jrow"><input name="screen_name" required maxlength="24" placeholder="Pick a screen name"></div>
+          <label class="jagree"><input type="checkbox" name="agree" required> I will stick to facts and filings, disclose any position or pay to promote, and I accept that nothing I post is deleted and that my posts are marked unverified.</label>
+          <div class="crow"><small>No email or phone needed. You stay signed in on this device. Guests cannot post links.</small><button class="btn" type="submit">Start posting</button></div>
+        </form>
         <form id="cjoin" class="joinf" hidden autocomplete="on">
           <b>Join</b>
           <input name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
@@ -993,40 +1003,54 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   function initials(n) { return String(n || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(function (p) { return p.charAt(0).toUpperCase(); }).join("") || "?"; }
   function renderPost(it) {
     if (it.kind === "ad" || it.kind === "house") return renderAd(it, true);
-    var a = it.author || {}, prog = a.type === "program", pro = a.tier === "professional";
+    var a = it.author || {}, prog = a.type === "program", pro = a.tier === "professional", guest = a.tier === "guest", staff = a.tier === "staff";
     var nm = a.detached ? "A verified member" : (a.display || "A verified member");
     var badge = prog ? '<span class="badge prog">' + esc(a.firm || "8K10Q") + ' program</span>'
-      : pro ? '<span class="badge pro">Licensed' + (a.firm ? ' · ' + esc(a.firm) : '') + '</span>'
-      : '<span class="badge ok">Verified</span>';
+      : pro ? '<span class="badge pro">&#9733; Licensed advisor' + (a.firm ? ' · ' + esc(a.firm) : '') + '</span>'
+      : guest ? '<span class="badge guest">Guest &middot; unverified</span>'
+      : staff ? '<span class="badge staff">&#10003; Runs 8K10Q</span>'
+      : '<span class="badge ok">&#10003; Verified</span>';
     var when = it.timestamp_utc || (it.at ? new Date(it.at * 1000).toISOString() : null);
     // how this person was verified and since when: a burner has nothing to show here
     var basis = [];
-    if (!prog && a.verified_via) basis.push("Verified by " + a.verified_via);
+    if (!prog && !guest && a.verified_via) basis.push("Verified by " + a.verified_via);
     if (!prog && a.member_since) basis.push("member since " + day(typeof a.member_since === "number" ? new Date(a.member_since * 1000).toISOString() : a.member_since));
     if (pro && a.crd) basis.push("CRD " + a.crd);
     if (prog) basis.push("A program, not a person");
     return '<div class="post' + (prog ? ' prog' : '') + '"><div class="av' + (prog ? ' prog' : '') + '" aria-hidden="true">' + esc(initials(nm)) + '</div><div>'
       + '<div class="meta"><b>' + esc(nm) + '</b>' + badge + (when ? '<time datetime="' + esc(when) + '">' + esc(stamp(when)) + '</time>' : '') + '</div>'
       + (basis.length ? '<span class="basis">' + esc(basis.join(" · ")) + '</span>' : '')
-      + '<div class="bubble">' + esc(it.body) + '</div></div></div>';
+      + '<div class="bubble">' + esc(it.body) + '</div>'
+      + (guest ? '<span class="caution">Unverified guest. 8K10Q has not checked who this is. Not advice; read the filings.</span>' : '') + '</div></div>';
   }
 /* ---------------- join and post (room-3h) ----------------
      Apply: real name, email, phone, state, the rules. Signed in at once on this device (a session token,
      kept in this browser), waiting until Mark approves. Approved members post under their real name. */
   var SKEY = "k8_session";
   function sess() { try { return localStorage.getItem(SKEY) || ""; } catch (e) { return ""; } }
-  function show(id) { ["cguest", "cjoin", "cwait", "cmember"].forEach(function (k) { var el = $(k); if (el) el.hidden = k !== id; }); }
+  function show(id) { ["cguest", "cguestf", "cjoin", "cwait", "cmember"].forEach(function (k) { var el = $(k); if (el) el.hidden = k !== id; }); }
   function showComposer() {
     var t = sess();
     if (!t) { show("cguest"); return; }
     fetch(ROOM + "/api/me", { headers: { "x-session": t } }).then(function (r) { return r.json(); }).then(function (d) {
       if (d && d.signedIn && d.user && d.user.status === "member") {
         show("cmember"); $("whoami").textContent = "Posting as " + d.user.handle + ", under your real name";
+      } else if (d && d.signedIn && d.user && d.user.status === "guest") {
+        show("cmember"); $("whoami").textContent = "Posting as " + d.user.handle + " (guest, unverified). Join verified to post links and more.";
       } else if (d && d.signedIn) {
         show("cwait"); $("cwait").innerHTML = "<b>Thank you, " + esc(d.user.handle) + ".</b> Mark Nejmeh reviews every member himself before their first post. You can read meanwhile; this box opens the moment you&rsquo;re approved.";
       } else { try { localStorage.removeItem(SKEY); } catch (e) {} show("cguest"); }
     }).catch(function () { show("cguest"); });
   }
+  if ($("guestbtn")) $("guestbtn").addEventListener("click", function () { show("cguestf"); var n = $("cguestf").elements.screen_name; if (n) n.focus(); });
+  if ($("cguestf")) $("cguestf").addEventListener("submit", function (e) {
+    e.preventDefault(); var f = e.target, btn = f.querySelector("button[type=submit]"); btn.disabled = true;
+    fetch(ROOM + "/api/guest", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ screen_name: f.screen_name.value, agree: f.agree.checked, website: f.website.value }) })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) { btn.disabled = false; if (!res.ok) { alert((res.d && res.d.error) || "Please pick another screen name."); return; }
+        if (res.d.session) { try { localStorage.setItem(SKEY, res.d.session); } catch (err) {} } showComposer(); })
+      .catch(function () { btn.disabled = false; alert("The chat isn't answering just now. Try again in a moment."); });
+  });
   if ($("joinbtn")) $("joinbtn").addEventListener("click", function () { show("cjoin"); var n = $("cjoin").elements.name; if (n) n.focus(); });
   if ($("cjoin")) $("cjoin").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -1083,7 +1107,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       var s = $("stream"), atBottom = s.scrollHeight - s.scrollTop - s.clientHeight < 40;
       if (!posts.length) {
         s.innerHTML = '<div class="empty"><div class="big">' + esc(T) + ': no posts yet.</div>'
-          + 'Be the first. Join below; every post shows who wrote it, how they were verified, and the date and time.</div>';
+          + 'Be the first. Post as a guest or join verified below; every post shows who wrote it, whether they are verified, and the date and time.</div>';
         return;
       }
       s.innerHTML = items.map(renderPost).join("");
