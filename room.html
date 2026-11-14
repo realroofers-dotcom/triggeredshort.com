@@ -941,7 +941,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     $("descbody").innerHTML = ($("descbody").innerHTML || '') + more;
     $("descttl").textContent = name;    $("glance").innerHTML = h;
     var mb = $("morebtn"); if (mb) mb.addEventListener("click", function () { var d = $("descdlg"); if (d.showModal) d.showModal(); else d.setAttribute("open", ""); });
-    drawCards(name, sg.splits || []);
+    drawCards(name, sg.splits || [], pr);
   }
 
   /* ---------------- the baseball cards ----------------
@@ -957,13 +957,27 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     b.dataset.ready = "1"; box.hidden = false; return;   /* room-3l (his call, 30 Sep 2026): the cards show under the description, open */
     b.addEventListener("click", function () { box.hidden = !box.hidden; b.setAttribute("aria-expanded", box.hidden ? "false" : "true"); if (!box.hidden) box.scrollIntoView({ behavior: "smooth", block: "nearest" }); });
   }
-  function drawCards(coName, splits) {
+  /* cards-1a (Mark 11/14: "we need to make sure we at least show the officers attornies and auditors"):
+     the company's lawyers (named in its own offering papers) and its auditor (as its 10-K tags it), as cards */
+  function firmCards(d, pr) {
+    var out = [];
+    if (pr && pr.auditor) out.push('<article class="bcard firm"><div class="bhead"><span class="bteam">' + esc(T) + '</span><span class="bpos">Auditor</span></div>'
+      + '<div class="bface"><div class="bphoto">&#9878;</div><div><b class="bname">' + esc(pr.auditor) + '</b><span class="brook">' + esc(pr.auditor_location || '') + '</span></div></div>'
+      + '<div class="bfoot">Signed the audit in its ' + esc(pr.auditor_source || 'annual report') + '.</div></article>');
+    ((d && d.firms) || []).filter(function (f) { return f.role === 'counsel'; }).slice(0, 4).forEach(function (f) {
+      out.push('<article class="bcard firm"><div class="bhead"><span class="bteam">' + esc(T) + '</span><span class="bpos">Company lawyers</span></div>'
+        + '<div class="bface"><div class="bphoto">&sect;</div><div><b class="bname">' + esc(f.name) + '</b><span class="brook">Named in ' + esc(f.appearances) + ' of its offering paper' + (f.appearances > 1 ? 's' : '') + (f.since ? ' since ' + esc(String(f.since).slice(0, 4)) : '') + '</span></div></div>'
+        + '<div class="bfoot">Last seen in its ' + esc(f.seen_in || 'filing') + (f.last ? ' of ' + esc(f.last) : '') + '.</div></article>');
+    });
+    return out.length ? '<div class="ph" style="margin-top:12px"><h3>The lawyers and the auditor</h3><p>From the company&rsquo;s own filings.</p></div><div class="bcards">' + out.join('') + '</div>' : '';
+  }
+  function drawCards(coName, splits, pr) {
     fetch(PEOPLE + "/?people=1&ticker=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (d) {
       var box = $("cards");
       var list = ((d && d.officers) || []).map(function (p) { p._pos = p.title || "Officer"; return p; })
         .concat(((d && d.directors) || []).map(function (p) { p._pos = "Director"; return p; }));
       if (!d || !d.ok || !list.length) {
-        box.innerHTML = '<div class="ph"><h3>The officers&rsquo; cards</h3><p>No officer or director of ' + esc(coName) + ' files US insider reports (Forms 3 and 4). Companies from outside the US often don&rsquo;t. The report names who signed its filings.</p></div>';
+        box.innerHTML = '<div class="ph"><h3>The officers&rsquo; cards</h3><p>No officer or director of ' + esc(coName) + ' files US insider reports (Forms 3 and 4) in our record yet. Companies from outside the US often don&rsquo;t.</p></div>' + firmCards(d, pr);
         showCardBtn(); return;
       }
       var dates = list.map(function (p) { return p.first_filed; }).filter(Boolean);
@@ -990,7 +1004,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
               + '<div class="bfoot">' + (p.still_filing === false ? 'No Form 4 since ' + esc(p.last_filed) + '. May have left.' : 'Still filing. Last Form 4 ' + esc(p.last_filed || '')) + '</div>'
               + '<a class="bback" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">The back of the card: where else they have been &middot; in the report, $12 &rarr;</a>'
               + '</article>';
-          }).join("") + '</div>';
+          }).join("") + '</div>' + firmCards(d, pr);
         showCardBtn();
       });
     }).catch(function () {});
