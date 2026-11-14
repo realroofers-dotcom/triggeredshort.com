@@ -213,9 +213,9 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
     if (merger) f.push("Merger, sale or wind-down on the table");
     if (!(d.company && d.company.agent)) f.push("No agent for service disclosed &mdash; high risk");
     if (!f.length) return "";
-    return '<div class="warn" style="background:#fff"><span class="k">Red flags &mdash; the warning is free</span>'
+    return '<div class="warn" style="background:#fff"><span class="k">Red flags</span>'
       + '<p><b style="font:800 26px/1 var(--disp);color:var(--hot);margin-right:8px">' + f.length + '</b> <b>' + (f.length === 1 ? 'tell-tale' : 'tell-tales') + ' on ' + esc((d.company && d.company.name) || tk) + '.</b> Which filings, which dates and what they say are the goods: read a filing below for $12, or <a href="https://warrantwire.com/company.html?t=' + esc(tk) + '">the warrant verdict at Warrant Wire, $12</a>.</p>'
-      + '<p style="display:flex;flex-wrap:wrap;gap:6px">' + f.map(function (x) { return '<span style="font:600 13px var(--body);border-radius:999px;padding:4px 11px;background:#fff3ec;color:#b53400;border:1px solid #f2c9b4">' + x + '</span>'; }).join("") + '</p></div>';
+      + '</div>';   /* count-only-1a (Mark 2026-11-14): the chips naming each flag are no longer free */
   }
   /* the path of the shell — every name and ticker, oldest first, each one searchable */
   function pathHtml(d, base) {

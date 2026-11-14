@@ -624,7 +624,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     </section>
     <div class="adwrap"><span class="adlab">Advertisements</span><div class="ad" data-ad="rail"></div></div>
     <section class="panel sellp" aria-label="Get the report">
-      <div class="ph"><h3>Get the report</h3><p>Every warrant filing, what the paper lets insiders and financiers do, and where the officers have been.</p></div>
+      <div class="ph"><h3>Get the report</h3><p>Every warrant filing, what the paper lets insiders and financiers do, and, where they file US insider reports, where the officers have been.</p></div>
       <div class="pb"><a class="btn sellbtn" id="sellbtn" href="https://warrantwire.com/company.html">The report &middot; $12</a></div>
     </section>
     <div class="adwrap"><span class="adlab">Advertisement</span><div class="ad" data-ad="card"></div></div>
@@ -930,13 +930,14 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     /* everything else about the company goes in the pop-up */
     var more = '';
     if (f.length) more += '<ul class="facts">' + f.map(function (x) { return '<li><div class="fk">' + x[0] + '</div><div class="fv">' + x[1].replace(/ <button[^>]*id="morebtn"[^>]*>.*?<\/button>/, '') + '</div></li>'; }).join('') + '</ul>';
-    /* words only, and READ IT NOW (his rule, 28 Sep 2026): the what, when and which filing are in the report */
-    more += '<h4>Red flags</h4>' + (flags.length ? '<p class="fwords">' + flags.map(function (x) { return '<b>' + x[0] + '</b>'; }).join('<i>&middot;</i>') + '</p><a class="btn readnow" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">READ IT NOW &middot; $12</a>'
+    /* count-only-1a (Mark 2026-11-14 'you are still giving things away free'; replaces the 28 Sep words-only rule): the count is free; the words, when and which filing are in the read */
+    more += '<h4>Red flags</h4>' + (flags.length ? '<p class="fwords"><b>' + flags.length + ' red flag' + (flags.length === 1 ? '' : 's') + '</b> in ' + esc(T) + '&rsquo;s own filings. What they are, which filings and when: in the read.</p><a class="btn readnow" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">READ IT NOW &middot; $12</a>'
       : '<p class="noflag">None found in the filings we have read. That is not a clean bill of health, only what the filings say.</p>')
       + notes.map(function (x) { return '<div class="flag note"><b>' + x[0] + '</b><p>' + x[1] + '</p></div>'; }).join('');
     if (files.length) more += '<h4>Latest filings</h4>' + files.map(function (x) {
         var u = safeUrl(x.url);
-        return '<div class="file"><span class="f">' + esc(x.form) + '</span><span>' + (u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(FORMS[x.form] || x.form) + '</a>' : esc(FORMS[x.form] || x.form)) + ' <span class="d">&middot; ' + esc(day(x.filed_on)) + '</span></span></div>';
+        /* read-offer-1a (Mark 2026-11-14: 'so you list the dates and suggest a read'): each filing = its date + 'We read it for you - $12'; the SEC copy stays a small link */
+        return '<div class="file"><span class="f">' + esc(x.form) + '</span><span>' + esc(FORMS[x.form] || x.form) + ' <span class="d">&middot; ' + esc(day(x.filed_on)) + '</span> <a class="btn readnow" style="padding:3px 10px;font-size:13px" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#edgar">We read it for you &middot; $12</a>' + (u ? ' <a href="' + esc(u) + '" target="_blank" rel="noopener" style="font-size:12px;opacity:.7">SEC copy</a>' : '') + '</span></div>';
       }).join('');
     $("descbody").innerHTML = ($("descbody").innerHTML || '') + more;
     $("descttl").textContent = name;    $("glance").innerHTML = h;
