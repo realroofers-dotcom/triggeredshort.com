@@ -567,7 +567,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         <div class="cline">
           <img id="clogo" class="clogo" alt="" hidden><h1 class="csym"><input id="symin" class="symin" maxlength="10" spellcheck="false" autocomplete="off" aria-label="Company symbol: highlight it and type another"></h1><span id="roomtitle"></span>
           <span class="cpx" id="cpx"></span><span class="cchg" id="cchg"></span>
-          <a class="buybtn" id="buybtn" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-report"/></svg><span>Buy the report &middot; $12</span></a>
+          <a class="buybtn" id="buybtn" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-report"/></svg><span>Warrant report &middot; $12</span></a>
         </div>
         <div class="coline" id="glance"><span class="muted">Reading the company&rsquo;s own filings&hellip;</span></div>
         <div class="cardrow" id="cards" aria-label="The officers and directors" hidden></div>
@@ -625,7 +625,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     <div class="adwrap"><span class="adlab">Advertisements</span><div class="ad" data-ad="rail"></div></div>
     <section class="panel sellp" aria-label="Get the report">
       <div class="ph"><h3>Get the report</h3><p>Every warrant filing, what the paper lets insiders and financiers do, and, where they file US insider reports, where the officers have been.</p></div>
-      <div class="pb"><a class="btn sellbtn" id="sellbtn" href="https://warrantwire.com/company.html">The report &middot; $12</a></div>
+      <div class="pb"><a class="btn sellbtn" id="sellbtn" href="https://warrantwire.com/company.html">Warrant report &middot; $12</a></div>
     </section>
     <div class="adwrap"><span class="adlab">Advertisement</span><div class="ad" data-ad="card"></div></div>
     <section class="panel adcall" aria-label="Advertise">
@@ -931,13 +931,13 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     var more = '';
     if (f.length) more += '<ul class="facts">' + f.map(function (x) { return '<li><div class="fk">' + x[0] + '</div><div class="fv">' + x[1].replace(/ <button[^>]*id="morebtn"[^>]*>.*?<\/button>/, '') + '</div></li>'; }).join('') + '</ul>';
     /* count-only-1a (Mark 2026-11-14 'you are still giving things away free'; replaces the 28 Sep words-only rule): the count is free; the words, when and which filing are in the read */
-    more += '<h4>Red flags</h4>' + (flags.length ? '<p class="fwords"><b>' + flags.length + ' red flag' + (flags.length === 1 ? '' : 's') + '</b> in ' + esc(T) + '&rsquo;s own filings. What they are, which filings and when: in the read.</p><a class="btn readnow" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">READ IT NOW &middot; $12</a>'
+    more += '<h4>Red flags</h4>' + (flags.length ? '<p class="fwords"><b>' + flags.length + ' red flag' + (flags.length === 1 ? '' : 's') + '</b> in ' + esc(T) + '&rsquo;s own filings. What they are, which filings and when: in the read.</p><a class="btn readnow" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">Warrant report &middot; $12</a>'
       : '<p class="noflag">None found in the filings we have read. That is not a clean bill of health, only what the filings say.</p>')
       + notes.map(function (x) { return '<div class="flag note"><b>' + x[0] + '</b><p>' + x[1] + '</p></div>'; }).join('');
-    if (files.length) more += '<h4>Latest filings</h4>' + files.map(function (x) {
+    if (files.length) more += '<h4>Latest filings</h4><p class="noflag">Warrant analysis is on Warrant Wire, our sister site. Every other filing is read here, on 8K10Q.</p>' + files.map(function (x) {
         var u = safeUrl(x.url);
         /* read-offer-1a (Mark 2026-11-14: 'so you list the dates and suggest a read'): each filing = its date + 'We read it for you - $12'; the SEC copy stays a small link */
-        return '<div class="file"><span class="f">' + esc(x.form) + '</span><span>' + esc(FORMS[x.form] || x.form) + ' <span class="d">&middot; ' + esc(day(x.filed_on)) + '</span> <a class="btn readnow" style="padding:3px 10px;font-size:13px" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#edgar">We read it for you &middot; $12</a>' + (u ? ' <a href="' + esc(u) + '" target="_blank" rel="noopener" style="font-size:12px;opacity:.7">SEC copy</a>' : '') + '</span></div>';
+        return '<div class="file"><span class="f">' + esc(x.form) + '</span><span>' + esc(FORMS[x.form] || x.form) + ' <span class="d">&middot; ' + esc(day(x.filed_on)) + '</span> <a class="btn readnow" style="padding:3px 10px;font-size:13px" href="/company.html?t=' + encodeURIComponent(T) + '#edgar">We read it for you</a>' + (u ? ' <a href="' + esc(u) + '" target="_blank" rel="noopener" style="font-size:12px;opacity:.7">SEC copy</a>' : '') + '</span></div>';
       }).join('');
     $("descbody").innerHTML = ($("descbody").innerHTML || '') + more;
     $("descttl").textContent = name;    $("glance").innerHTML = h;
@@ -1021,7 +1021,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     $("roomtitle").innerHTML = '<a class="flagmini" href="#rf" title="' + label + ' in the company&rsquo;s own filings"><span class="rfdot" aria-hidden="true">⚑</span>' + label + '</a>';
     var buy = SELLING
       ? '<a class="rbtn" href="/?buy=wire_read&amp;ticker=' + encodeURIComponent(T) + '">Get the read</a>'
-      : '<a class="rbtn" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">READ IT NOW &middot; $12</a>';
+      : '<a class="rbtn" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">Warrant report &middot; $12</a>';
     var box = $("rf");
     box.innerHTML = '<div><b><span class="rfdot" aria-hidden="true">⚑</span>' + label + ' in ' + esc(name) + '&rsquo;s own filings</b>'
       + '<p>Before you trade, read what the company filed. Which filings, and when, are in the report.</p>'
@@ -1205,7 +1205,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     if (ab && ab.filings > 0) {
       box.innerHTML = '<a href="' + rep + '" title="' + esc(name) + ' has filed ' + ab.filings + ' documents with the SEC since ' + esc(day(ab.first)) + '. Companies disclose dilution, reverse splits and mergers in the fine print."><b>&#9888; ' + ab.filings + ' filings</b></a>'
         + (ab.heavy ? '<a href="' + rep + '" title="' + ab.heavy + ' carry warrant, reverse-split or merger language">' + ab.heavy + ' flagged</a>' : '')
-        + '<a href="' + rep + '">Unread = dangerous</a><a class="rwbtn" href="' + rep + '">Read them &middot; $12</a>';
+        + '<a href="' + rep + '">Unread = dangerous</a><a class="rwbtn" href="' + rep + '">Warrant report &middot; $12</a>';
     } else {
       /* ⚠ 8 Nov 2026 — NOT OFF TO EDGAR. Mark: "get rid of the edgar page we read for
          them and they pay they cannot decipher like we can anyway."
