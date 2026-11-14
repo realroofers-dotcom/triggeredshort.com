@@ -250,6 +250,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 .buybtn:hover{background:var(--hot-d)}
 .buybtn + .cardbtn{margin-left:0}
 .joinf{display:grid;gap:8px}
+/* hidden-fix-1a 2026-11-13: .joinf's display:grid was beating the hidden attribute, so every sign-in form showed at once (even when signed in) */
+[hidden]{display:none !important}
 .joinf b{font:800 15px var(--disp)}
 .jrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .joinf input:not([type=checkbox]){border:1px solid var(--line);border-radius:8px;padding:9px 10px;font:inherit;font-size:15px;background:#fff;min-width:0}
