@@ -133,7 +133,10 @@ button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{o
 .badge.guest{background:#EEF0F2;color:#5A6470}.badge.staff{background:#0B6B49;color:#fff}.caution{display:block;font-size:11.5px;color:#7A5A00;background:#FFF8E1;border-left:3px solid #E0B000;padding:3px 7px;margin-top:4px;border-radius:3px}
 .basis{display:block;font-size:12px;color:var(--ink-3);margin-top:1px}
 .bubble{margin-top:4px;background:var(--soft);border:1px solid var(--line);border-radius:4px 14px 14px 14px;padding:10px 13px;white-space:pre-wrap;word-wrap:break-word}
-.post.prog .bubble{background:var(--soft-hot);border-color:#FFD7C6}
+/* real-first-1a (Mark 11/14: "highlight real comments and not have this different background for the ai agents"):
+   programs get the plain bubble (still labelled on every post); a real person's comment stands out */
+.post.prog .bubble{background:var(--soft);border-color:var(--line)}
+.post.real .bubble{background:#fff;border:1px solid #C9D3F2;border-left:4px solid var(--navy);font-weight:500}
 .empty{margin:auto 0;text-align:center;color:var(--ink-2);padding:34px 18px}
 /* host-1a (2026-11-12): Mark's own line at the top of every room */
 .hostnote{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 18px 0;padding:9px 12px;background:var(--soft-navy);border:1px solid #D5DCF3;border-radius:10px;font:500 14px/1.4 var(--body);color:var(--ink)}
@@ -912,6 +915,12 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     /* the centre line: the brief description, a More that opens the rest, and the three facts that matter most */
     var inc2 = (co.incorporated && co.incorporated.name) || pr.incorporated_in || "";
     var bits = [];
+    /* summary-1a (Mark 11/14: "please show shares outstanding and market cap in the summary") */
+    if (pr.shares_out) {
+      bits.push(big(pr.shares_out) + ' shares outstanding' + (pr.shares_as_of ? ' (' + esc(day(pr.shares_as_of)) + ')' : ''));
+      if (q && q.price) { var mv = pr.shares_out * q.price;
+        bits.push('Market cap ' + (mv >= 1e9 ? '$' + (mv / 1e9).toFixed(2) + ' billion' : mv >= 1e6 ? '$' + (mv / 1e6).toFixed(1) + ' million' : '$' + Math.round(mv).toLocaleString('en-US'))); }
+    }
     if (exch) bits.push(esc(exch));
     if (inc2) bits.push('Incorporated in ' + esc(inc2));
     if (rn && rn.former && rn.former.length) bits.push(rn.former.length + ' earlier name' + (rn.former.length > 1 ? 's' : ''));
@@ -1003,6 +1012,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       + '<p>Before you trade, read what the company filed. Which filings, and when, are in the report.</p>'
       + '<p class="own">A read is licensed to you alone. It cannot be shared, forwarded, copied or posted.</p></div>' + buy;
     box.hidden = false;
+    /* summary-1a: on a phone the company (name, price, what it does) comes first; the red-flag box goes under the officers' cards */
+    try { if (window.matchMedia("(max-width:820px)").matches && $("cards") && $("cards").parentNode) $("cards").parentNode.insertBefore(box, $("cards").nextSibling); } catch (e) {}
   }
 
   /* ---------------- the room ---------------- */
@@ -1029,7 +1040,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     if (!prog && a.member_since) basis.push("member since " + day(typeof a.member_since === "number" ? new Date(a.member_since * 1000).toISOString() : a.member_since));
     if (pro && a.crd) basis.push("CRD " + a.crd);
     if (prog) basis.push("A program, not a person");
-    return '<div class="post' + (prog ? ' prog' : '') + '"><div class="av' + (prog ? ' prog' : '') + '" aria-hidden="true">' + esc(initials(nm)) + '</div><div>'
+    return '<div class="post' + (prog ? ' prog' : ' real') + '"><div class="av' + (prog ? ' prog' : '') + '" aria-hidden="true">' + esc(initials(nm)) + '</div><div>'
       + '<div class="meta"><b>' + esc(nm) + '</b>' + badge + (when ? '<time datetime="' + esc(when) + '">' + esc(stamp(when)) + '</time>' : '') + '</div>'
       + (basis.length ? '<span class="basis">' + esc(basis.join(" · ")) + '</span>' : '')
       + '<div class="bubble">' + esc(it.body) + '</div>'
