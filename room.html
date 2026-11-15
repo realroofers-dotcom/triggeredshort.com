@@ -265,6 +265,10 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 /* room-3g: no price block at all; the price is in the chat head. The block stays in the page, hidden, because the page script fills it. */
 .hero.quote{display:none !important}
 .cleft .rf{margin:0 0 14px;grid-template-columns:1fr}
+.readpick .rbtn{display:block;text-align:center;background:var(--hot);color:#fff!important;font:800 15.5px var(--body);padding:12px 14px;border-radius:999px;text-decoration:none;margin-top:8px}
+.readpick .rpall .rbtn{background:#00208B}
+.readpick .rbtn:hover{filter:brightness(.95)}
+.orderp{display:none}   /* pick-1b: the phone "Order a read" tab only; a computer has the picker in the right column */
 /* room-3f (2026-09-30): the chat head is the symbol, the price, a one-line summary and the CEO-cards icon; no heavy blocks */
 .chead.lite{padding:10px 16px 8px;border-bottom:1px solid var(--line)}
 .cline{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
@@ -345,6 +349,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   .cols{grid-template-columns:1fr;padding-top:12px}
   .col{display:none}
   .cols[data-tab="room"] .ccentre,.cols[data-tab="company"] .cleft,.cols[data-tab="reports"] .cright{display:block}
+  .cols[data-tab="company"] .orderp{display:block}
   /* room-3d: on a phone the price block still shows above the room */
   .cols[data-tab="room"] .cleft{display:block;order:-1} .cols[data-tab="room"] .cleft .panel{display:none} .cols[data-tab="room"] .cleft .hero.quote{margin-bottom:0}
   .side{position:static}
@@ -500,6 +505,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 
   <!-- LEFT: our sales information, and you (room-3a: his rule, the left is for our sales info; the company and its cards sit in the centre under the chat heading) -->
   <div class="col cleft"><div class="side">
+    <!-- pick-1b (15 Nov 2026, Mark: "went to the next screen and read filing does not do anything"): on a phone the "Order a read" tab opens on the filing picker -->
+    <section class="panel orderp" aria-label="Order a read"><div class="ph"><h3>Order a read</h3><p>Pick the filing; we read the whole of it for you in plain English.</p></div><div class="pb"><div class="readpick"></div></div></section>
     <!-- room-3d (2026-09-30): the price and company block sits at the top of the left column; the conversation is the focal point, top of the centre -->
     <section class="hero quote" aria-label="The price">
   <div class="hgrid">
@@ -1248,6 +1255,20 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     });
   }
   drawPickers();
+  /* pick-1b: every "Read a filing" jumps to a picker the reader can SEE - on a phone the picker on the computer page sits
+     in a hidden column, so the jump looked like a dead button */
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href="#getread"]'); if (!a) return;
+    e.preventDefault();
+    var narrow = window.matchMedia && window.matchMedia("(max-width:820px)").matches;
+    if (narrow) { var tb = document.querySelector('.tabs button[data-t="company"]'); if (tb) tb.click(); }
+    setTimeout(function () {
+      var vis = Array.prototype.filter.call(document.querySelectorAll(".readpick"), function (b) { return b.offsetParent !== null; })[0];
+      if (vis) { vis.scrollIntoView({ block: "center" }); var s = vis.querySelector("select"); if (s) s.focus(); }
+    }, 80);
+  });
+  /* arriving with #getread (from the home page "Read the filings"): open the picker straight away */
+  if (location.hash === "#getread") setTimeout(function () { var a = document.createElement("a"); a.href = "#getread"; a.style.display = "none"; document.body.appendChild(a); a.click(); }, 400);
   /* room-3j (2026-09-30): his rule - the room tells people how many documents there are to read, and that it is
      dangerous not to read them. Counts come from Warrant Wire's record of the company's own SEC filings. */
   wireP.then(function (w) {
