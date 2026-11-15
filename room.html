@@ -879,9 +879,11 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       var safe = whole.replace(/\b(Corp|Inc|Co|Ltd|Ltda|Corp\.\s*A|Bros|Holdings|Hldgs|Intl|No|St|Mt|Jr|Sr|Mr|Mrs|Dr|U\.S|N\.V|S\.A|L\.P|L\.L\.C|P\.L\.C)\./g, function (m) { return m.replace(/\./g, "․"); });
       var brief = whole.length <= 220 ? whole : (safe.split(/(?<=[.!?])\s+(?=[A-Z])/)[0] || safe).replace(/․/g, ".");
       if (brief.length > 220) brief = brief.slice(0, 217).replace(/\s+\S*$/, "") + "…";
+      /* spac-1a (15 Nov 2026, Mark: "i dont even know what a blank check company is"): say it in plain words */
+      var spacNote = ""; if (/blank check/i.test((pr.industry || "") + " " + whole)) spacNote = " <span class=\"spacnote\" style=\"display:block;margin-top:4px;font-size:.92em;color:var(--ink2,#3a3b33)\"><b>Blank check company (SPAC):</b> a company with no business of its own. It sells shares, usually at $10, keeps the money in a trust, and has about two years to merge with a private company and bring it onto the stock market. No deal in time, and the money goes back to the shareholders.</span>";
       $("descbody").innerHTML = '<p>' + esc(what) + '</p>' + (pr.employees != null ? '<p class="note">' + esc(pr.employees) + ' employees' + (pr.employees_as_of ? ', as of ' + esc(day(pr.employees_as_of)) : '') + ', from its own reports.</p>' : '');
 
-      f.push(['What it does', esc(brief) + (brief !== what ? ' <button type="button" class="morebtn" id="morebtn">More &rsaquo;</button>' : '')]);
+      f.push(['What it does', esc(brief) + (brief !== what ? ' <button type="button" class="morebtn" id="morebtn">More &rsaquo;</button>' : '') + spacNote]);
     }
     if (exch) f.push(['Exchange', esc(exch)]);
     var ag = co.agent;
