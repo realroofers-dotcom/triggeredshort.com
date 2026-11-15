@@ -69,10 +69,13 @@ q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:2
     return;
   }
   var tries = 0, started = Date.now();
+  /* read-all-1a: one report of a "read all" purchase is opened with &acc= */
+  var ACC = (qs.get("acc") || "").replace(/[^0-9\-]/g, "");
   function ask(look) {
-    fetch(READ + "/?paidread=1&session=" + encodeURIComponent(S) + (look ? "&wait=1" : ""))
+    fetch(READ + "/?paidread=1&session=" + encodeURIComponent(S) + (ACC ? "&acc=" + encodeURIComponent(ACC) : "") + (look ? "&wait=1" : ""))
       .then(function (r) { return r.json(); })
       .then(function (j) {
+        if (j && j.all) return showAll(j);
         if (j && j.ready) return show(j);
         if (j && j.paid === false) {
           if (tries++ < 20) { waitBox("Payment received&hellip;", "<p>Waiting for Stripe to confirm it. This usually takes a few seconds.</p>"); return setTimeout(function () { ask(false); }, 3000); }
@@ -97,6 +100,49 @@ q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:2
   }
   ask(false);
 
+  /* the filing itself, delivered by us (copy-1a, Mark 15 Nov: "we dont want to give them a link to the sec site we
+     want to deliver them a copy"): each document opens as our page, ready to print */
+  function copiesBox(j) {
+    var c = j.copies || []; if (!c.length) return '';
+    return '<div class="card noprint"><div class="k">Your copy of the filing</div><p>The filing we read, as filed with the SEC, delivered to you here. Open a document to read or print it.</p><ul>'
+      + c.map(function (d, i) { return '<li><a href="' + READ + '/?paidcopy=1&session=' + encodeURIComponent(S) + '&acc=' + encodeURIComponent(j.accession) + '&doc=' + encodeURIComponent(d) + '" target="_blank" rel="noopener">' + (i === 0 ? '<b>' + esc(d) + '</b> (the main document)' : esc(d)) + '</a></li>'; }).join("") + '</ul></div>';
+  }
+
+  /* READ ALL (read-all-1a): every report, each its own read, then a summary. While this page is open it asks the
+     reader to read the next one (&work=1, about a minute each); the reader also carries on by itself. */
+  var working = false;
+  function showAll(j) {
+    var co = String(j.company || "").replace(/\s*\(CIK[^)]*\)/gi, "").trim(), t = j.ticker || "", sm = j.summary || null;
+    document.title = t + " - every report read - 8K10Q";
+    function li(a, f) { return (a && a.length) ? "<ul>" + a.map(f).join("") + "</ul>" : "<p>None given.</p>"; }
+    function s(title, a) { return '<div class="card"><div class="k">' + title + '</div>' + li(a, function (x) { return '<li>' + esc(x) + '</li>'; }) + '</div>'; }
+    out.innerHTML = '<div class="bar noprint"><button class="btn" onclick="window.print()">Print the summary</button><a class="btn o" href="/room?t=' + encodeURIComponent(t) + '">' + esc(t) + ' on 8K10Q</a></div>'
+      + '<div class="sheet">'
+      + '<div class="lh"><div class="lh-l"><div><img src="/8k10q-mark.svg" alt="8K10Q.com" class="lh-logo"><div class="lh-tag">SEC filings, read in plain English</div></div></div>'
+      + '<div class="lh-c">8k10q.com<br>' + LH.phone + '<br>' + LH.email + '</div></div>'
+      + '<div class="meta">Every report filed by <b>' + esc(co || t) + ' (' + esc(t) + ')</b> from ' + esc(j.since) + ' to ' + esc(j.until) + ' &middot; ' + j.total + ' report' + (j.total === 1 ? '' : 's')
+      + '<br><span class="only">Prepared for one reader only' + (j.for_reader ? ' (' + esc(j.for_reader) + ')' : '') + '. Not to be reposted, forwarded or shared, in whole or in part, including in the 8K10Q chat rooms.</span></div>'
+      + (sm ? '<div class="card head"><div class="k">The summary, across every report</div><b>' + esc(sm.headline || "") + '</b><p>' + esc(sm.plain_summary || "") + '</p></div>'
+          + s("What changed", sm.what_changed) + s("The money over time", sm.money_over_time) + s("People", sm.people) + s("What the board and officers did", sm.board_actions)
+          + s("The tricky stuff", sm.tricky_patterns)
+          + '<div class="card"><div class="k">Can the company keep going?</div><p>' + esc(sm.going_concern || "Not stated.") + '</p></div>'
+          + '<div class="card xsell"><div class="k">Warrants</div><p>' + (sm.warrants_found && sm.warrants_found.mentioned ? '<b>Warrants are mentioned</b> (' + esc(sm.warrants_found.where || "") + '). ' : 'No warrant language was found in these reports. ') + 'Warrant analysis is a separate evaluation on our sister site.</p>'
+          + '<a class="xbtn" href="' + PAY + '/?go=wire_search_k8&ticker=' + encodeURIComponent(t) + '&on=wire&collect_email=1&from=' + encodeURIComponent(S) + '&ret=' + encodeURIComponent('/company.html?t=' + t) + '">Warrant research on Warrant Wire &middot; $9.60 <span style="font-weight:400">(20% off with this purchase, was $12)</span></a></div>'
+          + s("Five questions to ask", sm.five_questions)
+        : '<div class="wait"><div class="spin"></div><h1>Reading every report&hellip; ' + j.ready + ' of ' + j.total + ' done</h1><p>About a minute each. Each report opens below as soon as it is read; the summary comes when the last one is done. You can close this page &mdash; it keeps going, and the link in your email brings you back.</p></div>')
+      + '<div class="card"><div class="k">Each report, read on its own</div><ul>'
+      + (j.items || []).map(function (x) { return '<li>' + (x.status === "ready" ? '<a href="?paid=' + encodeURIComponent(S) + '&acc=' + encodeURIComponent(x.acc) + '"><b>' + esc(x.form) + '</b> filed ' + esc(x.filed) + '</a> &ndash; ' + esc(x.headline || "") : '<b>' + esc(x.form) + '</b> filed ' + esc(x.filed) + ' &ndash; <i>' + esc(x.status) + '&hellip;</i>') + '</li>'; }).join("")
+      + '</ul></div>'
+      + '<div class="rfoot">Facts and quotes come from the company&rsquo;s own SEC filings. This is a reading of public filings, not investment, legal or financial advice. Licensed to one reader; see 8k10q.com/terms. 8K10Q &middot; 8k10q.com &middot; ' + LH.phone + ' &middot; ' + LH.email + '</div>'
+      + '</div>';
+    if (!j.finished && !working) {
+      working = true;
+      fetch(READ + "/?paidread=1&session=" + encodeURIComponent(S) + "&work=1").then(function (r) { return r.json(); })
+        .then(function (k) { working = false; if (k && k.all) showAll(k); })
+        .catch(function () { working = false; setTimeout(function () { ask(false); }, 10000); });
+    }
+  }
+
   function show(j) {
     var r = j.read || {}, m = r.money || {}, ws = r.warrants_signal || {}, t = j.ticker || "";
     /* the wire stores names like "Nuvve Holding Corp. (NVVE) (CIK 0001836875)": the letterhead shows the plain name */
@@ -106,7 +152,7 @@ q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:2
     function mrow(k, v) { return v ? '<dt>' + k + '</dt><dd>' + esc(v) + '</dd>' : ''; }
     var made = j.made ? new Date(String(j.made).replace(" ", "T") + "Z").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "";
     document.title = t + " " + (j.form || "filing") + " read — 8K10Q";
-    out.innerHTML = '<div class="bar noprint"><button class="btn" onclick="window.print()">Print this report</button><a class="btn o" href="/company.html?ticker=' + encodeURIComponent(t) + '">' + esc(t) + ' on 8K10Q</a></div>'
+    out.innerHTML = '<div class="bar noprint"><button class="btn" onclick="window.print()">Print this report</button>' + (j.part_of_all ? '<a class="btn o" href="?paid=' + encodeURIComponent(S) + '">&larr; All the reports and the summary</a>' : '<a class="btn o" href="/company.html?ticker=' + encodeURIComponent(t) + '">' + esc(t) + ' on 8K10Q</a>') + '</div>'
       + '<div class="sheet">'
       + '<div class="lh"><div class="lh-l"><div><img src="/8k10q-mark.svg" alt="8K10Q.com" class="lh-logo"><div class="lh-tag">SEC filings, read in plain English</div></div></div>'
       + '<div class="lh-c">8k10q.com<br>' + LH.phone + '<br>' + LH.email + '</div></div>'
@@ -129,7 +175,7 @@ q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:2
       + sec("Five questions to ask", r.five_questions, function (x) { return '<li>' + esc(x) + '</li>'; })
       + sec("What we could not check", r.checks_not_run, function (x) { return '<li>' + esc(x) + '</li>'; })
       + '<div class="rfoot">Facts and quotes are copied from the company&rsquo;s own SEC filing; what the filing does not say is listed as not checked. This is a reading of a public filing, not investment, legal or financial advice.' + (j.truncated ? ' The filing was very long; the read covers the parts that fit, listed above as not checked.' : '') + ' Licensed to one reader; see 8k10q.com/terms. 8K10Q &middot; 8k10q.com &middot; ' + LH.phone + ' &middot; ' + LH.email + '</div>'
-      + '</div>';
+      + '</div>' + copiesBox(j);
   }
 })();
 </script>

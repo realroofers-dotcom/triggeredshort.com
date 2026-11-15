@@ -1218,7 +1218,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       /* only filings worth a read: annual, quarterly, current and foreign reports, offerings, proxies, big-holder and
          merger filings - not one-line insider notices (Forms 3, 4, 5, 144) */
       var WORTH = /^(10-K|10-Q|8-K|6-K|20-F|40-F|S-1|S-3|S-4|F-1|F-3|F-4|424B|DEF 14A|PRE 14A|DEFM14A|PREM14A|DEF 14C|SC 13D|SC TO|N-2|1-A|10-12)/;
-      var e = (w && w.edgar) || {}, rec = (e.recent_all || e.recent || []).filter(function (x) { return x && x.accession && WORTH.test(String(x.form || "")); }).slice(0, 15);
+      /* Mark 15 Nov: "reports we read here are all reports that are filed per report 8k, 10q, 14a, etc 12 each" - every form is listed */
+      var e = (w && w.edgar) || {}, rec = (e.recent_all || e.recent || []).filter(function (x) { return x && x.accession; }).slice(0, 25);
       Array.prototype.forEach.call(document.querySelectorAll(".readpick:not([data-done])"), function (box) {
         box.setAttribute("data-done", "1");
         if (!rec.length) { box.innerHTML = '<p class="muted" style="margin:0">No filings on record for ' + esc(T) + ' yet.</p>'; return; }
@@ -1228,9 +1229,21 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
           + '</select>'
           + '<a class="rbtn rpgo" style="display:block;text-align:center;margin-top:8px" href="' + esc(readHref(rec[0].accession)) + '">Read it &middot; $12</a>'
           + '<p style="margin:6px 0 0;font-size:12.5px;color:var(--ink2,#3a3b33)">Every section in plain English, on 8K10Q letterhead, yours to print. Card page by Stripe.</p>'
-          + '<p style="margin:4px 0 0;font-size:12.5px">Warrants: <a href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">the Warrant Wire report &rarr;</a></p>';
+          + '<div class="rpall" style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line,#d5dae4)"></div>'
+          + '<p style="margin:8px 0 0;font-size:12.5px">Special: <a href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">warrant research on Warrant Wire &rarr;</a></p>';
         var sel = box.querySelector(".rpsel"), go = box.querySelector(".rpgo");
         sel.addEventListener("change", function () { go.href = readHref(sel.value); });
+        /* read-all-1a (Mark 15 Nov: "an option to read all reports ... deliver each separate and then give a summary" /
+           "12 each" / "we offer a 30% discount if they select read all"): the count comes from the reader, which reads
+           exactly that window */
+        var ra = box.querySelector(".rpall");
+        fetch("https://read.realroofers.workers.dev/?allcount=1&ticker=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (c) {
+          if (!c || !c.ok || !c.n || c.n > 120) { ra.remove(); return; }   /* more than 120 a year: call us */
+          var total = (c.n * c.each_cents / 100).toFixed(2), full = (c.n * c.full_each_cents / 100).toFixed(2);
+          ra.innerHTML = '<b style="display:block;font-size:14.5px">Or read all ' + c.n + ' report' + (c.n === 1 ? '' : 's') + ' from the last 12 months</b>'
+            + '<span style="font-size:13px;color:var(--ink2,#3a3b33)">Each one read on its own, then a summary across all of them. $8.40 a report, 30% off &mdash; <b>$' + total + '</b> (was $' + full + ').</span>'
+            + '<a class="rbtn" style="display:block;text-align:center;margin-top:8px;background:#00208B" href="' + PAYK8 + '/?go=read_all&on=k8&collect_email=1&n=' + c.n + '&ticker=' + encodeURIComponent(T) + '&ref=' + encodeURIComponent(c.ref) + '&ret=' + encodeURIComponent('/read.html') + '">Read all ' + c.n + ' &middot; $' + total + '</a>';
+        }).catch(function () { ra.remove(); });
       });
     });
   }
