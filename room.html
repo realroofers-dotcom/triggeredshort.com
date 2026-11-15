@@ -1248,6 +1248,12 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
             rb.closest(".rprow").style.background = "#fff3ec";
             go.href = readHref(rb.value, rb.getAttribute("data-lab").replace(" of ", " filed ")); go.style.opacity = ""; go.style.pointerEvents = ""; go.removeAttribute("aria-disabled");
             go.innerHTML = "2. Read the " + rb.getAttribute("data-lab") + " &middot; $12";
+            /* pick-1d (15 Nov 2026, Mark: "I click order a read and get nothing"): the buy button sat below a long list,
+               out of sight. Once a report is picked, the bar at the bottom of the screen IS the buy button. */
+            var ord = document.getElementById("actorder");
+            if (ord) { ord.href = go.href; ord.innerHTML = '<svg class="ic"><use href="#i-report"/></svg>Read this one &middot; $12'; ord.setAttribute("data-buy", "1"); }
+            var bar = document.getElementById("pickbar");
+            if (bar) { bar.hidden = false; bar.querySelector("span").textContent = rb.getAttribute("data-lab"); bar.querySelector("a").href = go.href; }
           });
         });
         /* read-all-1a (Mark 15 Nov: "an option to read all reports ... deliver each separate and then give a summary" /
