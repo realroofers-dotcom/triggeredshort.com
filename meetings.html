@@ -167,12 +167,14 @@ form{border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;g
   <div class="tile"><svg class="ic"><use href="#i-ask"/></svg><b>Questions?</b><small>Can anyone ask</small></div>
 </div>
 
-<p class="k">How we mark it</p>
+<p class="k">How we grade it</p>
+<!-- grade-1a, 15 Nov 2026. Mark: "no physical access gets a bad grade and no broadcast as well gets a bad grade" -->
 <div class="tiles">
-  <div class="tile red"><svg class="ic"><use href="#i-screen"/></svg><span class="tag red">Red mark</span><b>Virtual only</b><small>No room, no faces, no follow-up.</small></div>
-  <div class="tile red"><svg class="ic"><use href="#i-globe"/></svg><span class="tag red">Red mark</span><b>Another country, or hard to reach</b><small>US owners, overseas meeting.</small></div>
-  <div class="tile green"><svg class="ic"><use href="#i-cast"/></svg><span class="tag green">Very positive</span><b>In person + broadcast + open questions</b><small>Only if they also meet in person.</small></div>
-</div><p class="note">Marks are 8K10Q&rsquo;s opinion, drawn from the company&rsquo;s filings. They are not investment advice.</p>
+  <div class="tile green"><svg class="ic"><use href="#i-cast"/></svg><span class="tag green">A</span><b>In person + broadcast + open questions</b><small>Owners can walk in, watch and ask.</small></div>
+  <div class="tile"><svg class="ic"><use href="#i-cast"/></svg><span class="tag" style="background:#2678d6">B</span><b>In person + broadcast</b><small>Open questions not found in the proxy.</small></div>
+  <div class="tile red"><svg class="ic"><use href="#i-people"/></svg><span class="tag" style="background:#d98a00">D</span><b>In person only &mdash; no broadcast</b><small>Bad grade: only owners who travel can see it. Also: abroad, with a broadcast.</small></div>
+  <div class="tile red"><svg class="ic"><use href="#i-screen"/></svg><span class="tag red">F</span><b>Virtual only &mdash; no physical access</b><small>Bad grade: no room, no faces. Also: abroad, with no broadcast.</small></div>
+</div><p class="note">Grades are 8K10Q&rsquo;s opinion, drawn from the company&rsquo;s filings. They are not investment advice.</p>
 
 <h2><svg class="ic" style="color:var(--red);vertical-align:-4px"><use href="#i-globe"/></svg> First case: Theriva Biologics (TOVX)</h2>
 <div class="case">
@@ -199,7 +201,7 @@ form{border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;g
   <a class="tile" href="/army"><svg class="ic"><use href="#i-flag"/></svg><b>Going yourself?</b><small>You&rsquo;re in the 8K10Q Army if you attend.</small></a>
 </div>
 <footer><b>8K10Q</b> &middot; Mark Nejmeh &middot; <a href="/">Home</a> &middot; <a href="/room">The room</a> &middot; <a href="/army">The Army</a> &middot; <a href="/terms">Terms</a></footer>
-<p class="k" style="font-size:11px">Built 2026-10-01 &middot; 8k10q meetings-1e</p>
+<p class="k" style="font-size:11px">Built 2026-10-01 &middot; 8k10q meetings-1f (grades A/B/D/F, 2026-11-15) &middot; meetings-1e</p>
 </div>
 <script>
 /* meetings-1c: look up any company's stockholder meeting from its own proxy (meetings worker, 1 Oct 2026) */
@@ -213,11 +215,12 @@ form{border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;g
   function card(d, m, today) {
     var upcoming = m.date_iso && m.date_iso >= today;
     var markIc = m.mark === "red" ? (m.virtual_only ? "i-screen" : "i-globe") : m.mark === "green" ? "i-cast" : "i-info";
+    var gcol = { A: "#1f6b3a", B: "#2678d6", D: "#d98a00", F: "#b23a2b" }[m.grade] || "#8a8b80";
     var where = m.virtual_only ? "Online only" + (m.place ? " (" + m.place + ")" : "") : (m.place || "Not stated in the notice") + (m.country && (m.place || "").indexOf(m.country) < 0 ? " \u2014 " + m.country : "");
     return '<div class="mt ' + esc(m.mark) + '">' +
       '<span class="when">' + (upcoming ? "Next meeting" : "Last meeting") + (m.kind ? " \u00b7 " + esc(m.kind) : "") + '</span>' +
       '<h3>' + esc(d.company) + ' (' + esc(d.symbol) + ')</h3>' +
-      '<span class="pill ' + esc(m.mark) + '">' + ic(markIc) + esc(m.mark_words) + '</span>' +
+      '<span class="pill" style="background:' + gcol + ';color:#fff;border-color:' + gcol + '"><b style="font-size:1.15em;margin-right:6px">' + esc(m.grade || "?") + '</b>' + ic(markIc) + esc(m.grade_words || m.mark_words) + '</span>' +
       '<div class="facts">' +
         fact("i-cal", "When", (m.date || "Date not found") + (m.time ? ", " + m.time : "")) +
         fact("i-pin", "Where", where, !!m.country, true) +
@@ -316,7 +319,7 @@ form{border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;g
     data.forEach(function (m) {
       if (m.lat == null || m.lon == null) return;
       pts.push([m.lat, m.lon, 1]); bounds.push([m.lat, m.lon]);
-      L.circleMarker([m.lat, m.lon], { radius: 6, color: m.mark === "red" ? "#b23a2b" : m.mark === "green" ? "#1f6b3a" : "#1a1f6b", weight: 2, fillOpacity: .7 })
+      L.circleMarker([m.lat, m.lon], { radius: 7, color: ({ A: "#1f6b3a", B: "#2678d6", D: "#d98a00", F: "#b23a2b" })[m.grade] || "#1a1f6b", weight: 2, fillOpacity: .8 })
         .bindPopup("<b>" + esc(m.ticker) + "</b> " + esc(m.company || "") + "<br>" + esc(m.date || m.date_iso) + (m.time ? ", " + esc(m.time) : "") +
           "<br><b>Address:</b> " + esc(m.address || m.place) + (m.matched_address ? '<br><small>Map: ' + esc(m.matched_address) + "</small>" : "") +
           '<br><a href="/attend?s=' + encodeURIComponent(m.ticker) + '">Send us</a> &middot; <a href="' + esc(m.url) + '" target="_blank" rel="noopener">Proxy</a>').addTo(map);
