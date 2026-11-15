@@ -350,6 +350,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   .col{display:none}
   .cols[data-tab="room"] .ccentre,.cols[data-tab="company"] .cleft,.cols[data-tab="reports"] .cright{display:block}
   .cols[data-tab="company"] .orderp{display:block}
+  /* pick-1e (Mark 15 Nov: "this page shows up in between the list could confuse some people"): the phone Order a read tab shows only the order panel */
+  .cols[data-tab="company"] .cleft .side > *:not(.orderp){display:none}
   /* room-3d: on a phone the price block still shows above the room */
   .cols[data-tab="room"] .cleft{display:block;order:-1} .cols[data-tab="room"] .cleft .panel{display:none} .cols[data-tab="room"] .cleft .hero.quote{margin-bottom:0}
   .side{position:static}
@@ -506,7 +508,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   <!-- LEFT: our sales information, and you (room-3a: his rule, the left is for our sales info; the company and its cards sit in the centre under the chat heading) -->
   <div class="col cleft"><div class="side">
     <!-- pick-1b (15 Nov 2026, Mark: "went to the next screen and read filing does not do anything"): on a phone the "Order a read" tab opens on the filing picker -->
-    <section class="panel orderp" aria-label="Order a read"><div class="ph"><h3>Order a read</h3><p>Pick the filing; we read the whole of it for you in plain English.</p></div><div class="pb"><div class="readpick"></div></div></section>
+    <section class="panel orderp" aria-label="Order a read"><div class="ph"><h3>Order a read</h3><p>Pick the filing; we read the whole of it for you in plain English.</p></div><div class="pb"><div class="readpick"><p class="muted" style="margin:0">Loading the reports&hellip;</p></div></div></section>
     <!-- room-3d (2026-09-30): the price and company block sits at the top of the left column; the conversation is the focal point, top of the centre -->
     <section class="hero quote" aria-label="The price">
   <div class="hgrid">
