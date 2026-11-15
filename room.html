@@ -1235,31 +1235,48 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         /* pick-1c (15 Nov 2026, Mark: "when i click order a read it goes to stripe but i need to pick what i want to read
            or read all"): a list to tap, nothing chosen in advance; the button stays off until a filing is picked */
         var nm = function (x) { return FORMS[x.form] || (FORMS[String(x.form).replace(/\/A$/, "")] ? FORMS[String(x.form).replace(/\/A$/, "")] + " (amended)" : (/^424B/.test(x.form) ? "Prospectus" : "Filing")); };
-        /* pick-1f (Mark: 'i clicked two and was unable to unclick one of them'): one choice per list - every row shares one group name */
-        var grp = 'rp_' + Math.random().toString(36).slice(2, 8);
-        box.innerHTML = '<b style="display:block;font:800 14.5px var(--body);margin:0 0 6px">1. Pick the report to read</b>'
-          + '<div class="rplist" role="radiogroup" style="border:1px solid var(--line,#d5dae4);border-radius:10px">'
-          + rec.map(function (x, i) { return '<label class="rprow" style="display:flex;gap:10px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line,#eceff5);cursor:pointer;font-size:14.5px"><input type="radio" name="' + grp + '" value="' + esc(x.accession) + '" data-lab="' + esc(x.form + ' of ' + day(x.filed_on)) + '" style="width:20px;height:20px;flex:0 0 auto"><span><b>' + esc(x.form) + '</b> &middot; ' + esc(nm(x)) + '<br><small style="color:var(--ink2,#3a3b33)">filed ' + esc(day(x.filed_on)) + (i === 0 ? ' &middot; the latest' : '') + '</small></span></label>'; }).join("")
+        /* pick-1g (15 Nov 2026, Mark: "now I cannot pick two or three it only allows one" / "it toggles off the first one"):
+           tick as many reports as you like; each tap ticks or unticks that one; the button and the bar count them.
+           One = a single read ($12); two or more = one payment, $12 each, every one its own read plus a summary. */
+        box.innerHTML = '<b style="display:block;font:800 14.5px var(--body);margin:0 0 6px">1. Tick the reports to read <span style="font-weight:600;color:var(--ink2,#3a3b33)">(one or more)</span></b>'
+          + '<div class="rplist" style="border:1px solid var(--line,#d5dae4);border-radius:10px">'
+          + rec.map(function (x, i) { return '<label class="rprow" style="display:flex;gap:10px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line,#eceff5);cursor:pointer;font-size:14.5px"><input type="checkbox" value="' + esc(x.accession) + '" data-lab="' + esc(x.form + ' of ' + day(x.filed_on)) + '" style="width:22px;height:22px;flex:0 0 auto"><span><b>' + esc(x.form) + '</b> &middot; ' + esc(nm(x)) + '<br><small style="color:var(--ink2,#3a3b33)">filed ' + esc(day(x.filed_on)) + (i === 0 ? ' &middot; the latest' : '') + '</small></span></label>'; }).join("")
           + '</div>'
-          + '<a class="rbtn rpgo" aria-disabled="true" style="opacity:.45;pointer-events:none" href="#">Pick a report above</a>'
-          + '<p style="margin:6px 0 0;font-size:12.5px;color:var(--ink2,#3a3b33)">Every section in plain English, on 8K10Q letterhead, yours to print. Card page by Stripe.</p>'
+          + '<a class="rbtn rpgo" aria-disabled="true" style="opacity:.45;pointer-events:none" href="#">Tick a report above</a>'
+          + '<p style="margin:6px 0 0;font-size:12.5px;color:var(--ink2,#3a3b33)">$12 a report. Each one read in full, in plain English, on 8K10Q letterhead, with your copy of the filing; two or more come with a summary across them. Card page by Stripe.</p>'
           + '<div class="rpall" style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line,#d5dae4)"></div>'
           + '<p style="margin:8px 0 0;font-size:12.5px">Special: <a href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">warrant research on Warrant Wire &rarr;</a></p>';
         var go = box.querySelector(".rpgo");
-        Array.prototype.forEach.call(box.querySelectorAll('input[type="radio"]'), function (rb) {
-          rb.addEventListener("change", function () {
-            Array.prototype.forEach.call(box.querySelectorAll(".rprow"), function (r) { r.style.background = ""; });
-            rb.closest(".rprow").style.background = "#fff3ec";
-            go.href = readHref(rb.value, rb.getAttribute("data-lab").replace(" of ", " filed ")); go.style.opacity = ""; go.style.pointerEvents = ""; go.removeAttribute("aria-disabled");
-            go.innerHTML = "2. Read the " + rb.getAttribute("data-lab") + " &middot; $12";
-            /* pick-1d (15 Nov 2026, Mark: "I click order a read and get nothing"): the buy button sat below a long list,
-               out of sight. Once a report is picked, the bar at the bottom of the screen IS the buy button. */
-            var ord = document.getElementById("actorder");
-            if (ord) { ord.href = go.href; ord.innerHTML = '<svg class="ic"><use href="#i-report"/></svg>Read this one &middot; $12'; ord.setAttribute("data-buy", "1"); }
-            var bar = document.getElementById("pickbar");
-            if (bar) { bar.hidden = false; bar.querySelector("span").textContent = rb.getAttribute("data-lab"); bar.querySelector("a").href = go.href; }
-          });
-        });
+        var buySet = function (accs) {   /* two or more: the list is kept by the reader, the payment carries its id */
+          go.innerHTML = "Getting the card page ready&hellip;";
+          fetch("https://read.realroofers.workers.dev/?setnew=1&ticker=" + encodeURIComponent(T) + "&accs=" + encodeURIComponent(accs.join(","))).then(function (r) { return r.json(); }).then(function (d) {
+            if (!d || !d.ok) { go.innerHTML = "Could not start the purchase. Try again."; return; }
+            location.href = PAYK8 + "/?go=read_set&on=k8&collect_email=1&n=" + d.n + "&ticker=" + encodeURIComponent(T) + "&ref=" + encodeURIComponent(d.ref) + "&desc=" + encodeURIComponent(T + " · " + d.n + " reports you chose") + "&ret=" + encodeURIComponent("/read.html");
+          }).catch(function () { go.innerHTML = "Could not reach the reader. Try again."; });
+        };
+        var update = function () {
+          var ticked = Array.prototype.filter.call(box.querySelectorAll('input[type="checkbox"]'), function (c) { return c.checked; });
+          Array.prototype.forEach.call(box.querySelectorAll(".rprow"), function (r) { r.style.background = r.querySelector("input").checked ? "#fff3ec" : ""; });
+          var ord = document.getElementById("actorder"), n = ticked.length;
+          go.onclick = null; if (ord) ord.onclick = null;
+          if (!n) {
+            go.href = "#"; go.style.opacity = ".45"; go.style.pointerEvents = "none"; go.innerHTML = "Tick a report above";
+            if (ord) { ord.href = "#getread"; ord.innerHTML = '<svg class="ic"><use href="#i-report"/></svg>Order a read'; }
+            return;
+          }
+          go.style.opacity = ""; go.style.pointerEvents = "";
+          if (n === 1) {
+            var lab = ticked[0].getAttribute("data-lab");
+            go.href = readHref(ticked[0].value, lab.replace(" of ", " filed ")); go.innerHTML = "2. Read the " + lab + " &middot; $12";
+            if (ord) { ord.href = go.href; ord.innerHTML = '<svg class="ic"><use href="#i-report"/></svg>Read this one &middot; $12'; }
+          } else {
+            var accs = ticked.map(function (c) { return c.value; }), total = "$" + (n * 12);
+            go.href = "#buyset"; go.innerHTML = "2. Read these " + n + " &middot; " + total;
+            go.onclick = function (e) { e.preventDefault(); buySet(accs); };
+            if (ord) { ord.href = "#buyset"; ord.innerHTML = '<svg class="ic"><use href="#i-report"/></svg>Read these ' + n + ' &middot; ' + total; ord.onclick = function (e) { e.preventDefault(); e.stopPropagation(); buySet(accs); }; }
+          }
+        };
+        Array.prototype.forEach.call(box.querySelectorAll('input[type="checkbox"]'), function (c) { c.addEventListener("change", update); });
         /* read-all-1a (Mark 15 Nov: "an option to read all reports ... deliver each separate and then give a summary" /
            "12 each" / "we offer a 30% discount if they select read all"): the count comes from the reader, which reads
            exactly that window */

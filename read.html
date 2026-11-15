@@ -120,7 +120,7 @@ q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:2
       + '<div class="sheet">'
       + '<div class="lh"><div class="lh-l"><div><img src="/8k10q-mark.svg" alt="8K10Q.com" class="lh-logo"><div class="lh-tag">SEC filings, read in plain English</div></div></div>'
       + '<div class="lh-c">8k10q.com<br>' + LH.phone + '<br>' + LH.email + '</div></div>'
-      + '<div class="meta">Every report filed by <b>' + esc(co || t) + ' (' + esc(t) + ')</b> from ' + esc(j.since) + ' to ' + esc(j.until) + ' &middot; ' + j.total + ' report' + (j.total === 1 ? '' : 's')
+      + '<div class="meta">' + (j.kind === "set" ? 'The ' + j.total + ' report' + (j.total === 1 ? '' : 's') + ' you chose, filed by <b>' + esc(co || t) + ' (' + esc(t) + ')</b>' : 'Every report filed by <b>' + esc(co || t) + ' (' + esc(t) + ')</b> from ' + esc(j.since) + ' to ' + esc(j.until) + ' &middot; ' + j.total + ' report' + (j.total === 1 ? '' : 's'))
       + '<br><span class="only">Prepared for one reader only' + (j.for_reader ? ' (' + esc(j.for_reader) + ')' : '') + '. Not to be reposted, forwarded or shared, in whole or in part, including in the 8K10Q chat rooms.</span></div>'
       + (sm ? '<div class="card head"><div class="k">The summary, across every report</div><b>' + esc(sm.headline || "") + '</b><p>' + esc(sm.plain_summary || "") + '</p></div>'
           + s("What changed", sm.what_changed) + s("The money over time", sm.money_over_time) + s("People", sm.people) + s("What the board and officers did", sm.board_actions)
