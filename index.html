@@ -466,7 +466,7 @@ footer a{color:#C4CCEA}
 <div class="topsearch"><div class="wrap">
   <form class="tsf" id="tsf" role="search" onsubmit="return false">
     <label for="tk" class="vh">Search a symbol, a company or a person in the deal</label>
-    <input id="tk" type="text" placeholder="Search a stock, ETF or crypto" maxlength="40" autocapitalize="characters" autocorrect="off" spellcheck="false" autocomplete="off">
+    <input id="tk" type="text" placeholder="Enter a symbol or company name" maxlength="40" autocapitalize="characters" autocorrect="off" spellcheck="false" autocomplete="off">
     <a id="joinchat" data-room href="#tk" class="tsroom">Open its room</a>
     <button id="go" type="button" class="tsread">Read the filings</button>
   </form>
@@ -932,8 +932,21 @@ footer a{color:#C4CCEA}
     var tk=document.getElementById('tk'), t=(tk.value||'').trim().toUpperCase();
     /* read-btn-1a (15 Nov 2026, Mark: "read filings button does not work"): an empty box did nothing at all. Now it
        asks for a symbol; with one, "Read the filings" opens that company's filing picker (the $12 read). */
-    if(!t){ tk.placeholder='TYPE A SYMBOL, THEN READ ITS FILINGS'; tk.scrollIntoView({block:'center'}); tk.focus(); return; }
-    if(this && this.id==='go'){ location.href='/room?t='+encodeURIComponent(t)+'#getread'; return; }
+    /* read-btn-1b (Mark: "when i see mrvl on the page i assume it will read mrvl - button should say please enter a
+       symbol or company name"): an empty box changes the button itself to say so, and the box asks too */
+    var gb=document.getElementById('go');
+    if(!t){ tk.placeholder='Enter a symbol or company name'; if(gb){ gb.textContent='Please enter a symbol or company name'; setTimeout(function(){ gb.textContent='Read the filings'; },4000); } tk.scrollIntoView({block:'center'}); tk.focus(); return; }
+    if(this && this.id==='go'){
+      /* a company name (not a symbol) is looked up first */
+      if(!/^[A-Z0-9.\-]{1,6}$/.test(t)){
+        gb.textContent='Finding '+tk.value.trim()+'…';
+        fetch('https://wire.warrantwire.com/?wire=1&q='+encodeURIComponent(tk.value.trim())).then(function(r){return r.json();}).then(function(d){
+          var s=d&&d.company&&d.company.ticker; if(s){ location.href='/room?t='+encodeURIComponent(s)+'#getread'; } else { gb.textContent='Read the filings'; tk.value=''; tk.placeholder='Not found: try the symbol'; tk.focus(); }
+        }).catch(function(){ gb.textContent='Read the filings'; });
+        return;
+      }
+      location.href='/room?t='+encodeURIComponent(t)+'#getread'; return;
+    }
     /* ⚠ 8 Nov 2026 - THE SEARCH OPENS THE ROOM, NOT THE FREE PAGE. Mark: "when they want to go to a chat room for NVDA bring them there with comments posted not the page we have with free info", and "in the rooms we should post with our agents the free info if anything". The room already has the agents in it - 13,484 posts across 1,565 rooms, 47 on NVDA alone - and the site's own line says a symbol IS the room. The search was sending every one of them to company.html instead: a page of free information with nothing happening on it. */
       location.href='/room?t='+encodeURIComponent(t);
   }
