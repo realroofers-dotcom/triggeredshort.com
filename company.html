@@ -340,14 +340,16 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
         });
         return;
       }
+      /* read-page-1a, 15 Nov 2026: ONE CLICK to Stripe's card page (Stripe asks for the email), then back to
+         8k10q.com/read.html?paid=cs_... where the read is made and shown - no key, no prompt, no basket.
+         Came from Warrant Wire with a paid session (?from=cs_...)? The same read at $9.60 (wire_read_ww; the desk
+         checks the session and charges full price if it is not one - never a dead end). */
       b.addEventListener("click", function () {
-        var email = prompt("Your email address — the receipt and the reading go here."); if (!email) return;
-        var m = document.getElementById("buymsg");
-        if (email.indexOf("@") < 1) { m.textContent = "That does not look like an email address."; m.className = "bad"; return; }
-        m.className = ""; m.textContent = "Opening checkout…";
-        fetch(PAY + "/?buy=wire_read&email=" + encodeURIComponent(email) + "&on=k8&ticker=" + encodeURIComponent(b.getAttribute("data-t")) + "&ref=" + encodeURIComponent(b.getAttribute("data-t") + ":" + b.getAttribute("data-acc")))
-          .then(function (r) { return r.json(); }).then(function (j) { if (j && j.ok && j.url) location.href = j.url; else { m.textContent = (j && j.error) || "Could not start the checkout."; m.className = "bad"; } })
-          .catch(function () { m.textContent = "Could not reach the payment desk."; m.className = "bad"; });
+        var t = b.getAttribute("data-t"), acc = b.getAttribute("data-acc"), m = document.getElementById("buymsg");
+        if (m) { m.className = ""; m.textContent = "Opening Stripe's secure card page…"; }
+        var from = (qs.get("from") || "").trim(), cross = /^cs_(live|test)_[A-Za-z0-9]+$/.test(from);
+        location.href = PAY + "/?go=" + (cross ? "wire_read_ww" : "wire_read") + "&on=k8&collect_email=1&ticker=" + encodeURIComponent(t)
+          + "&ref=" + encodeURIComponent(t + ":" + acc) + (cross ? "&from=" + encodeURIComponent(from) : "") + "&ret=" + encodeURIComponent("/read.html");
       });
     });
   }).catch(function () { page.innerHTML = '<div class="quiet">The wire is not answering just now.</div>'; });

@@ -92,7 +92,7 @@ document.getElementById("go").addEventListener("submit", function (e) {
   var f = e.target, lines = [];
   Array.prototype.forEach.call(f.elements, function (el) { if (el.name) lines.push(el.name + ": " + el.value); });
   lines.push("", "Sent from 8k10q.com/attend on " + new Date().toLocaleString());
-  location.href = "mailto:contact@8k10q.com?subject=" + encodeURIComponent("8K10Q attend: " + (f.Ticker.value || "").toUpperCase() + " - " + f.Request.value) +
+  location.href = "mailto:research@8k10q.com?subject=" + encodeURIComponent("8K10Q attend: " + (f.Ticker.value || "").toUpperCase() + " - " + f.Request.value) +
     "&body=" + encodeURIComponent(lines.join("\n"));
 });
 </script>

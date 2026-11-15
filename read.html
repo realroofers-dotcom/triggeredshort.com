@@ -1,0 +1,137 @@
+<!-- BUILT 2026-11-15 · 8k10q read-page-1a · THE PAID READ, DELIVERED.
+     The buyer pays $12 on Stripe for one filing and comes back here: 8k10q.com/read.html?paid=cs_...
+     The Stripe session is the key (Mark 14 Nov: no key for customers); the read worker (paid-1a) checks the
+     payment in the pay desk's own records and makes the read if it is not saved yet (2 to 5 minutes).
+     Letterhead + print (Mark 14 Nov: 'printable with a letterhead look with telephone number and email address');
+     'one reader only, not in the chat rooms'; warrants only SIGNALLED with the Warrant Wire report at 20% off
+     because this read was paid (Mark: 'only if they come across from 8k10q or back from warrantwire'). -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your read — 8K10Q</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{--navy:#00208B;--hot:#FF4A00;--ink:#14150f;--ink2:#3a3b33;--ink3:#6b6c62;--line:#dcdfe8;--wash:#f2f4f8;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font:16.5px/1.55 var(--sans)}
+.w{max-width:860px;margin:0 auto;padding:18px 16px 60px}
+.sheet{background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px 24px}
+.lh{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;border-bottom:4px solid var(--navy);padding:0 0 10px}
+.lh-l{display:flex;align-items:center;gap:12px}.lh-logo{display:block;height:58px;width:auto;max-width:100%}
+.lh-name{font:800 34px/1 var(--sans);color:var(--navy);letter-spacing:-.5px}.lh-tag{font:600 13px var(--sans);color:var(--ink3);margin-top:4px}
+.lh-c{font:13px/1.5 var(--sans);text-align:right}
+.meta{font:13px/1.5 var(--sans);color:var(--ink2);border-bottom:1px solid var(--line);padding:8px 0 10px;margin-bottom:6px}
+.only{font-weight:700;color:var(--ink)}
+.card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0}
+.k{font:800 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.head b{font-size:20px;line-height:1.3}
+q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:20px}
+.money{display:grid;grid-template-columns:minmax(150px,auto) 1fr;gap:4px 14px;margin:4px 0}.money dt{font-weight:700}.money dd{margin:0}
+.xsell{border-left:6px solid var(--hot)}
+.xbtn{display:inline-block;margin-top:6px;font:700 15px var(--sans);padding:10px 16px;border-radius:10px;background:#14150f;color:#fff;text-decoration:none}
+.rfoot{font:12px/1.5 var(--sans);color:var(--ink3);border-top:1px solid var(--line);margin-top:18px;padding-top:8px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:0 0 12px}
+.btn{font:700 15px var(--sans);padding:10px 18px;border:0;border-radius:10px;background:var(--navy);color:#fff;cursor:pointer;text-decoration:none}
+.btn.o{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.wait{background:#fff;border:1px solid var(--line);border-radius:12px;padding:26px 24px;text-align:center}
+.wait h1{font-size:24px;margin:0 0 6px;color:var(--navy)}.wait p{color:var(--ink2);margin:6px 0}
+.spin{width:38px;height:38px;border:4px solid var(--line);border-top-color:var(--hot);border-radius:50%;margin:6px auto 12px;animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.bad{color:#b00020;font-weight:700}
+.keep{font-size:13.5px;color:var(--ink3);margin:10px 0 0}
+@media (max-width:560px){.sheet{padding:16px 14px}.lh-c{text-align:left}.money{grid-template-columns:1fr}.money dt{margin-top:6px}}
+@media print{
+  body{background:#fff;font-size:12pt}.noprint,.k8nav,.k8band,.hads1{display:none!important}
+  .w{max-width:none;padding:0}.sheet{border:0;padding:0}.card{break-inside:avoid;border:1px solid #bbb;border-radius:0;padding:8px 10px;margin:8px 0}
+  a{color:#14150f}.xbtn{background:none;color:#14150f;border:1px solid #14150f;padding:4px 8px}
+  @page{margin:16mm 14mm}
+}
+</style>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body><script src="/brand8k.js?v=1b"></script>
+<div class="w"><div id="out"><div class="wait"><div class="spin"></div><h1>Opening your read&hellip;</h1><p>Checking your payment with Stripe.</p></div></div>
+<p class="keep noprint">Keep this page: bookmark it, or print it. The address above is your copy. Lost it? Call Mark Nejmeh, 215-219-7699, with your Stripe receipt.</p>
+</div>
+<script>
+(function () {
+  var READ = "https://read.realroofers.workers.dev", PAY = "https://pay.realroofers.workers.dev";
+  var LH = { phone: "215-219-7699 &middot; 702-544-2002", email: "research@8k10q.com" };   /* Mark 14 Nov: both phones */
+  var qs = new URLSearchParams(location.search), S = qs.get("paid") || qs.get("s") || "";
+  var out = document.getElementById("out");
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function list(a, f) { return (a && a.length) ? "<ul>" + a.map(f).join("") + "</ul>" : "<p>None given in this filing.</p>"; }
+  function waitBox(h, p) { out.innerHTML = '<div class="wait"><div class="spin"></div><h1>' + h + '</h1>' + p + '</div>'; }
+  if (!/^cs_(live|test)_[A-Za-z0-9]+$/.test(S)) {
+    out.innerHTML = '<div class="wait"><h1>No payment reference</h1><p>This page opens a read you paid for; the link Stripe sent you back with carries the reference. <a href="/">Search a company</a> to buy a read.</p></div>';
+    return;
+  }
+  var tries = 0, started = Date.now();
+  function ask(look) {
+    fetch(READ + "/?paidread=1&session=" + encodeURIComponent(S) + (look ? "&wait=1" : ""))
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j && j.ready) return show(j);
+        if (j && j.paid === false) {
+          if (tries++ < 20) { waitBox("Payment received&hellip;", "<p>Waiting for Stripe to confirm it. This usually takes a few seconds.</p>"); return setTimeout(function () { ask(false); }, 3000); }
+          return waitBox("Stripe has not confirmed yet", '<p>If your card was charged you are covered. Refresh this page in a minute, or call 215-219-7699.</p>');
+        }
+        if (j && j.error && !j.making) {
+          out.innerHTML = '<div class="wait"><h1>We hit a snag</h1><p class="bad">' + esc(j.error) + '</p><p><button class="btn" id="again">Try again</button></p></div>';
+          document.getElementById("again").onclick = function () { waitBox("Reading again&hellip;", ""); ask(false); };
+          return;
+        }
+        /* being read now: show progress, look every 10 seconds */
+        var mins = Math.floor((Date.now() - started) / 60000);
+        waitBox("Reading " + esc(j.ticker || "") + "&rsquo;s filing for you&hellip;", "<p>Every section, in plain English. This takes 2 to 5 minutes; keep this page open." + (mins ? " (" + mins + " min so far)" : "") + "</p>");
+        if (Date.now() - started < 15 * 60000) setTimeout(function () { ask(true); }, 10000);
+        else waitBox("This one is taking longer", '<p>Your read is still being made and is saved when done. Refresh this page in a few minutes, or call 215-219-7699.</p>');
+      })
+      .catch(function () {
+        /* the browser gave up waiting on a long read; the reader keeps going and saves it */
+        waitBox("Still reading&hellip;", "<p>Checking for your finished read every 10 seconds.</p>");
+        if (Date.now() - started < 15 * 60000) setTimeout(function () { ask(true); }, 10000);
+      });
+  }
+  ask(false);
+
+  function show(j) {
+    var r = j.read || {}, m = r.money || {}, ws = r.warrants_signal || {}, t = j.ticker || "";
+    /* the wire stores names like "Nuvve Holding Corp. (NVVE) (CIK 0001836875)": the letterhead shows the plain name */
+    j.company = String(j.company || "").replace(/\s*\(CIK[^)]*\)/gi, "").replace(/\s*\([A-Z0-9.\-]{1,12}\)\s*$/, "").trim();
+    if (m.note) m.note = String(m.note).replace(/\b[a-z]+(_[a-z]+)+\b/g, function (w) { return w.replace(/_/g, " "); });
+    function sec(title, a, f) { return '<div class="card"><div class="k">' + title + '</div>' + list(a, f) + '</div>'; }
+    function mrow(k, v) { return v ? '<dt>' + k + '</dt><dd>' + esc(v) + '</dd>' : ''; }
+    var made = j.made ? new Date(String(j.made).replace(" ", "T") + "Z").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "";
+    document.title = t + " " + (j.form || "filing") + " read — 8K10Q";
+    out.innerHTML = '<div class="bar noprint"><button class="btn" onclick="window.print()">Print this report</button><a class="btn o" href="/company.html?ticker=' + encodeURIComponent(t) + '">' + esc(t) + ' on 8K10Q</a></div>'
+      + '<div class="sheet">'
+      + '<div class="lh"><div class="lh-l"><div><img src="/8k10q-mark.svg" alt="8K10Q.com" class="lh-logo"><div class="lh-tag">SEC filings, read in plain English</div></div></div>'
+      + '<div class="lh-c">8k10q.com<br>' + LH.phone + '<br>' + LH.email + '</div></div>'
+      + '<div class="meta">Report on <b>' + esc(j.company || t) + ' (' + esc(t) + ')</b> &middot; ' + esc(j.form || "SEC filing") + (j.filed ? ' filed ' + esc(j.filed) : '') + ' &middot; accession ' + esc(j.accession) + (made ? ' &middot; read ' + esc(made) : '')
+      + '<br><span class="only">Prepared for one reader only' + (j.for_reader ? ' (' + esc(j.for_reader) + ')' : '') + '. Not to be reposted, forwarded or shared, in whole or in part, including in the 8K10Q chat rooms.</span></div>'
+      + '<div class="card head"><div class="k">Headline</div><b>' + esc(r.headline) + '</b><p>' + esc(r.what_this_filing_is || "") + '</p></div>'
+      + '<div class="card"><div class="k">In plain English</div><p>' + esc(r.plain_summary) + '</p></div>'
+      + sec("People", r.people, function (x) { return '<li><b>' + esc(x.name) + '</b> (' + esc(x.role) + ') &ndash; ' + esc(x.what_they_got_or_did) + (x.quote ? ' <q>' + esc(x.quote) + '</q>' : '') + '</li>'; })
+      + '<div class="card"><div class="k">Money</div><dl class="money">' + mrow("Cash", m.cash) + mrow("Raised", m.raised) + mrow("Cost of raising", m.cost_of_raising) + mrow("Debt and amounts owed", m.debt_and_amounts_owed) + mrow("Deferred or unpaid", m.deferred_or_unpaid) + mrow("Costs", m.expenses) + mrow("Revenue", m.revenue) + mrow("Net loss or income", m.net_loss_or_income) + mrow("How long the cash lasts", m.runway) + '</dl>'
+      + (m.quote ? '<p><q>' + esc(m.quote) + '</q></p>' : '') + (m.note ? '<p style="color:var(--ink3)">' + esc(m.note) + '</p>' : '') + '</div>'
+      + sec("Results the company reports", r.results, function (x) { return '<li>' + esc(x.claim) + (x.quote ? ' <q>' + esc(x.quote) + '</q>' : '') + ' &ndash; how sure the filing is: ' + esc(x.how_strong) + '</li>'; })
+      + sec("What the board and officers did", r.actions, function (x) { return '<li>' + (x.date ? esc(x.date) + ' &ndash; ' : '') + esc(x.action) + (x.quote ? ' <q>' + esc(x.quote) + '</q>' : '') + '</li>'; })
+      /* warrants: signalled only; the analysis is Warrant Wire's (Mark 14 Nov: 'we are cross selling here'). 20% off because this read was paid. */
+      + '<div class="card xsell"><div class="k">Warrants</div><p>' + (ws.mentioned ? '<b>This filing mentions warrants</b>' + (ws.where ? ' (' + esc(ws.where) + ')' : '') + '.' : 'This read found no warrant language in this filing.')
+      + ' Warrant analysis is the specialty of our sister site, Warrant Wire: the verdict, every warrant filing ' + esc(t) + ' has made, and what its warrant paper lets insiders and financiers do.</p>'
+      + '<a class="xbtn" href="' + PAY + '/?go=wire_search_k8&ticker=' + encodeURIComponent(t) + '&on=wire&collect_email=1&from=' + encodeURIComponent(S) + '&ret=' + encodeURIComponent('/company.html?t=' + t) + '">Get the ' + esc(t) + ' warrant report on Warrant Wire &middot; $9.60 <span style="font-weight:400">(20% off because you bought this read, was $12)</span></a></div>'
+      + sec("Changes in ownership", r.ownership_changes, function (x) { return '<li>' + esc(x.change) + (x.quote ? ' <q>' + esc(x.quote) + '</q>' : '') + '</li>'; })
+      + '<div class="card"><div class="k">Can the company keep going?</div><p>' + (r.going_concern && r.going_concern.says_so ? '<b>The filing doubts it</b> &ndash; <q>' + esc(r.going_concern.quote) + '</q>' : 'The filing does not raise a going-concern doubt.') + '</p></div>'
+      + sec("The tricky stuff", r.the_tricky_stuff, function (x) { return '<li>' + esc(x.what) + (x.quote ? ' <q>' + esc(x.quote) + '</q>' : '') + (x.where ? ' (' + esc(x.where) + ')' : '') + '</li>'; })
+      + sec("Five questions to ask", r.five_questions, function (x) { return '<li>' + esc(x) + '</li>'; })
+      + sec("What we could not check", r.checks_not_run, function (x) { return '<li>' + esc(x) + '</li>'; })
+      + '<div class="rfoot">Facts and quotes are copied from the company&rsquo;s own SEC filing; what the filing does not say is listed as not checked. This is a reading of a public filing, not investment, legal or financial advice.' + (j.truncated ? ' The filing was very long; the read covers the parts that fit, listed above as not checked.' : '') + ' Licensed to one reader; see 8k10q.com/terms. 8K10Q &middot; 8k10q.com &middot; ' + LH.phone + ' &middot; ' + LH.email + '</div>'
+      + '</div>';
+  }
+})();
+</script>
+</body>
+</html>

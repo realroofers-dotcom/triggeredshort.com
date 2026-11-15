@@ -19,7 +19,7 @@ export async function onRequestGet({ request }) {
   const query = name ? `"${t}" OR "${name}" stock` : `"${t}" stock`;
   const feed = "https://news.google.com/rss/search?q=" + encodeURIComponent(query + " when:7d") + "&hl=en-US&gl=US&ceid=US:en";
   try {
-    const r = await fetch(feed, { cf: { cacheTtl: 600, cacheEverything: true }, headers: { "user-agent": "8K10Q news reader (contact@8k10q.com)" } });
+    const r = await fetch(feed, { cf: { cacheTtl: 600, cacheEverything: true }, headers: { "user-agent": "8K10Q news reader (research@8k10q.com)" } });
     if (!r.ok) throw new Error("feed " + r.status);
     const xml = await r.text();
     const items = (xml.match(/<item>[\s\S]*?<\/item>/g) || []).slice(0, 12).map((it) => {

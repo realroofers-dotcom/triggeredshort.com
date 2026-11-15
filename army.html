@@ -165,7 +165,7 @@ function mailFallback(f) {
   var lines = [];
   Array.prototype.forEach.call(f.elements, function (el) { if (el.name) lines.push(el.name + ": " + el.value); });
   lines.push("", "Sent from 8k10q.com/army on " + new Date().toLocaleString());
-  location.href = "mailto:contact@8k10q.com?subject=" + encodeURIComponent("8K10Q Army: I attended " + (f.Ticker.value || "").toUpperCase()) +
+  location.href = "mailto:research@8k10q.com?subject=" + encodeURIComponent("8K10Q Army: I attended " + (f.Ticker.value || "").toUpperCase()) +
     "&body=" + encodeURIComponent(lines.join("\n"));
 }
 

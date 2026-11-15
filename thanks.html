@@ -38,7 +38,7 @@ footer{padding:22px 0 0;border-top:1px solid var(--line);font-size:13.5px;color:
 <div class="have"><h2>Using it</h2>
 <ol class="steps">
   <li><b>Search a ticker or a company name.</b> Every filing it made, one year and five years back, with the red flags &mdash; a name change, a reverse split, warrant paper &mdash; shown free.</li>
-  <li><b>A read arrives by email</b> at the address you paid with, in plain English: what the filing says, what changed, what to look at next.</li>
+  <li><b>A read opens on its own page</b> the moment it is made, in plain English: what the filing says, what changed, what to look at next. Print it or bookmark it.</li>
   <li><b>Everything here is a named person&rsquo;s reading</b> of public filings &mdash; an opinion, never advice.</li>
 </ol></div>
 <p><a class="btn" href="/">Search a company</a><a class="btn ghost" href="https://warrantwire.com/">Warrant Wire</a></p>
@@ -60,9 +60,12 @@ footer{padding:22px 0 0;border-top:1px solid var(--line);font-size:13.5px;color:
         var out = "";
         (d.skus || []).forEach(function (g) { out += '<div class="row"><span class="k">' + (LINE[g] || g) + '</span><span>' + (d.ref ? "for " + d.ref : "") + (d.ends_on ? " &middot; good until " + d.ends_on : "") + '</span></div>'; });
         out += '<div class="row"><span class="k">Paid</span><span>$' + ((d.cents || 0) / 100).toFixed(2) + (d.email ? " &middot; receipt from Stripe to " + d.email : "") + '</span></div>';
+        /* read-page-1a (15 Nov 2026): a filing read opens on its own page */
+        if ((d.skus || []).some(function (g) { return g === "wire_read" || g === "read" || g === "wire_read_ww"; }))
+          out += '<p style="margin:14px 0 0"><a class="btn" href="/read.html?paid=' + encodeURIComponent(s) + '">Open your read &rarr;</a></p>';
         st.innerHTML = out;
       } else if (tries++ < 8) setTimeout(ask, 1500);
-      else st.innerHTML = '<span style="color:var(--ink3)">Stripe has not confirmed yet &mdash; it usually does within a minute. If your card was charged you are covered; the read comes to your email either way.</span>';
+      else st.innerHTML = '<span style="color:var(--ink3)">Stripe has not confirmed yet &mdash; it usually does within a minute. If your card was charged you are covered: refresh this page in a minute, or call 215-219-7699.</span>';
     }).catch(function () { if (tries++ < 8) setTimeout(ask, 1500); });
   })();
 })();
