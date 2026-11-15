@@ -567,7 +567,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         <div class="cline">
           <img id="clogo" class="clogo" alt="" hidden><h1 class="csym"><input id="symin" class="symin" maxlength="10" spellcheck="false" autocomplete="off" aria-label="Company symbol: highlight it and type another"></h1><span id="roomtitle"></span>
           <span class="cpx" id="cpx"></span><span class="cchg" id="cchg"></span>
-          <a class="buybtn" id="buybtn" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-report"/></svg><span>Warrant report &middot; $12</span></a>
+          <!-- read-first-1a (15 Nov 2026, Mark: "man everything for purchase still says warrant"): 8K10Q sells the read; the warrant report is Warrant Wire's, offered as a smaller link -->
+          <a class="buybtn" id="buybtn" href="/company.html"><svg class="ic"><use href="#i-report"/></svg><span>Read a filing &middot; $12</span></a>
         </div>
         <div class="coline" id="glance"><span class="muted">Reading the company&rsquo;s own filings&hellip;</span></div>
         <div class="cardrow" id="cards" aria-label="The officers and directors" hidden></div>
@@ -624,8 +625,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     </section>
     <div class="adwrap"><span class="adlab">Advertisements</span><div class="ad" data-ad="rail"></div></div>
     <section class="panel sellp" aria-label="Get the report">
-      <div class="ph"><h3>Get the report</h3><p>Every warrant filing, what the paper lets insiders and financiers do, and, where they file US insider reports, where the officers have been.</p></div>
-      <div class="pb"><a class="btn sellbtn" id="sellbtn" href="https://warrantwire.com/company.html">Warrant report &middot; $12</a></div>
+      <div class="ph"><h3>Get the read</h3><p>Pick any filing &mdash; the 10-K, the 10-Q, the 8-K &mdash; and we read all of it for you in plain English: who got paid, the money, what the board did, the tricky stuff. Yours to print.</p></div>
+      <div class="pb"><div class="readpick" id="getread"><a class="btn sellbtn" id="sellbtn" href="/company.html">Read a filing &middot; $12</a></div></div>
     </section>
     <div class="adwrap"><span class="adlab">Advertisement</span><div class="ad" data-ad="card"></div></div>
     <section class="panel adcall" aria-label="Advertise">
@@ -637,7 +638,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 </main>
 
 
-<nav class="actbar" aria-label="Quick actions"><a class="chat" href="#msg" id="actchat"><svg class="ic"><use href="#i-chat"/></svg>Chat</a><a class="order" href="https://warrantwire.com/company.html" id="actorder"><svg class="ic"><use href="#i-report"/></svg>Order a read</a></nav>
+<nav class="actbar" aria-label="Quick actions"><a class="chat" href="#msg" id="actchat"><svg class="ic"><use href="#i-chat"/></svg>Chat</a><a class="order" href="/company.html" id="actorder"><svg class="ic"><use href="#i-report"/></svg>Order a read</a></nav>
 
 <dialog id="descdlg" aria-labelledby="descttl"><div class="dlg"><h3 id="descttl">What it does</h3><div id="descbody"></div><form method="dialog"><button class="btn">Close</button></form></div></dialog>
 
@@ -680,7 +681,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         return '<li><a href="' + esc(it.link) + '" target="_blank" rel="noopener">' + esc(it.title) + '</a><small>' + esc(it.source || "") + ' &middot; ' + ago + '</small></li>';
       }).join("");
     }).catch(function () { var box = document.getElementById("news"); if (box) box.innerHTML = '<li class="muted">News isn&rsquo;t answering just now.</li>'; });
-    var ord = document.getElementById("actorder"); if (ord) ord.href = "https://warrantwire.com/company.html?q=" + encodeURIComponent(T);
+    var ord = document.getElementById("actorder"); if (ord) ord.href = "#getread";   /* pick-1a: Order a read = the filing picker */
   }
   var ac = document.getElementById("actchat"); if (ac) ac.addEventListener("click", function (e) {
     e.preventDefault();
@@ -853,7 +854,9 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   var FORMS = { "8-K": "Current report", "10-Q": "Quarterly report", "10-K": "Annual report", "S-8": "Employee stock plan", "S-3": "Shelf registration",
     "S-1": "Registration", "S-1/A": "Registration (amended)", "424B5": "Offering prospectus", "424B3": "Prospectus", "DEF 14A": "Proxy for a shareholder vote",
     "PRE 14A": "Draft proxy", "4": "Insider trade", "SC 13G": "Large holder", "SC 13D": "Large holder, active", "EX-99.1": "Press release", "EX-10.1": "Agreement",
-    "10-K/A": "Annual report (amended)", "8-K/A": "Current report (amended)", "S-3/A": "Shelf registration (amended)", "DEFA14A": "Proxy material", "144": "Planned insider sale" };
+    "10-K/A": "Annual report (amended)", "8-K/A": "Current report (amended)", "S-3/A": "Shelf registration (amended)", "DEFA14A": "Proxy material", "144": "Planned insider sale",
+    "6-K": "Foreign company report", "20-F": "Foreign annual report", "40-F": "Canadian annual report", "F-1": "Registration (foreign)", "F-3": "Shelf registration (foreign)",
+    "S-4": "Merger registration", "F-4": "Merger registration (foreign)", "DEFM14A": "Merger proxy", "SC TO-T": "Tender offer", "424B4": "Offering prospectus", "10-Q/A": "Quarterly report (amended)" };
   function lastOf(list) { return (list || []).slice().sort(function (a, b) { return (b.filed_on || "").localeCompare(a.filed_on || ""); })[0]; }
   function evidence(x) { var u = x && safeUrl(x.url); return u ? ' <a href="' + esc(u) + '" target="_blank" rel="noopener">Read it in the ' + esc(x.form) + ' of ' + esc(day(x.filed_on)) + ' &rarr;</a>' : ""; }
 
@@ -938,7 +941,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     var more = '';
     if (f.length) more += '<ul class="facts">' + f.map(function (x) { return '<li><div class="fk">' + x[0] + '</div><div class="fv">' + x[1].replace(/ <button[^>]*id="morebtn"[^>]*>.*?<\/button>/, '') + '</div></li>'; }).join('') + '</ul>';
     /* count-only-1a (Mark 2026-11-14 'you are still giving things away free'; replaces the 28 Sep words-only rule): the count is free; the words, when and which filing are in the read */
-    more += '<h4>Red flags</h4>' + (flags.length ? '<p class="fwords"><b>' + flags.length + ' red flag' + (flags.length === 1 ? '' : 's') + '</b> in ' + esc(T) + '&rsquo;s own filings. What they are, which filings and when: in the read.</p><a class="btn readnow" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">Warrant report &middot; $12</a>'
+    more += '<h4>Red flags</h4>' + (flags.length ? '<p class="fwords"><b>' + flags.length + ' red flag' + (flags.length === 1 ? '' : 's') + '</b> in ' + esc(T) + '&rsquo;s own filings. What they are, which filings and when: in the read.</p><a class="btn readnow" href="#getread">Read a filing &middot; $12</a>'
       : '<p class="noflag">None found in the filings we have read. That is not a clean bill of health, only what the filings say.</p>')
       + notes.map(function (x) { return '<div class="flag note"><b>' + x[0] + '</b><p>' + x[1] + '</p></div>'; }).join('');
     if (files.length) more += '<h4>Latest filings</h4><p class="noflag">Warrant analysis is on Warrant Wire, our sister site. Every other filing is read here, on 8K10Q.</p>' + files.map(function (x) {
@@ -1026,13 +1029,12 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     var label = n + " red flag" + (n > 1 ? "s" : "");
     document.title = "⚑ " + T + " — " + label + " — 8K10Q";
     $("roomtitle").innerHTML = '<a class="flagmini" href="#rf" title="' + label + ' in the company&rsquo;s own filings"><span class="rfdot" aria-hidden="true">⚑</span>' + label + '</a>';
-    var buy = SELLING
-      ? '<a class="rbtn" href="/?buy=wire_read&amp;ticker=' + encodeURIComponent(T) + '">Get the read</a>'
-      : '<a class="rbtn" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">Warrant report &middot; $12</a>';
+    var buy = '<div class="readpick" style="margin-top:10px"></div>';   /* pick-1a: the filing picker, drawn below */
     var box = $("rf");
     box.innerHTML = '<div><b><span class="rfdot" aria-hidden="true">⚑</span>' + label + ' in ' + esc(name) + '&rsquo;s own filings</b>'
-      + '<p>Before you trade, read what the company filed. Which filings, and when, are in the report.</p>'
+      + '<p>Before you trade, read what the company filed. Which filings, and when, are in the read.</p>'
       + '<p class="own">A read is licensed to you alone. It cannot be shared, forwarded, copied or posted.</p></div>' + buy;
+    if (typeof drawPickers === "function") drawPickers();
     box.hidden = false;
     /* summary-1a: on a phone the company (name, price, what it does) comes first; the red-flag box goes under the officers' cards */
     try { if (window.matchMedia("(max-width:820px)").matches && $("cards") && $("cards").parentNode) $("cards").parentNode.insertBefore(box, $("cards").nextSibling); } catch (e) {}
@@ -1152,7 +1154,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   }
   if ($("postbtn")) $("postbtn").addEventListener("click", sendPost);
   if ($("msg")) $("msg").addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); sendPost(); } });
-  if (T) { var bb = $("buybtn"); if (bb) bb.href = "https://warrantwire.com/company.html?t=" + encodeURIComponent(T) + "#auto"; }
+  if (T) { var bb = $("buybtn"); if (bb) bb.href = "#getread"; }   /* pick-1a: to the filing picker */
   showComposer();
   /* room-3i: the agents' roundtable. The first visit of the trading day starts it; it takes about half a minute */
   if (T) fetch(ROOM + "/api/roundtable?t=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (d) {
@@ -1202,17 +1204,45 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   /* ---------------- go ---------------- */
   var quoteP = loadQuote();
   var wireP = getJSON(WIRE + "/?wire=1&q=" + encodeURIComponent(T)).catch(function () { return null; });
+  /* pick-1a (15 Nov 2026). Mark: "man everything for purchase still says warrant" / "when i am here i want to buy the
+     last filing and i should have a selection because its not every filing". Every buy box in the room is a filing
+     picker: the company's recent filings, newest first and already chosen; one tap goes to Stripe's card page and
+     back to the read (8k10q.com/read.html). The warrant report stays a small link to Warrant Wire. */
+  var PAYK8 = "https://pay.realroofers.workers.dev";
+  function readHref(acc) { return PAYK8 + "/?go=wire_read&on=k8&collect_email=1&ticker=" + encodeURIComponent(T) + "&ref=" + encodeURIComponent(T + ":" + acc) + "&ret=" + encodeURIComponent("/read.html"); }
+  function drawPickers() {
+    wireP.then(function (w) {
+      /* only filings worth a read: annual, quarterly, current and foreign reports, offerings, proxies, big-holder and
+         merger filings - not one-line insider notices (Forms 3, 4, 5, 144) */
+      var WORTH = /^(10-K|10-Q|8-K|6-K|20-F|40-F|S-1|S-3|S-4|F-1|F-3|F-4|424B|DEF 14A|PRE 14A|DEFM14A|PREM14A|DEF 14C|SC 13D|SC TO|N-2|1-A|10-12)/;
+      var e = (w && w.edgar) || {}, rec = (e.recent_all || e.recent || []).filter(function (x) { return x && x.accession && WORTH.test(String(x.form || "")); }).slice(0, 15);
+      Array.prototype.forEach.call(document.querySelectorAll(".readpick:not([data-done])"), function (box) {
+        box.setAttribute("data-done", "1");
+        if (!rec.length) { box.innerHTML = '<p class="muted" style="margin:0">No filings on record for ' + esc(T) + ' yet.</p>'; return; }
+        box.innerHTML = '<label style="display:block;font:800 13px var(--body);margin:0 0 6px">Pick the filing to read</label>'
+          + '<select class="rpsel" style="width:100%;padding:9px 10px;border:1px solid var(--line,#d5dae4);border-radius:8px;font:600 15px var(--body);background:#fff">'
+          + rec.map(function (x, i) { return '<option value="' + esc(x.accession) + '">' + esc(x.form) + ' &middot; ' + esc(FORMS[x.form] || (FORMS[String(x.form).replace(/\/A$/, "")] ? FORMS[String(x.form).replace(/\/A$/, "")] + " (amended)" : (/^424B/.test(x.form) ? "Prospectus" : "Filing"))) + ' &middot; ' + esc(day(x.filed_on)) + (i === 0 ? ' (latest)' : '') + '</option>'; }).join("")
+          + '</select>'
+          + '<a class="rbtn rpgo" style="display:block;text-align:center;margin-top:8px" href="' + esc(readHref(rec[0].accession)) + '">Read it &middot; $12</a>'
+          + '<p style="margin:6px 0 0;font-size:12.5px;color:var(--ink2,#3a3b33)">Every section in plain English, on 8K10Q letterhead, yours to print. Card page by Stripe.</p>'
+          + '<p style="margin:4px 0 0;font-size:12.5px">Warrants: <a href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">the Warrant Wire report &rarr;</a></p>';
+        var sel = box.querySelector(".rpsel"), go = box.querySelector(".rpgo");
+        sel.addEventListener("change", function () { go.href = readHref(sel.value); });
+      });
+    });
+  }
+  drawPickers();
   /* room-3j (2026-09-30): his rule - the room tells people how many documents there are to read, and that it is
      dangerous not to read them. Counts come from Warrant Wire's record of the company's own SEC filings. */
   wireP.then(function (w) {
     var box = $("readwarn"); if (!box) return;
     var ab = w && w.about, name = (w && w.company && w.company.name) || T;
-    var buy = '<a class="rwbtn" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">We read them for you &middot; $12</a>';
+    var buy = '<a class="rwbtn" href="#getread">We read them for you &middot; $12</a>';   /* pick-1a */
     var rep = "https://warrantwire.com/company.html?t=" + encodeURIComponent(T) + "#auto";
     if (ab && ab.filings > 0) {
       box.innerHTML = '<a href="' + rep + '" title="' + esc(name) + ' has filed ' + ab.filings + ' documents with the SEC since ' + esc(day(ab.first)) + '. Companies disclose dilution, reverse splits and mergers in the fine print."><b>&#9888; ' + ab.filings + ' filings</b></a>'
         + (ab.heavy ? '<a href="' + rep + '" title="' + ab.heavy + ' carry warrant, reverse-split or merger language">' + ab.heavy + ' flagged</a>' : '')
-        + '<a href="' + rep + '">Unread = dangerous</a><a class="rwbtn" href="' + rep + '">Warrant report &middot; $12</a>';
+        + '<a href="#getread">Unread = dangerous</a><a class="rwbtn" href="#getread">Read a filing &middot; $12</a>';   /* pick-1a */
     } else {
       /* ⚠ 8 Nov 2026 — NOT OFF TO EDGAR. Mark: "get rid of the edgar page we read for
          them and they pay they cannot decipher like we can anyway."

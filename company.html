@@ -192,7 +192,7 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
 (function () {
   "use strict";
   var WIRE = "https://wire.warrantwire.com", PAY = "https://pay.realroofers.workers.dev";
-  var SELLING = false; /* no checkout until reads are delivered — see the buttons below */
+  var SELLING = true;  /* 15 Nov 2026: ON - the read is delivered (read.html + the read worker paid-1b, tested), Mark buying the first one from his phone. Was: no checkout until reads are delivered. */
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]; }); }
   var qs = new URLSearchParams(location.search), T = (qs.get("ticker") || qs.get("t") || qs.get("q") || "").trim().toUpperCase();
   var page = document.getElementById("page");
