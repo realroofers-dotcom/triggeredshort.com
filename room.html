@@ -1247,13 +1247,22 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
           + '<div class="rpall" style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line,#d5dae4)"></div>'
           + '<p style="margin:8px 0 0;font-size:12.5px">Special: <a href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">warrant research on Warrant Wire &rarr;</a></p>';
         var go = box.querySelector(".rpgo");
-        var buySet = function (accs) {   /* two or more: the list is kept by the reader, the payment carries its id */
-          go.innerHTML = "Getting the card page ready&hellip;";
+        var boxes = function () { return Array.prototype.slice.call(box.querySelectorAll('input[type="checkbox"]')); };
+        var lock = function (on) { boxes().forEach(function (c) { c.disabled = on; }); };
+        var buySet = function () {   /* two or more: the list is kept by the reader, the payment carries its id */
+          /* lock-1a (15 Nov 2026, Mark's first real purchase: "i pressed two then backed off 1" and was charged for two):
+             the ticked list is read at the moment of the press, and the boxes are locked while the card page loads */
+          var accs = boxes().filter(function (c) { return c.checked; }).map(function (c) { return c.value; });
+          if (accs.length < 2) { update(); if (accs.length === 1) location.href = go.href; return; }
+          lock(true);
+          go.innerHTML = "Getting the card page ready for " + accs.length + " reports&hellip;";
           fetch("https://read.realroofers.workers.dev/?setnew=1&ticker=" + encodeURIComponent(T) + "&accs=" + encodeURIComponent(accs.join(","))).then(function (r) { return r.json(); }).then(function (d) {
-            if (!d || !d.ok) { go.innerHTML = "Could not start the purchase. Try again."; return; }
+            if (!d || !d.ok) { lock(false); go.innerHTML = "Could not start the purchase. Try again."; return; }
             location.href = PAYK8 + "/?go=read_set&on=k8&collect_email=1&n=" + d.n + "&ticker=" + encodeURIComponent(T) + "&ref=" + encodeURIComponent(d.ref) + "&desc=" + encodeURIComponent(T + " · " + d.n + " reports you chose") + "&ret=" + encodeURIComponent("/read.html");
-          }).catch(function () { go.innerHTML = "Could not reach the reader. Try again."; });
+          }).catch(function () { lock(false); go.innerHTML = "Could not reach the reader. Try again."; });
         };
+        /* coming back from Stripe with the Back button: unlock the list */
+        window.addEventListener("pageshow", function () { lock(false); update(); });
         var update = function () {
           var ticked = Array.prototype.filter.call(box.querySelectorAll('input[type="checkbox"]'), function (c) { return c.checked; });
           Array.prototype.forEach.call(box.querySelectorAll(".rprow"), function (r) { r.style.background = r.querySelector("input").checked ? "#fff3ec" : ""; });
@@ -1272,8 +1281,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
           } else {
             var accs = ticked.map(function (c) { return c.value; }), total = "$" + (n * 12);
             go.href = "#buyset"; go.innerHTML = "2. Read these " + n + " &middot; " + total;
-            go.onclick = function (e) { e.preventDefault(); buySet(accs); };
-            if (ord) { ord.href = "#buyset"; ord.innerHTML = '<svg class="ic"><use href="#i-report"/></svg>Read these ' + n + ' &middot; ' + total; ord.onclick = function (e) { e.preventDefault(); e.stopPropagation(); buySet(accs); }; }
+            go.onclick = function (e) { e.preventDefault(); buySet(); };
+            if (ord) { ord.href = "#buyset"; ord.innerHTML = '<svg class="ic"><use href="#i-report"/></svg>Read these ' + n + ' &middot; ' + total; ord.onclick = function (e) { e.preventDefault(); e.stopPropagation(); buySet(); }; }
           }
         };
         Array.prototype.forEach.call(box.querySelectorAll('input[type="checkbox"]'), function (c) { c.addEventListener("change", update); });
