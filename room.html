@@ -872,8 +872,13 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     /* ⚠ BRIEF, WITH THE WHOLE OF IT ONE TAP AWAY. His rule, 28 Sep 2026: the description is a brief line and a link
        to a pop-up; the officers' cards go right under it. */
     if (what) {
-      var brief = String(what).split(/(?<=[.!?])\s+/)[0];
-      if (brief.length > 150) brief = brief.slice(0, 147).replace(/\s+\S*$/, "") + "…";
+      /* brief-fix-1a (15 Nov 2026, Mark: "where is my company description"): "Corp.", "Inc.", "Co.", "Ltd." and the like
+         ended the first "sentence", so AEXA showed only its own name. The brief is now the first real sentence; a short
+         description is shown whole. */
+      var whole = String(what).trim();
+      var safe = whole.replace(/\b(Corp|Inc|Co|Ltd|Ltda|Corp\.\s*A|Bros|Holdings|Hldgs|Intl|No|St|Mt|Jr|Sr|Mr|Mrs|Dr|U\.S|N\.V|S\.A|L\.P|L\.L\.C|P\.L\.C)\./g, function (m) { return m.replace(/\./g, "․"); });
+      var brief = whole.length <= 220 ? whole : (safe.split(/(?<=[.!?])\s+(?=[A-Z])/)[0] || safe).replace(/․/g, ".");
+      if (brief.length > 220) brief = brief.slice(0, 217).replace(/\s+\S*$/, "") + "…";
       $("descbody").innerHTML = '<p>' + esc(what) + '</p>' + (pr.employees != null ? '<p class="note">' + esc(pr.employees) + ' employees' + (pr.employees_as_of ? ', as of ' + esc(day(pr.employees_as_of)) : '') + ', from its own reports.</p>' : '');
 
       f.push(['What it does', esc(brief) + (brief !== what ? ' <button type="button" class="morebtn" id="morebtn">More &rsaquo;</button>' : '')]);
@@ -1243,5 +1248,6 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
 <script src="https://adhotbox.com/box.js"></script>
 <!-- AdHotBox house ads (Mark 15 Nov 2026: 'adhotbox should be on every page') -->
 <script src="https://adhotbox.com/house.js" defer></script>
+<script src="/via.js?v=1a" defer></script>
 </body>
 </html>

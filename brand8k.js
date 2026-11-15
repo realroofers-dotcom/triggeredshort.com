@@ -40,3 +40,5 @@
   document.body.insertBefore(box, document.body.firstChild);
   Array.prototype.forEach.call(box.querySelectorAll(".k8nav a"), function (a) { var h = (a.getAttribute("href") || "").replace(/\.html$/, "").replace(/\/$/, "") || "/"; if (h === here) a.className += " on"; });
 })();
+/* via-1a (15 Nov 2026): the way back to a sister site, on every branded 8K10Q page */
+(function(){ if (document.querySelector('script[src*="via.js"]')) return; var s=document.createElement('script'); s.src='/via.js?v=1a'; s.defer=true; (document.body||document.head).appendChild(s); })();
