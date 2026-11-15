@@ -1219,7 +1219,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
      picker: the company's recent filings, newest first and already chosen; one tap goes to Stripe's card page and
      back to the read (8k10q.com/read.html). The warrant report stays a small link to Warrant Wire. */
   var PAYK8 = "https://pay.realroofers.workers.dev";
-  function readHref(acc) { return PAYK8 + "/?go=wire_read&on=k8&collect_email=1&ticker=" + encodeURIComponent(T) + "&ref=" + encodeURIComponent(T + ":" + acc) + "&ret=" + encodeURIComponent("/read.html"); }
+  function readHref(acc, label) { return PAYK8 + "/?go=wire_read&on=k8&collect_email=1&ticker=" + encodeURIComponent(T) + "&ref=" + encodeURIComponent(T + ":" + acc) + (label ? "&desc=" + encodeURIComponent(T + " · " + label) : "") + "&ret=" + encodeURIComponent("/read.html"); }
   function drawPickers() {
     wireP.then(function (w) {
       /* only filings worth a read: annual, quarterly, current and foreign reports, offerings, proxies, big-holder and
@@ -1246,7 +1246,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
           rb.addEventListener("change", function () {
             Array.prototype.forEach.call(box.querySelectorAll(".rprow"), function (r) { r.style.background = ""; });
             rb.closest(".rprow").style.background = "#fff3ec";
-            go.href = readHref(rb.value); go.style.opacity = ""; go.style.pointerEvents = ""; go.removeAttribute("aria-disabled");
+            go.href = readHref(rb.value, rb.getAttribute("data-lab").replace(" of ", " filed ")); go.style.opacity = ""; go.style.pointerEvents = ""; go.removeAttribute("aria-disabled");
             go.innerHTML = "2. Read the " + rb.getAttribute("data-lab") + " &middot; $12";
           });
         });
@@ -1259,7 +1259,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
           var total = (c.n * c.each_cents / 100).toFixed(2), full = (c.n * c.full_each_cents / 100).toFixed(2);
           ra.innerHTML = '<b style="display:block;font-size:14.5px">Or: read all ' + c.n + ' report' + (c.n === 1 ? '' : 's') + ' from the last 12 months</b>'
             + '<span style="font-size:13px;color:var(--ink2,#3a3b33)">Each one read on its own, then a summary across all of them. $8.40 a report, 30% off &mdash; <b>$' + total + '</b> (was $' + full + ').</span>'
-            + '<a class="rbtn" style="display:block;text-align:center;margin-top:8px;background:#00208B" href="' + PAYK8 + '/?go=read_all&on=k8&collect_email=1&n=' + c.n + '&ticker=' + encodeURIComponent(T) + '&ref=' + encodeURIComponent(c.ref) + '&ret=' + encodeURIComponent('/read.html') + '">Read all ' + c.n + ' &middot; $' + total + '</a>';
+            + '<a class="rbtn" style="display:block;text-align:center;margin-top:8px;background:#00208B" href="' + PAYK8 + '/?go=read_all&on=k8&collect_email=1&n=' + c.n + '&ticker=' + encodeURIComponent(T) + '&ref=' + encodeURIComponent(c.ref) + '&desc=' + encodeURIComponent(T + ' · every report, ' + c.since + ' to ' + c.until) + '&ret=' + encodeURIComponent('/read.html') + '">Read all ' + c.n + ' &middot; $' + total + '</a>';
         }).catch(function () { ra.remove(); });
       });
     });
