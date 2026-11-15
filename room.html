@@ -865,7 +865,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     "S-1": "Registration", "S-1/A": "Registration (amended)", "424B5": "Offering prospectus", "424B3": "Prospectus", "DEF 14A": "Proxy for a shareholder vote",
     "PRE 14A": "Draft proxy", "4": "Insider trade", "SC 13G": "Large holder", "SC 13D": "Large holder, active", "EX-99.1": "Press release", "EX-10.1": "Agreement",
     "10-K/A": "Annual report (amended)", "8-K/A": "Current report (amended)", "S-3/A": "Shelf registration (amended)", "DEFA14A": "Proxy material", "144": "Planned insider sale",
-    "6-K": "Foreign company report", "20-F": "Foreign annual report", "40-F": "Canadian annual report", "F-1": "Registration (foreign)", "F-3": "Shelf registration (foreign)",
+    "6-K": "Foreign company report", "3": "New insider's holdings", "5": "Insider's yearly report", "4/A": "Insider trade (amended)", "425": "Merger communication", "S-8 POS": "Employee stock plan (amended)", "11-K": "Employee plan yearly report", "CORRESP": "Company letter to the SEC", "UPLOAD": "SEC letter to the company", "EFFECT": "Registration takes effect", "FWP": "Offering sheet", "SD": "Conflict minerals report", "ARS": "Annual report to shareholders", "NT 10-Q": "Late quarterly report notice", "NT 10-K": "Late annual report notice", "SC 13G/A": "Large holder (amended)", "SC 13D/A": "Large holder, active (amended)", "8-A12B": "Stock listed on an exchange", "S-3ASR": "Shelf registration (automatic)", "424B2": "Prospectus", "424B7": "Prospectus", "DEF 14C": "Information statement", "PX14A6G": "Shareholder's proxy letter", "CERT": "Exchange certification", "15-12G": "Deregistration", "13F-HR": "Fund holdings report", "20-F": "Foreign annual report", "40-F": "Canadian annual report", "F-1": "Registration (foreign)", "F-3": "Shelf registration (foreign)",
     "S-4": "Merger registration", "F-4": "Merger registration (foreign)", "DEFM14A": "Merger proxy", "SC TO-T": "Tender offer", "424B4": "Offering prospectus", "10-Q/A": "Quarterly report (amended)" };
   function lastOf(list) { return (list || []).slice().sort(function (a, b) { return (b.filed_on || "").localeCompare(a.filed_on || ""); })[0]; }
   function evidence(x) { var u = x && safeUrl(x.url); return u ? ' <a href="' + esc(u) + '" target="_blank" rel="noopener">Read it in the ' + esc(x.form) + ' of ' + esc(day(x.filed_on)) + ' &rarr;</a>' : ""; }
@@ -1230,24 +1230,34 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       Array.prototype.forEach.call(document.querySelectorAll(".readpick:not([data-done])"), function (box) {
         box.setAttribute("data-done", "1");
         if (!rec.length) { box.innerHTML = '<p class="muted" style="margin:0">No filings on record for ' + esc(T) + ' yet.</p>'; return; }
-        box.innerHTML = '<label style="display:block;font:800 13px var(--body);margin:0 0 6px">Pick the filing to read</label>'
-          + '<select class="rpsel" style="width:100%;padding:9px 10px;border:1px solid var(--line,#d5dae4);border-radius:8px;font:600 15px var(--body);background:#fff">'
-          + rec.map(function (x, i) { return '<option value="' + esc(x.accession) + '">' + esc(x.form) + ' &middot; ' + esc(FORMS[x.form] || (FORMS[String(x.form).replace(/\/A$/, "")] ? FORMS[String(x.form).replace(/\/A$/, "")] + " (amended)" : (/^424B/.test(x.form) ? "Prospectus" : "Filing"))) + ' &middot; ' + esc(day(x.filed_on)) + (i === 0 ? ' (latest)' : '') + '</option>'; }).join("")
-          + '</select>'
-          + '<a class="rbtn rpgo" style="display:block;text-align:center;margin-top:8px" href="' + esc(readHref(rec[0].accession)) + '">Read it &middot; $12</a>'
+        /* pick-1c (15 Nov 2026, Mark: "when i click order a read it goes to stripe but i need to pick what i want to read
+           or read all"): a list to tap, nothing chosen in advance; the button stays off until a filing is picked */
+        var nm = function (x) { return FORMS[x.form] || (FORMS[String(x.form).replace(/\/A$/, "")] ? FORMS[String(x.form).replace(/\/A$/, "")] + " (amended)" : (/^424B/.test(x.form) ? "Prospectus" : "Filing")); };
+        box.innerHTML = '<b style="display:block;font:800 14.5px var(--body);margin:0 0 6px">1. Pick the report to read</b>'
+          + '<div class="rplist" role="radiogroup" style="border:1px solid var(--line,#d5dae4);border-radius:10px">'
+          + rec.map(function (x, i) { return '<label class="rprow" style="display:flex;gap:10px;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line,#eceff5);cursor:pointer;font-size:14.5px"><input type="radio" name="rp_' + esc(T) + '_' + Math.random().toString(36).slice(2, 6) + '" value="' + esc(x.accession) + '" data-lab="' + esc(x.form + ' of ' + day(x.filed_on)) + '" style="width:20px;height:20px;flex:0 0 auto"><span><b>' + esc(x.form) + '</b> &middot; ' + esc(nm(x)) + '<br><small style="color:var(--ink2,#3a3b33)">filed ' + esc(day(x.filed_on)) + (i === 0 ? ' &middot; the latest' : '') + '</small></span></label>'; }).join("")
+          + '</div>'
+          + '<a class="rbtn rpgo" aria-disabled="true" style="opacity:.45;pointer-events:none" href="#">Pick a report above</a>'
           + '<p style="margin:6px 0 0;font-size:12.5px;color:var(--ink2,#3a3b33)">Every section in plain English, on 8K10Q letterhead, yours to print. Card page by Stripe.</p>'
           + '<div class="rpall" style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line,#d5dae4)"></div>'
           + '<p style="margin:8px 0 0;font-size:12.5px">Special: <a href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">warrant research on Warrant Wire &rarr;</a></p>';
-        var sel = box.querySelector(".rpsel"), go = box.querySelector(".rpgo");
-        sel.addEventListener("change", function () { go.href = readHref(sel.value); });
+        var go = box.querySelector(".rpgo");
+        Array.prototype.forEach.call(box.querySelectorAll('input[type="radio"]'), function (rb) {
+          rb.addEventListener("change", function () {
+            Array.prototype.forEach.call(box.querySelectorAll(".rprow"), function (r) { r.style.background = ""; });
+            rb.closest(".rprow").style.background = "#fff3ec";
+            go.href = readHref(rb.value); go.style.opacity = ""; go.style.pointerEvents = ""; go.removeAttribute("aria-disabled");
+            go.innerHTML = "2. Read the " + rb.getAttribute("data-lab") + " &middot; $12";
+          });
+        });
         /* read-all-1a (Mark 15 Nov: "an option to read all reports ... deliver each separate and then give a summary" /
            "12 each" / "we offer a 30% discount if they select read all"): the count comes from the reader, which reads
            exactly that window */
         var ra = box.querySelector(".rpall");
         fetch("https://read.realroofers.workers.dev/?allcount=1&ticker=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (c) {
-          if (!c || !c.ok || !c.n || c.n > 120) { ra.remove(); return; }   /* more than 120 a year: call us */
+          if (!c || !c.ok || !c.n || c.n > 500) { ra.remove(); return; }   /* more than 500 a year: call us */
           var total = (c.n * c.each_cents / 100).toFixed(2), full = (c.n * c.full_each_cents / 100).toFixed(2);
-          ra.innerHTML = '<b style="display:block;font-size:14.5px">Or read all ' + c.n + ' report' + (c.n === 1 ? '' : 's') + ' from the last 12 months</b>'
+          ra.innerHTML = '<b style="display:block;font-size:14.5px">Or: read all ' + c.n + ' report' + (c.n === 1 ? '' : 's') + ' from the last 12 months</b>'
             + '<span style="font-size:13px;color:var(--ink2,#3a3b33)">Each one read on its own, then a summary across all of them. $8.40 a report, 30% off &mdash; <b>$' + total + '</b> (was $' + full + ').</span>'
             + '<a class="rbtn" style="display:block;text-align:center;margin-top:8px;background:#00208B" href="' + PAYK8 + '/?go=read_all&on=k8&collect_email=1&n=' + c.n + '&ticker=' + encodeURIComponent(T) + '&ref=' + encodeURIComponent(c.ref) + '&ret=' + encodeURIComponent('/read.html') + '">Read all ' + c.n + ' &middot; $' + total + '</a>';
         }).catch(function () { ra.remove(); });
