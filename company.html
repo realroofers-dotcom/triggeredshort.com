@@ -20,6 +20,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="8K10Q">
 <script src="/action.js" defer></script>
+<!-- story-1b (15 Nov 2026): the shared section from Warrant Wire - shell badge, Theriva pattern, chart, the money, sell sign, the calendar and the defences, the people and their schools. Mark: "what we just did on warrantwire on PEOPLE and Universities all goes on 8k10q". One copy, on warrantwire.com. -->
+<script src="https://warrantwire.com/story.js?v=1b"></script>
 <title>The company — 8K10Q</title>
 <meta name="description" content="Everything a company has filed with the SEC since 2001, with the three tell-tales flagged first: a name change, a reverse split, warrant paper. Read any filing in plain English for $12.">
 <link rel="canonical" href="https://8k10q.com/company.html">
@@ -288,12 +290,15 @@ footer{padding:30px 0 50px;font-size:13.5px;color:var(--ink-2);border-top:1px so
     var a = d.about || {}, warrants = a.filings ? '<div class="warn"><span class="k">&#9888; Warrant paper on the wire</span><p><b>' + a.filings + ' filing' + (a.filings === 1 ? '' : 's') + ' carrying warrant terms' + (a.first ? ' since ' + esc(String(a.first).slice(0, 10)) : '') + '.</b> The third tell-tale. Warrant Wire renders the verdict on it; 8K10Q reads the filings themselves.</p><p class="fine"><a href="https://warrantwire.com/company.html?t=' + esc(tk) + '">The warrant verdict at Warrant Wire &rarr;</a></p></div>' : '';
     var s = d.signals || {};
     page.innerHTML = who(d, tk)
+      + '<div class="story" id="wwstory"></div>'
       + flagsBox(d, tk)
       + stopBox(d, tk)
       + sigBox(s.splits, "Reverse split &mdash; high risk", "<b>The company&rsquo;s own filing carries the language of a reverse split.</b> A reverse split changes nothing about the company and everything about the count: the same business, fewer shares, the price marked up to match &mdash; the financier&rsquo;s reset button.", "W12")
       + sigBox(s.merger, "Merger, sale or wind-down on the table", "<b>The company&rsquo;s own filing carries the language of a merger, a sale, a strategic review or a wind-down.</b> For a company that has lived on warrant paper this is usually how the story ends.", "W10")
       + warrants
-      + edgarBox(d.edgar, tk);
+      + edgarBox(d.edgar, tk)
+      + '<div id="wwpeople"></div>';
+    if (window.WWStory) { WWStory.render(document.getElementById("wwstory"), tk, { site: "k8" }); WWStory.people(document.getElementById("wwpeople"), tk, { site: "k8" }); }
     Array.prototype.forEach.call(page.querySelectorAll("button.buy"), function (b) {
       /* ⚠ SELLING IS SWITCHED OFF (26 Sep 2026) until a paid read is actually
          produced and delivered. See SELLING in index.html. */
