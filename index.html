@@ -869,8 +869,8 @@ footer a{color:#C4CCEA}
     </div>
     <div class="hsell" id="hsell">
       <b>Before you trade, read what the company filed.</b>
-      <span class="rs">The warrant verdict: the rules that fired, every filing, and what the paper permits. One company, one payment.</span>
-      <form class="rgo" id="hsellf"><input id="hsellsym" placeholder="SYMBOL" maxlength="10" aria-label="Symbol for the report"><button type="submit">The report &middot; $12</button></form>
+      <span class="rs">Pick any filing &mdash; the 10-K, the 10-Q, the 8-K &mdash; and we read all of it for you in plain English. One filing, one payment, $12.</span><!-- read-first-1a 15 Nov 2026 -->
+      <form class="rgo" id="hsellf"><input id="hsellsym" placeholder="SYMBOL" maxlength="10" aria-label="Symbol of the company"><button type="submit">Read a filing &middot; $12</button></form>
     </div>
   </section>
 </div><!-- /hcentre -->
@@ -883,10 +883,10 @@ footer a{color:#C4CCEA}
     <a class="rmore" href="/room">Open a room &rarr;</a>
   </div>
   <div class="rp sell">
-    <h3>Get the report</h3>
-    <p class="rs">Every warrant filing a company has made, the rules that fired, and what the paper lets insiders and financiers do. One company, one payment, delivered at Warrant Wire.</p>
+    <h3>Get the read</h3>
+    <p class="rs">Type a symbol, pick the filing, and we read the whole of it in plain English: who got paid, the money, what the board did, the tricky stuff. $12 a filing.</p>
     <form class="rgo" id="rsellf"><input id="rsellsym" placeholder="SYMBOL" maxlength="10" aria-label="Symbol for the report"><button type="submit">$12</button></form>
-    <p class="rs" style="margin-top:8px">The whole filing in plain English, at 8K10Q: opening soon.</p>
+    <p class="rs" style="margin-top:8px">Warrants are read on our sister site: <a href="https://warrantwire.com/">the Warrant Wire report &rarr;</a></p>
   </div>
   <div class="adwrap"><span class="adlab">Advertisement</span><div class="adslot" data-ad="card"></div></div>
   <div class="rp">
@@ -986,10 +986,17 @@ footer a{color:#C4CCEA}
   var bm=document.createElement('p'); bm.id='buymsg';
   var ps=document.getElementById('pricing'); if(ps) ps.appendChild(bm);
   Array.prototype.forEach.call(document.querySelectorAll('button.buy'),function(b){
+    /* read-first-1a (15 Nov 2026): the $12 read IS delivered now (read.html + the read worker). Its button takes the
+       buyer to type a symbol and pick the filing; the products not built yet stay "Opening soon". */
+    if(b.getAttribute('data-sku')==='read'){
+      b.textContent='Pick a filing';
+      b.addEventListener('click',function(){ var i=document.getElementById('hsellsym')||document.getElementById('rsellsym'); if(i){ i.scrollIntoView({block:'center'}); i.focus(); } });
+      return;
+    }
     if(!SELLING){ b.textContent='Opening soon'; b.disabled=true; b.style.opacity='.55'; b.style.cursor='not-allowed'; }
     b.addEventListener('click',function(){ buy(b.getAttribute('data-sku')); });
   });
-  if(!SELLING) msg('Readings open soon. Nothing is for sale yet, and nothing has been charged.');
+  if(!SELLING) msg('The $12 read is open: type a symbol above and pick the filing. The other products open soon; nothing else is charged.');
 })();
 </script>
 <script src="https://adhotbox.com/box.js"></script>
@@ -1047,7 +1054,8 @@ footer a{color:#C4CCEA}
   }
   var shown = "";
   function drawHome(sym, items) {
-    var u = "/room?t=" + encodeURIComponent(sym), rep = "https://warrantwire.com/company.html?t=" + encodeURIComponent(sym) + "#auto";
+    /* read-first-1a: the filings count and "read them" go to the room's filing picker, not to Warrant Wire */
+    var u = "/room?t=" + encodeURIComponent(sym), rep = "/room?t=" + encodeURIComponent(sym) + "#getread";
     if (shown !== sym) { shown = sym; quote(sym); logo(sym); }
     if (document.activeElement !== $("hsym")) $("hsym").value = sym;
     $("hroomcount").innerHTML = '<a href="' + u + '">Full chat &rsaquo;</a>';
@@ -1067,7 +1075,7 @@ footer a{color:#C4CCEA}
       if (shown !== sym) return;
       $("hroomcount").innerHTML = '<a class="hot" href="' + rep + '" title="' + esc((w.company && w.company.name) || sym) + ' has filed ' + ab.filings + ' documents with the SEC. Companies disclose dilution and reverse splits in the fine print."><b>&#9888; ' + ab.filings + ' filings</b></a>'
         + (ab.heavy ? '<a class="hot" href="' + rep + '" title="' + ab.heavy + ' carry warrant, reverse-split or merger language">' + ab.heavy + ' flagged</a>' : '')
-        + '<a class="hot" href="' + rep + '">Unread = dangerous</a><a class="hot" href="' + rep + '"><b>Warrant report &middot; $12</b></a><a href="' + u + '">Full chat &rsaquo;</a>';
+        + '<a class="hot" href="' + rep + '">Unread = dangerous</a><a class="hot" href="' + rep + '"><b>Read a filing &middot; $12</b></a><a href="' + u + '">Full chat &rsaquo;</a>';
     }).catch(function () {});
   }
   function posts(sym) {
@@ -1111,7 +1119,8 @@ footer a{color:#C4CCEA}
   });
   hs.addEventListener("blur", function () { if (!hs.value.trim()) hs.value = shown; });
   /* ---- selling the report: the Warrant Wire verdict, delivered there ---- */
-  function sellTo(inp) { var v = ($(inp).value || "").trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, ""); if (v) location.href = "https://warrantwire.com/company.html?t=" + encodeURIComponent(v) + "#auto"; }
+  /* read-first-1a (15 Nov 2026): the symbol opens that company's room at the filing picker (the 8K10Q read, $12) */
+  function sellTo(inp) { var v = ($(inp).value || "").trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, ""); if (v) location.href = "/room?t=" + encodeURIComponent(v) + "#getread"; }
   $("hsellf").addEventListener("submit", function (e) { e.preventDefault(); sellTo("hsellsym"); });
   $("rsellf").addEventListener("submit", function (e) { e.preventDefault(); sellTo("rsellsym"); });
   var EXTRA = [{ name: "Kenny", lens: "Disposition being written with the desk." }, { name: "GJN", lens: "A very conservative electrical engineer." },

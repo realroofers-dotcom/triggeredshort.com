@@ -525,10 +525,11 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     <section class="panel salesp" aria-label="What 8K10Q does">
       <div class="ph"><h3>What we do</h3><p>We read the filings so you don&rsquo;t have to, and sell only what we can deliver.</p></div>
       <div class="pb"><ul class="dotiles">
-        <li><a id="sell1" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-report"/></svg><b>Warrant report</b><small>$12 &middot; every warrant filing</small></a></li>
-        <li><a id="sell2" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-pen"/></svg><b>Founder&rsquo;s verdict</b><small>$200 &middot; Mark reads it</small></a></li>
+        <li><a href="#getread"><svg class="ic"><use href="#i-doc"/></svg><b>Filing in plain English</b><small>$12 &middot; pick the filing</small></a></li><!-- read-first-1a: the read first, live -->
+        <li><a id="sell1" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-report"/></svg><b>Warrant report</b><small>$12 &middot; on Warrant Wire</small></a></li>
+        <li><a id="sell2" href="https://warrantwire.com/company.html"><svg class="ic"><use href="#i-pen"/></svg><b>Founder&rsquo;s verdict</b><small>$200 &middot; Mark reads it &middot; on Warrant Wire</small></a></li>
         <li class="soon"><span><svg class="ic"><use href="#i-bell"/></svg><b>Reverse-merger watch</b><small>$100/yr &middot; soon</small></span></li>
-        <li class="soon"><span><svg class="ic"><use href="#i-doc"/></svg><b>Filing in plain English</b><small>$12 &middot; soon</small></span></li>
+        
         <li class="soon"><span><svg class="ic"><use href="#i-bot"/></svg><b>An agent&rsquo;s opinion</b><small>$40 &middot; soon</small></span></li>
         <li><a href="/army"><svg class="ic"><use href="#i-flag"/></svg><b>The Army</b><small>Free &middot; attend the meeting</small></a></li>
         <li><a href="/meetings"><svg class="ic"><use href="#i-pin"/></svg><b>Where &amp; when</b><small>Free &middot; the meeting, marked</small></a></li>
@@ -779,7 +780,9 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   }
 
   document.title = T + " — 8K10Q";
-  $("sellbtn").href = $("sell1").href = $("sell2").href = "https://warrantwire.com/company.html?t=" + encodeURIComponent(T) + "#auto";
+  $("sell1").href = $("sell2").href = "https://warrantwire.com/company.html?t=" + encodeURIComponent(T) + "#auto";
+    /* read-first-1a: until the filing picker draws, the read button opens the filing list on 8K10Q (never Warrant Wire) */
+    if ($("sellbtn")) $("sellbtn").href = "/company.html?ticker=" + encodeURIComponent(T) + "#edgar";
   $("sym").textContent = T;
   $("name").textContent = T;
   $("symin").value = T;
@@ -1013,7 +1016,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
               + '<div title="Reverse splits since their first filing here, by the split date"><span>Rev. splits</span><b class="' + (rs ? 'neg' : '') + '">' + rs + '</b></div>'
               + '<div><span>Stock since</span><b class="' + (mv == null ? '' : mv < 0 ? 'neg' : 'pos') + '">' + (mv == null ? '&mdash;' : (mv > 0 ? '+' : '') + mv.toFixed(1) + '%') + '</b></div></div>'
               + '<div class="bfoot">' + (p.still_filing === false ? 'No Form 4 since ' + esc(p.last_filed) + '. May have left.' : 'Still filing. Last Form 4 ' + esc(p.last_filed || '')) + '</div>'
-              + '<a class="bback" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">The back of the card: where else they have been &middot; in the report, $12 &rarr;</a>'
+              + '<a class="bback" href="https://warrantwire.com/company.html?t=' + encodeURIComponent(T) + '#auto">The back of the card: where else they have been &middot; in the Warrant Wire report, $12 &rarr;</a>'
               + '</article>';
           }).join("") + '</div>' + firmCards(d, pr);
         showCardBtn();
@@ -1240,7 +1243,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     var buy = '<a class="rwbtn" href="#getread">We read them for you &middot; $12</a>';   /* pick-1a */
     var rep = "https://warrantwire.com/company.html?t=" + encodeURIComponent(T) + "#auto";
     if (ab && ab.filings > 0) {
-      box.innerHTML = '<a href="' + rep + '" title="' + esc(name) + ' has filed ' + ab.filings + ' documents with the SEC since ' + esc(day(ab.first)) + '. Companies disclose dilution, reverse splits and mergers in the fine print."><b>&#9888; ' + ab.filings + ' filings</b></a>'
+      box.innerHTML = '<a href="#getread" title="' + esc(name) + ' has filed ' + ab.filings + ' documents with the SEC since ' + esc(day(ab.first)) + '. Companies disclose dilution, reverse splits and mergers in the fine print."><b>&#9888; ' + ab.filings + ' filings</b></a>'
         + (ab.heavy ? '<a href="' + rep + '" title="' + ab.heavy + ' carry warrant, reverse-split or merger language">' + ab.heavy + ' flagged</a>' : '')
         + '<a href="#getread">Unread = dangerous</a><a class="rwbtn" href="#getread">Read a filing &middot; $12</a>';   /* pick-1a */
     } else {
