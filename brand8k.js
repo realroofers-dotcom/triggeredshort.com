@@ -35,6 +35,8 @@
     if (h.querySelector("a.logo, a.brand, .lockup, nav")) h.parentNode.removeChild(h);
   }); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", drop); else drop();
+  /* the house ads, rotated by AdHotBox (Mark 15 Nov: "gigapoo is on all finance sites as an ad") */
+  var ha = document.createElement("script"); ha.src = "https://adhotbox.com/house.js"; ha.defer = true; document.head.appendChild(ha);
   document.body.insertBefore(box, document.body.firstChild);
   Array.prototype.forEach.call(box.querySelectorAll(".k8nav a"), function (a) { var h = (a.getAttribute("href") || "").replace(/\.html$/, "").replace(/\/$/, "") || "/"; if (h === here) a.className += " on"; });
 })();
