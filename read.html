@@ -52,7 +52,7 @@ q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:2
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 </head>
 <body><script src="/brand8k.js?v=1b"></script>
-<div class="w"><div id="out"><div class="wait"><div class="spin"></div><h1>Opening your read&hellip;</h1><p>Checking your payment with Stripe.</p></div></div>
+<div class="w"><div id="out"><div class="wait" style="text-align:left"><h1 style="margin:0 0 8px">Processing your order&hellip;</h1><p>Step 1 of 3: checking your payment with Stripe.</p></div></div>
 <p class="keep noprint">Keep this page: bookmark it, or print it. The address above is your copy. Lost it? Call Mark Nejmeh, 215-219-7699, with your Stripe receipt.</p>
 </div>
 <script>
@@ -63,7 +63,47 @@ q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:2
   var out = document.getElementById("out");
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function list(a, f) { return (a && a.length) ? "<ul>" + a.map(f).join("") + "</ul>" : "<p>None given in this filing.</p>"; }
-  function waitBox(h, p) { out.innerHTML = '<div class="wait"><div class="spin"></div><h1>' + h + '</h1>' + p + '</div>'; }
+  function waitBox(h, p) { out.innerHTML = '<div class="wait"><h1>' + h + '</h1>' + p + '</div>'; }
+  /* progress-1a (16 Nov 2026, Mark: "it belongs on their screen and in their email, while its processed we should have a
+     timer on their screen or just something that says we are processing"): one panel for every wait - a running clock,
+     the steps with ticks, a bar, and what to expect. The read opens right here by itself when it is done. */
+  var t0 = Date.now(), clockOn = false;
+  function clockText() { var s = Math.floor((Date.now() - t0) / 1000); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); }
+  function startClock() { if (clockOn) return; clockOn = true; setInterval(function () { var c = document.getElementById("clock"); if (c) c.textContent = clockText(); }, 1000); }
+  /* flow-1a (Mark: "it should be pages flowing or something reading the SEC applying our algo"): the filing's own lines
+     roll past while the checks being run are named one by one. Kept in this script, so a refresh of the panel does not
+     restart it. No weights or word lists are shown - only what is being checked. */
+  var FLOW = { lines: [], i: 0, shown: [], c: 0 };
+  var CHECKS = ["Checking every money figure", "Checking who got paid, and how much", "Checking dates against other dates", "Counting shares and who holds them",
+                "Looking for warrant language", "Looking for going-concern language", "Reading the fine print in the notes", "Comparing with what the company said before"];
+  function feedFlow(lines) { if (lines && lines.length && lines[0] !== FLOW.lines[0]) { FLOW.lines = lines; FLOW.i = 0; FLOW.shown = []; } }
+  function drawFlow() {
+    var f = document.getElementById("flow"), a = document.getElementById("algo"); if (!f) return;
+    if (!FLOW.lines.length) { f.innerHTML = '<div style="color:#9aa0ad">Opening the filing from our archive&hellip;</div>'; }
+    else f.innerHTML = FLOW.shown.map(function (s, k) { return '<div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:' + (0.35 + 0.65 * (k + 1) / FLOW.shown.length) + (k === FLOW.shown.length - 1 ? ';color:#fff' : '') + '">' + esc(s) + '</div>'; }).join("");
+    if (a) a.innerHTML = FLOW.lines.length ? '&#9654; ' + CHECKS[FLOW.c % CHECKS.length] + '&hellip;' : '';
+  }
+  setInterval(function () {
+    if (FLOW.lines.length) { FLOW.shown.push(FLOW.lines[FLOW.i % FLOW.lines.length]); FLOW.i++; if (FLOW.shown.length > 6) FLOW.shown.shift(); }
+    if (FLOW.i % 3 === 0) FLOW.c++;
+    drawFlow();
+  }, 700);
+  function flowBox() {
+    return '<div style="background:#0b1a4d;color:#b9c6ef;font:12.5px/1.6 ui-monospace,Consolas,monospace;border-radius:10px;padding:10px 12px;margin:10px 0 6px;height:132px;overflow:hidden" id="flow"></div>'
+      + '<div id="algo" style="font:700 13.5px var(--sans);color:var(--hot);margin:0 0 8px"></div>';
+  }
+  function progress(o) {   /* o: {title, steps:[{t, state:'done'|'now'|'next', live}], pct, note, flow} */
+    startClock();
+    setTimeout(drawFlow, 0);
+    var mark = { done: '<span style="color:#1a7f37;font-weight:800">&#10003;</span>', now: '<span style="color:var(--hot);font-weight:800">&#9654;</span>', next: '<span style="color:#9aa0ad">&#9675;</span>' };
+    return '<div class="wait" style="text-align:left">'
+      + '<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap"><h1 style="margin:0">' + o.title + '</h1>'
+      + '<div style="font:800 26px/1 var(--sans);color:var(--hot)" aria-label="time so far"><span id="clock">' + clockText() + '</span></div></div>'
+      + '<div style="height:10px;background:var(--line);border-radius:6px;margin:14px 0 12px;overflow:hidden"><div style="height:100%;width:' + Math.max(4, Math.min(100, o.pct || 0)) + '%;background:var(--hot);transition:width .6s"></div></div>'
+      + (o.flow ? flowBox() : '')
+      + '<ul style="list-style:none;padding:0;margin:0 0 10px">' + o.steps.map(function (s) { return '<li style="display:flex;gap:10px;align-items:flex-start;margin:7px 0;' + (s.state === "next" ? 'color:#6b6c62' : '') + (s.state === "now" ? 'font-weight:700' : '') + '">' + mark[s.state] + '<span>' + s.t + (s.live ? '<br><span style="font-weight:400;font-size:14px;color:var(--navy)">' + esc(s.live) + '</span>' : '') + '</span></li>'; }).join("") + '</ul>'
+      + '<p style="margin:6px 0">' + (o.note || 'Stay on this page: your read opens right here when it is done. We also email you the link (if it is not in your inbox, look in Spam or Promotions for <b>reads@8k10q.com</b>).') + '</p></div>';
+  }
   if (!/^cs_(live|test)_[A-Za-z0-9]+$/.test(S)) {
     out.innerHTML = '<div class="wait"><h1>No payment reference</h1><p>This page opens a read you paid for; the link Stripe sent you back with carries the reference. <a href="/">Search a company</a> to buy a read.</p></div>';
     return;
@@ -78,26 +118,55 @@ q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:2
         if (j && j.all) return showAll(j);
         if (j && j.ready) return show(j);
         if (j && j.paid === false) {
-          if (tries++ < 20) { waitBox("Payment received&hellip;", "<p>Waiting for Stripe to confirm it. This usually takes a few seconds.</p>"); return setTimeout(function () { ask(false); }, 3000); }
-          return waitBox("Stripe has not confirmed yet", '<p>If your card was charged you are covered. Refresh this page in a minute, or call 215-219-7699.</p>');
+          if (tries++ < 40) {
+            out.innerHTML = progress({ title: "Processing your order&hellip;", pct: 8, steps: [
+              { t: "Confirming your payment with Stripe (a few seconds)", state: "now" },
+              { t: "Reading your filing, every section, in plain English", state: "next" },
+              { t: "Your read opens here, and the link is emailed to you", state: "next" }] });
+            return setTimeout(function () { ask(false); }, 3000);
+          }
+          out.innerHTML = progress({ title: "Still confirming your payment", pct: 8, steps: [
+            { t: "Stripe has not confirmed the payment yet", state: "now" }],
+            note: 'If your card was charged you are covered: this page keeps the reference. Refresh it in a minute, or call 215-219-7699.' });
+          return;
         }
         if (j && j.error && !j.making) {
           out.innerHTML = '<div class="wait"><h1>We hit a snag</h1><p class="bad">' + esc(j.error) + '</p><p><button class="btn" id="again">Try again</button></p></div>';
           document.getElementById("again").onclick = function () { waitBox("Reading again&hellip;", ""); ask(false); };
           return;
         }
-        /* being read now: show progress, look every 10 seconds */
-        var mins = Math.floor((Date.now() - started) / 60000);
-        waitBox("Reading " + esc(j.ticker || "") + "&rsquo;s filing for you&hellip;", "<p>Every section, in plain English. This takes 2 to 5 minutes; keep this page open." + (mins ? " (" + mins + " min so far)" : "") + "</p>");
-        if (Date.now() - started < 15 * 60000) setTimeout(function () { ask(true); }, 10000);
-        else waitBox("This one is taking longer", '<p>Your read is still being made and is saved when done. Refresh this page in a few minutes, or call 215-219-7699.</p>');
+        /* being read now: the poller below keeps the progress live */
+        makingView(j);
       })
-      .catch(function () {
-        /* the browser gave up waiting on a long read; the reader keeps going and saves it */
-        waitBox("Still reading&hellip;", "<p>Checking for your finished read every 10 seconds.</p>");
-        if (Date.now() - started < 15 * 60000) setTimeout(function () { ask(true); }, 10000);
-      });
+      .catch(function () { /* the browser gave up waiting on a long read; the reader keeps going and the poller finds it */ });
   }
+  /* live-1a (16 Nov 2026): the first request above MAKES the read and only answers when it is done (1 to 3 minutes), so on
+     its own the page sat still. This second, light check every 4 seconds shows the reader's real progress meanwhile -
+     where the filing came from, how many characters, its lines rolling past - and opens the read the moment it exists. */
+  var shown = false, polls = 0;
+  function makingView(j) {
+    if (shown) return;
+    var secs = (Date.now() - started) / 1000;
+    feedFlow(j.lines);
+    if (secs > 15 * 60) { out.innerHTML = progress({ title: "This one is taking longer", pct: 92, steps: [{ t: "Payment received", state: "done" }, { t: "Still reading a long filing", state: "now", live: j.stage }],
+      note: 'Your read is saved the moment it is done. Refresh this page in a few minutes, or call 215-219-7699.' }); return; }
+    out.innerHTML = progress({ flow: true, title: "Reading " + esc(j.ticker || "your") + (j.ticker ? "&rsquo;s" : "") + " filing for you&hellip;", pct: Math.min(92, 15 + secs / 2),
+      steps: [{ t: "Payment received", state: "done" },
+              { t: "Reading the filing, every section, in plain English (usually 1 to 3 minutes)", state: "now", live: j.stage || "Opening the filing" },
+              { t: "Your read opens here by itself", state: "next" }] });
+  }
+  var poller = setInterval(function () {
+    if (shown || ++polls > 300) return clearInterval(poller);
+    if (polls < 2) return;   /* give the first request a head start */
+    fetch(READ + "/?paidread=1&session=" + encodeURIComponent(S) + (ACC ? "&acc=" + encodeURIComponent(ACC) : "") + "&wait=1")
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (shown || !j) return;
+        if (j.all) return clearInterval(poller);   /* sets and read-all keep themselves live (showAll) */
+        if (j.ready) return show(j);
+        if (j.paid) makingView(j);
+      }).catch(function () {});
+  }, 4000);
   ask(false);
 
   /* the filing itself, delivered by us (copy-1a, Mark 15 Nov: "we dont want to give them a link to the sec site we
@@ -129,7 +198,13 @@ q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:2
           + '<div class="card xsell"><div class="k">Warrants</div><p>' + (sm.warrants_found && sm.warrants_found.mentioned ? '<b>Warrants are mentioned</b> (' + esc(sm.warrants_found.where || "") + '). ' : 'No warrant language was found in these reports. ') + 'Warrant analysis is a separate evaluation on our sister site.</p>'
           + '<a class="xbtn" href="' + PAY + '/?go=wire_search_k8&ticker=' + encodeURIComponent(t) + '&on=wire&collect_email=1&from=' + encodeURIComponent(S) + '&ret=' + encodeURIComponent('/company.html?t=' + t) + '">Warrant research on Warrant Wire &middot; $9.60 <span style="font-weight:400">(20% off with this purchase, was $12)</span></a></div>'
           + s("Five questions to ask", sm.five_questions)
-        : '<div class="wait"><div class="spin"></div><h1>Reading every report&hellip; ' + j.ready + ' of ' + j.total + ' done</h1><p>About a minute each. Each report opens below as soon as it is read; the summary comes when the last one is done. You can close this page &mdash; it keeps going, and the link in your email brings you back.</p></div>')
+        : (function () { var cur = (j.items || []).filter(function (y) { return y.status !== "ready"; })[0]; feedFlow(cur && cur.lines); return ''; })()
+          + progress({ flow: j.ready < j.total, title: "Reading your " + j.total + " report" + (j.total === 1 ? "" : "s") + "&hellip; " + j.ready + " of " + j.total + " done",
+            pct: Math.round(100 * (j.ready + 0.5) / (j.total + 1)),
+            steps: [{ t: "Payment received", state: "done" }]
+              .concat((j.items || []).map(function (x, i) { var first = (j.items || []).findIndex(function (y) { return y.status !== "ready"; }); return { t: esc(x.form) + " filed " + esc(x.filed) + (x.status === "ready" ? " &ndash; read" : (i === first ? " &ndash; reading now" : " &ndash; waiting its turn")), state: x.status === "ready" ? "done" : (i === first ? "now" : "next"), live: (i === first && x.status !== "ready") ? (x.stage || "Starting this report") : null }; }))
+              .concat([{ t: "The summary across " + (j.total === 1 ? "it" : "all of them"), state: j.ready === j.total ? "now" : "next", live: j.ready === j.total ? (j.summary_stage || "Starting the summary") : null }]),
+            note: 'About a minute or two a report. Each one opens in the list below as soon as it is read. Stay on this page, or close it: it keeps going, and the link in your email brings you back (look in Spam or Promotions for <b>reads@8k10q.com</b> if it is not in your inbox).' }))
       + '<div class="card"><div class="k">Each report, read on its own</div><ul>'
       + (j.items || []).map(function (x) { return '<li>' + (x.status === "ready" ? '<a href="?paid=' + encodeURIComponent(S) + '&acc=' + encodeURIComponent(x.acc) + '"><b>' + esc(x.form) + '</b> filed ' + esc(x.filed) + '</a> &ndash; ' + esc(x.headline || "") : '<b>' + esc(x.form) + '</b> filed ' + esc(x.filed) + ' &ndash; <i>' + esc(x.status) + '&hellip;</i>') + '</li>'; }).join("")
       + '</ul></div>'
@@ -144,6 +219,7 @@ q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:2
   }
 
   function show(j) {
+    if (shown) return; shown = true;
     var r = j.read || {}, m = r.money || {}, ws = r.warrants_signal || {}, t = j.ticker || "";
     /* the wire stores names like "Nuvve Holding Corp. (NVVE) (CIK 0001836875)": the letterhead shows the plain name */
     j.company = String(j.company || "").replace(/\s*\(CIK[^)]*\)/gi, "").replace(/\s*\([A-Z0-9.\-]{1,12}\)\s*$/, "").trim();
