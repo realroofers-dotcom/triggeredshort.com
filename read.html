@@ -74,8 +74,8 @@ q{font-style:italic;color:#474a3e}li{margin:6px 0}ul{margin:4px 0;padding-left:2
      roll past while the checks being run are named one by one. Kept in this script, so a refresh of the panel does not
      restart it. No weights or word lists are shown - only what is being checked. */
   var FLOW = { lines: [], i: 0, shown: [], c: 0 };
-  var CHECKS = ["Checking every money figure", "Checking who got paid, and how much", "Checking dates against other dates", "Counting shares and who holds them",
-                "Looking for warrant language", "Looking for going-concern language", "Reading the fine print in the notes", "Comparing with what the company said before"];
+  /* plain labels only: never how the filing is read or what is asked (Mark 16 Nov: "we do not want to disclose the secrets and the way i read the filings and the questions i ask") */
+  var CHECKS = ["Reading the filing", "Reading the tables", "Reading the notes", "Reading the exhibits", "Putting it in plain English"];
   function feedFlow(lines) { if (lines && lines.length && lines[0] !== FLOW.lines[0]) { FLOW.lines = lines; FLOW.i = 0; FLOW.shown = []; } }
   function drawFlow() {
     var f = document.getElementById("flow"), a = document.getElementById("algo"); if (!f) return;
