@@ -60,4 +60,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url><loc>https://8k10q.com/halts</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://8k10q.com/press</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://8k10q.com/press-2026-11-17-anthropic</loc><lastmod>2026-11-17</lastmod></url>
+  <url><loc>https://8k10q.com/press-2026-11-16-professors</loc><lastmod>2026-11-16</lastmod></url>
+  <url><loc>https://8k10q.com/press-2026-11-16-meetings-week</loc><lastmod>2026-11-16</lastmod></url>
+  <url><loc>https://8k10q.com/sample/anthropic</loc><lastmod>2026-11-17</lastmod></url>
 </urlset>
