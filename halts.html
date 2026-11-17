@@ -1,0 +1,99 @@
+<!-- BUILT 2026-11-17 · 8k10q halts-page-1a · TRADING HALTS, LIVE. Mark, 17 Nov 2026: "on 8k10q we have a link for halted stock but we show nothing please fix that" / "well there are some in nyse too" / "when there is a halt there is news that goes with it we must always check the company, rumors on chats and the news services". Data: the halts worker (8k10q.com/api/halts), every 2 minutes from NYSE's current trade halts (all US exchanges) and Nasdaq's trade-halt feed, each halt checked against the company's own SEC filings, Yahoo Finance and Bing News headlines, StockTwits chatter counts (never anyone's post), and our Warrant Wire. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trading halts today, live - NYSE and Nasdaq, with the company's filings and the news | 8K10Q</title>
+<meta name="description" content="Every US trading halt as it lands - NYSE, Nasdaq and NYSE American - with the reason, the resumption, the company's own SEC filings, the news, the chatter, and whether its warrant paper was already on our wire.">
+<link rel="canonical" href="https://8k10q.com/halts">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Trading halts, live - with the filings, the news and the chatter">
+<meta property="og:url" content="https://8k10q.com/halts">
+<meta property="og:image" content="https://8k10q.com/og-card.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+:root{--navy:#00208B;--hot:#FF4A00;--ink:#14150f;--ink2:#3a3b33;--ink3:#6b6c62;--line:#dcdfe8;--wash:#f2f4f8;--red:#b00020;--green:#1a7f37;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font:16.5px/1.55 var(--sans)}
+.w{max-width:1180px;margin:0 auto;padding:18px 16px 60px}.cols{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px}@media(max-width:900px){.cols{grid-template-columns:1fr}}
+h1{font-size:28px;line-height:1.2;margin:6px 0 6px;color:var(--navy);display:flex;gap:10px;align-items:center}h1 .ic{width:32px;height:32px;color:var(--hot)}
+.lede{color:var(--ink2);margin:0 0 12px}.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 14px}
+.bar button{font:700 14px var(--sans);padding:8px 14px;border-radius:20px;border:2px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer}.bar button.on{background:var(--navy);color:#fff}
+.bar .up{font-size:13px;color:var(--ink3);margin-left:auto}
+.h{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:0 0 12px}.h.live{border-left:6px solid var(--red)}.h.done{border-left:6px solid var(--green)}
+.top{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline}.sym{font:800 22px var(--sans);color:var(--navy);text-decoration:none}.co{font-weight:700}.ex{font-size:13px;color:var(--ink3)}
+.st{font:800 12px var(--sans);padding:3px 9px;border-radius:12px;color:#fff;background:var(--red)}.st.ok{background:var(--green)}
+.why{margin:6px 0;font-size:15px}.why b{color:var(--ink)}.code{font:700 12px ui-monospace,Menlo,monospace;background:#eef1f8;padding:1px 6px;border-radius:5px;color:var(--navy)}
+.wire{display:inline-block;margin:4px 0;font:700 13px var(--sans);padding:4px 10px;border-radius:8px;background:#fff3ec;border:1px solid #ffd2bd;color:#a33a00}.wire.no{background:#f4f4f4;border-color:#e2e2e2;color:#777;font-weight:600}
+.checks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px}@media(max-width:700px){.checks{grid-template-columns:1fr}}
+.ck{border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px}.ck h3{margin:0 0 6px;font:800 12px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--navy);display:flex;gap:6px;align-items:center}.ck h3 .ic{width:16px;height:16px}
+.ck ul{margin:0;padding-left:18px}.ck li{margin:4px 0}.ck a{color:var(--ink)}.ck .none{color:var(--ink3)}.ck .num{font:800 20px var(--sans)}
+.side .box{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:16px;font-size:14px}.side h2{font:800 13px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin:0 0 6px}
+.side dl{margin:0}.side dt{font:700 12px ui-monospace,Menlo,monospace;color:var(--navy);margin-top:6px}.side dd{margin:0 0 2px;color:var(--ink2)}
+.foot{font-size:12.5px;color:var(--ink3);border-top:1px solid var(--line);margin-top:18px;padding-top:8px}.ic{width:20px;height:20px;flex:none}
+</style>
+</head>
+<body>
+<script src="/brand8k.js?v=1b"></script>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="h-pause" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 9v6 M14 9v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="h-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z M14 3v4h4 M10 12h5M10 16h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="h-news" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 9h10M7 13h10M7 17h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="h-chat" viewBox="0 0 24 24"><path d="M4 5h16v10H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+</svg>
+<div class="w"><div class="cols"><main>
+<h1><svg class="ic"><use href="#h-pause"/></svg>Trading halts, live</h1>
+<p class="lede">Every US trading halt as it lands &mdash; NYSE, Nasdaq and NYSE American. A halt comes with news, so for each one we check <b>the company&rsquo;s own filings</b>, <b>the news services</b> and <b>the chatter</b>, and whether its <b>warrant paper</b> was already on our wire.</p>
+<div class="bar"><button data-d="1" class="on">Today</button><button data-d="3">3 days</button><button data-d="7">7 days</button><span class="up" id="up">Loading&hellip;</span></div>
+<div id="list"></div>
+<div data-house-inline></div>
+<div class="foot">Halt data: NYSE current trade halts (nyse.com) and the Nasdaq trade halts feed (nasdaqtrader.com), checked every 2 minutes; times are US Eastern. Filings: the SEC&rsquo;s EDGAR. Headlines: Yahoo Finance and Bing News &mdash; other publications&rsquo; reports. Chatter: StockTwits post counts and the bullish/bearish tags posters chose &mdash; rumors are unverified, and we never show anyone&rsquo;s post. Facts, not advice.</div>
+</main>
+<aside class="side">
+  <div class="box"><h2>What the codes mean</h2><dl>
+    <dt>T1</dt><dd>News pending &mdash; the company has news; trading stops until it is out.</dd>
+    <dt>T2 / T3</dt><dd>News released / news and resumption times.</dd>
+    <dt>LUDP</dt><dd>Volatility pause &mdash; the price moved too far, too fast.</dd>
+    <dt>M1</dt><dd>Corporate action (a split, a merger, a name change).</dd>
+    <dt>H10</dt><dd>SEC trading suspension.</dd>
+    <dt>H4 / H9 / H11</dt><dd>Non-compliance / not current in filings / regulatory concern.</dd>
+  </dl><p style="margin:8px 0 0"><a href="https://www.nasdaqtrader.com/Trader.aspx?id=TradeHaltCodes" target="_blank" rel="noopener nofollow">All codes at Nasdaq &rarr;</a></p></div>
+  <div data-house-inline></div>
+  <div class="box"><h2>Read the filing behind it</h2><p style="margin:0 0 8px">When the halt comes with an 8-K, we read all of it for you.</p><a href="/" style="display:block;text-align:center;font:700 15px var(--sans);padding:11px;border-radius:10px;background:var(--hot);color:#fff;text-decoration:none">Read a filing &middot; $12</a></div>
+  <div data-house-inline></div>
+</aside></div></div>
+<script>
+(function(){
+var days=1, esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+function fmtD(d){if(!d)return"";var p=d.split("-");return["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+p[1]-1]+" "+(+p[2])}
+function tm(t){if(!t)return"";var p=t.split(":"),h=+p[0];return((h%12)||12)+":"+p[1]+(h<12?" am":" pm")}
+function ago(iso){if(!iso)return"";var m=Math.round((Date.now()-Date.parse(iso))/60000);return m<60?m+" min ago":m<1440?Math.round(m/60)+" h ago":Math.round(m/1440)+" d ago"}
+function card(h){
+  var x=h.extra||{}, resumed=!!h.resume_time, w=h.wire;
+  var s='<div class="h '+(resumed?"done":"live")+'"><div class="top"><a class="sym" href="/room?t='+encodeURIComponent(h.sym)+'">'+esc(h.sym)+'</a><span class="co">'+esc(x.company||h.name)+'</span><span class="ex">'+esc(h.market)+'</span>'
+   +(resumed?'<span class="st ok">Resumed '+esc(fmtD(h.resume_date))+' '+esc(tm(h.resume_time))+' ET</span>':'<span class="st">Halted</span>')+'</div>'
+   +'<div class="why">Halted <b>'+esc(fmtD(h.halt_date))+' '+esc(tm(h.halt_time))+' ET</b> &middot; '+(h.reason_code?'<span class="code">'+esc(h.reason_code)+'</span> ':'')+esc(h.reason)+(h.pause_price?' &middot; pause price $'+esc(h.pause_price):'')+'</div>'
+   +(w?'<span class="wire">Warrant paper was on our wire &middot; filed '+esc(fmtD(w.filed_on))+', '+esc(String(w.filed_on).slice(0,4))+'</span>':'<span class="wire no">No warrant paper on our wire</span>');
+  var f=x.filings||[], n=x.news||[], c=x.chatter;
+  s+='<div class="checks">'
+   +'<div class="ck"><h3><svg class="ic"><use href="#h-doc"/></svg>The company</h3>'+(f.length?'<ul>'+f.map(function(y){return'<li><a href="'+esc(y.url)+'" target="_blank" rel="noopener">'+esc(y.form)+'</a> filed '+esc(fmtD(y.date))+'</li>'}).join("")+'</ul>':'<span class="none">'+(x.checked_at?'No SEC filing since the day before the halt.':'Checking&hellip;')+'</span>')+'</div>'
+   +'<div class="ck"><h3><svg class="ic"><use href="#h-news"/></svg>The news</h3>'+(n.length?'<ul>'+n.map(function(y){return'<li><a href="'+esc(y.link)+'" target="_blank" rel="noopener nofollow">'+esc(y.title)+'</a> <span class="none">&mdash; '+esc(y.source)+(y.at?', '+esc(ago(y.at)):'')+'</span></li>'}).join("")+'</ul>':'<span class="none">'+(x.checked_at?'No headlines found in the last 3 days.':'Checking&hellip;')+'</span>')+'</div>'
+   +'<div class="ck"><h3><svg class="ic"><use href="#h-chat"/></svg>The chatter</h3>'+(c?'<div><span class="num">'+(c.posts_24h>=c.sampled&&c.sampled>=30?'30+':c.posts_24h)+'</span> StockTwits posts in 24 h</div><div>Tagged bullish '+c.bullish+' &middot; bearish '+c.bearish+'</div><div><a href="'+esc(c.link)+'" target="_blank" rel="noopener nofollow">StockTwits</a> &middot; <a href="'+esc(x.reddit)+'" target="_blank" rel="noopener nofollow">Reddit</a> &middot; <a href="/room?t='+encodeURIComponent(h.sym)+'">our room</a></div><div class="none" style="font-size:12.5px">Rumors are unverified.</div>':'<span class="none">'+(x.checked_at?'No StockTwits stream.':'Checking&hellip;')+'</span>'+(x.reddit?' <a href="'+esc(x.reddit)+'" target="_blank" rel="noopener nofollow">Reddit</a>':''))+'</div>'
+   +'</div>'+(x.checked_at?'<div class="none" style="font-size:12px;margin-top:6px;color:var(--ink3)">Checked '+esc(ago(x.checked_at))+'</div>':'')+'</div>';
+  return s;
+}
+function load(){
+  fetch("/api/halts?days="+days).then(function(r){return r.json()}).then(function(j){
+    var L=j.halts||[], live=L.filter(function(h){return!h.resume_time}), done=L.filter(function(h){return h.resume_time});
+    document.getElementById("up").textContent=L.length+" halt"+(L.length===1?"":"s")+" · "+live.length+" still halted · updated "+new Date().toLocaleTimeString([], {hour:"numeric",minute:"2-digit"});
+    var html=L.length?live.concat(done).map(card).join(""):'<div class="h">No halts '+(days===1?"so far today":"in this period")+'.</div>';
+    document.getElementById("list").innerHTML=html;
+  }).catch(function(){document.getElementById("up").textContent="The halt desk is not answering just now - try again in a minute."});
+}
+Array.prototype.forEach.call(document.querySelectorAll(".bar button"),function(b){b.onclick=function(){Array.prototype.forEach.call(document.querySelectorAll(".bar button"),function(x){x.className=""});b.className="on";days=+b.getAttribute("data-d");load()}});
+load(); setInterval(load,120000);
+})();
+</script>
+</body>
+</html>
