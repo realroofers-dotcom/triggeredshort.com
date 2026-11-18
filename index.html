@@ -863,7 +863,7 @@ footer a{color:#C4CCEA}
 <div class="hcentre">
   <section class="hroom" aria-label="Chat">
     <div class="hrh">
-      <h2 class="hsymline"><img id="hlogo" class="hlogo" alt="" hidden><input id="hsym" class="hsym" value="MRVL" maxlength="10" spellcheck="false" autocomplete="off" aria-label="Company symbol: highlight it and type another"><span class="hpx" id="hpx"></span><span class="hchg" id="hchg"></span></h2>
+      <h2 class="hsymline"><img id="hlogo" class="hlogo" alt="" hidden><input id="hsym" class="hsym" value="ANT" maxlength="10" spellcheck="false" autocomplete="off" aria-label="Company symbol: highlight it and type another"><span class="hpx" id="hpx"></span><span class="hchg" id="hchg"></span></h2>
       <p class="rs hkeys" id="hroomcount"></p>
     </div>
     <div class="hstream" id="hstream" aria-live="polite"><p class="rs" style="padding:18px">Loading&hellip;</p></div>
@@ -1127,7 +1127,7 @@ footer a{color:#C4CCEA}
       if (first) return fallback().catch(function () {});
     });
   }
-  load("MRVL", true).catch(function () {
+  load("ANT", true).catch(function () {   /* 18 Nov 2026 Mark: "the main page should default to ant" (was MRVL from 9 Nov) */
     fallback().catch(function () { $("hstream").innerHTML = '<p class="rs" style="padding:18px">The chat isn&rsquo;t answering just now.</p>'; });
   });
   /* the symbol is the field: highlight it, type another, press Enter */
