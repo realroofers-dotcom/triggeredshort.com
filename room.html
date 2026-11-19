@@ -638,6 +638,11 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
       <div class="ph"><h3>Get the read</h3><p>Pick any filing &mdash; the 10-K, the 10-Q, the 8-K &mdash; and we read all of it for you in plain English: who got paid, the money, what the board did, the tricky stuff. Yours to print.</p></div>
       <div class="pb"><div class="readpick" id="getread"><a class="btn sellbtn" id="sellbtn" href="/company.html">Read a filing &middot; $12</a></div></div>
     </section>
+    <!-- comp-1a (2026-11-19, Mark: 'the competitor sell should be in every chat room') -->
+    <section class="panel sellp" aria-label="Find the competitors">
+      <div class="ph"><h3><svg class="ic sm" style="color:#4FE3FF"><use href="#i-vs"/></svg> Find the competitors</h3><p>Who this company competes with &mdash; the ones it names in its own annual report, and the others whose filings say they sell the same thing.</p></div>
+      <div class="pb"><a class="btn sellbtn" id="compbtn" href="/comp.html">Find its competitors &middot; $9</a></div>
+    </section>
     <div class="adwrap"><span class="adlab">Advertisement</span><div class="ad" data-ad="card"></div></div>
     <section class="panel adcall" aria-label="Advertise">
       <div class="ph"><h3>Advertise here</h3><p>Text ads to named, verified readers. Labelled, approved by the desk, never dressed up as posts.</p></div>
@@ -665,6 +670,8 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
   var PEOPLE = "https://people.realroofers.workers.dev";
   var qs = new URLSearchParams(location.search);
   var T = (qs.get("t") || qs.get("ticker") || "").trim().toUpperCase().replace(/[^A-Z0-9.\-]/g, "").slice(0, 10);
+  /* comp-1a: the room's competitors button opens the search already started on this company */
+  (function () { var cb = document.getElementById("compbtn"); if (cb) cb.addEventListener("click", function () { if (T) cb.href = "/comp.html?t=" + encodeURIComponent(T); }); })();
 
   /* room-3c (2026-09-30): with no symbol chosen, the room opens on today's most active stock
      (rank 1 by volume in /api/actives, the same list as the home page). If that list can't be

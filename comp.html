@@ -1,0 +1,175 @@
+<!-- BUILT 2026-11-19 · comp-1a · FIND THE COMPETITORS ($9).
+     Mark 19 Nov 2026: 'that should be a paid search "find the competitors"' / 'three search boxes, industry, product, country' /
+     'for example cbre who are the competitors maybe when they search a competitor we prompt them with what they should search
+     for' / 'we are supposed to be smart' / 'build it 9$ not 7' / 'we do not provide the report to them we only give the
+     competitor and from there we can sell reads on the competitors'.
+     Free: the company's own business lines (as search prompts) and HOW MANY competitors - never the names.
+     $9: the list (name, ticker, country, industry, why it is on the list); each one sells its own $12 read. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Find the competitors — 8K10Q</title>
+<meta name="description" content="Type a company: we read its own annual report for the competitors it names, then search every company's filings for the same business. Industry, product, country.">
+<link rel="canonical" href="https://8k10q.com/comp.html">
+<style>
+:root{--navy:#00208B;--navy-d:#001348;--hot:#FF4A00;--ink:#14150f;--ink2:#3a3b33;--ink3:#6b6c62;--line:#dcdfe8;--wash:#f2f4f8;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--wash);color:var(--ink);font:16.5px/1.55 var(--sans)}
+.w{max-width:900px;margin:0 auto;padding:18px 16px 60px}
+h1{font:800 30px/1.15 var(--sans);color:var(--navy);margin:8px 0 6px}.sub{color:var(--ink2);margin:0 0 16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 14px}
+.k{font:800 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--navy);margin-bottom:6px}
+label{display:block;font:700 14px var(--sans);margin:10px 0 4px}
+input[type=text],select{width:100%;font:16px var(--sans);padding:10px 12px;border:2px solid var(--line);border-radius:10px;background:#fff}
+input[type=text]:focus,select:focus{border-color:var(--navy);outline:0}
+.row{display:flex;gap:10px;flex-wrap:wrap}.row > *{flex:1 1 220px}
+.btn{display:inline-block;font:800 16px var(--sans);padding:11px 18px;border:0;border-radius:10px;background:var(--navy);color:#fff;cursor:pointer;text-decoration:none;margin-top:12px}
+.btn.hot{background:var(--hot)}.btn.o{background:#fff;color:var(--navy);border:2px solid var(--navy)}.btn:disabled{opacity:.5;cursor:wait}
+.ticks label{display:flex;align-items:center;gap:8px;font-weight:600;margin:6px 0}.ticks input{width:18px;height:18px}
+.muted{color:var(--ink3);font-size:14px}.bad{color:#b00020;font-weight:700}
+.count{font-size:18px;margin:6px 0}.count b{color:var(--navy)}
+.co{border-left:6px solid var(--navy)}.co.f{border-left-color:#7FA1FF}
+.co h3{margin:0;font-size:19px}.co .meta{font-size:14px;color:var(--ink2);margin:2px 0 6px}.co q{font-style:italic;color:#474a3e}
+.co .acts a{display:inline-block;margin:8px 10px 0 0;font:700 14.5px var(--sans);padding:8px 13px;border-radius:9px;text-decoration:none}
+.co .acts a.r{background:var(--hot);color:#fff}.co .acts a.m{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.spin{width:30px;height:30px;border:4px solid var(--line);border-top-color:var(--hot);border-radius:50%;display:inline-block;vertical-align:middle;animation:sp 1s linear infinite;margin-right:8px}@keyframes sp{to{transform:rotate(360deg)}}
+h2{font:800 20px var(--sans);color:var(--navy);margin:22px 0 10px}
+.only{font-size:13.5px;color:var(--ink2)}
+@media print{.noprint,.k8nav,.k8band{display:none!important}body{background:#fff}}
+</style>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+</head>
+<body><script src="/brand8k.js?v=1b"></script>
+<div class="w" id="app">
+  <h1>Find the competitors</h1>
+  <p class="sub">People buy the stock that is moving and forget the companies it competes with. Start with a company and we read its own annual report for the competitors it names itself &mdash; then we search every company&rsquo;s filings for the same business.</p>
+
+  <div class="card noprint" id="step1">
+    <div class="k">1 &middot; Start with a company (optional)</div>
+    <div class="row"><div><input type="text" id="tk" placeholder="Stock symbol, e.g. CBRE" maxlength="10" aria-label="Stock symbol" style="text-transform:uppercase"></div>
+    <div style="flex:0 0 auto"><button class="btn" id="go1" style="margin-top:0">Suggest what to search</button></div></div>
+    <div id="sug"></div>
+  </div>
+
+  <div class="card noprint" id="step2">
+    <div class="k">2 &middot; Search</div>
+    <div class="row">
+      <div><label for="ind">Industry</label><select id="ind"><option value="">Any industry</option></select></div>
+      <div><label for="cty">Country (headquarters)</label><select id="cty"><option value="">Any country</option></select></div>
+    </div>
+    <label for="prod">Product or market <span class="muted">(up to 3, separated by commas &mdash; e.g. roofing, data center cooling, C. difficile)</span></label>
+    <input type="text" id="prod" placeholder="What they sell or the market they serve">
+    <button class="btn" id="go2">Count them (free)</button>
+    <div id="cnt"></div>
+  </div>
+
+  <div data-house-inline></div>
+  <p class="muted">Facts from the companies&rsquo; own SEC filings. A list of competitors, not advice. Each competitor can then be read in plain English, filing by filing.</p>
+  <div data-house-ads></div>
+</div>
+<script>
+(function () {
+  var READ = "https://read.realroofers.workers.dev", PAY = "https://pay.realroofers.workers.dev";
+  var GROUPS = ["Drugs and biotech", "Medical devices and health care", "Blank checks (SPACs)", "Mining, oil and gas", "Software, computers and electronics", "Finance, insurance and real estate", "Telecom and media", "Energy utilities and renewables", "Construction", "Other manufacturing", "Transportation", "Wholesale and retail", "Other services", "Agriculture"];
+  var COUNTRIES = ["United States", "Canada", "China", "Hong Kong", "Israel", "United Kingdom", "Japan", "Germany", "France", "Switzerland", "Netherlands", "Ireland", "Singapore", "India", "Australia", "Bermuda", "Cayman Islands", "Taiwan", "South Korea", "Brazil", "Mexico", "Sweden", "Other"];
+  function $(id) { return document.getElementById(id); }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  GROUPS.forEach(function (g) { var o = document.createElement("option"); o.value = o.textContent = g; $("ind").appendChild(o); });
+  COUNTRIES.forEach(function (g) { var o = document.createElement("option"); o.value = o.textContent = g; $("cty").appendChild(o); });
+  var qs = new URLSearchParams(location.search), PAID = qs.get("paid") || "", SUG = null;
+
+  /* ---------------- the paid list ---------------- */
+  if (/^cs_(live|test)_[A-Za-z0-9]+$/.test(PAID)) {
+    $("step1").style.display = "none"; $("step2").style.display = "none";
+    var box = document.createElement("div"); box.id = "res"; $("step2").parentNode.insertBefore(box, $("step2"));
+    box.innerHTML = '<div class="card"><span class="spin"></span>Processing your order&hellip; checking your payment with Stripe.</div>';
+    var tries = 0;
+    (function ask() {
+      fetch(READ + "/?paidread=1&session=" + encodeURIComponent(PAID)).then(function (r) { return r.json(); }).then(function (j) {
+        if (j && j.comp) return show(j);
+        if (j && j.paid === false && tries++ < 40) return setTimeout(ask, 3000);
+        box.innerHTML = '<div class="card"><p class="bad">' + esc((j && (j.error || j.note)) || "We could not open your list just now.") + '</p><p>Refresh this page in a minute, or call Mark Nejmeh, 215-219-7699.</p></div>';
+      }).catch(function () { if (tries++ < 40) setTimeout(ask, 3000); });
+    })();
+    function show(j) {
+      var named = j.items.filter(function (x) { return x.kind === "named"; }), found = j.items.filter(function (x) { return x.kind !== "named"; });
+      function card(x) {
+        var t = x.ticker && x.sec ? String(x.ticker).toUpperCase() : "";
+        return '<div class="card co' + (x.kind === "named" ? "" : " f") + '"><h3>' + esc(x.name) + (t ? ' <span class="muted">(' + esc(t) + ')</span>' : '') + '</h3>'
+          + '<div class="meta">' + [x.country, x.industry].filter(Boolean).map(esc).join(" &middot; ") + '</div>'
+          + '<div>' + esc(x.why) + '</div>' + (x.quote ? '<div style="margin-top:4px"><q>' + esc(x.quote) + '</q></div>' : '')
+          + (t ? '<div class="acts noprint"><a class="r" href="/room?t=' + encodeURIComponent(t) + '#getread">Read a filing &middot; $12</a><a class="m" href="/room?t=' + encodeURIComponent(t) + '">Its room</a></div>'
+               : '<div class="muted" style="margin-top:6px">Not found at the SEC (listed outside the US or private), so no filings to read here.</div>')
+          + '</div>';
+      }
+      document.title = "Competitors" + (j.ticker ? " of " + j.ticker : "") + " — 8K10Q";
+      box.innerHTML = '<div class="card"><div class="k">Your list</div><p class="count"><b>' + j.items.length + '</b> competitor' + (j.items.length === 1 ? '' : 's')
+        + (j.ticker ? ' of <b>' + esc(j.ticker) + '</b>' : '') + (j.terms.length ? ' &middot; words: ' + j.terms.map(function (t) { return "&ldquo;" + esc(t) + "&rdquo;"; }).join(", ") : '')
+        + (j.industry ? ' &middot; ' + esc(j.industry) : '') + (j.country ? ' &middot; ' + esc(j.country) : '') + '</p>'
+        + '<p class="only">Prepared for one reader only' + (j.for_reader ? ' (' + esc(j.for_reader) + ')' : '') + '. Keep this page: the address is your copy (the link is also in your receipt email).</p>'
+        + (j.partial ? '<p class="muted">The SEC search was busy for part of the search; the list may be missing some companies.</p>' : '')
+        + '<button class="btn o noprint" onclick="window.print()">Print the list</button></div>'
+        + (named.length ? '<h2>Named by ' + esc(j.ticker || "the company") + ' itself</h2>' + named.map(card).join("") : '')
+        + (found.length ? '<h2>Found by the words, in their own filings</h2>' + found.map(card).join("") : '')
+        + (!j.items.length ? '<div class="card">No companies matched. Call Mark Nejmeh, 215-219-7699, and he will see it is put right.</div>' : '');
+    }
+    return;
+  }
+
+  /* ---------------- step 1: suggest from the company's own annual report ---------------- */
+  if (qs.get("t")) $("tk").value = String(qs.get("t")).toUpperCase();
+  $("go1").onclick = function () {
+    var t = $("tk").value.trim().toUpperCase(); if (!t) { $("tk").focus(); return; }
+    $("go1").disabled = true; $("sug").innerHTML = '<p><span class="spin"></span>Reading ' + esc(t) + '&rsquo;s latest annual report&hellip; (the first time takes up to a minute)</p>';
+    fetch(READ + "/?compsuggest=" + encodeURIComponent(t)).then(function (r) { return r.json(); }).then(function (j) {
+      $("go1").disabled = false; SUG = j && j.ok ? j : null;
+      if (!j || !j.ok) { $("sug").innerHTML = '<p class="bad">' + esc((j && j.error) || "That did not work.") + '</p>'; return; }
+      if (j.industry && GROUPS.indexOf(j.industry) >= 0) $("ind").value = j.industry;
+      if (j.country && COUNTRIES.indexOf(j.country) >= 0) $("cty").value = j.country;
+      $("sug").innerHTML = '<p style="margin:12px 0 4px"><b>' + esc(j.company) + '</b>' + (j.one_line ? ' &mdash; ' + esc(j.one_line) : '') + '</p>'
+        + (j.named_count ? '<p class="count">Its own annual report names <b>' + j.named_count + '</b> compan' + (j.named_count === 1 ? 'y' : 'ies') + ' as its competitors.</p>' : '')
+        + (j.note ? '<p class="muted">' + esc(j.note) + '</p>' : '')
+        + (j.product_lines && j.product_lines.length ? '<p style="margin:10px 0 2px"><b>What it sells, in its own words</b> &mdash; tick up to 3 to search for the others:</p><div class="ticks">'
+          + j.product_lines.map(function (p, i) { return '<label><input type="checkbox" value="' + esc(p) + '"' + (i < 2 ? ' checked' : '') + '> ' + esc(p) + '</label>'; }).join("") + '</div>' : '')
+        + (j.source ? '<p class="muted">From its ' + esc(j.source.form) + ' filed ' + esc(j.source.filed) + '.</p>' : '');
+      Array.prototype.forEach.call(document.querySelectorAll(".ticks input"), function (c) { c.onchange = function () {
+        var on = document.querySelectorAll(".ticks input:checked"); if (on.length > 3) { c.checked = false; return; }
+        $("prod").value = Array.prototype.map.call(document.querySelectorAll(".ticks input:checked"), function (x) { return x.value; }).join(", "); }; });
+      $("prod").value = Array.prototype.map.call(document.querySelectorAll(".ticks input:checked"), function (x) { return x.value; }).join(", ");
+      $("step2").scrollIntoView({ behavior: "smooth", block: "start" });
+    }).catch(function () { $("go1").disabled = false; $("sug").innerHTML = '<p class="bad">Could not reach the reader. Try again.</p>'; });
+  };
+  $("tk").addEventListener("keydown", function (e) { if (e.key === "Enter") $("go1").click(); });
+  if (qs.get("t")) $("go1").click();   /* came from a room: start on that company */
+
+  /* ---------------- step 2: the free count, then the $9 ---------------- */
+  $("go2").onclick = function () {
+    var terms = $("prod").value.split(",").map(function (x) { return x.trim(); }).filter(function (x) { return x.length >= 3; }).slice(0, 3);
+    var t = SUG ? SUG.ticker : "";
+    if (!terms.length && !(SUG && SUG.named_count)) { $("prod").focus(); $("cnt").innerHTML = '<p class="bad">Type a product or market, or start with a company.</p>'; return; }
+    $("go2").disabled = true; $("cnt").innerHTML = '<p><span class="spin"></span>Counting, in every company&rsquo;s annual and quarterly reports of the last 3 years&hellip;</p>';
+    var u = READ + "/?compq=1&t=" + encodeURIComponent(t) + "&terms=" + encodeURIComponent(terms.join("|")) + "&industry=" + encodeURIComponent($("ind").value) + "&country=" + encodeURIComponent($("cty").value);
+    fetch(u).then(function (r) { return r.json(); }).then(function (j) {
+      $("go2").disabled = false;
+      if (!j || !j.ok) { $("cnt").innerHTML = '<p class="bad">' + esc((j && j.error) || "That did not work.") + '</p>'; return; }
+      var total = j.named_count + Math.min(j.found_count, j.shown_max);
+      var href = PAY + "/?go=k8_comp&on=k8&collect_email=1&ref=" + encodeURIComponent(j.ref) + "&desc=" + encodeURIComponent("Competitors" + (j.ticker ? " of " + j.ticker : "") + (j.terms.length ? " - " + j.terms.join(", ") : "")) + "&ret=" + encodeURIComponent("/comp.html");
+      $("cnt").innerHTML = '<div style="margin-top:12px">'
+        + (j.named_count ? '<p class="count"><b>' + j.named_count + '</b> named by ' + esc(j.ticker) + ' in its own annual report.</p>' : '')
+        + (j.terms.length ? '<p class="count"><b>' + j.found_count + '</b> compan' + (j.found_count === 1 ? 'y' : 'ies') + ' whose own filings use ' + j.terms.map(function (x) { return "&ldquo;" + esc(x) + "&rdquo;"; }).join(" or ")
+          + (j.industry ? ', in ' + esc(j.industry) : '') + (j.country ? ', headquartered in ' + esc(j.country) : '') + '.' + (j.found_count > j.shown_max ? ' The ' + j.shown_max + ' closest are listed.' : '') + '</p>' : '')
+        + (j.partial ? '<p class="muted">The SEC search was busy for part of this count; it may be low.</p>' : '')
+        + (total ? '<a class="btn hot" href="' + href + '">Find the competitors &middot; $9</a><p class="muted">You get the list: each company, its ticker, country and industry, and why it is on the list. Each one can then be read, filing by filing.</p>'
+                 : '<p>No companies matched. Try other words, or &ldquo;Any industry&rdquo; / &ldquo;Any country&rdquo;.</p>')
+        + '</div>';
+    }).catch(function () { $("go2").disabled = false; $("cnt").innerHTML = '<p class="bad">Could not reach the reader. Try again.</p>'; });
+  };
+})();
+</script>
+<script src="https://adhotbox.com/house.js" defer></script>
+<script src="/via.js?v=1a" defer></script>
+</body>
+</html>
