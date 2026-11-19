@@ -969,6 +969,18 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
         return '<div class="file"><span class="f">' + esc(x.form) + '</span><span>' + esc(FORMS[x.form] || x.form) + ' <span class="d">&middot; ' + esc(day(x.filed_on)) + '</span> <a class="btn readnow" style="padding:3px 10px;font-size:13px" href="/company.html?t=' + encodeURIComponent(T) + '#edgar">We read it for you</a>' + (u ? ' <a href="' + esc(u) + '" target="_blank" rel="noopener" style="font-size:12px;opacity:.7">SEC copy</a>' : '') + '</span></div>';
       }).join('');
     $("descbody").innerHTML = ($("descbody").innerHTML || '') + more;
+    /* law-1a (Mark 11/19: 'yes build the red flags as you suggest for the lawsuits'): HOW MANY lawsuits its newest report names
+       is free (a chip beside the red flag); which ones, the court, what for and where each stands are in the $12 read of that report */
+    if (filer) fetch("https://read.realroofers.workers.dev/?lawsuits=" + encodeURIComponent(T)).then(function (r) { return r.json(); }).then(function (L) {
+      if (!L || !L.ok || L.n == null || !L.accession) return;
+      var lbl = L.n + ' lawsuit' + (L.n === 1 ? '' : 's');
+      var buy = "https://pay.realroofers.workers.dev/?go=wire_read&on=k8&collect_email=1&ticker=" + encodeURIComponent(T) + "&ref=" + encodeURIComponent(T + ":" + L.accession)
+        + "&desc=" + encodeURIComponent(T + " · " + L.form + " filed " + L.filed) + "&ret=" + encodeURIComponent("/read.html");
+      if (L.n > 0 && $("chips")) $("chips").insertAdjacentHTML("afterbegin", '<span class="lab bad" title="Lawsuits, legal proceedings and investigations named in its own ' + esc(L.form) + '"><b>&#9878; ' + lbl + '</b></span>');
+      $("descbody").insertAdjacentHTML("beforeend", '<h4>Lawsuits</h4>' + (L.n > 0
+        ? '<p class="fwords"><b>' + lbl + '</b> named in ' + esc(T) + '&rsquo;s own ' + esc(L.form) + ' filed ' + esc(day(L.filed)) + '. Who, which court, what for and where each stands: in the read of that report.</p><a class="btn readnow" href="' + buy + '">Read that ' + esc(L.form) + ' &middot; $12</a>'
+        : '<p class="noflag">None named in its ' + esc(L.form) + ' filed ' + esc(day(L.filed)) + '. That is only what the report says.</p>'));
+    }).catch(function () {});
     $("descttl").textContent = name;    $("glance").innerHTML = h;
     var mb = $("morebtn"); if (mb) mb.addEventListener("click", function () { var d = $("descdlg"); if (d.showModal) d.showModal(); else d.setAttribute("open", ""); });
     drawCards(name, sg.splits || [], pr);
