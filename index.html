@@ -235,11 +235,21 @@ button.buy.big:hover{background:#E03F00}
 .hsell .rgo input{border:1px solid #E4E6EC}
 .rp.sell{border-color:rgba(255,120,70,.55)}
 /* everything else on the page, folded in the left column */
-.lsec{background:var(--navy-d);border:1px solid var(--line);border-radius:10px;margin:0 0 10px;overflow:hidden}
-.lsec > summary{cursor:pointer;list-style:none;padding:12px 16px;font:800 14.5px/1.3 var(--disp);color:#fff;display:flex;justify-content:space-between;gap:8px}
+/* links-1a (2026-11-19, Mark: 'these other giant icons need to be cleaned up ... they should not be these blobs and they can
+   be text link with a colorful icon'): each section is one text line with a small coloured icon; a click opens it in place.
+   The Army stays open with its paragraph. */
+.lsec{background:none;border:0;border-bottom:1px solid rgba(255,255,255,.12);border-radius:0;margin:0;overflow:hidden}
+.lsec > summary{cursor:pointer;list-style:none;padding:9px 4px;font:700 15px/1.3 var(--disp);color:#fff;display:flex;align-items:center;gap:10px}
+.lsec > summary:hover{text-decoration:underline;text-underline-offset:3px}
+.lsec > summary .ic{width:20px;height:20px;flex:0 0 20px}
 .lsec > summary::-webkit-details-marker{display:none}
-.lsec > summary::after{content:"+";color:#FFB08F;font-weight:700}
-.lsec[open] > summary::after{content:"\2212"}
+.lsec > summary::after{content:"\203A";margin-left:auto;color:#9FABD8;font-weight:700;transition:transform .15s}
+.lsec[open] > summary::after{transform:rotate(90deg)}
+#four > summary .ic{color:#FFB547}#agents > summary .ic{color:#7FD3FF}#humans > summary .ic{color:#FF8FB1}#room > summary .ic{color:#7CF29A}
+#deck > summary .ic{color:#C9A7FF}#halts > summary .ic{color:#FF6B5B}#list > summary .ic{color:#FFE066}#army > summary .ic{color:#FF4A00}
+#pricing > summary .ic{color:#5EE6C8}#access > summary .ic{color:#9EC5FF}
+.lnk{display:flex;align-items:center;gap:10px;padding:9px 4px;font:700 15px/1.3 var(--disp);color:#fff!important;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.12)}
+.lnk:hover{text-decoration:underline;text-underline-offset:3px}.lnk .ic{width:20px;height:20px;flex:0 0 20px}.lnk::after{content:"\2197";margin-left:auto;color:#9FABD8}
 .lsec section{padding:0 16px 14px!important}
 .lsec h2{font-size:17px}
 .lsec h3{font-size:15.5px}
@@ -252,8 +262,9 @@ button.buy.big:hover{background:#E03F00}
 .lsec .btn,.lsec button.buy{font-size:13.5px;padding:9px 12px}
 .rl .band,.rl .band.pale{background:none;border:0;padding:0;margin:0}
 .rl .band .wrap,.rl .wrap{padding:0;max-width:none}
-.rl .band.pale .lsec{background:var(--paper);border-color:var(--line-d)}
-.rl .band.pale .lsec > summary{color:var(--ink)}
+.rl .band.pale .lsec{background:none;border-color:rgba(255,255,255,.12)}
+.rl .band.pale .lsec > summary{color:#fff}
+.rl .band.pale .lsec[open]{background:var(--paper);border-radius:8px}.rl .band.pale .lsec[open] > summary{color:var(--ink);padding-left:10px}
 .whatis h3{font-size:15px}
 
 /* ---------- three columns under the hero (2026-09-28) ---------- */
@@ -341,7 +352,6 @@ footer a{color:#C4CCEA}
   <a href="#pricing" title="Pricing"><svg class="ic"><use href="#i-tag"/></svg><span>Pricing</span></a>
   <a href="/about.html" title="About"><svg class="ic"><use href="#i-info"/></svg><span>About</span></a>
   <a class="exit gap" href="https://warrantwire.com" title="Warrant Wire"><svg class="ic"><use href="#i-bolt"/></svg><span>Warrant Wire</span></a>
-  <a class="exit" href="https://triggeredshort.com" title="Triggered Short"><svg class="ic"><use href="#i-bolt"/></svg><span>Triggered Short</span></a>
 </div></nav>
 
 <header class="masthead"><div class="wrap"><div class="mast-inner">
@@ -857,6 +867,8 @@ footer a{color:#C4CCEA}
   </section></details>
 </div></div>
 
+<!-- links-1a (2026-11-19, Mark: 'add triggered short to these its crowding the main menu'): moved here from the main menu -->
+<a class="lnk" href="https://triggeredshort.com" style="color:#fff"><svg class="ic" style="color:#FF4A00"><use href="#i-bolt"/></svg>Triggered Short</a>
 
 </aside>
 
