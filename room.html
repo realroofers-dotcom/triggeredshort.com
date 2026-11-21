@@ -201,6 +201,11 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
 .coline{padding:10px 18px 4px}
 .cobrief{margin:0;font-size:14.5px;color:var(--ink)}
 .cobits{margin:3px 0 0;font-size:12.5px;color:var(--ink-3)}
+/* loss-1a (2026-11-21, Mark: "that number is a free gift calculation on every company to warn or enlighten the investor a company losing constantly should be slightly blackish as bad like a shadow over them") */
+.coloss{margin:4px 0 0;font-size:13px;color:var(--ink-2,#333)}
+.coloss b{color:#8b0000}
+.coloss .lossq{border:0;background:none;color:var(--ink-3);cursor:help;font-size:12px;padding:0 2px}
+.chead.shadowed{background-image:linear-gradient(rgba(0,0,0,var(--shade,.12)),rgba(0,0,0,var(--shade,.12)));box-shadow:inset 0 0 28px rgba(0,0,0,var(--shade,.12))}
 .morebtn{background:none;border:0;padding:0;font:700 13.5px var(--body);color:var(--hot);cursor:pointer}
 .cardrow{padding:6px 18px 12px;border-bottom:1px solid var(--line)}
 .cardrow .ph{padding:0 0 6px}.cardrow .ph h3{font-size:14px}.cardrow .ph p{font-size:12px}
@@ -984,6 +989,31 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     $("descttl").textContent = name;    $("glance").innerHTML = h;
     var mb = $("morebtn"); if (mb) mb.addEventListener("click", function () { var d = $("descdlg"); if (d.showModal) d.showModal(); else d.setAttribute("open", ""); });
     drawCards(name, sg.splits || [], pr);
+    showLoss(T);
+  }
+
+  /* loss-1a (2026-11-21): every company's running loss of shareholder value, FREE - the same arithmetic as the
+     Warrant Wire headline (reader worker ?loss=). A company that has lost more than half of everything put into it
+     gets a shadow over its header, darker the worse it is (Mark: "slightly blackish ... like a shadow over them"). */
+  var LOSSES = {};
+  function lossMoney(v) { var a = Math.abs(v); return '$' + (a >= 1e9 ? (a / 1e9).toFixed(2) + ' billion' : a >= 1e6 ? (a / 1e6).toFixed(1) + ' million' : Math.round(a).toLocaleString('en-US')); }
+  function paintLoss(T, d) {
+    var head = document.querySelector('.chead'), g = $("glance"); if (!g) return;
+    var old = g.querySelector('.coloss'); if (old) old.remove();
+    if (head) { head.classList.remove('shadowed'); head.style.removeProperty('--shade'); }
+    if (!d || !d.found || !d.company) return;
+    var c = d.company, put = (c.v0 || 0) + (c.money_in || 0), ratio = put > 0 ? c.lost / put : 0;
+    var how = 'Free: what ' + T + ' was worth on its first annual report since ' + c.y0 + ' (' + lossMoney(c.v0) + '), plus the money it raised selling stock and warrants after that (' + lossMoney(c.money_in) + '), minus what is left (' + lossMoney(c.end_value) + (c.how === 'listed' ? ', its last stated public float' : ', ' + c.how) + '). A change in market value from its own filings; it says nothing about anyone doing anything wrong.';
+    var line = c.lost > 0
+      ? '<p class="coloss" title="' + esc(how) + '">Shareholder value lost: <b>' + lossMoney(c.lost) + '</b> since ' + c.y0 + (ratio >= 0.5 ? ' &middot; ' + Math.round(100 * Math.min(ratio, 1)) + '% of everything put in' : '') + ' <button type="button" class="lossq" aria-label="How this is counted" onclick="alert(this.parentNode.title)">&#9432;</button></p>'
+      : '<p class="coloss" title="' + esc(how) + '">Shareholder value: no loss by our count since ' + c.y0 + ' <button type="button" class="lossq" aria-label="How this is counted" onclick="alert(this.parentNode.title)">&#9432;</button></p>';
+    g.insertAdjacentHTML('beforeend', line);
+    if (head && c.lost > 0 && ratio >= 0.5) { head.classList.add('shadowed'); head.style.setProperty('--shade', String(Math.min(0.32, 0.10 + 0.22 * (Math.min(ratio, 1) - 0.5) / 0.5).toFixed(3))); }
+  }
+  function showLoss(T) {
+    if (!T) return;
+    if (LOSSES[T]) { paintLoss(T, LOSSES[T]); return; }
+    getJSON("https://reader.realroofers.workers.dev/?loss=" + encodeURIComponent(T)).then(function (d) { LOSSES[T] = d; paintLoss(T, d); }).catch(function () {});
   }
 
   /* ---------------- the baseball cards ----------------
