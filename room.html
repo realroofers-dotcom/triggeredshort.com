@@ -203,6 +203,10 @@ details ol{margin:8px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
 .cobits{margin:3px 0 0;font-size:12.5px;color:var(--ink-3)}
 /* loss-1a (2026-11-21, Mark: "that number is a free gift calculation on every company to warn or enlighten the investor a company losing constantly should be slightly blackish as bad like a shadow over them") */
 .coloss{margin:4px 0 0;font-size:13px;color:var(--ink-2,#333)}
+.coalert{margin:10px 0 2px;padding:10px 12px;border:1px solid #e0b4b4;border-left:4px solid #b71c1c;border-radius:8px;background:#fff6f6;font-size:13px;color:#222}
+.coalert h4{margin:0 0 6px;font-size:14px;color:#b71c1c}
+.coalert p{margin:0 0 6px}
+.coalert .alsrc{font-size:11.5px;color:#555}
 .coloss b{color:#8b0000}
 .coloss .lossq{border:0;background:none;color:var(--ink-3);cursor:help;font-size:12px;padding:0 2px}
 .chead.shadowed{background-image:linear-gradient(rgba(0,0,0,var(--shade,.12)),rgba(0,0,0,var(--shade,.12)));box-shadow:inset 0 0 28px rgba(0,0,0,var(--shade,.12))}
@@ -996,7 +1000,7 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
      Warrant Wire headline (reader worker ?loss=). A company that has lost more than half of everything put into it
      gets a shadow over its header, darker the worse it is (Mark: "slightly blackish ... like a shadow over them"). */
   var LOSSES = {};
-  function lossMoney(v) { var a = Math.abs(v); return '$' + (a >= 1e9 ? (a / 1e9).toFixed(2) + ' billion' : a >= 1e6 ? (a / 1e6).toFixed(1) + ' million' : Math.round(a).toLocaleString('en-US')); }
+  function lossMoney(v) { var a = Math.abs(v); return '$' + (a >= 1e12 ? (a / 1e12).toFixed(2) + ' trillion' : a >= 1e9 ? (a / 1e9).toFixed(2) + ' billion' : a >= 1e6 ? (a / 1e6).toFixed(1) + ' million' : Math.round(a).toLocaleString('en-US')); }
   function paintLoss(T, d) {
     var head = document.querySelector('.chead'), g = $("glance"); if (!g) return;
     var old = g.querySelector('.coloss'); if (old) old.remove();
@@ -1006,12 +1010,29 @@ dialog#descdlg::backdrop{background:rgba(0,19,72,.55)}
     var how = 'Free: what ' + T + ' was worth on its first annual report since ' + c.y0 + ' (' + lossMoney(c.v0) + '), plus the money it raised selling stock and warrants after that (' + lossMoney(c.money_in) + '), minus what is left (' + lossMoney(c.end_value) + (c.how === 'listed' ? ', its last stated public float' : ', ' + c.how) + '). A change in market value from its own filings; it says nothing about anyone doing anything wrong.';
     var line = c.lost > 0
       ? '<p class="coloss" title="' + esc(how) + '">Shareholder value lost: <b>' + lossMoney(c.lost) + '</b> since ' + c.y0 + (ratio >= 0.5 ? ' &middot; ' + Math.round(100 * Math.min(ratio, 1)) + '% of everything put in' : '') + ' <button type="button" class="lossq" aria-label="How this is counted" onclick="alert(this.parentNode.title)">&#9432;</button></p>'
-      : '<p class="coloss" title="' + esc(how) + '">Shareholder value: no loss by our count since ' + c.y0 + ' <button type="button" class="lossq" aria-label="How this is counted" onclick="alert(this.parentNode.title)">&#9432;</button></p>';
+      : c.lost < 0
+        ? '<p class="coloss" title="' + esc(how) + '">Made for shareholders: <b style="color:#0B6B49">' + lossMoney(-c.lost) + '</b> since ' + c.y0 + ' <button type="button" class="lossq" aria-label="How this is counted" onclick="alert(this.parentNode.title)">&#9432;</button></p>'
+        : '<p class="coloss" title="' + esc(how) + '">Shareholder value: about even since ' + c.y0 + ' <button type="button" class="lossq" aria-label="How this is counted" onclick="alert(this.parentNode.title)">&#9432;</button></p>';
+    /* made-1a (2026-11-21, Mark: "when someone searches a company they should know how much money it made for the shareholder or lost") */
     g.insertAdjacentHTML('beforeend', line);
     if (head && c.lost > 0 && ratio >= 0.5) { head.classList.add('shadowed'); head.style.setProperty('--shade', String(Math.min(0.32, 0.10 + 0.22 * (Math.min(ratio, 1) - 0.5) / 0.5).toFixed(3))); }
   }
+  /* alert-1a (2026-11-21, Mark: "the split alert belongs where the company result and description is on both"):
+     one master text per company in the reader worker (?alert=), shown under the description; only Mark-approved text */
+  var ALERTS = {};
+  function paintAlert(d) {
+    var g = $("glance"); if (!g) return; var old = g.querySelector('.coalert'); if (old) old.remove();
+    if (!d || !d.found || !d.alert) return;
+    g.insertAdjacentHTML('beforeend', '<div class="coalert" role="note"><h4>&#9888; ' + esc(d.alert.title) + '</h4>' + d.alert.body_html + '</div>');
+  }
+  function showAlert(T) {
+    if (!T) return;
+    if (ALERTS[T]) { paintAlert(ALERTS[T]); return; }
+    getJSON("https://reader.realroofers.workers.dev/?alert=" + encodeURIComponent(T)).then(function (d) { ALERTS[T] = d; paintAlert(d); }).catch(function () {});
+  }
   function showLoss(T) {
     if (!T) return;
+    showAlert(T);
     if (LOSSES[T]) { paintLoss(T, LOSSES[T]); return; }
     getJSON("https://reader.realroofers.workers.dev/?loss=" + encodeURIComponent(T)).then(function (d) { LOSSES[T] = d; paintLoss(T, d); }).catch(function () {});
   }
