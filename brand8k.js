@@ -42,3 +42,5 @@
 })();
 /* via-1a (15 Nov 2026): the way back to a sister site, on every branded 8K10Q page */
 (function(){ if (document.querySelector('script[src*="via.js"]')) return; var s=document.createElement('script'); s.src='/via.js?v=1a'; s.defer=true; (document.body||document.head).appendChild(s); })();
+/* army-band-1a (22 Nov 2026, Mark: 'introduce the joining of the 8k10q army in all those places and offer that we will attend') */
+(function(){ if (document.querySelector('script[src*="army-band.js"]')) return; var s=document.createElement('script'); s.src='https://8k10q.com/army-band.js?v=1a'; s.defer=true; (document.body||document.head).appendChild(s); })();
